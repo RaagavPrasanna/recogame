@@ -15,18 +15,17 @@ Please copy this document to final project GitLab repository (**not the proof of
 
 Student participant names:
 
-1.
-2.
-3.
-4.
-5.
-6.
+1. Mykyta Onipchenko
+2. Raagav Prasanna
+3. Liliane Tran Le
+4. Shirley Maa
+5. Paul Patrick Rabanal
 
-The name of your team’s software company:
+The name of your team’s software company: **WAVCrash**
 
-Official project name (can be changed later):
+Official project name (can be changed later): **WAVify**
 
-Project’s internal codename (cannot be changed later):
+Project’s internal codename (cannot be changed later): **Bob**
 
 _n.b: A software project usually has a codename which is immune to the vagaries of your company’s marketing department. For example, one notorious version of Windows was internally referred to as “Longhorn” and one notorious version of Mac OS was referred to as “Rhapsody”. The latter-day tradition of naming versions of Mac OS after cats or places in California comes directly from the much older tradition of internal software codenames._
 
@@ -42,6 +41,26 @@ The project requires you to import a large data set. What data set(s) will you n
 
 What will make your web site unique? For example, is there a specific feature that your website will focus on? Will you appeal to a specific set of customers? (Please note that if you don't have any great ideas, it's okay 😊 It's mostly just to think about the real world aspects of your program!)
 
+---
+
+- Our app is a
+    - Music platform
+        - Listen to music
+        - Post music
+        - View details about music / album / artist
+        - Upcoming concerts
+    - Community driven
+        - Likes
+        - Comments on time stamps
+        - Shares
+        - Follows
+        - Playlists
+    - Where even listeners can contribute to their favorite songs
+        - Lyrics / translations
+        - ? Sheet music
+- Data sets
+
+
 ## User stories
 
 ### About user personas
@@ -52,7 +71,7 @@ In order to correctly choose what features to develop and in what order, we need
 - recipe browsers, who are looking for a recipe to cook, and therefore need an excellent browsing and search system;
 - people currently using the app while cooking, who may need a customized view of a recipe that they can put on a tablet propped up in the kitchen;
 - recipe moderators, whose role is to do quality verification for the recipes, make sure that all sections of recipes are filled in, remove inappropriate language, and so on;
-- … and perhaps other categories?
+- ... and perhaps other categories?
 
 Note that the same individual may be a “recipe browser” at some times and a “recipe contributor” at others.
 
@@ -99,39 +118,87 @@ Please copy and paste the below “user persona" section as many times as necess
 
 ### User persona 1
 
-**Persona description**:
+**Persona description**: Content consumer (logged in)
 
-**Name**:
+**Name**: Jaye
 
-**Importance of users corresponding to this persona**:
+**Importance of users corresponding to this persona**: Very important! 90%
 
-**Broad goal**:
+**Broad goal**: Listen to music and share their experience (comment, like, share)
 
 User stories (give at least 2):
 
-- User story  
-  _Feature(s) provided_
+- As a content consumer, I want to listen to music
+    - Search bar
+    - Detail list for album / playlist / artist
+    - In-browser player
 
----
+- As a content consumer, I want to relisten to my favorite songs
+    - Playlists
+    - Likes
+
+- As a content consumer, I want to interact with other content consumers
+    - Comment box with time stamps
+    - Likes
+    - Sharing
+
+- As a content consumer, I want to discover music that may interest me
+    - Comment box
+    - Likes
+    - Sharing
+    - Tags
+    - User profile
+    - Follow artists
 
 ### User persona 2
 
-**Persona description**:
+**Persona description**: Artist (logged in)
 
-**Name**:
+**Name**: Juli
 
-**Importance of users corresponding to this persona**:
+**Importance of users corresponding to this persona**: Important! 5% (often overlaps with **content consumers**)
 
-**Broad goal**:
+**Broad goal**: Be able to post, share created music, reach the target audiences
 
 User stories (give at least 2):
 
-- User story  
-  _Feature(s) provided_
+- Same as **content consumers**
 
----
+- As an artist, I want to post my music
+    - File upload
+    - Music metadata (tags, album art)
+    - In-browser player
 
+- As an artist, I want to have feedback about my music
+    - Likes
+    - Shares
+    - Comments
+    - Listens
 
+- As an artist, I want to reach my audiences
+    - Tags
+    - Search bar
+    - Sharing
+
+### User persona 3
+
+**Persona description**: Admin (logged in and verified)
+
+**Name**: Mark
+
+**Importance of users corresponding to this persona**: Least important! \< 1%
+
+**Broad goal**: Be able to monitor, block, hide offensive content / content that cannot be distributed for legal reasons
+
+User stories (give at least 2):
+
+- As an admin, I want to see controversial content
+    - Reporting
+    - Admin page
+    - Tags
+
+- As an admin, I want to block necessary content
+    - Admin page
 
 ## Mockups
 
@@ -167,3 +234,4 @@ Details page UI (or whatever):
 (image here)
 
 List of features presented:
+
