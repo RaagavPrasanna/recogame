@@ -44,22 +44,22 @@ What will make your web site unique? For example, is there a specific feature th
 ---
 
 - Our app is a
-    - Music platform
-        - Listen to music
-        - Post music
-        - View details about music / album / artist
-        - Upcoming concerts
-    - Community driven
-        - Likes
-        - Comments on time stamps
-        - Shares
-        - Follows
-        - Playlists
-    - Where even listeners can contribute to their favorite songs
-        - Lyrics / translations
-        - ? Sheet music
+    - Game recommendation and discovery platform
+    - Based on user profile
+        - Steam integration to automatically import a user profile
+        - Questionnaire if no steam account
+    - Uses similarities between user profiles
+    - Recommended games / genres are presented in a grid form
+    - Provides a detailed game preview page with an ability to see the store page for the game
 - Data sets
-
+    - **Owned games** - `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1?key=<KEY>&steamid=<USER>`
+    - **Game info** - `https://store.steampowered.com/api/appdetails?appids=<APP>`
+    - **Player count** - `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1?appid=<APP>`
+- Features
+    - Better game recommendation service than the one built into Steam
+    - Platform agnostic
+        - We can expand our dataset with games from other platforms
+        - Questionnaire makes it so you do not need a Steam account
 
 ## User stories
 
@@ -118,87 +118,47 @@ Please copy and paste the below “user persona" section as many times as necess
 
 ### User persona 1
 
-**Persona description**: Content consumer (logged in)
+**Persona description**: A casual PC gamer
 
 **Name**: Jaye
 
-**Importance of users corresponding to this persona**: Very important! 90%
+**Importance of users corresponding to this persona**: Very important! 85%
 
-**Broad goal**: Listen to music and share their experience (comment, like, share)
+**Broad goal**: Find more similar games
 
 User stories (give at least 2):
 
-- As a content consumer, I want to listen to music
-    - Search bar
-    - Detail list for album / playlist / artist
-    - In-browser player
+- As a casual gamer, I want to see the list of games that might interest me
+    - Import played games / play time with Steam integration
+    - Questionnaire if Steam account cannot be provided
+    - Recommendation algorithm
 
-- As a content consumer, I want to relisten to my favorite songs
-    - Playlists
-    - Likes
-
-- As a content consumer, I want to interact with other content consumers
-    - Comment box with time stamps
-    - Likes
-    - Sharing
-
-- As a content consumer, I want to discover music that may interest me
-    - Comment box
-    - Likes
-    - Sharing
-    - Tags
-    - User profile
-    - Follow artists
+- As a casual gamer, I want to see what is popular among other gamers
+    - Most popular / recent news queue
 
 ### User persona 2
 
-**Persona description**: Artist (logged in)
+**Persona description**: Gamers exploring other platforms
 
 **Name**: Juli
 
-**Importance of users corresponding to this persona**: Important! 5% (often overlaps with **content consumers**)
+**Importance of users corresponding to this persona**: Not so important! 10%
 
-**Broad goal**: Be able to post, share created music, reach the target audiences
+**Broad goal**: Find exclusive but similar games on a new platform
 
 User stories (give at least 2):
 
 - Same as **content consumers**
 
-- As an artist, I want to post my music
-    - File upload
-    - Music metadata (tags, album art)
-    - In-browser player
+- As a PC gamer, I want to get into console gaming
+    - Steam profile import
+    - Grouping by genres
+    - Filtering per platform
 
-- As an artist, I want to have feedback about my music
-    - Likes
-    - Shares
-    - Comments
-    - Listens
-
-- As an artist, I want to reach my audiences
-    - Tags
-    - Search bar
-    - Sharing
-
-### User persona 3
-
-**Persona description**: Admin (logged in and verified)
-
-**Name**: Mark
-
-**Importance of users corresponding to this persona**: Least important! \< 1%
-
-**Broad goal**: Be able to monitor, block, hide offensive content / content that cannot be distributed for legal reasons
-
-User stories (give at least 2):
-
-- As an admin, I want to see controversial content
-    - Reporting
-    - Admin page
-    - Tags
-
-- As an admin, I want to block necessary content
-    - Admin page
+- My console broke and I can only play games on my underpowered laptop, I want to discover old games that can run on my laptop
+    - Questionnaire
+    - Tags (year and requirements)
+    - Sorting by date
 
 ## Mockups
 
