@@ -176,9 +176,13 @@ n.b: If you submit a photo using a phone/tablet camera, please ensure it is as l
 
 ---
 
+[Everything](https://www.figma.com/file/kh9p5amtprfg41mTiKogDg/Steam-Catalogue?node-id=0%3A1&t=hYRZWm9UlizLVUfH-0)
+
+---
+
 Main UI:
 
-(image here)
+![Main UI](docs/main.png)
 
 List of features presented:
 
@@ -189,7 +193,7 @@ List of features presented:
 
 Search UI (or whatever):
 
-(image here)
+![Search UI](docs/search.png)
 
 List of features presented:
 
@@ -197,7 +201,7 @@ List of features presented:
 
 Details page UI (or whatever):
 
-(image here)
+![Details UI](docs/detail.png)
 
 List of features presented:
 
