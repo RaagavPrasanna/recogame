@@ -21,9 +21,9 @@ Student participant names:
 4. Shirley Maa
 5. Paul Patrick Rabanal
 
-The name of your team’s software company: **WAVCrash**
+The name of your team’s software company: **Spigot**
 
-Official project name (can be changed later): **WAVify**
+Official project name (can be changed later): **RecoGame**
 
 Project’s internal codename (cannot be changed later): **Bob**
 
