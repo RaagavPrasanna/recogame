@@ -191,7 +191,8 @@ List of features presented:
   - Community game reviews.
   - Reccommended games.
   - Game categories.
-- Feature 2
+- Buttons to access the home tab, games tab, community tab, and user profile tab.
+- Button to also intiate search functionality.
 
 ---
 
@@ -201,6 +202,8 @@ Search UI (or whatever):
 
 List of features presented:
 
+- Search through the catalogs games, user profiles, etc.
+
 ---
 
 Details page UI (or whatever):
@@ -208,4 +211,5 @@ Details page UI (or whatever):
 ![Details UI](docs/details.png)
 
 List of features presented:
+  - Details for a specfic game. (description, images, reviews, etc)
 
