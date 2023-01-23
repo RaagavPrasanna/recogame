@@ -60,7 +60,7 @@ What will make your web site unique? For example, is there a specific feature th
     - Platform agnostic
         - We can expand our dataset with games from other platforms
         - Questionnaire makes it so you do not need a Steam account
-    - Search through steam repository of games.
+    - Search through steam repository of games, user profiles, etc.
     - Add to wishlisht button will add game to users Steam account wishlist
     - Users can post reviews of games if they wish.
       - These reviews can be seen in the community tab, where users can see other users reviews on different games.
