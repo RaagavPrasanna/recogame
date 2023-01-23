@@ -186,7 +186,11 @@ Main UI:
 
 List of features presented:
 
-- Feature 1
+- See a limited view for:
+  - Games in a users library.
+  - Community game reviews.
+  - Reccommended games.
+  - Game categories.
 - Feature 2
 
 ---
@@ -201,7 +205,7 @@ List of features presented:
 
 Details page UI (or whatever):
 
-![Details UI](docs/detail.png)
+![Details UI](docs/details.png)
 
 List of features presented:
 
