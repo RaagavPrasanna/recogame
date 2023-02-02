@@ -5,50 +5,50 @@ const types = require('./types.cjs')
 
 
 
-/**
- * Stop execution for some time.
- *
- * @param {number} seconds Duration to sleep.
- * @returns {Promise<void>} Promise to `await` to stop execution.
- */
-async function sleep(seconds) {
-  return new Promise((res) => setTimeout(res, seconds * 1000))
-}
+// /**
+//  * Stop execution for some time.
+//  *
+//  * @param {number} seconds Duration to sleep.
+//  * @returns {Promise<void>} Promise to `await` to stop execution.
+//  */
+// async function sleep(seconds) {
+//   return new Promise((res) => setTimeout(res, seconds * 1000))
+// }
 
 
-/**
- * Generate and resolve promises sequentially with delay.
- *
- * @template T Result of the promise.
- * @param {[() => Promise<T>]} promisesCallbacks Generators for promises to resolve.
- * @param {number} delay Delay between resolves (in seconds).
- * @returns {Promise<T[]>} Resolved promises.
- */
-async function throttleResolve(promisesCallbacks, delay = 0) {
-  const results = []
-  for (const pc of promisesCallbacks) {
-    results.push(await pc())
-    await sleep(delay)
-  }
-  return results
-}
+// /**
+//  * Generate and resolve promises sequentially with delay.
+//  *
+//  * @template T Result of the promise.
+//  * @param {[() => Promise<T>]} promisesCallbacks Generators for promises to resolve.
+//  * @param {number} delay Delay between resolves (in seconds).
+//  * @returns {Promise<T[]>} Resolved promises.
+//  */
+// async function throttleResolve(promisesCallbacks, delay = 0) {
+//   const results = []
+//   for (const pc of promisesCallbacks) {
+//     results.push(await pc())
+//     await sleep(delay)
+//   }
+//   return results
+// }
 
 
-/**
- * Split the array in the chunks of the same size (except the last one).
- *
- * @template T Element in the array.
- * @param {[T]} array Initial array
- * @param {number} chunkSize Number of elements per chunk.
- * @returns {[[T]]} Array of chunks.
- */
-function chunkArray(array, chunkSize) {
-  const final = []
-  for (let i = 0; i < array.length; i += chunkSize) {
-    final.push(array.slice(i, i + chunkSize))
-  }
-  return final
-}
+// /**
+//  * Split the array in the chunks of the same size (except the last one).
+//  *
+//  * @template T Element in the array.
+//  * @param {[T]} array Initial array
+//  * @param {number} chunkSize Number of elements per chunk.
+//  * @returns {[[T]]} Array of chunks.
+//  */
+// function chunkArray(array, chunkSize) {
+//   const final = []
+//   for (let i = 0; i < array.length; i += chunkSize) {
+//     final.push(array.slice(i, i + chunkSize))
+//   }
+//   return final
+// }
 
 
 /**
@@ -72,9 +72,9 @@ async function fetchJson(url) {
  * @returns {Promise<[types.App]>} Apps.
  */
 async function fetchAllSteamApps() {
-  return(await fetchJson(pathUrls.allGames))
-  // return (await fetchJson(pathUrls.allGames))['applist']['apps']
-  //   .filter(a => Boolean(a.name))
+  // return(await fetchJson(pathUrls.allGames))
+  return (await fetchJson(pathUrls.allGames))['applist']['apps']
+    .filter(a => Boolean(a.name))
 }
 
 
@@ -118,19 +118,16 @@ async function fetchGameInfo(id) {
       storeUrl: `https://store.steampowered.com/app/${info.steam_appid}`,
       prices: null, 
       required_age: info.required_age,      
-      detailed_description: info.detailed_description,
-      short_description: info.short_description,
-      supported_languages: info.supported_languages,
+      detailedDescription: info.detailed_description,
+      shortDescription: info.short_description,
+      supportedLanguages: info.supported_languages.split(", "),
       platforms: info.platforms,
-      // metacritic
-      // categories
-      // genres
-      // screenshots
-      // movies
-      // recommendations
-      // background
-      // content_descriptors
-
+      metacritic: info.metacritic,      
+      screenshots: info.screenshots,
+      movies: info.movies,
+      recommendations: info.recommendations,
+      background: info.background,
+      content_descriptors: info.content_descriptors
     }
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`)

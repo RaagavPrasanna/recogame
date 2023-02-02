@@ -29,6 +29,12 @@ class StoreInfo {
   categories
   /** @type {[{id: number, description: string}]} List of genres. */
   genres
+  /** @type {string} Full description of an app. */
+  detailed_description
+  /** @type {string} Shortened description of an app. */
+  short_description
+  /** @type {string} */
+  supported_languages
 }
 
 
@@ -53,6 +59,12 @@ class GameInfo {
   genres
   /** @type {Map<string, number>} Prices for the countries. */
   prices
+  /** @type {string} Full description of an app. */
+  detailedDescription
+  /** @type {string} Shortened description of an app. */
+  shortDescription
+  /** @type {[string]} List of languages that the app is translated to. */
+  supportedLanguages
 }
 
 
