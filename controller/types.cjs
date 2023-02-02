@@ -33,8 +33,22 @@ class StoreInfo {
   detailed_description
   /** @type {string} Shortened description of an app. */
   short_description
-  /** @type {string} */
+  /** @type {string} all the supported languages */
   supported_languages
+  /** @type {{ window: boolean, mac: boolean, linux: boolean}} oS system options*/
+  platforms
+  /** @type {{score: number, url: string}} List of metacritic */
+  metacritic
+  /** @type {[{id: number, path_thumbnail: string, path_full: string}]} List of screenshots */
+  screenshots
+    /** @type {[{id: number, name: string, thumbnail: string, webm: {480: string, max: string}, mp4: {480: string, max: string}, hightlight: boolean}]}  URL of moves*/
+  movies
+    /** @type {{total: number}}  total number of recommendations*/
+  recommendations
+    /** @type {string} URL to the background image*/
+  background
+    /** @type {{ids: [number, number], notes: string}} */
+  content_descriptors
 }
 
 
@@ -65,6 +79,20 @@ class GameInfo {
   shortDescription
   /** @type {[string]} List of languages that the app is translated to. */
   supportedLanguages
+  /** @type {[string]} List of compatable OS*/
+  platforms
+  /** @type {string} URL to metacritic */
+  metacritic
+  /** @type {[string]}  List of path_thumbnail of screenshots*/
+  screenshots
+  /** @type {[string]}  URL of moves in webm 480*/
+  movies
+  /** @type {number} total of recommendations */
+  recommendations 
+  /** @type {string} URL to background */
+  background
+  /** @type {string} notes of content_descriptors */
+  content_descriptors
 }
 
 

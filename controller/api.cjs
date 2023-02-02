@@ -121,13 +121,13 @@ async function fetchGameInfo(id) {
       detailedDescription: info.detailed_description,
       shortDescription: info.short_description,
       supportedLanguages: info.supported_languages.split(", "),
-      platforms: info.platforms,
-      metacritic: info.metacritic,      
-      screenshots: info.screenshots,
-      movies: info.movies,
-      recommendations: info.recommendations,
+      platforms: Object.entries(info.platforms).filter(([key,value])=> value ===true).map(([key, value])=>key), 
+      // metacritic: info.metacritic.url,      
+      screenshots: info.screenshots.map(c => c.path_thumbnail),
+      movies: info.movies.map(c=> c.webm[480]) ,
+      // recommendations: info.recommendations.total,
       background: info.background,
-      content_descriptors: info.content_descriptors
+      content_descriptors: info.content_descriptors.notes
     }
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`)
