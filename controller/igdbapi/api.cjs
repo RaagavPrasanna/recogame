@@ -4,53 +4,6 @@ const pathUrls = require('./urls.cjs')
 const types = require('./types.cjs')
 
 
-
-// /**
-//  * Stop execution for some time.
-//  *
-//  * @param {number} seconds Duration to sleep.
-//  * @returns {Promise<void>} Promise to `await` to stop execution.
-//  */
-// async function sleep(seconds) {
-//   return new Promise((res) => setTimeout(res, seconds * 1000))
-// }
-
-
-// /**
-//  * Generate and resolve promises sequentially with delay.
-//  *
-//  * @template T Result of the promise.
-//  * @param {[() => Promise<T>]} promisesCallbacks Generators for promises to resolve.
-//  * @param {number} delay Delay between resolves (in seconds).
-//  * @returns {Promise<T[]>} Resolved promises.
-//  */
-// async function throttleResolve(promisesCallbacks, delay = 0) {
-//   const results = []
-//   for (const pc of promisesCallbacks) {
-//     results.push(await pc())
-//     await sleep(delay)
-//   }
-//   return results
-// }
-
-
-// /**
-//  * Split the array in the chunks of the same size (except the last one).
-//  *
-//  * @template T Element in the array.
-//  * @param {[T]} array Initial array
-//  * @param {number} chunkSize Number of elements per chunk.
-//  * @returns {[[T]]} Array of chunks.
-//  */
-// function chunkArray(array, chunkSize) {
-//   const final = []
-//   for (let i = 0; i < array.length; i += chunkSize) {
-//     final.push(array.slice(i, i + chunkSize))
-//   }
-//   return final
-// }
-
-
 /**
  * Request an API and return JSON data from it.
  *
@@ -136,114 +89,9 @@ async function fetchGameInfo(id) {
 }
 
 
-// /**
-//  * Fetch the prices for the list of apps in a given country.
-//  *
-//  * @param {[number]} ids IDs of the games.
-//  * @param {string} countryCode 2 letter country code.
-//  * @returns {Promise<Map<number, number?>>}
-//  * Prices of the games id to price (`null` for not available, needs to be `/ 100`).
-//  */
-// async function fetchPricesForCountry(ids, countryCode) {
-//   console.log(`      - For "${countryCode}"`)
-//   if (ids.length > 10) {
-//     throw new Error('Cannot get store prices for more than 10 games at a time')
-//   } else {
-//     const response = await fetchJson(pathUrls.storePrices(ids, countryCode))
-//     const result = {}
-//     for (const [id, info] of Object.entries(response)) {
-//       if (!info['success']) {
-//         result[id] = null
-//       } else if (info['data'].length === 0) {
-//         result[id] = 0
-//       } else {
-//         result[id] = info['data']['price_overview']['initial']
-//       }
-//     }
-//     return result
-//   }
-// }
-
-
-// /**
-//  * Fetch the prices for the list of apps in given countries.
-//  *
-//  * @param {[number]} ids IDs of the games.
-//  * @param {[string]} countryCodes 2 letter country codes.
-//  * @param {number} delay Delay between fetches (in seconds).
-//  * @return {Promise<Map<number, Map<string, number>>}
-//  * Prices for the games for the countries (`null` for not available)
-//  */
-// async function fetchPricesForCountries(ids, countryCodes, delay = 0) {
-//   const pricesForCountries = await throttleResolve(
-//     countryCodes.map(
-//       (c) => async () => await fetchPricesForCountry(ids, c)
-//     ),
-//     delay
-//   )
-//   const prices = {}
-//   for (const id of ids) {
-//     prices[id] = {}
-//     for (const [i, countryCode] of countryCodes.entries()) {
-//       const price = pricesForCountries[i][id]
-//       prices[id][countryCode] = price !== null ? price / 100 : null
-//     }
-//   }
-//   return prices
-// }
-
-
-// /**
-//  * Fetch the info about the games along with their prices in a chunk.
-//  * A chunk cannot exceed 10 ids.
-//  *
-//  * @param {[number] | number} ids IDs of the games.
-//  * @param {[string] | string} countryCodes 2 letter country codes.
-//  * @param {number} delay Delay between fetches (in seconds).
-//  * @return {Promise<[types.GameInfo]>} Game infos with the price.
-//  */
-// async function fetchGamesChunk(ids, countryCodes, delay = 0) {
-//   // Convert types
-//   if (typeof ids === 'number') {
-//     ids = [ids]
-//   }
-//   if (typeof countryCodes === 'string') {
-//     countryCodes = [countryCodes]
-//   }
-
-//   console.log(`- Chunk "${ids.join(', ')}"`)
-//   console.log('  - Fetching')
-//   console.log('    - Info')
-//   // Fetch apps and filter out the ones that aren't games
-//   const gameInfos = (await throttleResolve(
-//     ids.map(
-//       (id) => async () => await fetchGameInfo(id)
-//     ),
-//     delay
-//   )).filter(i => i !== null)
-
-//   if (gameInfos.length === 0) {
-//     return []
-//   }
-
-//   await sleep(delay)
-
-//   console.log('    - Prices')
-//   // Fetch and add prices
-//   const prices = await fetchPricesForCountries(ids, countryCodes, delay)
-//   for (const game of gameInfos) {
-//     game.prices = prices[game.steamId]
-//   }
-
-//   return gameInfos
-// }
-
 
 
 module.exports = {
   fetchAllSteamApps,  
-  // fetchGamesChunk,
   fetchGameInfo
-
-  // chunkArray
 }
