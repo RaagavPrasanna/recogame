@@ -1,7 +1,7 @@
 /**
  * test for steamapi only 
  */
-const api = require("./api.cjs")
+const api = require("./steam_api.cjs")
 
 async function getdata1(){
   let data = await api.fetchAllSteamApps();
