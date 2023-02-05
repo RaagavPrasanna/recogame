@@ -58,36 +58,34 @@ async function fetchStoreInfo(id) {
 async function fetchGameInfo(id) {
   try {
     const info = await fetchStoreInfo(id)
-    console.log(`      - For "${id}"`)
     return {
       steamId: info.steam_appid,
       name: info.name,
       developers: info.developers,
       publishers: info.publishers,
-      imageHeader: info.header_image,
-      imageBackground: info.background_raw,
-      categories: info.categories.map(c => c.description),
-      genres: info.genres.map(c => c.description),
+      imageHeader: info.header_image || null,
+      imageBackground: info.background_raw || null,
+      categories: (info.categories !== undefined )? info.categories.map(c => c.description): null,
+      genres: (info.genres !== undefined ) ? info.genres.map(c => c.description) : null,
       storeUrl: `https://store.steampowered.com/app/${info.steam_appid}`,
       prices: null, 
-      required_age: info.required_age,      
-      detailedDescription: info.detailed_description,
-      shortDescription: info.short_description,
-      supportedLanguages: info.supported_languages.split(", "),
-      platforms: Object.entries(info.platforms).filter(([key,value])=> value ===true).map(([key, value])=>key), 
-      // metacritic: info.metacritic.url,      
-      screenshots: info.screenshots.map(c => c.path_thumbnail),
-      movies: info.movies.map(c=> c.webm[480]) ,
-      // recommendations: info.recommendations.total,
-      background: info.background,
-      content_descriptors: info.content_descriptors.notes
+      required_age: info.required_age || null,      
+      detailedDescription: info.detailed_description || null,
+      shortDescription: info.short_description || null,
+      supportedLanguages:(info.supported_languages !== undefined ) ? info.supported_languages.split(", ") : null,
+      platforms: (info.platforms !== undefined )? Object.entries(info.platforms).filter(([key,value])=> value ===true).map(([key, value])=>key) : null, 
+      metacritic: (info.metacritic !== undefined) ? info.metacritic.url : null,      
+      screenshots: (info.screenshots || []).map(c => c.path_thumbnail),
+      movies: (info.moves !== undefined) ? info.movies.map(c=> c.webm[480]) : null,
+      recommendations: (info.recommendations !== undefined) ? info.recommendations.total : null,
+      background: info.background || null,
+      content_descriptors: (info.content !== undefined)? info.content_descriptors.notes: null
     }
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`)
     return null
   }
 }
-
 
 module.exports = {
   fetchAllSteamApps,  

@@ -11,20 +11,7 @@ const pathsUrls = {
     url.searchParams.set('appids', appId)
     url.searchParams.set('cc', 'us')
     return url
-  }
-  // ,
-  // /**
-  //  * Prices from the store page.
-  //  * @param {[number]} appIds IDs of the applications.
-  //  * @param {string} countryCode 2 letter code of the country.
-  //  */
-  // storePrices: (appIds, countryCode) => {
-  //   const url = new URL('https://store.steampowered.com/api/appdetails')
-  //   url.searchParams.set('appids', appIds.join(','))
-  //   url.searchParams.set('cc', countryCode)
-  //   url.searchParams.set('filters', 'price_overview')
-  //   return url
-  // }
+  }  
 }
 
 module.exports = pathsUrls;

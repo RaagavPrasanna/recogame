@@ -49,6 +49,7 @@ class StoreInfo {
   background
     /** @type {{ids: [number, number], notes: string}} */
   content_descriptors
+  
 }
 
 
@@ -93,6 +94,7 @@ class GameInfo {
   background
   /** @type {string} notes of content_descriptors */
   content_descriptors
+  
 }
 
 

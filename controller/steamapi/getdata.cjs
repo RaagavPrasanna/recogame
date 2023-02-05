@@ -9,7 +9,7 @@ async function getdata1(){
 }
 
 async function getdata2(){
-  let data = await api.fetchGameInfo(587910);
+  let data = await api.fetchGameInfo(583590);
   return data;
 }
 async function main() {  
@@ -17,6 +17,9 @@ async function main() {
 }
 
 main()
+
+//test data
 // check for json
 // https://store.steampowered.com/api/appdetails?appids=440
 // https://store.steampowered.com/api/appdetails?appids=2286800&&cc==us
+// 588730, 1118314--> null, 583590, 440 -->full, 2286800
