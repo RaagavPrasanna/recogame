@@ -66,7 +66,30 @@ What will make your web site unique? For example, is there a specific feature th
       - These reviews can be seen in the community tab, where users can see other users reviews on different games.
     - Provide a catalog for the users to nicely browse through different games.
     - View different users profiles.
-
+    - Infinite scroll with game reccomendations.
+      - Thumbs up/Thumbs down promotion system.
+    - Games that the user thumbs'd up on will be sorted by their rating in the users reccomendations.
+    - When a user clicks on a game, it will show more details such as:
+      - The name of the game
+      - Developers of the game
+      - The games rating
+      - Summary
+      - Comments
+      - Friends who like, ar playing, or finished this game.
+    - Local Wishlist:
+      - Initial dataset is going to be synced based on the user's steam wishlist.
+      - We can add games to our wishlist (not for their actually steam account)
+      - You can add games to certain "playlists:
+        - Never played
+        - Started
+        - Finished
+        - 100% completed it (all acheivements, etc)
+    - Reccomendation algorithm
+      - Is based on an overlap between your steam library statistics and your local games added to your "playlist".
+      - Is also based on the ratings on games (high ratings)
+    - Ability to browse a catalog of users that have similar game interests
+      - Add new friends
+      - Invite friends from steam 
 ## User stories
 
 ### About user personas
@@ -138,9 +161,21 @@ User stories (give at least 2):
     - Import played games / play time with Steam integration
     - Questionnaire if Steam account cannot be provided
     - Recommendation algorithm
+- As a casual gamer, I want to track the games that I have played and that I want to play
+    - Add games to previously mentioned "playlists" (Finished, started, etc)  
+- As a casual gamer, I would to like to share my opinion relating to other games so that other people can see
+    - Perform a rating on game
+    - Thumbs up/Thumbs down
+    - Leave comments on games
 
 - As a casual gamer, I want to see what is popular among other gamers
     - Most popular / recent news queue
+    - See what my friends are playing
+
+- As a casual gamer, I want to see who else has common interests as me
+    - Browse a catalog of users that have similar game interests as I do
+      - Basically to make new friends
+
 
 ### User persona 2
 
@@ -160,6 +195,7 @@ User stories (give at least 2):
     - Steam profile import
     - Grouping by genres
     - Filtering per platform
+    - Perform ratings on games from other platforms
 
 - My console broke and I can only play games on my underpowered laptop, I want to discover old games that can run on my laptop
     - Questionnaire
