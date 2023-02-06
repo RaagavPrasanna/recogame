@@ -7,7 +7,6 @@ const axios = require('axios');
 require("dotenv").config();
 const id = process.env.client_id;
 const auth = process.env.Authorization;
-
 // /**
 //  * Request an API and return JSON data from it.
 //  *
@@ -23,11 +22,7 @@ const auth = process.env.Authorization;
 // }
 
 
-/**
- * Fetch the list of apps on IGDB.
- *
- * @returns {Promise<[types.App]>} Apps.
- */
+
 function fetchPath(data_field) { 
   axios({
     url: pathUrls.allGames.href,    
@@ -48,7 +43,11 @@ function fetchPath(data_field) {
       // console.error(err);
     });
 }
-
+/**
+ * Fetch the list of apps on IGDB.
+ *
+ * @returns {Promise<[types.App]>} Apps.
+ */
 async function fetchAllIGDBApps(){
   let data = await fetchPath(pathUrls.allGames_fields);
   console.log(data);
@@ -62,7 +61,7 @@ async function fetchGameInfoId(id) {
 }
 
 async function fetchGameInfoWord(keyword) {
-  let data = await fetchPath(pathUrls.searchByName_fields(keyword));
+  let data = await fetchPath(pathUrls.searchByKeyword_fields(keyword));
   console.log(data);
   return data;
 }

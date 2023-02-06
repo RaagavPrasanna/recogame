@@ -22,7 +22,7 @@ async function getdata3(){
   return data;
 }
 async function main() {  
-  console.log(await getdata3());
+  console.log(await getdata2());
 }
 main()
 

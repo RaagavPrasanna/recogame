@@ -1,5 +1,5 @@
 /**
- * Minimal info about a steam app.
+ * Minimal info about a IGDB app.
  */
 class App {
   /** @type {number} ID. */
@@ -14,23 +14,23 @@ class App {
  */
 class StoreInfo {
   /** @type {number} ID. */
-  steam_appid
+  id
   /** @type {string} Title. */
   name
-  /** @type {[string]} List of developers. */
-  developers
-  /** @type {[string]} List of publishers. */
-  publishers
+  /** @type {[string]} List of developers and publisher. */
+  involved_companies
+  // /** @type {[string]} List of publishers. */
+  // publishers
   /** @type {string} URL to the header image. */
-  header_image
+  cover
   /** @type {string} URL to the background image. */
   background_raw
-  /** @type {[{id: number, description: string}]} List of categories. */
-  categories
-  /** @type {[{id: number, description: string}]} List of genres. */
+  /** @type {[{id: number, name: string}]} List of categories/game_modes. */
+  game_modes
+  /** @type {[{id: number, name: string}]} List of genres. */
   genres
   /** @type {string} Full description of an app. */
-  detailed_description
+  summary
   /** @type {string} Shortened description of an app. */
   short_description
   /** @type {string} all the supported languages */
@@ -39,12 +39,12 @@ class StoreInfo {
   platforms
   /** @type {{score: number, url: string}} List of metacritic */
   metacritic
-  /** @type {[{id: number, path_thumbnail: string, path_full: string}]} List of screenshots */
+  /** @type {[{id: number, url: string}]} List of screenshots */
   screenshots
-    /** @type {[{id: number, name: string, thumbnail: string, webm: {480: string, max: string}, mp4: {480: string, max: string}, hightlight: boolean}]}  URL of moves*/
-  movies
+    /** @type {[{id: number, url: string}]}  URL of movies*/
+  websites
     /** @type {{total: number}}  total number of recommendations*/
-  recommendations
+  total_rating_count
     /** @type {string} URL to the background image*/
   background
     /** @type {{ids: [number, number], notes: string}} */
