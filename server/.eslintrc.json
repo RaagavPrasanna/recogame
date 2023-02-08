@@ -15,9 +15,8 @@
   "overrides": [
     {
       "files": [
-        "*.mjs",
-        "*.cjs",
-        "*.js"
+        "*.js",
+        "www"
       ],
       "parserOptions": {
         "sourceType": "module"
