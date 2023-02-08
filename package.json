@@ -1,0 +1,11 @@
+{
+  "name": "recogame",
+  "version": "1.0.0",
+  "description": "RecoGame",
+  "main": "",
+  "scripts": {
+    "start": "cd server && npm run start"
+  },
+  "author": "RecoGame",
+  "license": "ISC"
+}
