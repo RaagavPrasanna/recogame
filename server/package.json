@@ -2,15 +2,18 @@
   "name": "server",
   "version": "1.0.0",
   "description": "A server for RecoGame",
-  "main": "./src/app.js",
+  "main": "./bin/www.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node ./bin/www.js",
     "test": "jest"
   },
   "type": "module",
   "author": "RecoGame",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.1"
   }
 }
+
