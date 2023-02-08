@@ -119,6 +119,7 @@ deploy-azure:
   script:
     - zip -r deploy.zip server package.json
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE=$AZURE_DEPLOY_WEBSITE_RUN_FROM_PACKAGE"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings MONGO_CONNECTION_URI=$MONGO_CONNECTION_URI"
     - "az webapp deployment source config-zip --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --src deploy.zip"
 
 #endregion
