@@ -3,8 +3,8 @@ image: node:18.4
 stages:
   - build
   - deploy
-  # - lint
-  # - test
+  - lint
+  - test
 
 
 #region Lint
@@ -16,14 +16,13 @@ stages:
 #   script:
 #     - npm run lint
 
-
-# lint-backend:
-#   stage: lint
-#   before_script:
-#     - cd server
-#     - npm install
-#   script:
-#     - npm run lint
+lint-backend:
+  stage: lint
+  before_script:
+    - cd server
+    - npm install
+  script:
+    - npm run lint
 
 #endregion
 
@@ -76,16 +75,15 @@ build-backend:
 
 #region Test
 
-# test-backend:
-#   stage: test
-#   dependencies:
-#     - build-backend
-#   before_script:
-#     - cd server
-#     - npm install
-#   script:
-#     - npm run test
-
+test-backend:
+  stage: test
+  dependencies:
+    - build-backend
+  before_script:
+    - cd server
+    - npm install
+  script:
+    - npm run test
 
 # test-frontend:
 #   stage: test
@@ -102,7 +100,7 @@ build-backend:
 
 #region Deploy
 
-azure:
+deploy-azure:
   stage: deploy
   image:  mcr.microsoft.com/azure-cli
   dependencies:
@@ -121,3 +119,4 @@ azure:
     - "az webapp deployment source config-zip --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --src deploy.zip"
 
 #endregion
+
