@@ -110,10 +110,10 @@ deploy-azure:
   dependencies:
     - build-backend
     #  - build-frontend
-  # only:
-  #   - main
-  #   - staging
-  #   - deploying
+  only:
+    - main
+    - staging
+    - project-structure
   before_script:
     - "az login --allow-no-subscriptions --service-principal -u $AZURE_DEPLOY_APP_ID -p $AZURE_DEPLOY_PASSWORD --tenant $AZURE_DEPLOY_TENANT"
   script:
