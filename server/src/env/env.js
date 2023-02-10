@@ -1,15 +1,13 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
+
 import * as dotenv from 'dotenv';
 
-const __dirname = path.dirname(
-  fileURLToPath(import.meta.url)
-);
+import projectRoot from './project-root.js';
+
 
 dotenv.config({
   path: path.join(
-    __dirname,
-    '..', '..', '..',
+    projectRoot,
     '.env'
   )
 });
