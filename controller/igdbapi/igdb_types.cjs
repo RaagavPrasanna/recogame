@@ -1,29 +1,19 @@
-/**
- * Minimal info about a IGDB app.
- */
-class App {
-  /** @type {number} ID. */
-  appid
-  /** @type {number} Title. */
-  name
-}
-
 
 /**
- * Needed info about a steam game.
+ * Needed info about a IGDB game.
  */
 class StoreInfo {
   /** @type {number} ID. */
   id
   /** @type {string} Title. */
   name
-  /** @type {[string]} List of developers and publisher. */
+  /** @type {[{id:number, company :{id:number, name:string}, developer:boolean, publisher: boolean}]} List of developers and publisher. */
   involved_companies
   // /** @type {[string]} List of publishers. */
   // publishers
-  /** @type {string} URL to the header image. */
+  /** @type {{id: number, url: string}} URL to the header image. */
   cover
-  /** @type {string} URL to the background image. */
+  /** @type {undefined} URL to the background image. */
   background_raw
   /** @type {[{id: number, name: string}]} List of categories/game_modes. */
   game_modes
@@ -31,30 +21,30 @@ class StoreInfo {
   genres
   /** @type {string} Full description of an app. */
   summary
-  /** @type {string} Shortened description of an app. */
-  short_description
-  /** @type {string} all the supported languages */
+  /** @type {undefined} A url-safe, unique, lower-case version of the name*/
+  slug
+  /** @type {[{id: number, language:{id: number, native_name: string}}]]} all the supported languages */
   supported_languages
-  /** @type {{ window: boolean, mac: boolean, linux: boolean}} oS system options*/
+  /** @type {[{id: number, name: string}]} all system options*/
   platforms
-  /** @type {{score: number, url: string}} List of metacritic */
+  /** @type {undefined} List of metacritic */
   metacritic
-  /** @type {[{id: number, url: string}]} List of screenshots */
+  /** @type {[{id: number, url: string}]} List of screenshots in thumb size 90x90 */
   screenshots
-    /** @type {[{id: number, url: string}]}  URL of movies*/
+    /** @type {[{id: number, trusted: boolean, url: string}]}  URL of movies*/
   websites
-    /** @type {{total: number}}  total number of recommendations*/
-  total_rating_count
-    /** @type {string} URL to the background image*/
+    /** @type {number}  total number of recommendations*/
+  aggregated_rating_count
+    /** @type {undefined} URL to the background image*/
   background
-    /** @type {{ids: [number, number], notes: string}} */
+    /** @type {undefined} */
   content_descriptors
 }
 
 
 class GameInfo {
   /** @type {number} ID. */
-  steamId
+  Id
   /** @type {string} URL to buy the game. */
   storeUrl
   /** @type {string} Title. */
@@ -97,7 +87,6 @@ class GameInfo {
 
 
 module.exports = {
-  App,
   StoreInfo,
   GameInfo
 }

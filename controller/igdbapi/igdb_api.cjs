@@ -24,7 +24,7 @@ const auth = process.env.Authorization;
 
 
 function fetchPath(data_field) { 
-  axios({
+ return axios({
     url: pathUrls.allGames.href,    
     method: 'POST',
     headers: {
@@ -35,29 +35,97 @@ function fetchPath(data_field) {
     data: data_field,
   })
     .then(response => {
-        console.log(response.data);
-        return response.data;
+        let info = response.data;
+      // get the data from other function
+      return info;
+        // return sendData(info);      
     })
     .catch(err => {
       console.log("something wrong fetchPath************");
-      // console.error(err);
+      console.error(err);
     });
 }
+
+// /**
+//  * storage data from fetch with axios
+//  * @param {data} info 
+//  * @returns info
+//  */
+// function sendData(info){
+//   // console.log(info);
+//   return info;
+// }
+
 /**
- * Fetch the list of apps on IGDB.
+ * Fetch the list of apps on IGDB .
  *
  * @returns {Promise<[types.App]>} Apps.
  */
 async function fetchAllIGDBApps(){
-  let data = await fetchPath(pathUrls.allGames_fields);
+  let data = [];
+  await fetchPath(pathUrls.allGames_fields).then(info=> data = info);
   console.log(data);
-  return data;
+  return data ; 
 }
-
+/**
+ * Fetch the store info about the app.
+ *
+ * @param {string} pathUrl for the game.either search path by Id or earch path by keyword.
+ * @returns {Promise<types.StoreInfo>} Store info.
+ */
+async function fetchStoreInfo(urlPath) {
+  const response = await fetchPath(urlPath)
+  const info = Object.values(response)[0]
+  if (info === undefined) {
+    throw new Error(`Fetch was not successful for IGDB info for the app`)
+  // } else if (info['data']['type'] !== 'game') {
+  //   throw new Error(`App ${id} is not a game.`)
+  } else {
+    return info
+  }
+}
+ /**
+//  * Fetch the game info.
+//  *
+//  * @param {number} id ID of the game.
+//  * @returns {Promise<types.GameInfo>} Game info without the price.
+//  */
 async function fetchGameInfoId(id) {
-  let data = await fetchPath(pathUrls.searchById_fields(id));
-  console.log(data);
-  return data;
+  // let data = await fetchPath(pathUrls.searchById_fields(id));
+  // console.log(data);
+  // return data;
+  try {
+        const info= await fetchStoreInfo(pathUrls.searchById_fields(id));
+        console.log(`      - For "${id}"`)
+        console.log( info);
+
+        return {
+          id: info.id,
+          name: info.name,
+          developers: info.involved_companies!==undefined? info.involved_companies.filter(c=>c.developer==true).map(c=>c.company.name):null,
+          // publishers: info.publishers,
+          // imageHeader: info.header_image || null,
+          // imageBackground: info.background_raw || null,
+          // categories: (info.categories !== undefined )? info.categories.map(c => c.description): null,
+          // genres: (info.genres !== undefined ) ? info.genres.map(c => c.description) : null,
+          // storeUrl: `https://store.steampowered.com/app/${info.steam_appid}`,
+          // prices: null, 
+          // required_age: info.required_age || null,      
+          // detailedDescription: info.detailed_description || null,
+          // shortDescription: info.short_description || null,
+          // supportedLanguages:(info.supported_languages !== undefined ) ? info.supported_languages.split(", ") : null,
+          // platforms: (info.platforms !== undefined )? Object.entries(info.platforms).filter(([key,value])=> value ===true).map(([key, value])=>key) : null, 
+          // metacritic: (info.metacritic !== undefined) ? info.metacritic.url : null,      
+          // screenshots: (info.screenshots || []).map(c => c.path_thumbnail),
+          // movies: (info.moves !== undefined) ? info.movies.map(c=> c.webm[480]) : null,
+          // recommendations: (info.recommendations !== undefined) ? info.recommendations.total : null,
+          // background: info.background || null,
+          // content_descriptors: (info.content !== undefined)? info.content_descriptors.notes: null
+        }
+      } catch (e) {
+        console.error(`Could not fetch the game info with id "${id}"`)
+        return null
+      }
 }
 
 async function fetchGameInfoWord(keyword) {
@@ -65,23 +133,7 @@ async function fetchGameInfoWord(keyword) {
   console.log(data);
   return data;
 }
-// /**
-//  * Fetch the store info about the app.
-//  *
-//  * @param {number} id ID of the game.
-//  * @returns {Promise<types.StoreInfo>} Store info.
-//  */
-// async function fetchStoreInfo(id) {
-//   const response = await fetchJson(pathUrls.storeInfo(id))
-//   const info = Object.values(response)[0]
-//   if (!info['success']) {
-//     throw new Error(`Fetch was not successful for steam info for the app ${id}`)
-//   } else if (info['data']['type'] !== 'game') {
-//     throw new Error(`App ${id} is not a game.`)
-//   } else {
-//     return info['data']
-//   }
-// }
+
 
 // /**
 //  * Fetch the game info.

@@ -10,11 +10,14 @@ const auth = process.env.Authorization;
 
 async function getdata1(){
   let data = await api.fetchAllIGDBApps();
+  console.log("getdata1()--->");
+  console.log(data);
   return data;
 }
 
 async function getdata2(){
-  let data = await api.fetchGameInfoId(35004);
+  let data = await api.fetchGameInfoId(230102);
+  console.log(data)
   return data;
 }
 async function getdata3(){
@@ -22,10 +25,13 @@ async function getdata3(){
   return data;
 }
 async function main() {  
-  console.log(await getdata2());
+  getdata2()
+  // console.log(await api.fetchAllIGDBApps())
+  // let data = await api.fetchAllIGDBApps();
+  // console.log("getdata.js main--"+data);
 }
+// getdata1()
 main()
-
 
 // function igdb(){
 //   axios({

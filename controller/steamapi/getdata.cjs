@@ -9,7 +9,7 @@ async function getdata1(){
 }
 
 async function getdata2(){
-  let data = await api.fetchGameInfo(583590);
+  let data = await api.fetchGameInfo(588730);
   return data;
 }
 async function main() {  
