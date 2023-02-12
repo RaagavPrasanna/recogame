@@ -16,7 +16,7 @@ async function getdata1(){
 }
 
 async function getdata2(){
-  let data = await api.fetchGameInfoId(230102);
+  let data = await api.fetchGameInfoId(440);
   console.log(data)
   return data;
 }

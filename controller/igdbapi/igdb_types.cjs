@@ -19,12 +19,14 @@ class StoreInfo {
   game_modes
   /** @type {[{id: number, name: string}]} List of genres. */
   genres
+  /** @type {string} url of the game in IGDB */
+  url
   /** @type {string} Full description of an app. */
   summary
   /** @type {undefined} A url-safe, unique, lower-case version of the name*/
   slug
   /** @type {[{id: number, language:{id: number, native_name: string}}]]} all the supported languages */
-  supported_languages
+  language_supports
   /** @type {[{id: number, name: string}]} all system options*/
   platforms
   /** @type {undefined} List of metacritic */
