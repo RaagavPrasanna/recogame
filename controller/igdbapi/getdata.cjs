@@ -22,15 +22,12 @@ async function getdata2(){
 }
 async function getdata3(){
   let data = await api.fetchGameInfoWord("race");
+  console.log(data)
   return data;
 }
 async function main() {  
-  getdata2()
-  // console.log(await api.fetchAllIGDBApps())
-  // let data = await api.fetchAllIGDBApps();
-  // console.log("getdata.js main--"+data);
+  getdata1()
 }
-// getdata1()
 main()
 
 // function igdb(){
