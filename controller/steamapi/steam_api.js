@@ -1,7 +1,6 @@
-const pathUrls = require('./steam_urls.cjs')
-// Used for documentation
+import pathsUrls from "./steam_urls.js";
 // eslint-disable-next-line no-unused-vars
-const types = require('./steam_types.cjs')
+import * as types from './steam_types.js';
 
 
 /**
@@ -25,8 +24,7 @@ async function fetchJson(url) {
  * @returns {Promise<[types.App]>} Apps.
  */
 async function fetchAllSteamApps() {
-  // return(await fetchJson(pathUrls.allGames))
-  return (await fetchJson(pathUrls.allGames))['applist']['apps']
+  return (await fetchJson(pathsUrls.allGames))['applist']['apps']
     .filter(a => Boolean(a.name))
 }
 
@@ -38,7 +36,7 @@ async function fetchAllSteamApps() {
  * @returns {Promise<types.StoreInfo>} Store info.
  */
 async function fetchStoreInfo(id) {
-  const response = await fetchJson(pathUrls.storeInfo(id))
+  const response = await fetchJson(pathsUrls.storeInfo(id))
   const info = Object.values(response)[0]
   if (!info['success']) {
     throw new Error(`Fetch was not successful for steam info for the app ${id}`)
@@ -58,7 +56,6 @@ async function fetchStoreInfo(id) {
 async function fetchGameInfo(id) {
   try {
     const info = await fetchStoreInfo(id)
-    // console.log(info)
     return {
       steamId: info.steam_appid,
       name: info.name,
@@ -66,21 +63,25 @@ async function fetchGameInfo(id) {
       publishers: info.publishers,
       imageHeader: info.header_image || null,
       imageBackground: info.background_raw || null,
-      categories: (info.categories !== undefined )? info.categories.map(c => c.description): null,
-      genres: (info.genres !== undefined ) ? info.genres.map(c => c.description) : null,
+      categories: info.categories !== undefined  ? info.categories.map(c => c.description) : null,
+      genres: info.genres !== undefined  ? info.genres.map(c => c.description) : null,
       storeUrl: `https://store.steampowered.com/app/${info.steam_appid}`,
       prices: null, 
+      // eslint-disable-next-line camelcase
       required_age: info.required_age || null,      
       detailedDescription: info.detailed_description || null,
       shortDescription: info.short_description || null,
-      supportedLanguages:(info.supported_languages !== undefined ) ? info.supported_languages.split(", ") : null,
-      platforms: (info.platforms !== undefined )? Object.entries(info.platforms).filter(([key,value])=> value ===true).map(([key, value])=>key) : null, 
-      metacritic: (info.metacritic !== undefined) ? info.metacritic.url : null,      
+      // eslint-disable-next-line max-len
+      supportedLanguages:info.supported_languages !== undefined  ? info.supported_languages.split(", ") : null,
+      // eslint-disable-next-line max-len
+      platforms: info.platforms !== undefined  ? Object.entries(info.platforms).filter(([key, value])=> value === true).map(([key, value])=>key) : null, 
+      metacritic: info.metacritic !== undefined ? info.metacritic.url : null,      
       screenshots: (info.screenshots || []).map(c => c.path_thumbnail),
-      movies: (info.moves !== undefined) ? info.movies.map(c=> c.webm[480]) : null,
-      recommendations: (info.recommendations !== undefined) ? info.recommendations.total : null,
+      movies: info.moves !== undefined ? info.movies.map(c=> c.webm[480]) : null,
+      recommendations: info.recommendations !== undefined ? info.recommendations.total : null,
       background: info.background || null,
-      content_descriptors: (info.content !== undefined)? info.content_descriptors.notes: null
+      // eslint-disable-next-line camelcase
+      content_descriptors: info.content !== undefined ? info.content_descriptors.notes : null
     }
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`)
@@ -88,7 +89,4 @@ async function fetchGameInfo(id) {
   }
 }
 
-module.exports = {
-  fetchAllSteamApps,  
-  fetchGameInfo
-}
+export { fetchAllSteamApps, fetchGameInfo }

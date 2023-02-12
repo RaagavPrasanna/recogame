@@ -1,4 +1,4 @@
-/** All the endpoints required for constructing the database. */
+/** All the endpoints required for constructing the database for steam. */
 const pathsUrls = {
   /** List of all games. */
   allGames: new URL('https://api.steampowered.com/ISteamApps/GetAppList/v2'),
@@ -14,4 +14,4 @@ const pathsUrls = {
   }  
 }
 
-module.exports = pathsUrls;
+export default pathsUrls;

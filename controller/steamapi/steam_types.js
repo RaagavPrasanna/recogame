@@ -1,12 +1,14 @@
+/* eslint-disable camelcase */
+
 /**
  * Minimal info about a steam app.
  */
-class App {
-  /** @type {number} ID. */
-  appid
-  /** @type {number} Title. */
-  name
-}
+// class App {
+//   /** @type {number} ID. */
+//   appid
+//   /** @type {number} Title. */
+//   name
+// }
 
 
 /**
@@ -41,13 +43,14 @@ class StoreInfo {
   metacritic
   /** @type {[{id: number, path_thumbnail: string, path_full: string}]} List of screenshots */
   screenshots
-    /** @type {[{id: number, name: string, thumbnail: string, webm: {480: string, max: string}, mp4: {480: string, max: string}, hightlight: boolean}]}  URL of moves*/
+  // eslint-disable-next-line max-len
+  /** @type {[{id: number, name: string, thumbnail: string, webm: {480: string, max: string}, mp4: {480: string, max: string}, hightlight: boolean}]}  URL of moves*/
   movies
-    /** @type {{total: number}}  total number of recommendations*/
+  /** @type {{total: number}}  total number of recommendations*/
   recommendations
-    /** @type {string} URL to the background image*/
+  /** @type {string} URL to the background image*/
   background
-    /** @type {{ids: [number, number], notes: string}} */
+  /** @type {{ids: [number, number], notes: string}} */
   content_descriptors
   
 }
@@ -97,9 +100,4 @@ class GameInfo {
   
 }
 
-
-module.exports = {
-  App,
-  StoreInfo,
-  GameInfo
-}
+export { StoreInfo,  GameInfo } 

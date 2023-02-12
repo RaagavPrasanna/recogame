@@ -1,7 +1,8 @@
 /**
  * test for steamapi only 
  */
-const api = require("./steam_api.cjs")
+import * as api from "./steam_api.js";
+// const api = require("./steam_api.js")
 
 async function getdata1(){
   let data = await api.fetchAllSteamApps();
@@ -9,7 +10,7 @@ async function getdata1(){
 }
 
 async function getdata2(){
-  let data = await api.fetchGameInfo(588730);
+  let data = await api.fetchGameInfo(440);
   return data;
 }
 async function main() {  
