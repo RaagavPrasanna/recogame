@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 
 /**
  * Needed info about a IGDB game.
@@ -7,6 +8,7 @@ class StoreInfo {
   id
   /** @type {string} Title. */
   name
+  // eslint-disable-next-line max-len
   /** @type {[{id:number, company :{id:number, name:string}, developer:boolean, publisher: boolean}]} List of developers and publisher. */
   involved_companies
   // /** @type {[string]} List of publishers. */
@@ -25,6 +27,7 @@ class StoreInfo {
   summary
   /** @type {undefined} A url-safe, unique, lower-case version of the name*/
   slug
+  // eslint-disable-next-line max-len
   /** @type {[{id: number, language:{id: number, native_name: string}}]]} all the supported languages */
   language_supports
   /** @type {[{id: number, name: string}]} all system options*/
@@ -33,13 +36,13 @@ class StoreInfo {
   metacritic
   /** @type {[{id: number, url: string}]} List of screenshots in thumb size 90x90 */
   screenshots
-    /** @type {[{id: number, trusted: boolean, url: string}]}  URL of movies*/
+  /** @type {[{id: number, trusted: boolean, url: string}]}  URL of movies*/
   websites
-    /** @type {number}  total number of recommendations*/
+  /** @type {number}  total number of recommendations*/
   aggregated_rating_count
-    /** @type {undefined} URL to the background image*/
+  /** @type {undefined} URL to the background image*/
   background
-    /** @type {undefined} */
+  /** @type {undefined} */
   content_descriptors
 }
 
@@ -87,8 +90,9 @@ class GameInfo {
   content_descriptors
 }
 
+export { StoreInfo, GameInfo}
 
-module.exports = {
-  StoreInfo,
-  GameInfo
-}
+// module.exports = {
+//   StoreInfo,
+//   GameInfo
+// }
