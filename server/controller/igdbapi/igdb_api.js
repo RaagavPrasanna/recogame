@@ -3,8 +3,8 @@ import pathsUrls from './igdb_urls.js';
 import * as types from './igdb_types.js';
 import {} from 'dotenv/config';
 import axios from 'axios';
-const id = process.env.client_id;
-const auth = process.env.Authorization;
+const id = process.env.IGDB_ID;
+const auth = process.env.IGDB_AUTH;
 
 /**
  * fetch game from IGDB setup path, method, header, and data  with axios
@@ -51,7 +51,6 @@ async function fetchAllIGDBApps(){
  */
 async function fetchStoreInfo(urlPath) {
   const response = await fetchPath(urlPath);
-  console.log(response);
   const info = Object.values(response)
   if (info === undefined) {
     throw new Error(`Fetch was not successful for IGDB info for the app`)
@@ -68,8 +67,6 @@ async function fetchStoreInfo(urlPath) {
 async function fetchGameInfoId(id) {
   try {
     const info = (await fetchStoreInfo(pathsUrls.searchByIdFields(id)))[0];
-    console.log(`      - For "${id}"`)
-    console.log(info);
     return groupType(info);       
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`)
@@ -87,7 +84,6 @@ async function fetchGameInfoId(id) {
 async function fetchGameInfoWord(keyword) {
   try {
     const data = await fetchStoreInfo(pathsUrls.searchByKeywordFields(keyword));
-    // console.log(`      - For "${keyword}"`)
     return data.map(info=> groupType(info)     
     )
   } catch (e) {
