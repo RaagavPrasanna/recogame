@@ -56,6 +56,7 @@ async function fetchStoreInfo(id) {
 async function fetchGameInfo(id) {
   try {
     const info = await fetchStoreInfo(id)
+    console.log(info);
     return {
       steamId: info.steam_appid,
       name: info.name,
@@ -67,8 +68,6 @@ async function fetchGameInfo(id) {
       genres: info.genres !== undefined  ? info.genres.map(c => c.description) : null,
       storeUrl: `https://store.steampowered.com/app/${info.steam_appid}`,
       prices: null, 
-      // eslint-disable-next-line camelcase
-      required_age: info.required_age || null,      
       detailedDescription: info.detailed_description || null,
       shortDescription: info.short_description || null,
       // eslint-disable-next-line max-len
@@ -80,8 +79,8 @@ async function fetchGameInfo(id) {
       movies: info.moves !== undefined ? info.movies.map(c=> c.webm[480]) : null,
       recommendations: info.recommendations !== undefined ? info.recommendations.total : null,
       background: info.background || null,
-      // eslint-disable-next-line camelcase
-      content_descriptors: info.content !== undefined ? info.content_descriptors.notes : null
+      // eslint-disable-next-line camelcase, max-len
+      contentDescriptors: info.content_descriptors !== undefined ? info.content_descriptors.notes : null
     }
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`)

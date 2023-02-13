@@ -96,7 +96,7 @@ class GameInfo {
   /** @type {string} URL to background */
   background
   /** @type {string} notes of content_descriptors */
-  content_descriptors
+  contentDescriptors
   
 }
 

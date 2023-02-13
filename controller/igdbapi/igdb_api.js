@@ -1,8 +1,8 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
 import * as types from './igdb_types.js';
-import axios from 'axios';
 import {} from 'dotenv/config';
+import axios from 'axios';
 const id = process.env.client_id;
 const auth = process.env.Authorization;
 
@@ -116,8 +116,6 @@ function groupType(info){
     genres: info.genres !== undefined  ? info.genres.map(c => c.name) : null,
     storeUrl: info.url,
     prices: null, 
-    // eslint-disable-next-line camelcase
-    required_age: null,      
     detailedDescription: info.summary || null,
     shortDescription: info.slug || null,
     // eslint-disable-next-line max-len
@@ -130,7 +128,7 @@ function groupType(info){
     recommendations: info.aggregated_rating_count || null,
     background: null,
     // eslint-disable-next-line camelcase
-    content_descriptors:null
+    contentDescriptors:null
   }  
 }
 
