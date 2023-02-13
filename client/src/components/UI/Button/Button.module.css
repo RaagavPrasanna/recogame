@@ -1,0 +1,28 @@
+.button {
+  background-color: #395B64;
+  color: #A5C9CA;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  border-radius: 40em;
+  margin-right: 10px;
+}
+
+.button:hover,
+.button:active {
+  background: #2C3333;
+  border-color: #2C3333;
+}
+
+.button:focus {
+  outline: none;
+}
+
+button:disabled,
+button:focus:disabled,
+button:hover:disabled,
+button:active:disabled {
+  background: #E7F6F2;
+  border-color: #E7F6F2;
+  color: #395B64;
+}
