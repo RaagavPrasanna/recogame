@@ -1,17 +1,6 @@
 /* eslint-disable camelcase */
 
 /**
- * Minimal info about a steam app.
- */
-// class App {
-//   /** @type {number} ID. */
-//   appid
-//   /** @type {number} Title. */
-//   name
-// }
-
-
-/**
  * Needed info about a steam game.
  */
 class StoreInfo {
@@ -100,4 +89,4 @@ class GameInfo {
   
 }
 
-export { StoreInfo,  GameInfo } 
+export default { StoreInfo,  GameInfo } 

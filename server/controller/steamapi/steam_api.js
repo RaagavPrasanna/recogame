@@ -1,6 +1,6 @@
 import pathsUrls from "./steam_urls.js";
 // eslint-disable-next-line no-unused-vars
-import * as types from './steam_types.js';
+import types from './steam_types.js';
 
 
 /**
@@ -87,4 +87,4 @@ async function fetchGameInfo(id) {
   }
 }
 
-export { fetchAllSteamApps, fetchGameInfo }
+export default { fetchAllSteamApps, fetchGameInfo }
