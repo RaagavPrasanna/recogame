@@ -1,6 +1,6 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
-import * as types from './igdb_types.js';
+import types from './igdb_types.js';
 import {} from 'dotenv/config';
 import axios from 'axios';
 const id = process.env.IGDB_ID;
@@ -11,8 +11,8 @@ const auth = process.env.IGDB_AUTH;
  * @param {string} dataField 
  * @returns fetch data
  */
-async function fetchPath(dataField) { 
-  return await axios({
+async function fetchPath(dataField) {  
+  const response =  await axios({
     url: pathsUrls.allGames.href,    
     method: 'POST',
     headers: {
@@ -21,15 +21,12 @@ async function fetchPath(dataField) {
       'Authorization': auth,
     },
     data: dataField,
-  })
-    .then(response => {
-      let info = response.data;
-      return info;
-    })
-    .catch(err => {
-      console.log("something wrong fetchPath************");
-      console.error(err);
-    });
+  })  
+  if (response.status !== 200) {
+    throw new Error (`Could not get the response from IGDB - ${response.status}`)
+  }
+  console.log(response);
+  return await response.data;
 }
 
 /**
@@ -50,11 +47,11 @@ async function fetchAllIGDBApps(){
  * @returns {Promise<types.StoreInfo>} Store info.
  */
 async function fetchStoreInfo(urlPath) {
-  const response = await fetchPath(urlPath);
-  const info = Object.values(response)
-  if (info === undefined) {
+  const response = await fetchPath(urlPath);  
+  if (response === undefined) {
     throw new Error(`Fetch was not successful for IGDB info for the app`)
   } else {
+    const info = Object.values(response)
     return info
   }
 }
@@ -128,4 +125,4 @@ function groupType(info){
   }  
 }
 
-export {fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoWord}
+export default {fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoWord}

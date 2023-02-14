@@ -90,9 +90,4 @@ class GameInfo {
   content_descriptors
 }
 
-export { StoreInfo, GameInfo}
-
-// module.exports = {
-//   StoreInfo,
-//   GameInfo
-// }
+export default { StoreInfo, GameInfo}
