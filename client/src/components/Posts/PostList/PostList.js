@@ -40,7 +40,7 @@ function PostList() {
   return (
     <ul>
       <InfiniteScroll
-        dataLength={10}
+        dataLength={posts.length}
         next={fetchMoreData}
         hasMore={true}
         loader={<h4>Loading...</h4>}
