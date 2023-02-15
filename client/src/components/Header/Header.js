@@ -10,7 +10,9 @@ function Header() {
         <Button> Community </Button>
         <Button> Friends </Button>
         <Button> User </Button>
-        <Button className={styles.search}> Search </Button>
+      </header>
+      <header className={styles.search}>
+        <Button> Search </Button>
       </header>
     </>
   );
