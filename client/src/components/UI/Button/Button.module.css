@@ -1,8 +1,8 @@
 .button {
-  background-color: #395B64;
-  color: #A5C9CA;
+  background-color: #6E7F80;
+  color: #2D3A44;
   border: none;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
   border-radius: 40em;
   margin-right: 10px;
@@ -10,8 +10,8 @@
 
 .button:hover,
 .button:active {
-  background: #2C3333;
-  border-color: #2C3333;
+  background: #536878;
+  border-color: #536878;
 }
 
 .button:focus {
@@ -24,5 +24,5 @@ button:hover:disabled,
 button:active:disabled {
   background: #E7F6F2;
   border-color: #E7F6F2;
-  color: #395B64;
+  color: #536878;
 }

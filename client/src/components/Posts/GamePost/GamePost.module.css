@@ -1,0 +1,27 @@
+.gamepost{
+  list-style-type:none;
+  display:flex;
+  margin:5em;
+  background-color:#6E7F80;
+  color:#2D3A44;
+  margin:5em;
+}
+img{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width:13em;
+}
+
+h1, div, p{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content:center;
+  width:100%;
+  margin:5px;
+}
+
+span{
+  margin:5px;
+}

@@ -1,16 +1,18 @@
+import styles from './GamePost.module.css';
+
 function GamePost({ gameTitle, devName, review, rating }) {
   return (
-    <li>
+    <li className={styles.gamepost}>
       <img
         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-        width={150}
+        width={100}
       />
-      <h1>{gameTitle}</h1>
       <div>
+        <h1>{gameTitle}</h1>
         <span>{devName}</span>
         <span>{'⭐️'.repeat(rating)}</span>
+        <p>{review}</p>
       </div>
-      <p>{review}</p>
     </li>
   );
 }
