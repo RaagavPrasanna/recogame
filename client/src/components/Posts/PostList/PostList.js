@@ -2,6 +2,9 @@ import { useState } from 'react';
 import GamePost from '../GamePost/GamePost';
 import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import styles from './PostList.module.css';
+import height from '../../../Hooks/DimensionHook';
+
 
 function PostList() {
   const [posts, setPosts] = useState(mockGamePosts);
@@ -38,17 +41,18 @@ function PostList() {
   });
 
   return (
-    <ul>
+    <div className={styles.postList}>
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchMoreData}
         hasMore={true}
         loader={<h4>Loading...</h4>}
-        height={700}
+        height={height}
+    
       >
         {availablePosts}
       </InfiniteScroll>
-    </ul>
+    </div>
   );
 }
 

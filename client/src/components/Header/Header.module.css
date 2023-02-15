@@ -1,3 +1,8 @@
 .search{
-  float: right;
+  position:fixed;
+  right: 0;
+}
+.header{
+  position:fixed;
+  left: 0;
 }

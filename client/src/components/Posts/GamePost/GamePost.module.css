@@ -1,10 +1,9 @@
 .gamepost{
   list-style-type:none;
   display:flex;
-  margin:5em;
   background-color:#6E7F80;
   color:#2D3A44;
-  margin:5em;
+  margin:10px;
 }
 img{
   display:flex;
