@@ -6,7 +6,7 @@ const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
 
 /**
- * fetch game from IGDB setup path, method, header, and data  with axios
+ * fetch game from IGDB setup path, method, header, and data
  * @param {string} dataField 
  * @returns fetch data
  */
@@ -46,7 +46,7 @@ async function fetchAllIGDBApps(){
 async function fetchStoreInfo(urlPath) {
   const response = await fetchPath(urlPath);  
   if (response === undefined) {
-    throw new Error(`Fetch was not successful for IGDB info for the app`);
+    throw new Error('Fetch was not successful for IGDB info for the app');
   } else {
     const info = Object.values(response);
     return info;
@@ -94,31 +94,60 @@ async function fetchGameInfoWord(keyword) {
  */
 function groupType(info){
   return {
-    id: info.id,
-    name: info.name,
-    // eslint-disable-next-line max-len
-    developers: info.involved_companies !== undefined ? info.involved_companies.filter(c=>c.developer == true).map(c=>c.company.name) : null,
-    // eslint-disable-next-line max-len
-    publishers: info.involved_companies !== undefined ? info.involved_companies.filter(c=>c.publisher == true).map(c=>c.company.name) : null,
-    imageHeader: info.cover !== undefined ? info.cover.url : null,
-    imageBackground: null,
-    categories: info.game_modes !== undefined  ? info.game_modes.map(c => c.name) : null,
-    genres: info.genres !== undefined  ? info.genres.map(c => c.name) : null,
-    storeUrl: info.url,
-    prices: null, 
-    detailedDescription: info.summary || null,
-    shortDescription: info.slug || null,
-    // eslint-disable-next-line max-len
-    supportedLanguages:info.language_supports !== undefined  ? info.language_supports.map(c=>c.language.native_name) : null,
-    platforms: info.platforms !== undefined  ? info.platforms.map(c=>c.name) : null, 
-    metacritic: null,      
-    screenshots: (info.screenshots || []).map(c => c.url),
-    // eslint-disable-next-line max-len
-    movies: info.websites !== undefined ? info.websites.filter(c=>c.trusted === true).map(c=> c.url) : null,
-    recommendations: info.aggregated_rating_count || null,
-    background: null,
-    // eslint-disable-next-line camelcase
-    contentDescriptors:null
+    id:
+      info.id,
+    name:
+      info.name,
+    developers:
+      info.involved_companies !== undefined
+        ? info.involved_companies.filter(c => c.developer === true).map(c => c.company.name)
+        : null,
+    publishers:
+      info.involved_companies !== undefined
+        ? info.involved_companies.filter(c => c.publisher === true).map(c => c.company.name)
+        : null,
+    imageHeader:
+      info.cover !== undefined
+        ? info.cover.url
+        : null,
+    imageBackground:
+      null,
+    categories:
+      info.game_modes !== undefined
+        ? info.game_modes.map(c => c.name)
+        : null,
+    genres:
+      info.genres !== undefined
+        ? info.genres.map(c => c.name)
+        : null,
+    storeUrl:
+      info.url,
+    detailedDescription:
+      info.summary || null,
+    shortDescription:
+      info.slug || null,
+    supportedLanguages:
+      info.language_supports !== undefined
+        ? info.language_supports.map(c => c.language.native_name)
+        : null,
+    platforms:
+      info.platforms !== undefined
+        ? info.platforms.map(c=>c.name)
+        : null, 
+    metacritic:
+      null,
+    screenshots:
+      (info.screenshots || []).map(c => c.url),
+    movies:
+      info.websites !== undefined
+        ? info.websites.filter(c => c.trusted === true).map(c=> c.url)
+        : null,
+    recommendations:
+      info.aggregated_rating_count || null,
+    background:
+      null,
+    contentDescriptors:
+      null
   };  
 }
 

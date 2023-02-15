@@ -7,11 +7,11 @@ const pathsUrls = {
    * @param {number} appId ID of the application.
    */
   storeInfo: (appId) => {
-    const url = new URL('https://store.steampowered.com/api/appdetails')
-    url.searchParams.set('appids', appId)
-    url.searchParams.set('cc', 'us')
-    return url
+    const url = new URL('https://store.steampowered.com/api/appdetails');
+    url.searchParams.set('appids', appId);
+    url.searchParams.set('cc', 'us');
+    return url;
   }  
-}
+};
 
 export default pathsUrls;

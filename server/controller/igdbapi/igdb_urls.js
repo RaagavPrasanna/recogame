@@ -6,13 +6,13 @@ const fields = 'fields ' + ['id', 'name', 'involved_companies.company.name',
   'involved_companies.publisher', 'involved_companies.developer,cover.url,game_modes.name',
   'genres.name', 'url', 'summary', 'slug', 'language_supports.language.native_name', 
   'platforms.name', 'screenshots.url', 'websites.url', 'websites.trusted', 'aggregated_rating',
-  'aggregated_rating_count'].join(',') + ';'
+  'aggregated_rating_count'].join(',') + ';';
 
 const pathsUrls = {
   /** List of all games fore the. */
   allGames: new URL('https://api.igdb.com/v4/games'),
 
-  allGamesFields : "fields id, name ; limit 10;",
+  allGamesFields : 'fields id, name ; limit 10;',
   /**
    * search games by keyword
    * 
@@ -20,7 +20,7 @@ const pathsUrls = {
    * @returns games info
    */
   searchByKeywordFields : (keyword) => { 
-    let data = `${fields} search "${keyword}";`
+    let data = `${fields} search "${keyword}";`;
     return data;
   },
 
@@ -30,9 +30,9 @@ const pathsUrls = {
    * @returns game info
    */
   searchByIdFields : (id) => { 
-    let data = `${fields} where id=${id};`
+    let data = `${fields} where id=${id};`;
     return data;
   }
-}
+};
 
 export default pathsUrls;

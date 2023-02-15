@@ -5,89 +5,89 @@
  */
 class StoreInfo {
   /** @type {number} ID. */
-  id
+  id;
   /** @type {string} Title. */
-  name
+  name;
   // eslint-disable-next-line max-len
   /** @type {[{id:number, company :{id:number, name:string}, developer:boolean, publisher: boolean}]} List of developers and publisher. */
-  involved_companies
+  involved_companies;
   // /** @type {[string]} List of publishers. */
   // publishers
   /** @type {{id: number, url: string}} URL to the header image. */
-  cover
+  cover;
   /** @type {undefined} URL to the background image. */
-  background_raw
+  background_raw;
   /** @type {[{id: number, name: string}]} List of categories/game_modes. */
-  game_modes
+  game_modes;
   /** @type {[{id: number, name: string}]} List of genres. */
-  genres
+  genres;
   /** @type {string} url of the game in IGDB */
-  url
+  url;
   /** @type {string} Full description of an app. */
-  summary
+  summary;
   /** @type {undefined} A url-safe, unique, lower-case version of the name*/
-  slug
+  slug;
   // eslint-disable-next-line max-len
   /** @type {[{id: number, language:{id: number, native_name: string}}]]} all the supported languages */
-  language_supports
+  language_supports;
   /** @type {[{id: number, name: string}]} all system options*/
-  platforms
+  platforms;
   /** @type {undefined} List of metacritic */
-  metacritic
+  metacritic;
   /** @type {[{id: number, url: string}]} List of screenshots in thumb size 90x90 */
-  screenshots
+  screenshots;
   /** @type {[{id: number, trusted: boolean, url: string}]}  URL of movies*/
-  websites
+  websites;
   /** @type {number}  total number of recommendations*/
-  aggregated_rating_count
+  aggregated_rating_count;
   /** @type {undefined} URL to the background image*/
-  background
+  background;
   /** @type {undefined} */
-  content_descriptors
+  content_descriptors;
 }
 
 
 class GameInfo {
   /** @type {number} ID. */
-  Id
+  Id;
   /** @type {string} URL to buy the game. */
-  storeUrl
+  storeUrl;
   /** @type {string} Title. */
-  name
+  name;
   /** @type {[string]} List of developers. */
-  developers
+  developers;
   /** @type {[string]} List of publishers. */
-  publishers
+  publishers;
   /** @type {string} URL to the header image. */
-  imageHeader
+  imageHeader;
   /** @type {string} URL to the background image. */
-  imageBackground
+  imageBackground;
   /** @type {[string]} List of categories. */
-  categories
+  categories;
   /** @type {[string]} List of categories. */
-  genres
+  genres;
   /** @type {Map<string, number>} Prices for the countries. */
-  prices
+  prices;
   /** @type {string} Full description of an app. */
-  detailedDescription
+  detailedDescription;
   /** @type {string} Shortened description of an app. */
-  shortDescription
+  shortDescription;
   /** @type {[string]} List of languages that the app is translated to. */
-  supportedLanguages
+  supportedLanguages;
   /** @type {[string]} List of compatable OS*/
-  platforms
+  platforms;
   /** @type {string} URL to metacritic */
-  metacritic
+  metacritic;
   /** @type {[string]}  List of path_thumbnail of screenshots*/
-  screenshots
+  screenshots;
   /** @type {[string]}  URL of moves in webm 480*/
-  movies
+  movies;
   /** @type {number} total of recommendations */
-  recommendations 
+  recommendations; 
   /** @type {string} URL to background */
-  background
+  background;
   /** @type {string} notes of content_descriptors */
-  content_descriptors
+  content_descriptors;
 }
 
-export default { StoreInfo, GameInfo}
+export default { StoreInfo, GameInfo };
