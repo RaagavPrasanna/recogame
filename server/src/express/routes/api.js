@@ -53,16 +53,18 @@ router.get('/all_games', async (_, res) => {
 router.get('/game/:id', async (req, res) => {
   try {
     const game = await getGameFromDB(req.params.id);
+    if(game === undefined) {
+      res.status(404).send('Game not found');
+    }
     res.json(game);
   } catch (err) {
     res.status(500).send('Server error');
   }
 });
 
-router.get('*', (_, res) => {
+router.get('/', (_, res) => {
   res.send('Hello world');
 });
-
 
 export default router;
 
