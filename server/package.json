@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "A server for RecoGame",
   "main": "./bin/www.js",
-  "scripts": {
-    "start": "node ./bin/www.js",
-    "test": "jest",
-    "lint": "eslint ."
-  },
   "type": "module",
   "author": "RecoGame",
   "license": "ISC",
+  "scripts": {
+    "start": "node ./bin/www.js",
+    "test": "jest",
+    "lint": "eslint --max-warnings 0 .",
+    "lint-fix": "eslint --fix ."
+  },
   "dependencies": {
     "@azure/storage-blob": "^12.12.0",
     "dotenv": "^16.0.3",
