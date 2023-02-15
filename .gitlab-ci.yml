@@ -1,0 +1,125 @@
+image: node:18.4
+
+stages:
+  - build
+  - lint
+  - test
+  - deploy
+
+
+#region Build
+
+build-backend:
+  stage: build
+  cache:
+    key:
+      prefix: 'backend'
+      files:
+        - 'server/package-lock.json'
+    paths:
+      - 'server/node_modules/'
+  before_script:
+    - cd server
+  script:
+    - npm install
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - server/node_modules/
+
+build-frontend:
+  stage: build
+  cache:
+    key:
+      prefix: 'frontend'
+      files:
+        - 'client/package-lock.json'
+    paths:
+      - 'client/node_modules/'
+  before_script:
+    - cd client
+    - npm install
+  script:
+    - npm run build
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - client/build/
+      - client/node_modules/
+
+#endregion
+
+
+#region Lint
+
+lint-backend:
+  stage: lint
+  dependencies:
+    - build-backend
+  before_script:
+    - cd server
+    - npm install
+  script:
+    - npm run lint
+
+lint-frontend:
+  stage: lint
+  dependencies:
+    - build-frontend
+  before_script:
+    - cd client
+    - npm install
+  script:
+    - npm run lint
+
+#endregion
+
+
+#region Test
+
+test-backend:
+  stage: test
+  dependencies:
+    - build-backend
+  before_script:
+    - cd server
+    - npm install
+  script:
+    - npm run test
+
+test-frontend:
+  stage: test
+  dependencies:
+    - build-frontend
+  before_script:
+    - cd client
+    - npm install
+  script:
+    - npm run test
+
+#endregion
+
+
+#region Deploy
+
+deploy-azure:
+  stage: deploy
+  image:  mcr.microsoft.com/azure-cli
+  dependencies:
+    - build-backend
+    - build-frontend
+  only:
+    - main
+    - staging
+  before_script:
+    - "az login --allow-no-subscriptions --service-principal -u $AZURE_DEPLOY_APP_ID -p $AZURE_DEPLOY_PASSWORD --tenant $AZURE_DEPLOY_TENANT"
+  script:
+    - zip -r deploy.zip server client/build package.json -x "__tests__"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE=$AZURE_DEPLOY_WEBSITE_RUN_FROM_PACKAGE"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings MONGO_CONNECTION_URI=$MONGO_CONNECTION_URI"
+    - "az webapp deployment source config-zip --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --src deploy.zip"
+
+#endregion
+

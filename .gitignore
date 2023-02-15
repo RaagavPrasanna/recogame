@@ -1,0 +1,7 @@
+# IDE
+.vscode
+
+# Project specific
+.env
+node_modules/
+
