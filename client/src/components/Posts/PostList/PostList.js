@@ -42,14 +42,13 @@ function PostList() {
   });
 
   return (
-    <div className={styles.postList}>
+    <div className={styles.postList} style={{ marginTop: '25px' }}>
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchMoreData}
         hasMore={true}
         loader={<h4>Loading...</h4>}
-        height={height * 0.80}
-    
+        height={height * 0.9}
       >
         {availablePosts}
       </InfiniteScroll>

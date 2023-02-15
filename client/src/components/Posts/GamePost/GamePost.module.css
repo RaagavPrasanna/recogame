@@ -3,13 +3,13 @@
   display:flex;
   background-color:#6E7F80;
   color:#2D3A44;
-  margin:10px;
+  margin:15px;
 }
 img{
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width:13em;
+  width:15em;
 }
 
 h1, div, p{
