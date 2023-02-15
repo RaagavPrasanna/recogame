@@ -6,6 +6,13 @@
   "author": "RecoGame",
   "license": "ISC",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --max-warnings 0 ."
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,13 +26,6 @@
     "eslint": "^8.32.0",
     "eslint-plugin-react": "^7.32.1",
     "jest": "^27.5.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
