@@ -1,6 +1,7 @@
 #!/bin/env node
 
 import '../src/env/env.js';
+
 import app from '../src/express/app.js';
 import db from '../src/db/db.js';
 
