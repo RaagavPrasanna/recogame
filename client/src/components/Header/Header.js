@@ -1,11 +1,14 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <>
       <header className={styles.header}>
-        <Button> Home </Button>
+        <Link to="/">
+          <Button> Home </Button>
+        </Link>
         <Button> My Game List </Button>
         <Button> Community </Button>
         <Button> Friends </Button>
