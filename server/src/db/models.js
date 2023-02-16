@@ -18,7 +18,16 @@ const PostImage = mongoose.model(
     imageUrl: String
   })
 );
+/**list of games with appid and name */
+const allGames = mongoose.model(
+  'all-games', 
+  new mongoose.Schema({
+    appid: Number,
+    name: String
+  })
+);
 
+// const 
 
 export default {
   PostText,
