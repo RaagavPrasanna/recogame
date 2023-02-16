@@ -89,7 +89,7 @@ async function fetchGameInfo(id) {
           : null,
       platforms:
         info.platforms !== undefined 
-          ? Object.keys(info.platforms).fileter(os => info.platforms[os])
+          ? Object.keys(info.platforms).filter(os => info.platforms[os])
           : null, 
       metacritic:
         info.metacritic !== undefined
