@@ -88,9 +88,9 @@ async function fetchGameInfo(id) {
           ? info.supported_languages.split(', ')
           : null,
       platforms:
-        info.platforms !== undefined 
+        info.platforms !== undefined
           ? Object.keys(info.platforms).fileter(os => info.platforms[os])
-          : null, 
+          : null,
       metacritic:
         info.metacritic !== undefined
           ? info.metacritic.url

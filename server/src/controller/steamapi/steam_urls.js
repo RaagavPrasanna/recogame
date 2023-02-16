@@ -11,7 +11,7 @@ const pathsUrls = {
     url.searchParams.set('appids', appId);
     url.searchParams.set('cc', 'us');
     return url;
-  }  
+  }
 };
 
 export default pathsUrls;
