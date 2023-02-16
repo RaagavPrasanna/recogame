@@ -7,6 +7,7 @@ import db from '../src/db/db.js';
 const PORT = process.env.PORT || 3001;
 const EXIT_SIGNALS = ['exit', 'SIGTERM', 'SIGINT'];
 
+main();
 
 async function main() {
   await db.connect('620-steam');
@@ -22,6 +23,4 @@ async function main() {
     });
   }
 }
-
-main();
 
