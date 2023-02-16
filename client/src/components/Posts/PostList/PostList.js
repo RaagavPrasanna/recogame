@@ -40,7 +40,7 @@ function PostList() {
   });
 
   return (
-    <div className={styles.postList} style={{ marginTop: '25px' }}>
+    <div className={styles.postList} style={{ marginTop: '20px' }}>
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchMoreData}
