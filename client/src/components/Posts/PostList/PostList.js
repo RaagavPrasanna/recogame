@@ -3,18 +3,16 @@ import GamePost from '../GamePost/GamePost';
 import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './PostList.module.css';
-import useWindowDimensions from '../../../Hooks/DimensionHook';
 import Spinner from '../../UI/Spinner';
 
 function PostList() {
   const [posts, setPosts] = useState(mockGamePosts);
-  const { height } = useWindowDimensions();
 
   function fetchMoreData() {
     setTimeout(() => {
       setPosts((prevPosts) => {
         return prevPosts.concat(
-          Array.from({ length: 20 }).map(() => {
+          Array.from({ length: 2 }).map(() => {
             return {
               gameTitle: 'Game Name',
               devName: 'Dev Name',
@@ -48,7 +46,6 @@ function PostList() {
         next={fetchMoreData}
         hasMore={true}
         loader={<Spinner />}
-        height={height * 0.9}
       >
         {availablePosts}
       </InfiniteScroll>
