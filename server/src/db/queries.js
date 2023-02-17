@@ -1,5 +1,5 @@
 import '../env/env.js';
-import Database from './db.js';
+// import Database from './db.js';
 import models from './models.js';
 
 /**
@@ -32,5 +32,5 @@ async function findOneGame(id){
 export default { 
   insertAllGames,
   insertOneGame,
-  findOneGame,  
+  findOneGame  
 };
