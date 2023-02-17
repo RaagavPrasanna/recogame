@@ -2,32 +2,33 @@
 //remove ../env/env.js ---------before merge
 import '../env/env.js';
 import db from './db.js';
-import models from './models.js';
 import api from '../../controller/steamapi/steam_api.js';
+import queries from './queries.js';
 
-async function getGame1(){
+/**
+ * get first list of games from steam and send to mongo
+ * need to handle db.isconnect();
+ */
+async function steamGameToMongo(){
   let games = await api.fetchAllSteamApps();
-  console.log(games);
-  return games;
+  await db.connect('620-recogame');
+  await queries.insertAllGames(games); 
 }
-async function getGame2(){
-  let games = await api.fetchGameInfo(230102);
-  console.log(games);
-  return games;
+
+/**
+ * get one game from api by id and sent to mongo
+ * need to handle db.isconnect();
+ * @param {number} game id
+ */
+async function oneGameToMongo(id){
+  let game = await api.fetchGameInfo(id);
+  await db.connect('620-recogame');
+  await queries.insertOneGame(game); 
 }
-getGame2();
-// // Connect
-// await db.connect('620-recogame');
 
-// // Insert an entry
-// await models.PostText.create({
-//   username: 'shirley',
-//   text: 'hi',
-// });
+await oneGameToMongo(440);
 
-// // Find an entry
-// const m = await models.PostText.findOne({ username: 'shirley' });
-// console.log(m);
-
-// // End the connection
-// await db.disconnect();
+export default {
+  steamGameToMongo,
+  oneGameToMongo
+};
