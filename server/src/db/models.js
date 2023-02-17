@@ -4,15 +4,23 @@ import mongoose from 'mongoose';
 const AllGames = mongoose.model(
   'all-games', 
   new mongoose.Schema({
-    appid: Number,
-    name: String
+    appid: {
+      type: Number,
+      required: true, 
+      unique: true
+    },
+    name: String,
   })
 );
 
 const GameDetail = mongoose.model(
   'game-detail', 
   new mongoose.Schema({
-    steamId: Number,
+    steamId: {
+      type: Number,
+      required: [true, 'steamId is requird'], 
+      unique: true          
+    },
     name: String,
     developers: [String],
     publishers: [String],

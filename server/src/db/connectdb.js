@@ -10,9 +10,13 @@ import queries from './queries.js';
  * need to handle db.isconnect();
  */
 async function steamGameToMongo(){
-  let games = await api.fetchAllSteamApps();
-  await db.connect('620-recogame');
-  await queries.insertAllGames(games); 
+  try{
+    let games = await api.fetchAllSteamApps();
+    await db.connect('620-recogame');
+    await queries.insertAllGames(games); 
+  } catch (e){
+    console.log('can not insert game info in all-games');
+  } 
 }
 
 /**
@@ -25,10 +29,23 @@ async function oneGameToMongo(id){
   await db.connect('620-recogame');
   await queries.insertOneGame(game); 
 }
+/**
+ * find a game by id from Mongodb
+ * @param {number} id of game
+ * @returns object of game detail infomation from Mongodb
+ */
+async function findGameDetail(id){
+  await db.connect('620-recogame');
+  let game = await queries.findOneGame(id);
+  return game;
+}
 
-await oneGameToMongo(440);
+// await findGameDetail(440);
+// await oneGameToMongo(440);
+// await steamGameToMongo();
 
 export default {
   steamGameToMongo,
-  oneGameToMongo
+  oneGameToMongo,
+  findGameDetail
 };
