@@ -24,7 +24,7 @@ const argv = yargs(hideBin(process.argv))
         .command(
           'info', 'Fetch info about a game with specified ID',
           (yargs) => {
-            yargs.option(
+            return yargs.option(
               'id', {
                 alias: 'i',
                 type: 'number',
@@ -45,17 +45,32 @@ const argv = yargs(hideBin(process.argv))
         .command(
           'all', 'Fetch all IDs and names'
         )
-        // Info <id>
+        // Info <id> || <name>
         .command(
           'info', 'Fetch info about a game with specified ID',
           (yargs) => {
-            yargs.option(
-              'id', {
-                alias: 'i',
-                type: 'number',
-                demandOption: true
-              }
-            );
+            return yargs
+              .option(
+                'id', {
+                  alias: 'i',
+                  type: 'number'
+                }
+              )
+              .option(
+                'name', {
+                  alias: 'n',
+                  type: 'string'
+                }
+              )
+              .check((argv) => {
+                if (argv.id && argv.name) {
+                  throw new Error('Pass either the name or id, but not both');
+                } else if (!argv.id && !argv.name) {
+                  throw new Error('Pass either the name or id');
+                } else {
+                  return true;
+                }
+              });
           }
         );
     }
@@ -83,7 +98,11 @@ async function main() {
         console.log(await igdb.fetchAllIgdbApps());
       } else if (argv._[1] === 'info') {
         // Info
-        console.log(await igdb.fetchGameInfoId(argv.id));
+        if (argv.id) {
+          console.log(await igdb.fetchGameInfoId(argv.id));
+        } else {
+          console.log(await igdb.fetchGameInfoWord(argv.name));
+        }
       }
     }
   } catch (e) {
