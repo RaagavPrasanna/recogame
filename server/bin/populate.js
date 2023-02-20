@@ -21,6 +21,16 @@ const GAMES_FOR_DETAILS = [
 
 main();
 
+
+/**
+ * @param {Error} e Error to validate.
+ */
+function validateMongoDuplicateError(e) {
+  if (e.code !== 11000) {
+    throw e;
+  }
+}
+
 async function main() {
   try {
     await db.connect('620-recogame');
@@ -33,11 +43,8 @@ async function main() {
       try {
         await models.AllGames.create(a);
       } catch (e) {
-        if (e?.code === 11000) {
-          console.error(`    - Could not insert ${a.appid}, already exists, skipping`);
-        } else {
-          throw e;
-        }
+        validateMongoDuplicateError(e);
+        console.error('    - Already exists, skipping');
       }
     }
 
@@ -47,14 +54,22 @@ async function main() {
       console.log(`  - Fetching ${g}`);
       await utilsPromises.sleep(1);
       const d = await steam.fetchGameInfo(g);
+      // Game Details
       try {
         await models.GameDetails.create(d);
       } catch (e) {
-        if (e?.code === 11000) {
-          console.error(`    - Could not insert ${g}, already exists, skipping`);
-        } else {
-          throw e;
-        }
+        validateMongoDuplicateError(e);
+        console.error('    - Already exists, skipping');
+      }
+      // All Games
+      try {
+        await models.AllGames.create({
+          appid: d.steamId,
+          name: d.name
+        });
+      } catch (e) {
+        validateMongoDuplicateError(e);
+        console.error('    - Already exists, skipping');
       }
     }
     db.disconnect();
