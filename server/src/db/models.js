@@ -13,8 +13,8 @@ const AllGames = mongoose.model(
   })
 );
 
-const GameDetail = mongoose.model(
-  'game-detail', 
+const GameDetails = mongoose.model(
+  'game-details', 
   new mongoose.Schema({
     steamId: {
       type: Number,
@@ -44,6 +44,6 @@ const GameDetail = mongoose.model(
 
 export default {
   AllGames,
-  GameDetail
+  GameDetails
 };
 

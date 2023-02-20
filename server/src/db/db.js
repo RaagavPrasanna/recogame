@@ -1,5 +1,31 @@
 import mongoose from 'mongoose';
 
+
+/**
+ * Wrapper around mongoose DB.
+ *
+ * @example
+ * // Import necessary DB modules
+ * import db from './path/to/db.js'
+ * import models from './path/to/models.js'
+ *
+ * // Connect
+ * await db.connect('db-name');
+ *
+ * // Insert an entry
+ * await models.Model.create({
+ *   field: 'value',
+ *   another: 'value',
+ *   // ...
+ * });
+ *
+ * // Find an entry
+ * const m = await models.Model.findOne({ field: 'value' });
+ *
+ * // End the connection
+ * await db.disconnect();
+ */
+
 class Database {
   /** @type {mongoose} */
   connection;
