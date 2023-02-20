@@ -60,6 +60,7 @@ async function main() {
     db.disconnect();
   } catch (e) {
     console.log(e);
+    db.disconnect();
     process.exit(1);
   }
 }
