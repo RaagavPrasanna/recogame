@@ -12,12 +12,13 @@ const defaultGameDetails = {
 
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
+    const { game } = action;
     return {
-      gameTitle: action.gameTitle,
-      gamePrice: action.price,
+      gameTitle: game.gameTitle,
+      gamePrice: game.price,
       gameImgSrc:
         'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-      gameDesc: action.description,
+      gameDesc: game.description,
       reviews: [],
     };
   }
