@@ -1,8 +1,12 @@
+.header {
+  padding: 20px;
+}
+
 .search{
   position:fixed;
-  right: 0;
+  right: 3%;
 }
-.header{
+.buttons{
   position:fixed;
-  left: 0;
+  left: 3%;
 }

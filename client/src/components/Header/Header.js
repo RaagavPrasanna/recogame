@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <>
-      <header className={styles.header}>
+    <div className={styles.header}>
+      <header className={styles.buttons}>
         <Link to="/">
           <Button> Home </Button>
         </Link>
@@ -17,7 +17,7 @@ function Header() {
       <header className={styles.search}>
         <Button> Search </Button>
       </header>
-    </>
+    </div>
   );
 }
 
