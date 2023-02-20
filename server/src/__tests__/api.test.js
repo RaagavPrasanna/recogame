@@ -31,8 +31,15 @@ describe('API GET', () => {
     expect(res.body.name).toEqual(MOCK_GAME.name);
   });
 
-  test('Get game by id that does not exist', async () => {
+  test('Get game by invalid game i', async () => {
+    mockingoose(models.GameDetails).toReturn(null, 'findOne');
     const res = await request(app).get('/api/game/hello');
     expect(res.statusCode).toEqual(400);
+  });
+
+  test('Get game by non existent game id', async () => {
+    mockingoose(models.GameDetails).toReturn(null, 'findOne');
+    const res = await request(app).get('/api/game/1');
+    expect(res.statusCode).toEqual(404);
   });
 });
