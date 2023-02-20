@@ -1,16 +1,16 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './igdb_types.js';
-import {} from 'dotenv/config';
+
 const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
 
 /**
  * fetch game from IGDB setup path, method, header, and data
- * @param {string} dataField 
+ * @param {string} dataField
  * @returns fetch data
  */
-async function fetchPath(dataField) {  
+async function fetchPath(dataField) {
   const response =  await fetch(pathsUrls.allGames.href, {
     method: 'POST',
     headers: {
@@ -19,11 +19,11 @@ async function fetchPath(dataField) {
       'Authorization': auth,
     },
     body: dataField
-  });   
+  });
   if (response.status !== 200) {
     throw new Error (`Could not get the response from IGDB - ${response.status}`);
   }
-  return await response.json();  
+  return await response.json();
 }
 
 /**
@@ -34,7 +34,7 @@ async function fetchPath(dataField) {
 async function fetchAllIGDBApps(){
   let data = [];
   await fetchPath(pathsUrls.allGamesFields).then(info=> data = info);
-  return data ; 
+  return data ;
 }
 
 /**
@@ -44,7 +44,7 @@ async function fetchAllIGDBApps(){
  * @returns {Promise<types.StoreInfo>} Store info.
  */
 async function fetchStoreInfo(urlPath) {
-  const response = await fetchPath(urlPath);  
+  const response = await fetchPath(urlPath);
   if (response === undefined) {
     throw new Error('Fetch was not successful for IGDB info for the app');
   } else {
@@ -61,7 +61,7 @@ async function fetchStoreInfo(urlPath) {
 async function fetchGameInfoId(id) {
   try {
     const info = (await fetchStoreInfo(pathsUrls.searchByIdFields(id)))[0];
-    return groupType(info);       
+    return groupType(info);
   } catch (e) {
     console.error(`Could not fetch the game info with id "${id}"`);
     return null;
@@ -78,7 +78,7 @@ async function fetchGameInfoId(id) {
 async function fetchGameInfoWord(keyword) {
   try {
     const data = await fetchStoreInfo(pathsUrls.searchByKeywordFields(keyword));
-    return data.map(info=> groupType(info)     
+    return data.map(info=> groupType(info)
     );
   } catch (e) {
     console.error(`Could not fetch the game info with keyword : "${keyword}"`);
@@ -89,7 +89,7 @@ async function fetchGameInfoWord(keyword) {
 /**
  *regroup fetch data to GameInfo types
  *
- * @param {info} game info 
+ * @param {info} game info
  * @returns {Promise<types.GameInfo>} GameInfo types.
  */
 function groupType(info){
@@ -133,7 +133,7 @@ function groupType(info){
     platforms:
       info.platforms !== undefined
         ? info.platforms.map(c=>c.name)
-        : null, 
+        : null,
     metacritic:
       null,
     screenshots:
@@ -148,7 +148,7 @@ function groupType(info){
       null,
     contentDescriptors:
       null
-  };  
+  };
 }
 
-export default { fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoWord };
+export default { fetchAllIgdbApps: fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoWord };

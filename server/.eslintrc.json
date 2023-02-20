@@ -69,6 +69,7 @@
         "after": true
       }
     ],
+    "no-trailing-spaces": "warn",
     "comma-style": [
       "warn",
       "last"

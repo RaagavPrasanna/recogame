@@ -41,7 +41,7 @@ class StoreInfo {
   background;
   /** @type {{ids: [number, number], notes: string}} */
   content_descriptors;
-  
+
 }
 
 
@@ -81,12 +81,12 @@ class GameInfo {
   /** @type {[string]}  URL of moves in webm 480*/
   movies;
   /** @type {number} total of recommendations */
-  recommendations; 
+  recommendations;
   /** @type {string} URL to background */
   background;
   /** @type {string} notes of content_descriptors */
   contentDescriptors;
-  
+
 }
 
-export default { StoreInfo,  GameInfo }; 
+export default { StoreInfo,  GameInfo };

@@ -83,7 +83,7 @@ class GameInfo {
   /** @type {[string]}  URL of moves in webm 480*/
   movies;
   /** @type {number} total of recommendations */
-  recommendations; 
+  recommendations;
   /** @type {string} URL to background */
   background;
   /** @type {string} notes of content_descriptors */
