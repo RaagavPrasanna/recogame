@@ -1,8 +1,10 @@
 .search{
   position:fixed;
   right: 0;
+  margin:10px;
 }
 .header{
   position:fixed;
   left: 0;
+  margin:10px;
 }
