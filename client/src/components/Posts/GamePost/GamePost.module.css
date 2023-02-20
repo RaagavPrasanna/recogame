@@ -5,6 +5,12 @@
   color:#2D3A44;
   margin:15px;
 }
+
+.gamepost:hover {
+  cursor: pointer;
+  background-color:#899fa0;
+}
+
 img{
   display:flex;
   flex-direction: row;
