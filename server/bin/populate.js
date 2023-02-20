@@ -6,7 +6,7 @@ import models from '../src/db/models.js';
 import steam from '../src/controller/steamapi/steam_api.js';
 import utilsPromises from '../src/controller/utils/promises.js';
 
-const GAMES_FOR_DETAILS = [
+const GAME_IDS = [
   225840,
   630,
   224260,
@@ -16,67 +16,65 @@ const GAMES_FOR_DETAILS = [
   2280,
   100,
   367520,
-  506540
+  506540,
 ];
 
 main();
 
 
 /**
- * @param {Error} e Error to validate.
+ * Run the insert callback ignoring the duplicates.
+ * @param {() => Promise} callback Insert callback.
+ * @returns boolean Whether the element was inserted.
  */
-function validateMongoDuplicateError(e) {
-  if (e.code !== 11000) {
-    throw e;
+async function runIgnoreMongoDuplicateError(callback) {
+  try {
+    await callback();
+  } catch (e) {
+    if (e.code !== 11000) {
+      throw e;
+    } else {
+      return false;
+    }
   }
 }
 
 async function main() {
-  try {
-    await db.connect('620-recogame');
+  await db.connect('620-recogame');
 
-    // All games
-    console.log('Fetching all games');
-    const apps = await steam.fetchAllSteamApps();
-    for (const a of apps.slice(0, 20)) {
-      console.log(`  - Saving ${a.appid}`);
-      try {
-        await models.AllGames.create(a);
-      } catch (e) {
-        validateMongoDuplicateError(e);
-        console.error('    - Already exists, skipping');
-      }
-    }
+  for (const id of GAME_IDS) {
+    try {
+      console.log(`- ${id}`);
+      console.log('  - Fetching');
 
-    // Specific games
-    console.log('Fetching game info');
-    for (const g of GAMES_FOR_DETAILS) {
-      console.log(`  - Fetching ${g}`);
       await utilsPromises.sleep(1);
-      const d = await steam.fetchGameInfo(g);
-      // Game Details
-      try {
-        await models.GameDetails.create(d);
-      } catch (e) {
-        validateMongoDuplicateError(e);
-        console.error('    - Already exists, skipping');
-      }
-      // All Games
-      try {
-        await models.AllGames.create({
-          appid: d.steamId,
-          name: d.name
-        });
-      } catch (e) {
-        validateMongoDuplicateError(e);
-        console.error('    - Already exists, skipping');
-      }
-    }
-    db.disconnect();
-  } catch (e) {
-    console.log(e);
-    db.disconnect();
-    process.exit(1);
-  }
-}
+      const details = await steam.fetchGameInfo(id);
 
+      // Details
+      console.log('  - Inserting details');
+      const insertedDetails = await runIgnoreMongoDuplicateError(() => {
+        return models.GameDetails.create(details);
+      });
+      if (!insertedDetails) {
+        console.log('    - Was already in DB');
+      }
+
+      // All Games
+      console.log('  - Inserting game entry');
+      const insertedGameEntry = await runIgnoreMongoDuplicateError(() => {
+        return models.AllGames.create({
+          appid: details.steamId,
+          name: details.name
+        });
+      });
+      if (!insertedGameEntry) {
+        console.log('    - Was already in DB');
+      }
+    } catch (e) {
+      console.log('  - Error');
+      console.error(e);
+    }
+  }
+
+  db.disconnect();
+}
