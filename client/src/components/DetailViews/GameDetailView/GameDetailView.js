@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import Button from '../../UI/Button/Button';
 import { mockGamePosts } from '../../../MockData/MockGamePosts';
 
@@ -34,14 +34,20 @@ function GameDetailView({ id }) {
     reviews: [],
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     // TODO: Use game id to fetch game details from the backend
+    // TODO: Add loading animation while fetching data
+    setIsLoading(true);
     const gameDetails = mockGamePosts.find((game) => game.id === id);
     dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: gameDetails });
+    setIsLoading(false);
   }, []);
 
   return (
     <>
+      {isLoading && <p>Loading...</p>}
       <h1>{gameDetails.gameTitle}</h1>
       <img src={gameDetails.gameImgSrc} />
       <div>
