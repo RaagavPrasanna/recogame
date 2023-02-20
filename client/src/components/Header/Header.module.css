@@ -1,12 +1,7 @@
 .header {
-  padding: 20px;
-}
-
-.search{
-  position:fixed;
-  right: 3%;
-}
-.buttons{
-  position:fixed;
-  left: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  padding: 1rem 3rem;
 }

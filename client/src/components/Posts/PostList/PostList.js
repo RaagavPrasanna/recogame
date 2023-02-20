@@ -46,6 +46,7 @@ function PostList() {
         next={fetchMoreData}
         hasMore={true}
         loader={<Spinner />}
+        className={styles.infiniteScroll}
         endMessage={
           <p style={{ textAlign: 'center' }}>
             <b>Yay! You have seen it all</b>
