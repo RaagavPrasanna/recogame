@@ -1,0 +1,5 @@
+function GameDetailView({ id }) {
+  
+
+  return <></>;
+}
