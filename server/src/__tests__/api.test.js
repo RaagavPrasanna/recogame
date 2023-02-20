@@ -31,7 +31,7 @@ describe('API GET', () => {
     expect(res.body.name).toEqual(MOCK_GAME.name);
   });
 
-  test('Get game by invalid game i', async () => {
+  test('Get game by invalid game id', async () => {
     mockingoose(models.GameDetails).toReturn(null, 'findOne');
     const res = await request(app).get('/api/game/hello');
     expect(res.statusCode).toEqual(400);
