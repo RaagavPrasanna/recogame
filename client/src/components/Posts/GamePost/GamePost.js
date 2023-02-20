@@ -1,6 +1,6 @@
 import styles from './GamePost.module.css';
 
-function GamePost({ gameTitle, devName, review, rating }) {
+function GamePost({ gameTitle, devName, description, rating }) {
   return (
     <li className={styles.gamepost}>
       <img
@@ -11,7 +11,7 @@ function GamePost({ gameTitle, devName, review, rating }) {
         <h1>{gameTitle}</h1>
         <span>{devName}</span>
         <span>{'⭐️'.repeat(rating)}</span>
-        <p>{review}</p>
+        <p>{description}</p>
       </div>
     </li>
   );
