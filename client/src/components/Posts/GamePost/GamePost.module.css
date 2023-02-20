@@ -32,6 +32,12 @@ p {
   width: 100%;
 }
 
+h1,
+p,
 span {
-  margin: 5px;
+  margin-left: 2rem;
+}
+
+p {
+  margin-top: 1rem;
 }
