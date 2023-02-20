@@ -3,21 +3,19 @@ import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 
-function LoginForm({ onCancel, isValid }) {
+function LoginForm({ onCancel }) {
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUsername('');
-    setPassword('');
   };
 
 
   return (
     <Modal onClick={onCancel}>
-      <form className={classes.loginForm} onSubmit={handleSubmit}>
+      <form className={classes.loginForm}>
         <h2>Login</h2>
         <label>
           Username:
@@ -37,16 +35,15 @@ function LoginForm({ onCancel, isValid }) {
           <input
             id="password"
             type="password"
-            onChange={(p) => setUsername(p.target.value)}
+            onChange={(p) => setPassword(p.target.value)}
             required
           />
         </label>
         <br />
         <br />
         <div>
-          {/* <div>{isValid || 'Username must contain at least 4 characters.'}</div> */}
           <Button onClick={onCancel}>Cancel</Button>
-          <Button type="submit">Sign In</Button>
+          <Button onSubmit={handleSubmit}>Sign In</Button>
         </div>
       </form>
     </Modal>
