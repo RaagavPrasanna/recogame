@@ -11,7 +11,7 @@ const GAMES_FOR_DETAILS = [
   630,
   224260,
   13570,
-  9480,
+  440,
   365450,
   2280,
   100,
@@ -31,10 +31,10 @@ async function main() {
     for (const a of apps.slice(0, 20)) {
       console.log(`  - Saving ${a.appid}`);
       try {
-        models.AllGames.create(a);
+        await models.AllGames.create(a);
       } catch (e) {
         if (e?.code === 11000) {
-          console.error(`    - Could not insert ${a.appid}, skipping`);
+          console.error(`    - Could not insert ${a.appid}, already exists, skipping`);
         } else {
           throw e;
         }
@@ -43,22 +43,21 @@ async function main() {
 
     // Specific games
     console.log('Fetching game info');
-    await utilsPromises.throttleResolve(
-      GAMES_FOR_DETAILS.slice(0, 10).map((g) => async () => {
-        console.log(`  - Fetching ${g}`);
-        const d = await steam.fetchGameInfo(g);
-        try {
-          models.GameDetails.create(d);
-        } catch (e) {
-          if (e?.code === 11000) {
-            console.error(`    - Could not insert ${d.steamid}, skipping`);
-          } else {
-            throw e;
-          }
+    for (const g of GAMES_FOR_DETAILS) {
+      console.log(`  - Fetching ${g}`);
+      await utilsPromises.sleep(1);
+      const d = await steam.fetchGameInfo(g);
+      try {
+        await models.GameDetails.create(d);
+      } catch (e) {
+        if (e?.code === 11000) {
+          console.error(`    - Could not insert ${g}, already exists, skipping`);
+        } else {
+          throw e;
         }
-      }),
-      1
-    );
+      }
+    }
+    db.disconnect();
   } catch (e) {
     console.log(e);
     process.exit(1);
