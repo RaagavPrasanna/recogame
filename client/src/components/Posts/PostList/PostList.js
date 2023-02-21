@@ -4,6 +4,7 @@ import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './PostList.module.css';
 import Spinner from '../../UI/Spinner';
+import { Link } from 'react-router-dom';
 
 function PostList() {
   const [posts, setPosts] = useState(mockGamePosts);
@@ -29,13 +30,14 @@ function PostList() {
 
   const availablePosts = posts.map((post, i) => {
     return (
-      <GamePost
-        key={i}
-        gameTitle={post.gameTitle}
-        devName={post.devName}
-        description={post.description}
-        rating={post.rating}
-      />
+      <Link key={i} to="/game/1">
+        <GamePost
+          gameTitle={post.gameTitle}
+          devName={post.devName}
+          description={post.description}
+          rating={post.rating}
+        />
+      </Link>
     );
   });
 
@@ -52,7 +54,6 @@ function PostList() {
             <b>Yay! You have seen it all</b>
           </p>
         }
-        // below props only if you need pull down functionality
         refreshFunction={fetchMoreData}
         pullDownToRefresh
         pullDownToRefreshThreshold={50}
