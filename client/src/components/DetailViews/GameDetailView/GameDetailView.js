@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from 'react';
 import Button from '../../UI/Button/Button';
 import { mockGamePosts } from '../../../MockData/MockGamePosts';
+import styles from './GameDetailView.module.css';
 
 const defaultGameDetails = {
   gameTitle: '',
@@ -47,10 +48,11 @@ function GameDetailView({ id }) {
   }, []);
 
   return (
-    <>
+    <div className={styles.gameDetails}>
       {isLoading && <p>Loading...</p>}
       <h1>{gameDetails.gameTitle}</h1>
       <img src={gameDetails.gameImgSrc} />
+      <p>{gameDetails.gameDesc}</p>
       <div>
         <span>{gameDetails.gamePrice}</span>
         <Button>BUY</Button>
@@ -62,7 +64,7 @@ function GameDetailView({ id }) {
         <h2>Community Review</h2>
         {/* TODO: Render reviews */}
       </div>
-    </>
+    </div>
   );
 }
 
