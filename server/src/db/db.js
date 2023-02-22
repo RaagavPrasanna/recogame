@@ -6,8 +6,9 @@ import mongoose from 'mongoose';
  *
  * @example
  * // Import necessary DB modules
- * import db from './path/to/db.js'
- * import models from './path/to/models.js'
+ * import './path/to/env.js';
+ * import db from './path/to/db.js';
+ * import models from './path/to/models.js';
  *
  * // Connect
  * await db.connect('db-name');
