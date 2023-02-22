@@ -1,4 +1,4 @@
-import { useState, Dropdown } from 'react';
+import { useState } from 'react';
 import Button from '../UI/Button/Button';
 import classes from './GameList.module.css';
 
