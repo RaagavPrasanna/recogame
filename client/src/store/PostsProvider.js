@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 function PostsProvider({ children }) {
   const [posts, setPosts] = useState(mockGamePosts);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   function fetchMoreData() {
     setTimeout(() => {
@@ -26,9 +27,23 @@ function PostsProvider({ children }) {
       });
     }, 1500);
   }
+
+  function handleScrollPosition() {
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition));
+      setScrollPosition(0);
+    }
+  }
+
+  function handlePostClick() {
+    setScrollPosition(window.pageYOffset);
+  }
+
   const postsContext = {
     homePosts: posts,
     fetchMoreHomePosts: fetchMoreData,
+    homeScrollPosition: handleScrollPosition,
+    handlePostClick,
   };
 
   return (

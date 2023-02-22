@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import GamePost from '../GamePost/GamePost';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './PostList.module.css';
@@ -7,6 +7,10 @@ import PostContext from '../../../store/posts-context';
 
 function PostList() {
   const postsCtx = useContext(PostContext);
+
+  useEffect(() => {
+    postsCtx.homeScrollPosition();
+  }, []);
 
   const availablePosts = postsCtx.homePosts.map((post) => {
     return (
@@ -17,6 +21,7 @@ function PostList() {
         devName={post.devName}
         description={post.description}
         rating={post.rating}
+        onGameClick={postsCtx.handlePostClick}
       />
     );
   });
