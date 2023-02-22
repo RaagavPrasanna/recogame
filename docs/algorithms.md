@@ -84,6 +84,7 @@
         - Keywords
         - Review aspects
         - Platforms/OS
+        - Popular/niche
     - User library
         - Genres
         - Keywords
@@ -91,4 +92,19 @@
         - Genres
         - Keywords
     - Games from users with similar preferences
+
+# Friend recommendation
+
+- Aspects we can recommend a friend on
+    - User preference
+        - Genres
+        - Keywords
+        - Review aspects
+        - Platforms/OS
+        - Popular/niche
+    - User library
+        - Genres
+        - Keywords
+        - Specific games
+    - "Openness" to be recommended
 
