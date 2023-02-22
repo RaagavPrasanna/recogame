@@ -64,15 +64,14 @@ const CLEAN_PROJECTION = { _id: false, __v: false };
 //   { id:'22', name: 'Halo 9', description: 'FPS' }
 // ];
 
+/** Currently just returns the games array */
 async function getAllGamesFromDB() {
-  // Currently just returns the games array
   return await models.AllGames.find({}, CLEAN_PROJECTION);
-  // return games;
 }
 
+/** Currently just returns the game with the given id */
 async function getGameFromDB(id) {
-  // Currently just returns the game with the given id
-  return await models.GameDetails.findOne({ steamdId: id }, CLEAN_PROJECTION);
+  return await models.GameDetails.findOne({ steamId: id }, CLEAN_PROJECTION);
 }
 
 router.use(express.json());
@@ -82,6 +81,7 @@ router.get('/all-games', async (_, res) => {
     const games = await getAllGamesFromDB();
     res.json(games);
   } catch (err) {
+    console.error(err);
     res.status(500).send('Server error');
   }
 });
@@ -93,14 +93,14 @@ router.get('/game/:id', async (req, res) => {
       return;
     }
     const game = await getGameFromDB(req.params.id);
-    if(game === undefined || game === null) {
+    if(!game) {
       res.status(404).send('Game not found');
       return;
     }
     res.json(game);
   } catch (err) {
+    console.error(err);
     res.status(500).send('Server error');
-    return;
   }
 });
 
