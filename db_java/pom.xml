@@ -24,8 +24,8 @@
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
-    </dependency>
-     <!-- Added this dependency for Mongo-->
+    </dependency>    
+    <!-- Added this dependency for Mongo-->
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-sync</artifactId>
@@ -36,7 +36,7 @@
       <groupId>io.github.cdimascio</groupId>
       <artifactId>dotenv-java</artifactId>
       <version>2.3.2</version>
-    </dependency>
+    </dependency>   
   </dependencies>
 
   <build>
