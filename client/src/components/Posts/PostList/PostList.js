@@ -1,36 +1,14 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import GamePost from '../GamePost/GamePost';
-import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './PostList.module.css';
 import Spinner from '../../UI/Spinner';
+import PostContext from '../../../store/posts-context';
 
 function PostList() {
-  const [posts, setPosts] = useState(mockGamePosts);
+  const postsCtx = useContext(PostContext);
 
-  function fetchMoreData() {
-    setTimeout(() => {
-      console.log('loaded');
-      setPosts((prevPosts) => {
-        return prevPosts.concat(
-          Array.from({ length: 2 }).map(() => {
-            const id = Math.random();
-            return {
-              id,
-              gameTitle: 'Game Name',
-              devName: 'Dev Name',
-              description:
-                // eslint-disable-next-line max-len
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-              rating: 5,
-            };
-          })
-        );
-      });
-    }, 1500);
-  }
-
-  const availablePosts = posts.map((post) => {
+  const availablePosts = postsCtx.homePosts.map((post) => {
     return (
       <GamePost
         id={post.id}
@@ -46,8 +24,8 @@ function PostList() {
   return (
     <div className={styles.postList}>
       <InfiniteScroll
-        dataLength={posts.length}
-        next={fetchMoreData}
+        dataLength={postsCtx.homePosts.length}
+        next={postsCtx.fetchMoreHomePosts}
         hasMore={true}
         loader={<Spinner />}
         className={styles.infiniteScroll}
@@ -56,7 +34,7 @@ function PostList() {
             <b>Yay! You have seen it all</b>
           </p>
         }
-        refreshFunction={fetchMoreData}
+        refreshFunction={postsCtx.fetchMoreHomePosts}
         pullDownToRefresh
         pullDownToRefreshThreshold={50}
         pullDownToRefreshContent={

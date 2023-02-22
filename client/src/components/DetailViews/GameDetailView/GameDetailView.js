@@ -1,8 +1,8 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import Button from '../../UI/Button/Button';
-import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import styles from './GameDetailView.module.css';
 import { useParams } from 'react-router-dom';
+import PostContext from '../../../store/posts-context';
 
 const defaultGameDetails = {
   gameTitle: '',
@@ -30,6 +30,7 @@ function gameReducer(state, action) {
 
 function GameDetailView() {
   const { id } = useParams();
+  const postsCtx = useContext(PostContext);
   const [gameDetails, dispatchGameDetails] = useReducer(gameReducer, {
     gameTitle: '',
     gamePrice: 0,
@@ -37,14 +38,15 @@ function GameDetailView() {
     gameDesc: '',
     reviews: [],
   });
-
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // TODO: Use game id to fetch game details from the backend
     // TODO: Add loading animation while fetching data
     setIsLoading(true);
-    const gameDetails = mockGamePosts.find((game) => game.id === Number(id));
+    const gameDetails = postsCtx.homePosts.find(
+      (game) => game.id === Number(id)
+    );
     dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: gameDetails });
     setIsLoading(false);
   }, []);
