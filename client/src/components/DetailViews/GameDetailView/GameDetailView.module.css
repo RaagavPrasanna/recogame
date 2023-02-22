@@ -14,14 +14,8 @@
   margin-top: 1rem;
 }
 
-.buttons {
-  display: flex;
-  width: 40%;
-  justify-content: space-around;
-}
-
 .buttons * {
-  margin: 2rem 0;
+  margin: 2rem 1rem;
 }
 
 .buttons span {
