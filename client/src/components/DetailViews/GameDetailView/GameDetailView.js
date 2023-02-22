@@ -52,16 +52,16 @@ function GameDetailView({ id }) {
       {isLoading && <p>Loading...</p>}
       <h1>{gameDetails.gameTitle}</h1>
       <img src={gameDetails.gameImgSrc} />
-      <p>{gameDetails.gameDesc}</p>
-      <div>
-        <span>{gameDetails.gamePrice}</span>
+      <div className={styles.buttons}>
+        <span>${gameDetails.gamePrice}</span>
         <Button>BUY</Button>
         <Button>ADD TO WISHLIST</Button>
         <Button>ADD TO MY GAMELIST</Button>
         {/* TODO: Drop down menu */}
       </div>
+      <p className={styles.desc}>{gameDetails.gameDesc}</p>
       <div>
-        <h2>Community Review</h2>
+        <h2>Community Reviews</h2>
         {/* TODO: Render reviews */}
       </div>
     </div>

@@ -13,7 +13,7 @@
   background-color: #899fa0;
 }
 
-img {
+.gamepost img {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
