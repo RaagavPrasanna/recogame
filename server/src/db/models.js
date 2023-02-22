@@ -1,27 +1,49 @@
 import mongoose from 'mongoose';
 
-
-/** Post with text content */
-const PostText = mongoose.model(
-  'post-text',
+/**list of games with appid and name */
+const AllGames = mongoose.model(
+  'all-games',
   new mongoose.Schema({
-    username: String,
-    text: String
+    appid: {
+      type: Number,
+      required: true,
+      unique: true
+    },
+    name: String,
   })
 );
 
-/** Post with image content */
-const PostImage = mongoose.model(
-  'post-image',
+const GameDetails = mongoose.model(
+  'game-details',
   new mongoose.Schema({
-    username: String,
-    imageUrl: String
+    steamId: {
+      type: Number,
+      required: [true, 'steamId is requird'],
+      unique: true
+    },
+    name: String,
+    developers: [String],
+    publishers: [String],
+    imageHeader: String,
+    imageBackground: String,
+    categories: [String],
+    genres: [String],
+    storeUrl: String,
+    detailedDescription: String,
+    shortDescription: String,
+    supportedLanguages: [String],
+    platforms: [String],
+    metacritic: String,
+    screenshots: [String],
+    movies: [String],
+    recommendations: Number,
+    background: String,
+    contentDescriptors: String
   })
 );
-
 
 export default {
-  PostText,
-  PostImage
+  AllGames,
+  GameDetails
 };
 
