@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class Game 
 {
   private ObjectId id;
-
   private int appid;
   private String name;
 
