@@ -3,7 +3,7 @@
 1. **BACKEND**: Have an endpoint for the search field
     - Names of the games - `/api/all-games`
     - Accounts - `/api/all-accounts`
-    - **etc**
+    - *etc*
 2. **FRONTEND**: Fetch from this endpoint and use it as datalist
     - Fetch
         ```javascript
@@ -38,7 +38,7 @@
 # Home page results algorithm
 
 1. **BACKEND**: Have a view with information only relevant for entry on the home page
-    - Game - `id, shortDescription, image` + `rating` + **etc**
+    - Game - `id, shortDescription, image` + `rating` + *etc*
     - Account - `id, description, image`
 2. **BACKEND**: Have an endpoint for fetching from this view
     - Sorting
@@ -46,7 +46,7 @@
             - Name
             - Release Date
             - Rating
-            - **etc**
+            - *etc*
     - Pagination
         - `firstId`
             - ID from which start returning entries
