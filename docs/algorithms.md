@@ -57,3 +57,20 @@
             - Number of entries to fetch
 3. **FRONTEND**: Fetch from this endpoint and display as tiles / list
 
+# Rating system algorithm
+
+- Aspects we can rate a game on
+    - Current players (for multiplayer)
+    - User reviews
+        - **Gameplay** - controls, level design, feel
+        - **Narrative** - story, context
+        - **Graphics** - fidelity, aesthetics
+        - **Technical** - performance, bugs
+        - **Audio** - fidelity, acting
+        - **Marketing** - target audience, expectations, controversies
+        - **Social** - community, multiplayer
+        - **Value** - balance game/cost
+    - Thumbs up/down
+    - Recommendations from Steam
+- These aspects can be weighted and summed up to give a single score
+
