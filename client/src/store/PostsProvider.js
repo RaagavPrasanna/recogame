@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 function PostsProvider({ children }) {
   const [posts, setPosts] = useState(mockGamePosts);
+  // TODO: Add separate scoll position states for each page
   const [scrollPosition, setScrollPosition] = useState(0);
 
   function fetchMoreData() {
