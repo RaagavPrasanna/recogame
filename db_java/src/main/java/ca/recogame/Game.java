@@ -58,12 +58,15 @@ public class Game
     Pattern pattern = Pattern.compile("[<>]");
    //Search for occurance "<" or "<" within the string str 
     Matcher matcher = pattern.matcher(checkText);
-   if (matcher.find()) {         
-        System.out.println("Input string is not acceptable");
-   } else {
-       System.out.println("Input string is acceptable");
-       isValide = true;
-   }  
+    if (matcher.find() == false){
+      isValide = true ;
+    }
+  //  if (matcher.find()) {         
+  //       System.out.println("Input string is not acceptable");
+  //  } else {
+  //      System.out.println("Input string is acceptable");
+  //      isValide = true;
+  //  }  
    return isValide;
 }
   @Override

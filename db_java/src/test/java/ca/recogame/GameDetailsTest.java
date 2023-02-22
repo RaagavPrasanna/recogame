@@ -61,6 +61,7 @@ public class GameDetailsTest {
         );
 
         assertEquals(5, game.getRecommendations());
+        // assertEquals(null, game.getName());
         assertEquals("Valve", game.getDevelopers().get(0));
     }
 

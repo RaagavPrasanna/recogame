@@ -63,7 +63,8 @@ public class App
            
             // flora.find(Filters.gte("height", 1)).forEach(System.out::println);
             // flora.find().forEach(System.out::println);
-            allgames.find(Filters.eq("appid", 8888 )).forEach(System.out::println);
+            allgames.find().forEach(System.out::println);
+            // allgames.find(Filters.eq("appid", 8888 )).forEach(System.out::println);
         }catch(Exception e){
             System.out.println(e);
         }
