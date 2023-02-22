@@ -63,7 +63,58 @@ public class GameDetailsTest {
         assertEquals(5, game.getRecommendations());
         // assertEquals(null, game.getName());
         assertEquals("Valve", game.getDevelopers().get(0));
+        assertEquals("PvP", game.getCategories().get(1));
     }
+
+    @Test
+    public void TestNormalizedString1(){
+      GameDetails game = new GameDetails();
+      game.setName("<test");
+      assertEquals(null, game.getName());
+    }
+
+    @Test
+    public void TestNormalizedString2(){
+      GameDetails game = new GameDetails();
+      game.setName("<te]st");
+      assertEquals(null, game.getName());
+    }
+
+    @Test
+    public void TestNormalizedString3(){
+      GameDetails game = new GameDetails();
+      game.setName("test");
+      assertEquals("test", game.getName());
+    }
+
+    @Test
+    public void TestNormalizedList1(){
+      List<String> developers = new ArrayList<String>();
+      developers.add("Valve");  
+      developers.add("test");  
+      GameDetails game = new GameDetails();
+      game.setDevelopers(developers);
+      assertEquals("Valve", game.getDevelopers().get(0));      
+    }
+
+    @Test
+    public void TestNormalizedListDevelopers(){
+      List<String> developers = new ArrayList<String>();
+      developers.add("Valve");  
+      developers.add("te<s]t");  
+      GameDetails game = new GameDetails();
+      game.setDevelopers(developers);      
+      assertEquals(null, game.getDevelopers());      
+    }
+
+    @Test
+    public void TestGetNormalizedStringName(){
+      GameDetails game = new GameDetails();
+      game.setName("nam>e");
+      assertEquals(null, game.getName());
+    }
+
+
 
  
 }

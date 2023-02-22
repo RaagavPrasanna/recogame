@@ -9,8 +9,6 @@ import java.text.Normalizer.Form;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.event.DocumentEvent;
-
 public class GameDetails {
   private ObjectId id;
   private int steamId;
@@ -83,14 +81,7 @@ public class GameDetails {
   }
 
   public void setName(String name) {
-    if (name == null){
-      this.name = null;
-    }else if (normalizedString(name)){
-      this.name = name;
-    }else{
-      System.out.println("Not valide in 'name' !");
-      this.name = null;
-    }
+    this.name = getNormalizedString(name, "name");   
   }
 
   public List<String> getDevelopers() {
@@ -98,14 +89,8 @@ public class GameDetails {
   }
 
   public void setDevelopers(List<String> developers) {
-    if (developers == null){
-      this.developers = null;
-    }else if (!normalizedList(developers)){
-      this.developers = developers;     
-    }else{
-      System.out.println("Not valide in developers fields!");
-      this.developers = null;
-    }   
+    this.developers = 
+      getNormalizedList(developers, "developers");
   }
 
   public List<String> getPublishers() {
@@ -113,14 +98,8 @@ public class GameDetails {
   }
 
   public void setPublishers(List<String> publishers) {
-    if (publishers == null){
-      this.publishers = null;
-    }else if (normalizedList(publishers)){
-      this.publishers = publishers;     
-    }else{
-      System.out.println("Not valide in publishers fields!");
-      this.publishers = null;
-    }    
+    this.publishers = 
+      getNormalizedList(publishers, "publisher");    
   }
 
   public String getImageHeader() {
@@ -128,7 +107,8 @@ public class GameDetails {
   }
 
   public void setImageHeader(String imageHeader) {
-    this.imageHeader = imageHeader;
+    this.imageHeader = 
+      getNormalizedString(imageHeader, "imageHeader");   
   }
 
   public String getImageBackground() {
@@ -136,7 +116,8 @@ public class GameDetails {
   }
 
   public void setImageBackground(String imageBackground) {
-    this.imageBackground = imageBackground;
+    this.imageBackground = 
+      getNormalizedString(imageBackground, "imageBackground");    
   }
 
   public List<String> getCategories() {
@@ -144,7 +125,8 @@ public class GameDetails {
   }
 
   public void setCategories(List<String> categories) {
-    this.categories = categories;
+    this.categories = 
+      getNormalizedList(categories, "categories");
   }
 
   public List<String> getGenres() {
@@ -152,25 +134,24 @@ public class GameDetails {
   }
 
   public void setGenres(List<String> genres) {
-    this.genres = genres;
+    this.genres = getNormalizedList(genres, "genres");
   }
-
 
   public String getStoreUrl() {
     return storeUrl;
   }
 
   public void setStoreUrl(String storeUrl) {
-    this.storeUrl = storeUrl;
+    this.storeUrl = getNormalizedString(storeUrl, "storeUrl");
   }
-
 
   public String getDetailedDescription() {
     return detailedDescription;
   }
 
   public void setDetailedDescription(String detailedDescription) {
-    this.detailedDescription = detailedDescription;
+    this.detailedDescription = 
+      getNormalizedString(detailedDescription, "detailedDescription");
   }
 
   public String getShortDescription() {
@@ -178,7 +159,8 @@ public class GameDetails {
   }
 
   public void setShortDescription(String shortDescription) {
-    this.shortDescription = shortDescription;
+    this.shortDescription = 
+      getNormalizedString(shortDescription, "shortDescription");
   }
 
   public List<String> getSupportedLanguages() {
@@ -186,7 +168,8 @@ public class GameDetails {
   }
 
   public void setSupportedLanguages(List<String> supportedLanguages) {
-    this.supportedLanguages = supportedLanguages;
+    this.supportedLanguages = 
+      getNormalizedList(supportedLanguages, "supportedLanguages");
   }
 
   public List<String> getPlatforms() {
@@ -194,7 +177,8 @@ public class GameDetails {
   }
 
   public void setPlatforms(List<String> platforms) {
-    this.platforms = platforms;
+    this.platforms = 
+      getNormalizedList(platforms, "platforms");
   }
 
   public String getMetacritic() {
@@ -202,7 +186,8 @@ public class GameDetails {
   }
 
   public void setMetacritic(String metacritic) {
-    this.metacritic = metacritic;
+    this.metacritic = 
+      getNormalizedString(metacritic, "metacritic");
   }
 
   public List<String> getScreenshots() {
@@ -210,7 +195,8 @@ public class GameDetails {
   }
 
   public void setScreenshots(List<String> screenshots) {
-    this.screenshots = screenshots;
+    this.screenshots = 
+      getNormalizedList(screenshots, "screenshots");
   }
 
   public List<String> getMovies() {
@@ -218,7 +204,7 @@ public class GameDetails {
   }
 
   public void setMovies(List<String> movies) {
-    this.movies = movies;
+    this.movies = getNormalizedList(movies, "movies");
   }
 
   public int getRecommendations() {
@@ -234,16 +220,17 @@ public class GameDetails {
   }
 
   public void setBackground(String background) {
-    this.background = background;
+    this.background = 
+      getNormalizedString(background, "background");
   }
 
   public String getContentDescriptors() {
     return contentDescriptors;
   }
 
-
   public void setContentDescriptors(String contentDescriptors) {
-    this.contentDescriptors = contentDescriptors;
+    this.contentDescriptors = 
+      getNormalizedString(contentDescriptors, "contentDescriptors");
   }
 /**
  * validate string 
@@ -256,7 +243,7 @@ public class GameDetails {
     Pattern pattern = Pattern.compile("[<>]");
    //Search for occurance "<" or "<" within the string str 
     Matcher matcher = pattern.matcher(checkText);
-   if (!matcher.find()) {         
+   if (matcher.find() == false ) {         
        isValide = true;
    }  
    return isValide;
@@ -266,12 +253,47 @@ public class GameDetails {
  * @param input a list of string
  * @return      true if all the string are vnormlized, else return false.
  */
-  private boolean normalizedList(List<String> input){
+  private boolean normalizedList(List<String> input){   
     for ( String x : input){
-      if(!normalizedString(x)){
+      if(normalizedString(x) == false){
         return false;
       }
     }
     return true;
   }
+/**
+ * use NormalizedString() and normalizedList() to 
+ * valide the input string and return the value of input , or null.
+ * @param input List<String>
+ * @param field String for error on normalization of this field. 
+ * @return      the same input as List<String> or null
+ */
+  private List<String> getNormalizedList(List<String> input, String field){
+    if (input == null){
+      return null;
+    }else if (normalizedList(input) == true){
+      return input;
+    }else{
+      System.out.println("Not valide in " + field + " !");
+      return null;
+    }
+  }
+
+/**
+ * use NormalizedString() to valide the input string and return the value of input , or null.
+ * @param input String
+ * @param field String for error message on specific field
+ * @return input or null
+ */ 
+  private String getNormalizedString(String input, String field){
+    if (input == null){
+      return null;
+    }else if ( normalizedString(input) == true ){
+      return input;
+    }else{
+      System.out.println("Not valide in " + field + " !");
+      return null;
+    }
+  }
+
 }
