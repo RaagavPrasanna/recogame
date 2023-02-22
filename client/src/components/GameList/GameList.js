@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Dropdown } from 'react';
 import Button from '../UI/Button/Button';
 import classes from './GameList.module.css';
 
@@ -15,6 +15,7 @@ function GameList() {
       <article>
         <input type="checkbox" onChange={handleChange} />
         Lorem ipsum dolor sit amet.
+        <Button> Edit </Button>
       </article>
       <br />
       <Button> Remove </Button>
