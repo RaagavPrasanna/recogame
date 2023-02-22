@@ -77,7 +77,7 @@ async function getGameFromDB(id) {
 
 router.use(express.json());
 
-router.get('/all_games', async (_, res) => {
+router.get('/all-games', async (_, res) => {
   try {
     const games = await getAllGamesFromDB();
     res.json(games);
@@ -89,7 +89,7 @@ router.get('/all_games', async (_, res) => {
 router.get('/game/:id', async (req, res) => {
   try {
     if(isNaN(req.params.id)) {
-      res.status(400).send('Invalid id');
+      res.status(400).send('Invalid ID');
       return;
     }
     const game = await getGameFromDB(req.params.id);
@@ -102,10 +102,6 @@ router.get('/game/:id', async (req, res) => {
     res.status(500).send('Server error');
     return;
   }
-});
-
-router.get('/', (_, res) => {
-  res.send('Hello world');
 });
 
 export default router;

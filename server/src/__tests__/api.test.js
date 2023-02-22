@@ -10,7 +10,7 @@ describe('API GET', () => {
     const MOCK_GAMES = [{ appid: 1, name: 'Uncharted' }, { appid: 2, name: 'Mario' }];
     mockingoose(models.AllGames).toReturn(MOCK_GAMES, 'find');
 
-    const res = await request(app).get('/api/all_games');
+    const res = await request(app).get('/api/all-games');
 
     // To remove extra _id key value pair that is added by mockingoose
     res.body.forEach(e => delete e._id);
