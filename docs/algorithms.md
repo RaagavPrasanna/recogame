@@ -55,7 +55,7 @@
             - Because client only knows about last ID it fetched, this ID can be passed as `firstId` and `skipFirstId`
         - `count`
             - Number of entries to fetch
-3. **FRONTEND**: Fetch from this endpoint and display as tiles / list
+3. **FRONTEND**: Fetch from this endpoint and display as tiles/list
 
 # Rating system algorithm
 
@@ -67,10 +67,10 @@
         - **Graphics** - fidelity, aesthetics
         - **Technical** - performance, bugs
         - **Audio** - fidelity, acting
-        - **Marketing** - target audience, expectations, controversies
+        - **Marketing** - target audience, expectations based on previous entries/competitors, controversies
         - **Social** - community, multiplayer
         - **Value** - balance game/cost
     - Thumbs up/down
     - Recommendations from Steam
-- These aspects can be weighted and summed up to give a single score
+- These aspects can be [weighted](https://www.gamesindustry.biz/what-drives-a-review-score) and summed up to give a single score
 
