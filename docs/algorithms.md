@@ -1,4 +1,4 @@
-# Search results algorithm
+# Search results
 
 1. **BACKEND**: Have an endpoint for the search field
     - Names of the games - `/api/all-games`
@@ -35,7 +35,7 @@
         ```
 3. Browser's matching algorithm for auto suggestions should be good enough
 
-# Home page results algorithm
+# Home page results
 
 1. **BACKEND**: Have a view with information only relevant for entry on the home page
     - Game - `id, shortDescription, image` + `rating` + *etc*
@@ -57,7 +57,7 @@
             - Number of entries to fetch
 3. **FRONTEND**: Fetch from this endpoint and display as tiles/list
 
-# Rating system algorithm
+# Rating system
 
 - Aspects we can rate a game on
     - Current players (for multiplayer)
@@ -73,4 +73,22 @@
     - Thumbs up/down
     - Recommendations from Steam
 - These aspects can be [weighted](https://www.gamesindustry.biz/what-drives-a-review-score) and summed up to give a single score
+- Popular/niche score
+
+# Game recommendation
+
+- Aspects we can recommend a game on
+    - [Game rating](#rating-system)
+    - User preference
+        - Genres
+        - Keywords
+        - Review aspects
+        - Platforms/OS
+    - User library
+        - Genres
+        - Keywords
+    - User wishlist
+        - Genres
+        - Keywords
+    - Games from users with similar preferences
 
