@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import styles from './GamePost.module.css';
 
-function GamePost({ gameTitle, devName, description, rating }) {
+function GamePost({ gameTitle, devName, description, rating, id }) {
   return (
-    <li className={styles.gamepost}>
+    <Link className={styles.gamepost} to={`/game/${id}`}>
       <img
         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
         // width={100}
@@ -13,7 +14,7 @@ function GamePost({ gameTitle, devName, description, rating }) {
         <span>{'⭐️'.repeat(rating)}</span>
         <p>{description}</p>
       </div>
-    </li>
+    </Link>
   );
 }
 

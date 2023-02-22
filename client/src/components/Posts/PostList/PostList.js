@@ -4,7 +4,6 @@ import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './PostList.module.css';
 import Spinner from '../../UI/Spinner';
-import { Link } from 'react-router-dom';
 
 function PostList() {
   const [posts, setPosts] = useState(mockGamePosts);
@@ -14,7 +13,9 @@ function PostList() {
       setPosts((prevPosts) => {
         return prevPosts.concat(
           Array.from({ length: 2 }).map(() => {
+            const id = Math.random();
             return {
+              id,
               gameTitle: 'Game Name',
               devName: 'Dev Name',
               description:
@@ -28,16 +29,16 @@ function PostList() {
     }, 1500);
   }
 
-  const availablePosts = posts.map((post, i) => {
+  const availablePosts = posts.map((post) => {
     return (
-      <Link key={i} to="/game/1">
-        <GamePost
-          gameTitle={post.gameTitle}
-          devName={post.devName}
-          description={post.description}
-          rating={post.rating}
-        />
-      </Link>
+      <GamePost
+        id={post.id}
+        key={post.id}
+        gameTitle={post.gameTitle}
+        devName={post.devName}
+        description={post.description}
+        rating={post.rating}
+      />
     );
   });
 
