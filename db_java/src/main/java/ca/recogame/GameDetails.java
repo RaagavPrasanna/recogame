@@ -296,4 +296,16 @@ public class GameDetails {
     }
   }
 
+@Override
+public String toString() {
+  return "GameDetails [id=" + id + ", steamId=" + steamId + ", name=" + name + ", developers=" + developers
+      + ", publishers=" + publishers + ", imageHeader=" + imageHeader + ", imageBackground=" + imageBackground
+      + ", categories=" + categories + ", genres=" + genres + ", storeUrl=" + storeUrl + ", detailedDescription="
+      + detailedDescription + ", shortDescription=" + shortDescription + ", supportedLanguages=" + supportedLanguages
+      + ", platforms=" + platforms + ", metacritic=" + metacritic + ", screenshots=" + screenshots + ", movies="
+      + movies + ", recommendations=" + recommendations + ", background=" + background + ", contentDescriptors="
+      + contentDescriptors + "]";
+}
+  
+
 }
