@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from 'react';
 import Button from '../../UI/Button/Button';
 import { mockGamePosts } from '../../../MockData/MockGamePosts';
 import styles from './GameDetailView.module.css';
+import { useParams } from 'react-router-dom';
 
 const defaultGameDetails = {
   gameTitle: '',
@@ -27,7 +28,8 @@ function gameReducer(state, action) {
   return defaultGameDetails;
 }
 
-function GameDetailView({ id }) {
+function GameDetailView() {
+  const { id } = useParams();
   const [gameDetails, dispatchGameDetails] = useReducer(gameReducer, {
     gameTitle: '',
     gamePrice: 0,
@@ -42,7 +44,7 @@ function GameDetailView({ id }) {
     // TODO: Use game id to fetch game details from the backend
     // TODO: Add loading animation while fetching data
     setIsLoading(true);
-    const gameDetails = mockGamePosts.find((game) => game.id === id);
+    const gameDetails = mockGamePosts.find((game) => game.id === Number(id));
     dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: gameDetails });
     setIsLoading(false);
   }, []);

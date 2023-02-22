@@ -10,8 +10,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* TODO: GameDetailView id prop should change dynamically depending on the id in the path */}
-          <Route path="/game/:id" element={<GameDetailView id={1} />} />
+          <Route path="/game/:id" element={<GameDetailView />} />
         </Routes>
       </BrowserRouter>
     </>
