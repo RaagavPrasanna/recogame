@@ -10,13 +10,16 @@ function PostList() {
 
   function fetchMoreData() {
     setTimeout(() => {
+      console.log('loaded');
       setPosts((prevPosts) => {
         return prevPosts.concat(
           Array.from({ length: 2 }).map(() => {
+            const id = Math.random();
             return {
+              id,
               gameTitle: 'Game Name',
               devName: 'Dev Name',
-              review:
+              description:
                 // eslint-disable-next-line max-len
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
               rating: 5,
@@ -27,31 +30,32 @@ function PostList() {
     }, 1500);
   }
 
-  const availablePosts = posts.map((post, i) => {
+  const availablePosts = posts.map((post) => {
     return (
       <GamePost
-        key={i}
+        id={post.id}
+        key={post.id}
         gameTitle={post.gameTitle}
         devName={post.devName}
-        review={post.review}
+        description={post.description}
         rating={post.rating}
       />
     );
   });
 
   return (
-    <div className={styles.postList} style={{ marginTop: '20px' }}>
+    <div className={styles.postList}>
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchMoreData}
         hasMore={true}
         loader={<Spinner />}
+        className={styles.infiniteScroll}
         endMessage={
           <p style={{ textAlign: 'center' }}>
             <b>Yay! You have seen it all</b>
           </p>
         }
-        // below props only if you need pull down functionality
         refreshFunction={fetchMoreData}
         pullDownToRefresh
         pullDownToRefreshThreshold={50}

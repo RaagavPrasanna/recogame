@@ -1,8 +1,28 @@
-.search{
-  position:fixed;
-  right: 0;
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  padding: 1rem 3rem;
+  transition: background-color 0.2s linear;
 }
-.header{
-  position:fixed;
-  left: 0;
+
+.header.showBg {
+  background-color: #536878e1;
+  transition: background-color 0.2s linear;
+}
+
+.header button{
+  transition: background-color 0.2s linear;
+}
+
+.header.showBg button{
+  background-color: #2D3A44;
+  color: #6E7F80;
+  transition: background-color 0.2s linear;
+}
+
+.header.showBg button:hover{
+  background-color: #6E7F80;
+  color: #2D3A44;
 }
