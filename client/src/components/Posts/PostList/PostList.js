@@ -10,6 +10,7 @@ function PostList() {
 
   function fetchMoreData() {
     setTimeout(() => {
+      console.log('loaded');
       setPosts((prevPosts) => {
         return prevPosts.concat(
           Array.from({ length: 2 }).map(() => {
@@ -43,7 +44,7 @@ function PostList() {
   });
 
   return (
-    <div className={styles.postList} style={{ marginTop: '20px' }}>
+    <div className={styles.postList}>
       <InfiniteScroll
         dataLength={posts.length}
         next={fetchMoreData}
