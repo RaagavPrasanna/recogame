@@ -5,7 +5,6 @@ import express from 'express';
 import projectRoot from '../env/project-root.js';
 import api from './routes/api.js';
 import other from './routes/other.js';
-import bodyParser from 'body-parser';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
