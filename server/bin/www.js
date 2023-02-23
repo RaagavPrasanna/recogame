@@ -11,7 +11,7 @@ const EXIT_SIGNALS = ['exit', 'SIGTERM', 'SIGINT'];
 main();
 
 async function main() {
-  await db.connect('620-proof');
+  await db.connect('620-recogame');
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
