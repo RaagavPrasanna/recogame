@@ -10,22 +10,34 @@ import swaggerUi from 'swagger-ui-express';
 
 const app = express();
 
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      title: 'Rest API',
-      description: 'A simple rest API',
-      servers: ['http://localhost:3001']
-    }
+const swaggerDefinition = {
+  openapi: '3.0.0',
+  info: {
+    title: 'Express REST API',
+    description:
+      'This is a REST API application made with Express. It retrieves data from our database.'
   },
-  apis: ['./routes/*.js']
+  servers: [
+    {
+      url: '/api',
+      description: 'api endpoint for server',
+    },
+  ],
 };
 
-const specs = swaggerJsdoc(swaggerOptions);
+
+const options = {
+  apis: ['./src/express/routes/api.js'],
+  swaggerDefinition,
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+
+// Swagger docs
 app.use(
   '/api-docs',
   swaggerUi.serve,
-  swaggerUi.setup(specs)
+  swaggerUi.setup(swaggerSpec)
 );
 
 // API
