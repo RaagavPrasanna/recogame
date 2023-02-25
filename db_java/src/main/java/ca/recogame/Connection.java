@@ -4,6 +4,7 @@ package ca.recogame;
 import io.github.cdimascio.dotenv.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 //the import below are for connecting with Atlas and the collection
 import com.mongodb.client.MongoClient;
@@ -51,14 +52,27 @@ public class Connection {
     }
   }
 
+  public void insertManyGame(List<Game> games){
+    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
+      //configure database to use the codec
+      MongoDatabase database = mongoClient.getDatabase("620-recogame");
+      MongoCollection<Game> allgames = 
+        database.getCollection("all-games", Game.class);
+      allgames.insertMany(games);
+    }catch (Exception E){
+      System.out.println(" List of games can't be add in database");
+    }
+  }
+
   public void insertOneGameDetails(GameDetails game){
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       //configure database to use the codec
       MongoDatabase database = mongoClient.getDatabase("620-recogame");
       MongoCollection<GameDetails> gameDetails = 
         database.getCollection("game-details", GameDetails.class);
+        gameDetails.insertOne(game);
       // gameDetails.find().forEach(System.out::println);   
-      gameDetails.find(Filters.eq("steamId", 10 )).forEach(System.out::println);
+      // gameDetails.find(Filters.eq("steamId", 10 )).forEach(System.out::println);
     }catch (Exception E){
       System.out.println( game.getName() + " can't be add in database");
     }
