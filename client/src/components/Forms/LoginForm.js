@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Button from '../UI/Button/Button';
-import Modal from '../UI/Modal/Modal';
-import classes from './LoginForm.module.css';
+import { useState } from "react";
+import Button from "../UI/Button/Button";
+import Modal from "../UI/Modal/Modal";
+import classes from "./LoginForm.module.css";
 
 function LoginForm({ onCancel }) {
   const [setUsername] = useState();
@@ -10,7 +10,7 @@ function LoginForm({ onCancel }) {
     e.preventDefault();
   };
   return (
-    <Modal onClick={ onCancel }>
+    <Modal onClick={onCancel}>
       <form className={classes.loginForm}>
         <h2>Login</h2>
         <label>
@@ -19,7 +19,7 @@ function LoginForm({ onCancel }) {
           <input
             id="username"
             type="text"
-            onChange={ (u) => setUsername(u.target.value)} 
+            onChange={(u) => setUsername(u.target.value)}
             required
           />
         </label>
@@ -31,15 +31,15 @@ function LoginForm({ onCancel }) {
           <input
             id="password"
             type="password"
-            onChange={ (p) => setPassword(p.target.value) }
+            onChange={(p) => setPassword(p.target.value)}
             required
           />
         </label>
         <br />
         <br />
         <div>
-          <Button onClick={ onCancel }>Cancel</Button>
-          <Button onSubmit={ handleSubmit }>Sign In</Button>
+          <Button onClick={onCancel}>Cancel</Button>
+          <Button onSubmit={handleSubmit}>Sign In</Button>
         </div>
       </form>
     </Modal>

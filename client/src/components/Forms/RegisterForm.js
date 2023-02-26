@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Button from '../UI/Button/Button';
-import Modal from '../UI/Modal/Modal';
-import classes from './RegisterForm.module.css';
+import { useState } from "react";
+import Button from "../UI/Button/Button";
+import Modal from "../UI/Modal/Modal";
+import classes from "./RegisterForm.module.css";
 
 function RegisterForm({ onCancel, isValid }) {
   const [setUsername] = useState();
@@ -14,7 +14,7 @@ function RegisterForm({ onCancel, isValid }) {
   };
 
   return (
-    <Modal onClick={ onCancel }>
+    <Modal onClick={onCancel}>
       <form className={classes.registerForm}>
         <Button> Log in with Steam</Button>
         <h2> Register </h2>
@@ -23,7 +23,7 @@ function RegisterForm({ onCancel, isValid }) {
         <input
           id="username"
           type="text"
-          onChange={ (e) => setUsername(e.target.value) }
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <br />
@@ -33,7 +33,7 @@ function RegisterForm({ onCancel, isValid }) {
         <input
           id="password"
           type="password"
-          onChange={ (e) => setPassword(e.target.value) }
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <br />
@@ -43,7 +43,7 @@ function RegisterForm({ onCancel, isValid }) {
         <input
           id="email"
           type="email"
-          onChange={ (e) => setEmail(e.target.value) }
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />
@@ -53,7 +53,7 @@ function RegisterForm({ onCancel, isValid }) {
         <input
           id="gameTags"
           type="text"
-          onChange={ (e) => setGameTags(e.target.value) }
+          onChange={(e) => setGameTags(e.target.value)}
           required
         />
         <br />
@@ -69,11 +69,11 @@ function RegisterForm({ onCancel, isValid }) {
         <br />
         <br />
         <div>
-          <Button onClick={ () => handleSubmit() }> Register </Button>
-          <Button onClick={ () => onCancel() }>Cancel</Button>
+          <Button onClick={() => handleSubmit()}> Register </Button>
+          <Button onClick={() => onCancel()}>Cancel</Button>
         </div>
       </form>
-      <div>{ isValid || 'Username must contain at least 4 characters.' }</div>
+      <div>{isValid || "Username must contain at least 4 characters."}</div>
     </Modal>
   );
 }
