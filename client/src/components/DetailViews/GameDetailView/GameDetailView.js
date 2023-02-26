@@ -1,25 +1,25 @@
-import { useContext, useEffect, useReducer, useState } from "react";
-import Button from "../../UI/Button/Button";
-import styles from "./GameDetailView.module.css";
-import { useParams } from "react-router-dom";
-import PostContext from "../../../store/posts-context";
+import { useContext, useEffect, useReducer, useState } from 'react';
+import Button from '../../UI/Button/Button';
+import styles from './GameDetailView.module.css';
+import { useParams } from 'react-router-dom';
+import PostContext from '../../../store/posts-context';
 
 const defaultGameDetails = {
-  gameTitle: "",
+  gameTitle: '',
   gamePrice: 0,
-  gameImgSrc: "",
-  gameDesc: "",
+  gameImgSrc: '',
+  gameDesc: '',
   reviews: [],
 };
 
 function gameReducer(action) {
-  if (action.type === "ADD_ALL_DETAILS") {
+  if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
     return {
       gameTitle: game.gameTitle,
       gamePrice: game.price,
       gameImgSrc:
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
       gameDesc: game.description,
       reviews: [],
     };
@@ -32,10 +32,10 @@ function GameDetailView() {
   const { id } = useParams();
   const postsCtx = useContext(PostContext);
   const [gameDetails, dispatchGameDetails] = useReducer(gameReducer, {
-    gameTitle: "",
+    gameTitle: '',
     gamePrice: 0,
-    gameImgSrc: "",
-    gameDesc: "",
+    gameImgSrc: '',
+    gameDesc: '',
     reviews: [],
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ function GameDetailView() {
     const gameDetails = postsCtx.homePosts.find(
       (game) => game.id === Number(id)
     );
-    dispatchGameDetails({ type: "ADD_ALL_DETAILS", game: gameDetails });
+    dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: gameDetails });
     setIsLoading(false);
   }, []);
 
