@@ -1,14 +1,13 @@
-import { useRef, useState } from 'react';
+import {useState } from 'react';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './RegisterForm.module.css';
 
 function RegisterForm({ onCancel, isValid }) {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
-  const [email, setEmail] = useState();
-  const [gameTags, setGameTags] = useState();
-  const [profilePic, setProfilePicture] = useState();
+  const [setUsername] = useState();
+  const [setPassword] = useState();
+  const [setEmail] = useState();
+  const [setGameTags] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +65,6 @@ function RegisterForm({ onCancel, isValid }) {
           type="file"
           accept="image/*"
           multiple="false"
-          // ref={useRef}
         />
         <br />
         <br />

@@ -5,8 +5,8 @@ import classes from './LoginForm.module.css';
 
 function LoginForm({ onCancel }) {
 
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [setUsername] = useState();
+  const [setPassword] = useState();
   
   const handleSubmit = (e) => {
     e.preventDefault();
