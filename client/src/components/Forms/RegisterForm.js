@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Button from "../UI/Button/Button";
-import Modal from "../UI/Modal/Modal";
-import classes from "./RegisterForm.module.css";
+import { useState } from 'react';
+import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
+import classes from './RegisterForm.module.css';
 
 function RegisterForm({ onCancel, isValid }) {
   const [setUsername] = useState();
@@ -21,8 +21,8 @@ function RegisterForm({ onCancel, isValid }) {
         <label> Username </label>
         <br />
         <input
-          id="username"
-          type="text"
+          id='username'
+          type='text'
           onChange={(e) => setUsername(e.target.value)}
           required
         />
@@ -31,8 +31,8 @@ function RegisterForm({ onCancel, isValid }) {
         <label> Password </label>
         <br />
         <input
-          id="password"
-          type="password"
+          id='password'
+          type='password'
           onChange={(e) => setPassword(e.target.value)}
           required
         />
@@ -41,8 +41,8 @@ function RegisterForm({ onCancel, isValid }) {
         <label> Email </label>
         <br />
         <input
-          id="email"
-          type="email"
+          id='email'
+          type='email'
           onChange={(e) => setEmail(e.target.value)}
           required
         />
@@ -51,8 +51,8 @@ function RegisterForm({ onCancel, isValid }) {
         <label> Game Tags </label>
         <br />
         <input
-          id="gameTags"
-          type="text"
+          id='gameTags'
+          type='text'
           onChange={(e) => setGameTags(e.target.value)}
           required
         />
@@ -61,10 +61,10 @@ function RegisterForm({ onCancel, isValid }) {
         <label> Profile Picture </label>
         <br />
         <input
-          id="profilePicture"
-          type="file"
-          accept="image/*"
-          multiple="false"
+          id='profilePicture'
+          type='file'
+          accept='image/*'
+          multiple='false'
         />
         <br />
         <br />
@@ -73,7 +73,7 @@ function RegisterForm({ onCancel, isValid }) {
           <Button onClick={() => onCancel()}>Cancel</Button>
         </div>
       </form>
-      <div>{isValid || "Username must contain at least 4 characters."}</div>
+      <div>{isValid || 'Username must contain at least 4 characters.'}</div>
     </Modal>
   );
 }

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Button from "../UI/Button/Button";
-import classes from "./GameList.module.css";
+import { useState } from 'react';
+import Button from '../UI/Button/Button';
+import classes from './GameList.module.css';
 
 function GameList() {
   const [checked, setChecked] = useState(false);
@@ -13,7 +13,7 @@ function GameList() {
     <div className={classes.gameList}>
       <h3> Wishlist </h3>
       <article>
-        <input type="checkbox" onChange={handleChange} />
+        <input type='checkbox' onChange={handleChange} />
         Lorem ipsum dolor sit amet.
         <Button> Edit </Button>
       </article>

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Button from "../UI/Button/Button";
-import Modal from "../UI/Modal/Modal";
-import classes from "./LoginForm.module.css";
+import { useState } from 'react';
+import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
+import classes from './LoginForm.module.css';
 
 function LoginForm({ onCancel }) {
   const [setUsername] = useState();
@@ -17,8 +17,8 @@ function LoginForm({ onCancel }) {
           Username:
           <br />
           <input
-            id="username"
-            type="text"
+            id='username'
+            type='text'
             onChange={(u) => setUsername(u.target.value)}
             required
           />
@@ -29,8 +29,8 @@ function LoginForm({ onCancel }) {
           Password:
           <br />
           <input
-            id="password"
-            type="password"
+            id='password'
+            type='password'
             onChange={(p) => setPassword(p.target.value)}
             required
           />
