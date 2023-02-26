@@ -1,18 +1,14 @@
-import { useRef, useState } from 'react';
+import {useState } from 'react';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 
 function LoginForm({ onCancel }) {
-
   const [setUsername] = useState();
   const [setPassword] = useState();
-  
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
-
   return (
     <Modal onClick={onCancel}>
       <form className={classes.loginForm}>

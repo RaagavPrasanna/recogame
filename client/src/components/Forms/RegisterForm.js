@@ -1,9 +1,9 @@
-import {useState } from 'react';
+import {useState} from 'react';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './RegisterForm.module.css';
 
-function RegisterForm({ onCancel, isValid }) {
+function RegisterForm({onCancel, isValid}) {
   const [setUsername] = useState();
   const [setPassword] = useState();
   const [setEmail] = useState();
@@ -73,7 +73,7 @@ function RegisterForm({ onCancel, isValid }) {
           <Button onClick={() => onCancel()}>Cancel</Button>
         </div>
       </form>
-      {/* <div>{isValid || 'Username must contain at least 4 characters.'}</div> */}
+      <div>{isValid || 'Username must contain at least 4 characters.'}</div>
     </Modal>
   );
 }
