@@ -1,0 +1,37 @@
+.gameDetails {
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  color: #536878;
+}
+
+.gameDetails h1 {
+  margin-top: 2rem;
+}
+
+.gameDetails img {
+  width: 15em;
+  margin-top: 1rem;
+}
+
+.buttons * {
+  margin: 2rem 1rem;
+}
+
+.buttons span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.gameDetails p {
+  margin: 0;
+}
+
+.gameDetails h1,
+.desc {
+  margin-left: 0;
+}
+
+.gameDetails h2 {
+  margin-top: 4rem;
+}
