@@ -1,28 +1,10 @@
 # Sprint 1
 
-- In this sprint, we made a plan and set up infrastructure for future
-    - Frontend
-        - We made concepts of how the pages will look like
-        - We planed how user will go from one page to another
-        - We implemented the home page with infinite-scroll feed and infrastructure to fetch from the backend
-    - Backend
-        - We wrote scrips to fetch from third party APIs
-        - We setup DB with mock data
-        - We implemented Express application along with routes to return data from DB
-    - Other
-        - We set up CI/CD pipeline with testing, linting, and deployment
-        - We researched the algorithms we need to implement
-- We set up reasonable goals for this sprint
-    - The amount of workload was just right, it was challenging but not impossible
-    - We are finished all the tasks just in time
-- Our communication has improved since preliminary sprint
-    - We were using GitLab issue board much more often
-        - We set up a template how to tag issues to filter them more effectively
-        - We are constantly updating our issue board to track our progress
-    - We organised stand-up meetings every class
-        - We talked about the progress on the current tasks
-        - We planned out who is going to work on what in future
-- We are still not pre-assigning the tasks
-    - It works for our team since everyone can take a task that they are most interested or capable in
-    - Since we are effectively using issue boards and stand-ups, this way of splitting the tasks works
+During Sprint 1, our team focused on planning and setting up infrastructure for the future sprints. On the frontend side, we designed of our pages and created a plan for user navigation. We also implemented the home page with an infinite-scroll feed and set up code to fetch data about games from the backend API. On the backend side, we wrote scripts to fetch data from third-party APIs (Steam, IGDB), set up a database with some mock data, and created an Express app with routes to return data from our DB. We also set up a CI/CD pipeline with testing, linting, and deployment. Finally, we researched the algorithms we need to implement (search, filter, recommendation).
+
+Overall, we felt that the workload we planned for this sprint was just right, since we were able to complete all of our tasks just on time. Plus, the tasks we planned were challenging, but not impossible.
+
+Our communication as a team has improved since the preliminary sprint. Firstly, we are now using GitLab issue board more often. We created a template for tagging issues and are constantly updating our board to track progress. We also now hold stand-up meetings every class to discuss our progress on current tasks and plan out who will work on what in the task.
+
+We still do not pre-assign tasks. Instead, we let team members choose tasks they are interested or capable in. This method works well for us, since we are effectively using issue boards and stand-ups to stay organized.
 
