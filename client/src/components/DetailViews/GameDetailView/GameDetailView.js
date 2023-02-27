@@ -44,10 +44,10 @@ function GameDetailView() {
     // TODO: Use game id to fetch game details from the backend
     // TODO: Add loading animation while fetching data
     setIsLoading(true);
-    const gameDetails = postsCtx.homePosts.find(
+    const currentGame = postsCtx.homePosts.find(
       (game) => game.id === Number(id)
     );
-    dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: gameDetails });
+    dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: currentGame });
     setIsLoading(false);
   }, []);
 
