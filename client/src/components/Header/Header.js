@@ -8,7 +8,9 @@ function Header() {
   const headerRef = useRef();
 
   const changeNavBg = () => {
-    window.scrollY >= headerRef.current.offsetHeight ? setNavBg(true) : setNavBg(false);
+    window.scrollY >= headerRef.current.offsetHeight
+      ? setNavBg(true)
+      : setNavBg(false);
   };
 
   useEffect(() => {
@@ -31,7 +33,9 @@ function Header() {
         <Button> My Game List </Button>
         <Button> Community </Button>
         <Button> Friends </Button>
-        <Button> User </Button>
+        <Link to="/profile">
+          <Button> User </Button>
+        </Link>
       </header>
       <header className={styles.search}>
         <Button> Log In </Button>
