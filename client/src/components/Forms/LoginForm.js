@@ -4,14 +4,12 @@ import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 
 function LoginForm({ onCancel }) {
-
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
 
   return (
     <Modal onClick={onCancel}>

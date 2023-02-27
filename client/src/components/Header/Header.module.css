@@ -3,8 +3,15 @@
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
-  padding: 1rem 3rem;
+  padding: 1rem;
   transition: background-color 0.2s linear;
+}
+.search{
+  right: 0;
+  display: flex;
+  position: fixed;
+  padding-right: 1rem;
+
 }
 
 .header.showBg {
