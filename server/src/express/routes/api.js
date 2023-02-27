@@ -1,10 +1,8 @@
 import express from 'express';
 import models from '../../db/models.js';
-
 const router = express.Router();
 
 const CLEAN_PROJECTION = { _id: false, __v: false };
-
 
 async function getAllGamesFromDB() {
   return await models.AllGames.find({}, CLEAN_PROJECTION);
@@ -14,8 +12,6 @@ async function getAllGamesFromDB() {
 async function getGameFromDB(id) {
   return await models.GameDetails.findOne({ steamId: id }, CLEAN_PROJECTION);
 }
-
-router.use(express.json());
 
 /**
  * @swagger

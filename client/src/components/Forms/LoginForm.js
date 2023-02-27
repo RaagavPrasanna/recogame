@@ -10,6 +10,25 @@ function LoginForm({ onCancel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const handleLogin = async googleData => {
+    const res = await fetch('/authentication/auth', {
+      method: 'POST',
+      body: JSON.stringify({
+        token: googleData.credential
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await res.json();
+    console.log(data);
+  };
+
+  const handleError = err => {
+    console.error(err);
+  };
+
   return (
     <Modal onClick={onCancel}>
       <form className={classes.loginForm}>
@@ -38,7 +57,7 @@ function LoginForm({ onCancel }) {
         </label>
         <br />
         <br />
-        <GoogleLogin />
+        <GoogleLogin onSuccess={handleLogin} onError={handleError}/>
         <br />
         <br />
         <div>
