@@ -1,0 +1,11 @@
+# IDE
+.vscode
+
+# Project specific
+.env
+node_modules/
+client/build
+
+#macOS
+.DS_Store
+
