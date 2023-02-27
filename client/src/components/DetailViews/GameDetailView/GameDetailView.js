@@ -12,7 +12,7 @@ const defaultGameDetails = {
   reviews: [],
 };
 
-function gameReducer(action) {
+function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
     return {
