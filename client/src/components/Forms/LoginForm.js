@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
+import { GoogleLogin } from '@react-oauth/google';
 
 function LoginForm({ onCancel }) {
   const [setUsername] = useState();
@@ -35,6 +36,9 @@ function LoginForm({ onCancel }) {
             required
           />
         </label>
+        <br />
+        <br />
+        <GoogleLogin />
         <br />
         <br />
         <div>
