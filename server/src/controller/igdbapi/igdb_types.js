@@ -49,7 +49,7 @@ class StoreInfo {
 
 class GameInfo {
   /** @type {number} ID. */
-  Id;
+  steamId;
   /** @type {string} URL to buy the game. */
   storeUrl;
   /** @type {string} Title. */

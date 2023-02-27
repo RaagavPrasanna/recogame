@@ -40,46 +40,7 @@ public class App
             System.out.println(game.getName());
         }catch(Exception e){
             System.out.println("can not data shown : "+e);
-        }
-        // --------------------test for 1 game-----------------
-        // String name = "steam";
-        // String id = "10";
-        // Gson gson = new Gson();
-        // Type gameListType = new TypeToken<List<GameDetails>>() {}.getType();
-        //     List<GameDetails> allgameDetails = new ArrayList<GameDetails>();
-        //     GameDetails gameDetails = new GameDetails();
-        //     // String command = "./server/bin/fetch.js "+ name + " info --id " + id ;
-        //     // System.out.println(command);
-        //     // set/start ProcessBuilder
-        //     ProcessBuilder processBuilder = new ProcessBuilder("node", "./server/bin/fetch.js", name, "info","--id", id);
-        //     // ProcessBuilder processBuilder = new ProcessBuilder("node", command);
-        //     Process process = processBuilder.start();
-        //     // get the output stream of the process
-        //     InputStream stdout = process.getInputStream();
-        //     try (BufferedReader reader = new BufferedReader(
-        //             new InputStreamReader(stdout))) {
-        //         Thread task = new Thread(() -> {
-        //             String line;
-        //             try {
-        //                 while ((line = reader.readLine()) != null) {                
-        //                     // System.out.println(line);
-        //                     GameDetails newGame = gson.fromJson(line, GameDetails.class);
-        //                     allgameDetails.add(newGame);                   
-        //                     System.out.println(newGame.getName());
-                            
-        //                 }                    
-        //             } catch (IOException e) {
-        //                 e.printStackTrace();
-        //             }
-        //         });
-        //         task.start();
-        //         task.join();
-        //         // wait for the process to finish
-        //         int exitCode = process.waitFor();
-        //         System.out.println("Process exited with code " + exitCode);
-        //         // System.out.println(allgames.get(100).getAppid());
-        //         System.out.println( allgameDetails.get(0));
-        //     }
+        }        
 
     }
 }

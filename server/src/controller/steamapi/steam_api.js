@@ -28,7 +28,6 @@ async function fetchAllSteamApps() {
     .filter(a => Boolean(a.name));
 }
 
-
 /**
  * Fetch the store info about the app.
  *

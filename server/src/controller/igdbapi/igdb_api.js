@@ -34,6 +34,7 @@ async function fetchPath(dataField) {
 async function fetchAllIGDBApps(){
   let data = [];
   await fetchPath(pathsUrls.allGamesFields).then(info=> data = info);
+  data = JSON.parse(JSON.stringify(data).replace(/"id":/g, '"appid":'));
   return data ;
 }
 
@@ -94,7 +95,7 @@ async function fetchGameInfoWord(keyword) {
  */
 function groupType(info){
   return {
-    id:
+    steamId:
       info.id,
     name:
       info.name,
