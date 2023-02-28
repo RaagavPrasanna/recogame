@@ -31,7 +31,7 @@ function PostsProvider({ children }) {
 
   function handleScrollPosition() {
     if (scrollPosition) {
-      window.scrollTo(0, parseInt(scrollPosition));
+      window.scrollTo(0, scrollPosition);
       setScrollPosition(0);
     }
   }
