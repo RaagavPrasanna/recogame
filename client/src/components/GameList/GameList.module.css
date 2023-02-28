@@ -9,7 +9,17 @@
   color: #2d3a44;
   background-color: #708090;
   display:flex;
-  padding-left: 1em;
+  padding-left: 2em;
   padding: 5px;
-  
+  border-radius: 10px;  
+}
+
+.buttons{
+  background-color: #536878;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+Popup{
+  margin-left: 80%;
 }

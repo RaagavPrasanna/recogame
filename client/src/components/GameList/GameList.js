@@ -1,18 +1,9 @@
-import { useState } from 'react';
+import Popup from 'reactjs-popup';
 import Button from '../UI/Button/Button';
-import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
 
-function GameList({ onCancel }) {
-  const [isOpen, setIsOpen] = useState(false);
+function GameList() {
 
-  const showModal = () => {
-    setIsOpen(true);
-  };
-
-  const hideModal = () => {
-    setIsOpen(false);
-  };
 
   return (
     <div className={classes.gameList}>
@@ -21,12 +12,15 @@ function GameList({ onCancel }) {
       <br />
       <h3> Wishlist </h3>
       <section className={classes.card}>
-        <p>Lorem ipsum dolor sit amet.</p>
-        <Button onClick={showModal}> Edit </Button>
-        <Modal onClick={hideModal}>
-          <Button> Remove </Button>
-          <Button onClick={onCancel}> Cancel </Button>
-        </Modal>
+        Lorem ipsum dolor sit amet.
+        <Popup trigger={<Button> Edit </Button>} modal>
+          {close => (
+            <div className={classes.buttons}>
+              <Button> Remove </Button>
+              <Button onClick={ close }> Cancel </Button>
+            </div>
+          )}
+        </Popup>
       </section>
       <h3> In progress</h3>
 
