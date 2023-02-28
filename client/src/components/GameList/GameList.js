@@ -3,8 +3,16 @@ import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
 
-function GameList() {
-  const [visible, setVisible] = useState(false);
+function GameList({ onCancel }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const hideModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div className={classes.gameList}>
@@ -14,10 +22,10 @@ function GameList() {
       <h3> Wishlist </h3>
       <section className={classes.card}>
         <p>Lorem ipsum dolor sit amet.</p>
-        <Button onClick={setVisible}> Edit </Button>
-        <Modal onRequestClose={() => setVisible(false)} isOpen={visible}>
+        <Button onClick={showModal}> Edit </Button>
+        <Modal onClick={hideModal}>
           <Button> Remove </Button>
-          <Button onClick={() => setVisible(false)}> Close </Button>
+          <Button onClick={onCancel}> Cancel </Button>
         </Modal>
       </section>
       <h3> In progress</h3>
