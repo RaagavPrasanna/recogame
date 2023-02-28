@@ -1,12 +1,14 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './igdb_types.js';
+import {} from 'dotenv/config';
+//remove--------------------------------------
 
 const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
 
 /**
- * fetch game from IGDB setup path, method, header, and data
+ * fetch game from IGDB setup path,' method, header, and data
  * @param {string} dataField
  * @returns fetch data
  */
@@ -92,10 +94,12 @@ async function fetchGameInfoWord(keyword) {
  * @param {info} game info
  * @returns {Promise<types.GameInfo>} GameInfo types.
  */
-function groupType(info){
+function groupType(info, apiName = 'igdb'){
   return {
-    id:
+    sourceId:
       info.id,
+    sourceName:
+      apiName,
     name:
       info.name,
     developers:
