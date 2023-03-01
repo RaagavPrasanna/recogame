@@ -3,6 +3,7 @@
   flex-direction: column;
   align-content: flex-start;
   color: #ffffff;
+  padding: 1.5rem;
 }
 
 .settings h2 {
