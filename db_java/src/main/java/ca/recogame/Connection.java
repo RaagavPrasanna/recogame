@@ -22,8 +22,10 @@ import org.bson.codecs.pojo.*;
 
 public class Connection {
   MongoClientSettings clientSettings;
+  String database ;
 
-  public Connection(){
+  public Connection(String database){
+    this.database = database;
     getDatabase();
   }
 
@@ -37,13 +39,13 @@ public class Connection {
         CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())
     );
     this.clientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).codecRegistry(codecRegistry).build();
-    System.out.println("connection sucessfuly");   
+    System.out.println("connection sucessfuly");       
   }
 
   public void insertOneGame(Game game){
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       //configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase("620-recogame");
+      MongoDatabase database = mongoClient.getDatabase(this.database);
       MongoCollection<Game> allgames = 
         database.getCollection("all-games", Game.class);
       allgames.insertOne(game);
@@ -55,7 +57,7 @@ public class Connection {
   public void insertManyGame(List<Game> games){
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       //configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase("620-recogame");
+      MongoDatabase database = mongoClient.getDatabase(this.database);
       MongoCollection<Game> allgames = 
         database.getCollection("all-games", Game.class);
       allgames.insertMany(games);
@@ -64,17 +66,31 @@ public class Connection {
     }
   }
 
+  public void deleteManyGame(){
+    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
+      //configure database to use the codec
+      MongoDatabase database = mongoClient.getDatabase(this.database);
+      MongoCollection<Game> allgames = 
+        database.getCollection("all-games", Game.class);
+      allgames.deleteMany(Filters.gte("appid", 0 ));
+    }catch (Exception E){
+      System.out.println(" List of games can't be add in database");
+    }
+  }
+
   public void insertOneGameDetails(GameDetails game){
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       //configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase("620-recogame");
+      MongoDatabase database = mongoClient.getDatabase(this.database);
       MongoCollection<GameDetails> gameDetails = 
         database.getCollection("game-details", GameDetails.class);
         gameDetails.insertOne(game);
       // gameDetails.find().forEach(System.out::println);   
-      // gameDetails.find(Filters.eq("steamId", 10 )).forEach(System.out::println);
+      // gameDetails.find(Filters.eq("sourceId", 10 )).forEach(System.out::println);
     }catch (Exception E){
-      System.out.println( game.getName() + " can't be add in database");
+      System.out.println( game.getName() + " can't be add in database of : " + this.database);
     }
   }
+
+  
 }

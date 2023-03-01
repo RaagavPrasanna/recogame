@@ -4,14 +4,7 @@ package ca.recogame;
  * This app will connect to a MongoDB instance and insert a document
  *
  */
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.net.NoRouteToHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,22 +15,27 @@ public class App
     //this code is terrible! Always code in OO style with Java
     public static void main( String[] args ) throws IOException, InterruptedException
     {
-        // Game newGame = new Game(8891, "testJava4")
-        // Connection connect = new Connection();
+        // Game newGame = new Game(8891, "testJava4");
+        Connection connect = new Connection("620-reco-test2");
         // connect.insertOneGame(newGame);
-        // -------------------test for get all Games from node console-----------------------------------
+    // // remove all data in all-games
+        // connect.deleteManyGame();
+     // // -------------------test for get all Games from node console-----------------------------------
         // try{
         //     NodeReader nReader = new NodeReader();
-        //     List<Game> games = nReader.getAllGames("IGDB");
+        //     List<Game> games = nReader.getAllGames("steam");
         //     System.out.println(games.get(5).getAppid());
+        //     // connect.insertOneGame(games.get(5));
+        //     connect.insertManyGame(games);
         // }catch(Exception e){
         //     System.out.println("can not data shown : "+e);
         // }
-        // ---------------test for get 1 game details----
+     // // ---------------test for get 1 game details----
         try{
             NodeReader nReader = new NodeReader();
-            GameDetails game = nReader.getOneGameDetails("IGDB", 440);
+            GameDetails game = nReader.getOneGameDetails("steam", 440);
             System.out.println(game.getName());
+            connect.insertOneGameDetails(game);
         }catch(Exception e){
             System.out.println("can not data shown : "+e);
         }        

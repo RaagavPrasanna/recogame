@@ -1,15 +1,12 @@
+/**
+ * Game Oject use InputValidation class to verify string input
+ */
 package ca.recogame;
 
 //mongo objects all have ObjectID types
 import org.bson.types.*;
-//for the List type
-import java.util.*;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Game 
+public class Game extends InputValidation
 {
   private ObjectId id;
   private int appid;
@@ -52,21 +49,11 @@ public class Game
     }
   }
 
-  private boolean normalizedString(String input){
-    boolean isValide = false;
-    String checkText = Normalizer.normalize(input, Form.NFKC);
-    Pattern pattern = Pattern.compile("[<>]");
-   //Search for occurance "<" or "<" within the string str 
-    Matcher matcher = pattern.matcher(checkText);
-    if (matcher.find() == false){
-      isValide = true ;
-    }  
-   return isValide;
-}
-
   @Override
   public String toString() {
-    return "{id:" + id + ", appid:" + appid + ", name:" + name + "}";
+    return "Game [id=" + id + ", appid=" + appid + ", name=" + name + "]";
   }
+
+ 
 }
 

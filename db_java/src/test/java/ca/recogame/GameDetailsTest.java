@@ -40,6 +40,7 @@ public class GameDetailsTest {
         
         GameDetails game = new GameDetails(
           35004,
+          "steam",
           "<Demon Horde Master>", 
           developers, 
           publishers,

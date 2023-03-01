@@ -91,14 +91,11 @@ public class NodeReader {
             
             // set/start ProcessBuilder- all args have to be String
             ProcessBuilder processBuilder = 
-                new ProcessBuilder("node", "./server/bin/fetch.js", name,"info", "--id", idStr);
-            
-            // ProcessBuilder processBuilder = new ProcessBuilder("node", command);
+                new ProcessBuilder("node", "./server/bin/fetch.js", name,"info", "--id", idStr);            
             Process process = processBuilder.start();
             
             // get the output stream of the process
-            InputStream stdout = process.getInputStream();
-          
+            InputStream stdout = process.getInputStream();          
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(stdout))) {
                 Thread task = new Thread(() -> {
@@ -125,7 +122,6 @@ public class NodeReader {
             return null;
         }
     }
-
 
     private String validateName(String website) {
         String name = website.toLowerCase();

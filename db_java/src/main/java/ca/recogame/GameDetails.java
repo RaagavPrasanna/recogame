@@ -2,16 +2,12 @@ package ca.recogame;
 
 //mongo objects all have ObjectID types
 import org.bson.types.*;
-//for the List type
 import java.util.*;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class GameDetails {
+public class GameDetails extends InputValidation {
   private ObjectId id;
-  private int steamId;
+  private int sourceId;
+  private String sourceName;
   private String name;
   private List<String> developers;
   private List<String> publishers;
@@ -31,15 +27,18 @@ public class GameDetails {
   private String background;
   private String contentDescriptors;
 
-  //empty constructor for POJO
-  public GameDetails(){} 
+  // empty constructor for POJO
+  public GameDetails() {
+  }
 
-  public GameDetails(int steamId, String name, List<String> developers, List<String> publishers, String imageHeader,
+  public GameDetails(int sourceId, String sourceName, String name, List<String> developers, List<String> publishers,
+      String imageHeader,
       String imageBackground, List<String> categories, List<String> genres, String storeUrl, String detailedDescription,
       String shortDescription, List<String> supportedLanguages, List<String> platforms, String metacritic,
       List<String> screenshots, List<String> movies, int recommendations, String background,
       String contentDescriptors) {
-    this.steamId = steamId;
+    this.sourceId = sourceId;
+    this.sourceName = sourceName;
     this.name = name;
     this.developers = developers;
     this.publishers = publishers;
@@ -68,12 +67,20 @@ public class GameDetails {
     this.id = id;
   }
 
-  public int getSteamId() {
-    return steamId;
+  public int getSourceId() {
+    return sourceId;
   }
 
-  public void setSteamId(int steamId) {
-    this.steamId = steamId;
+  public void setSourceId(int sourceId) {
+    this.sourceId = sourceId;
+  }
+
+  public String getSourceName() {
+    return sourceName;
+  }
+
+  public void setSourceName(String sourceName) {
+    this.sourceName = getNormalizedString(sourceName, "sourceName");
   }
 
   public String getName() {
@@ -81,7 +88,7 @@ public class GameDetails {
   }
 
   public void setName(String name) {
-    this.name = getNormalizedString(name, "name");   
+    this.name = getNormalizedString(name, "name");
   }
 
   public List<String> getDevelopers() {
@@ -89,8 +96,7 @@ public class GameDetails {
   }
 
   public void setDevelopers(List<String> developers) {
-    this.developers = 
-      getNormalizedList(developers, "developers");
+    this.developers = getNormalizedList(developers, "developers");
   }
 
   public List<String> getPublishers() {
@@ -98,8 +104,7 @@ public class GameDetails {
   }
 
   public void setPublishers(List<String> publishers) {
-    this.publishers = 
-      getNormalizedList(publishers, "publisher");    
+    this.publishers = getNormalizedList(publishers, "publisher");
   }
 
   public String getImageHeader() {
@@ -107,8 +112,7 @@ public class GameDetails {
   }
 
   public void setImageHeader(String imageHeader) {
-    this.imageHeader = 
-      getNormalizedString(imageHeader, "imageHeader");   
+    this.imageHeader = getNormalizedString(imageHeader, "imageHeader");
   }
 
   public String getImageBackground() {
@@ -116,8 +120,7 @@ public class GameDetails {
   }
 
   public void setImageBackground(String imageBackground) {
-    this.imageBackground = 
-      getNormalizedString(imageBackground, "imageBackground");    
+    this.imageBackground = getNormalizedString(imageBackground, "imageBackground");
   }
 
   public List<String> getCategories() {
@@ -125,8 +128,7 @@ public class GameDetails {
   }
 
   public void setCategories(List<String> categories) {
-    this.categories = 
-      getNormalizedList(categories, "categories");
+    this.categories = getNormalizedList(categories, "categories");
   }
 
   public List<String> getGenres() {
@@ -150,8 +152,7 @@ public class GameDetails {
   }
 
   public void setDetailedDescription(String detailedDescription) {
-    this.detailedDescription = 
-      getNormalizedString(detailedDescription, "detailedDescription");
+    this.detailedDescription = getNormalizedString(detailedDescription, "detailedDescription");
   }
 
   public String getShortDescription() {
@@ -159,8 +160,7 @@ public class GameDetails {
   }
 
   public void setShortDescription(String shortDescription) {
-    this.shortDescription = 
-      getNormalizedString(shortDescription, "shortDescription");
+    this.shortDescription = getNormalizedString(shortDescription, "shortDescription");
   }
 
   public List<String> getSupportedLanguages() {
@@ -168,8 +168,7 @@ public class GameDetails {
   }
 
   public void setSupportedLanguages(List<String> supportedLanguages) {
-    this.supportedLanguages = 
-      getNormalizedList(supportedLanguages, "supportedLanguages");
+    this.supportedLanguages = getNormalizedList(supportedLanguages, "supportedLanguages");
   }
 
   public List<String> getPlatforms() {
@@ -177,8 +176,7 @@ public class GameDetails {
   }
 
   public void setPlatforms(List<String> platforms) {
-    this.platforms = 
-      getNormalizedList(platforms, "platforms");
+    this.platforms = getNormalizedList(platforms, "platforms");
   }
 
   public String getMetacritic() {
@@ -186,8 +184,7 @@ public class GameDetails {
   }
 
   public void setMetacritic(String metacritic) {
-    this.metacritic = 
-      getNormalizedString(metacritic, "metacritic");
+    this.metacritic = getNormalizedString(metacritic, "metacritic");
   }
 
   public List<String> getScreenshots() {
@@ -195,8 +192,7 @@ public class GameDetails {
   }
 
   public void setScreenshots(List<String> screenshots) {
-    this.screenshots = 
-      getNormalizedList(screenshots, "screenshots");
+    this.screenshots = getNormalizedList(screenshots, "screenshots");
   }
 
   public List<String> getMovies() {
@@ -220,8 +216,7 @@ public class GameDetails {
   }
 
   public void setBackground(String background) {
-    this.background = 
-      getNormalizedString(background, "background");
+    this.background = getNormalizedString(background, "background");
   }
 
   public String getContentDescriptors() {
@@ -229,83 +224,19 @@ public class GameDetails {
   }
 
   public void setContentDescriptors(String contentDescriptors) {
-    this.contentDescriptors = 
-      getNormalizedString(contentDescriptors, "contentDescriptors");
+    this.contentDescriptors = getNormalizedString(contentDescriptors, "contentDescriptors");
   }
-/**
- * validate string 
- * @param input a string 
- * @return boolean the result of normalized string
- */
-  private boolean normalizedString(String input){
-    boolean isValide = false;
-    String checkText = Normalizer.normalize(input, Form.NFKC);
-    Pattern pattern = Pattern.compile("[<>]");
-   //Search for occurance "<" or "<" within the string str 
-    Matcher matcher = pattern.matcher(checkText);
-   if (matcher.find() == false ) {         
-       isValide = true;
-   }  
-   return isValide;
-  }
-/**
- * validate List of String
- * @param input a list of string
- * @return      true if all the string are vnormlized, else return false.
- */
-  private boolean normalizedList(List<String> input){   
-    for ( String x : input){
-      if(normalizedString(x) == false){
-        return false;
-      }
-    }
-    return true;
-  }
-/**
- * use NormalizedString() and normalizedList() to 
- * valide the input string and return the value of input , or null.
- * @param input List<String>
- * @param field String for error on normalization of this field. 
- * @return      the same input as List<String> or null
- */
-  private List<String> getNormalizedList(List<String> input, String field){
-    if (input == null){
-      return null;
-    }else if (normalizedList(input) == true){
-      return input;
-    }else{
-      System.out.println("Not valide in " + field + " !");
-      return null;
-    }
-  }
-
-/**
- * use NormalizedString() to valide the input string and return the value of input , or null.
- * @param input String
- * @param field String for error message on specific field
- * @return input or null
- */ 
-  private String getNormalizedString(String input, String field){
-    if (input == null){
-      return null;
-    }else if ( normalizedString(input) == true ){
-      return input;
-    }else{
-      System.out.println("Not valide in " + field + " !");
-      return null;
-    }
-  }
-
-@Override
-public String toString() {
-  return "GameDetails [id=" + id + ", steamId=" + steamId + ", name=" + name + ", developers=" + developers
-      + ", publishers=" + publishers + ", imageHeader=" + imageHeader + ", imageBackground=" + imageBackground
-      + ", categories=" + categories + ", genres=" + genres + ", storeUrl=" + storeUrl + ", detailedDescription="
-      + detailedDescription + ", shortDescription=" + shortDescription + ", supportedLanguages=" + supportedLanguages
-      + ", platforms=" + platforms + ", metacritic=" + metacritic + ", screenshots=" + screenshots + ", movies="
-      + movies + ", recommendations=" + recommendations + ", background=" + background + ", contentDescriptors="
-      + contentDescriptors + "]";
-}
   
+  @Override
+  public String toString() {
+    return "GameDetails [id=" + id + ", sourceId=" + sourceId + ", sourceName=" + sourceName + ", name=" + name
+        + ", developers=" + developers + ", publishers=" + publishers + ", imageHeader=" + imageHeader
+        + ", imageBackground=" + imageBackground + ", categories=" + categories + ", genres=" + genres + ", storeUrl="
+        + storeUrl + ", detailedDescription=" + detailedDescription + ", shortDescription=" + shortDescription
+        + ", supportedLanguages=" + supportedLanguages + ", platforms=" + platforms + ", metacritic=" + metacritic
+        + ", screenshots=" + screenshots + ", movies=" + movies + ", recommendations=" + recommendations
+        + ", background="
+        + background + ", contentDescriptors=" + contentDescriptors + "]";
+  }
 
 }
