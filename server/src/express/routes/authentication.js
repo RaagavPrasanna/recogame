@@ -1,18 +1,12 @@
 import express from 'express';
 import { OAuth2Client } from 'google-auth-library';
 import session from 'express-session';
-
+import { isAuthenticated, csrfProtect } from '../utils.js';
 const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const users = new Array();
 
-function isAuthenticated(req, res, next) {
-  if(!req.session.user) {
-    return res.sendStatus(401);
-  }
-  next();
-}
 
 router.use(session({
   secret: process.env.SECRET,
@@ -28,6 +22,9 @@ router.use(session({
 }));
 
 router.post('/auth', async (req, res) => {
+  if(req.body === undefined) {
+    return res.sendStatus(400);
+  }
   const { token } = req.body;
   const ticket = await client.verifyIdToken({
     idToken: token,
@@ -70,4 +67,8 @@ router.get('/logout', isAuthenticated, function(req, res) {
   });
 });
 
+// Must be requested by client everytime a post request is made
+router.get('/csrf-token', isAuthenticated, csrfProtect.csrfSynchronisedProtection, (req, res) => {
+  res.json({ token: csrfProtect.generateToken(req) });
+});
 export default router;

@@ -23,6 +23,9 @@ function LoginForm({ onCancel }) {
     });
     const data = await res.json();
     console.log(data);
+    const tres = await fetch('/authentication/csrf-token');
+    const tdata = await tres.json();
+    console.log(tdata);
   };
 
   const handleError = err => {
