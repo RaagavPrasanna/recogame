@@ -3,7 +3,7 @@ import Modal from '../../UI/Modal/Modal.js';
 import SettingsSwitch from './SettingsSwitch';
 import Button from '../../UI/Button/Button';
 
-function UserSettings() {
+function UserSettings({ onCancel }) {
   return (
     <Modal>
       <div className={styles.settings}>
@@ -13,7 +13,7 @@ function UserSettings() {
         <SettingsSwitch label={'Other Setting'} />
         <SettingsSwitch label={'Other Setting'} />
         <div className={styles.buttons}>
-          <Button>Cancel</Button>
+          <Button onClick={onCancel}>Cancel</Button>
           <Button>Save Changes</Button>
         </div>
       </div>

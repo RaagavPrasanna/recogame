@@ -1,16 +1,27 @@
 import Button from '../../UI/Button/Button';
 import styles from './UserProfile.module.css';
 import UserSettings from '../UserSettings/UserSettings';
+import { useState } from 'react';
 
 function UserProfile() {
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+
+  function showSettings() {
+    setIsSettingsVisible(true);
+  }
+
+  function hideSettings() {
+    setIsSettingsVisible(false);
+  }
+
   return (
     <div className={styles['user-profile']}>
       <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
-      <Button className={styles.settings}>User Settings</Button>
+      <Button onClick={showSettings} className={styles.settings}>User Settings</Button>
       <div className={styles['user-info']}>
         <h2>USERNAME123</h2>
       </div>
-      <UserSettings />
+      {isSettingsVisible && <UserSettings onCancel={hideSettings}/>}
     </div>
   );
 }
