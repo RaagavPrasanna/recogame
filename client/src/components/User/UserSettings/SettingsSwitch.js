@@ -1,5 +1,6 @@
 import Switch from 'react-switch';
 import { useState } from 'react';
+import styles from './SettingsSwitch.module.css';
 
 function SettingsSwitch({ label }) {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -9,10 +10,15 @@ function SettingsSwitch({ label }) {
   }
 
   return (
-    <label>
-      <span>{label}</span>
-      <Switch onChange={changeHandler} checked={isEnabled} />
-    </label>
+    <div className={styles.switchContainer}>
+      <label htmlFor={label}>{label}</label>
+      <Switch
+        id={label}
+        onChange={changeHandler}
+        checked={isEnabled}
+        className={styles.switch}
+      />
+    </div>
   );
 }
 

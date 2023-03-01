@@ -4,3 +4,12 @@
   align-content: flex-start;
   color: #536878;
 }
+
+.settings h2 {
+  margin-bottom: 1rem;
+}
+
+.settings .buttons {
+  margin-top: 3rem;
+  justify-content: flex-end;
+}
