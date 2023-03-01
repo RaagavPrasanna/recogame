@@ -1,0 +1,6 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  color: #536878;
+}
