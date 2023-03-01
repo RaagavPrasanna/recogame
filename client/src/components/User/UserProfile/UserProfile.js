@@ -1,5 +1,6 @@
 import Button from '../../UI/Button/Button';
 import styles from './UserProfile.module.css';
+import UserSettings from '../UserSettings/UserSettings';
 
 function UserProfile() {
   return (
@@ -9,6 +10,7 @@ function UserProfile() {
       <div className={styles['user-info']}>
         <h2>USERNAME123</h2>
       </div>
+      <UserSettings />
     </div>
   );
 }
