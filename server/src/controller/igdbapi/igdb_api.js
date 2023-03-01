@@ -1,8 +1,6 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './igdb_types.js';
-import {} from 'dotenv/config';
-//remove--------------------------------------
 
 const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
@@ -36,6 +34,7 @@ async function fetchPath(dataField) {
 async function fetchAllIGDBApps(){
   let data = [];
   await fetchPath(pathsUrls.allGamesFields).then(info=> data = info);
+  data = JSON.parse(JSON.stringify(data).replace(/"id":/g, '"appid":'));
   return data ;
 }
 
