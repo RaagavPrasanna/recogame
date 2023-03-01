@@ -2,6 +2,29 @@ import mongoose from 'mongoose';
 import utils from './utils.js';
 
 /**
+ * Wrapper around mongo view to automatically create/update it.
+ *
+ * @example
+ * // Import
+ * import mongoose from 'mongoose';
+ * import View from './path/to/view.js';
+ *
+ * // Create a view
+ * const MyView = new View(
+ *   'name-in-db',
+ *   'target-model',
+ *   new mongoose.Schema({
+ *     ...
+ *   }),
+ *   [{
+ *     ...
+ *   }]
+ * );
+ *
+ * // By calling `getModel`, you can use it like a normal Mongoose model
+ * (await MyView.getModel())
+ *   .find(...);
+ *
  * @template {mongoose.Schema} T Schema of the collection.
  */
 export default class View {

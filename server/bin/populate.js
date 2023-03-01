@@ -64,5 +64,5 @@ async function main() {
     }
   }
 
-  db.disconnect();
+  await db.disconnect();
 }
