@@ -14,7 +14,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/game/:id" element={<GameDetailView />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/profile/settings" element={<UserSettings />} />
         </Routes>
       </BrowserRouter>
     </>
