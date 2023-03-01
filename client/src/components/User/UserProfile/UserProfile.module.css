@@ -1,4 +1,16 @@
+.user-profile {
+  margin: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .user-profile img {
   width: 15em;
-  margin-top: 1rem;
+  margin-top: 2rem;
+}
+
+.user-profile .settings {
+  height: 2rem;
+  margin-top: 2rem;
 }
