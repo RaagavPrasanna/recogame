@@ -7,6 +7,8 @@ import { useRef } from 'react';
 function UserSettings({ onCancel }) {
   const shareDataRef = useRef();
 
+  //TODO: Add use effect to get user settings from the server
+
   function saveSettings() {
     console.log('shareData: ', shareDataRef.current.isEnabled);
   }
