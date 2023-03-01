@@ -31,19 +31,15 @@ const GameDetails = mongoose.model(
   })
 );
 
-
-const SchemaGameDetailsBasic = new mongoose.Schema({
-  name: String,
-  developers: [String],
-  shortDescription: String,
-  imageHeader: String
-});
-
-
 const ViewAllGames = new View(
   'view-game-all',
-  SchemaGameDetailsBasic,
   'game-details',
+  new mongoose.Schema({
+    name: String,
+    developers: [String],
+    shortDescription: String,
+    imageHeader: String
+  }),
   [{
     $project: {
       id: '$_id',
@@ -54,26 +50,9 @@ const ViewAllGames = new View(
     }
   }]
 );
-
-const ViewGameDetailsBasic = new View(
-  'view-game-details-basic',
-  SchemaGameDetailsBasic,
-  'game-details',
-  [{
-    $project: {
-      id: '$_id',
-      name: true,
-      developers: true,
-      shortDescription: true,
-      imageHeader: true
-    }
-  }]
-);
-
 
 export default {
   GameDetails,
-  ViewAllGames,
-  ViewGameDetailsBasic
+  ViewAllGames
 };
 

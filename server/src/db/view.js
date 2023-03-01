@@ -23,14 +23,14 @@ export default class View {
 
   /**
    * @param name {string} Collection name.
-   * @param schema {T} Schema of the collection.
    * @param viewOn {string} Existing collection to start from.
+   * @param schema {T} Schema of the collection.
    * @param pipeline {Document[]} Aggregation pipeline to construct the view.
    */
-  constructor(name, schema, viewOn, pipeline) {
+  constructor(name, viewOn, schema, pipeline) {
     this.name = name;
-    this.schema = schema;
     this.viewOn = viewOn;
+    this.schema = schema;
     this.pipeline = pipeline;
     this.model = null;
   }
