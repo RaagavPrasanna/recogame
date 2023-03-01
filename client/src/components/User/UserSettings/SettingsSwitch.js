@@ -1,13 +1,20 @@
+import React, { useImperativeHandle } from 'react';
 import Switch from 'react-switch';
 import { useState } from 'react';
 import styles from './SettingsSwitch.module.css';
 
-function SettingsSwitch({ label }) {
+const SettingsSwitch = React.forwardRef(({ label }, ref) => {
   const [isEnabled, setIsEnabled] = useState(false);
 
   function changeHandler() {
     setIsEnabled((prevState) => !prevState);
   }
+
+  useImperativeHandle(ref, () => {
+    return {
+      isEnabled
+    };
+  });
 
   return (
     <div className={styles.switchContainer}>
@@ -20,6 +27,7 @@ function SettingsSwitch({ label }) {
       />
     </div>
   );
-}
+});
 
+SettingsSwitch.displayName = 'SettingsSwitch';
 export default SettingsSwitch;
