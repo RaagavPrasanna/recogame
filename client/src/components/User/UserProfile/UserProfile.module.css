@@ -8,9 +8,14 @@
 .user-profile img {
   width: 15em;
   margin-top: 2rem;
+  border-radius: 0.5rem;
 }
 
 .user-profile .settings {
   height: 2rem;
   margin-top: 2rem;
+}
+
+.user-profile h2 {
+  color: #536878;
 }
