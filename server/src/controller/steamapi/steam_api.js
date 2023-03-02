@@ -55,8 +55,10 @@ async function fetchStoreInfo(id) {
 async function fetchGameInfo(id) {
   const info = await fetchStoreInfo(id);
   return {
-    steamId:
+    sourceId:
       info.steam_appid,
+    sourceName:
+      'steam',
     name:
       info.name,
     developers:

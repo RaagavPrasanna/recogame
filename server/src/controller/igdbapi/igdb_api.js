@@ -95,8 +95,10 @@ async function fetchGameInfoWord(keyword) {
  */
 function groupType(info){
   return {
-    steamId:
+    sourceId:
       info.id,
+    sourceName:
+      'igdb',
     name:
       info.name,
     developers:
