@@ -86,22 +86,22 @@ async function main() {
       // Steam
       if (argv._[1] === 'all') {
         // All
-        console.log(await steam.fetchAllSteamApps());
+        console.log(JSON.stringify(await steam.fetchAllSteamApps()));
       } else if (argv._[1] === 'info') {
         // Info
-        console.log(await steam.fetchGameInfo(argv.id));
+        console.log(JSON.stringify(await steam.fetchGameInfo(argv.id)));
       }
     } else if (argv._[0] === 'igdb') {
       // IGDB
       if (argv._[1] === 'all') {
         // All
-        console.log(await igdb.fetchAllIgdbApps());
+        console.log(JSON.stringify(await igdb.fetchAllIgdbApps()));
       } else if (argv._[1] === 'info') {
         // Info
         if (argv.id) {
-          console.log(await igdb.fetchGameInfoId(argv.id));
+          console.log(JSON.stringify(await igdb.fetchGameInfoId(argv.id)));
         } else {
-          console.log(await igdb.fetchGameInfoWord(argv.name));
+          console.log(JSON.stringify(await igdb.fetchGameInfoWord(argv.name)));
         }
       }
     }

@@ -19,7 +19,7 @@ describe('API GET', () => {
   });
 
   test('Get game by id', async () => {
-    const MOCK_GAME = { steamId: 1, name: 'Uncharted' };
+    const MOCK_GAME = { sourceId: 1, name: 'Uncharted' };
     mockingoose(models.GameDetails).toReturn(MOCK_GAME, 'findOne');
 
     const res = await request(app).get('/api/game/1');
@@ -27,7 +27,7 @@ describe('API GET', () => {
     // To remove extra _id key value pair that is added by mockingoose
     delete res.body._id;
     expect(res.statusCode).toEqual(200);
-    expect(res.body.steamId).toEqual(MOCK_GAME.steamId);
+    expect(res.body.sourceId).toEqual(MOCK_GAME.sourceId);
     expect(res.body.name).toEqual(MOCK_GAME.name);
   });
 
