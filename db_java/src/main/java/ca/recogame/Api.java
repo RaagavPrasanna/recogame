@@ -24,7 +24,9 @@ public class Api {
           "1) Import all games \n" +
           "2) Import one game details \n" +
           "3) Import mutiple game details \n" +
-          "4) Exit\n");
+          "4) delete all games \n" +
+          "5) delete all gameDetails \n" +
+          "6) Exit\n");
       // Manage response from user
       int response = reader.nextInt();
       keepMenu = manageResponse(response);
@@ -41,9 +43,13 @@ public class Api {
       importListGames();
     else if (response == 2)
       importOneGameDetails();
-    else if (response == 3) {
+    else if (response == 3) 
       importMulitGameDetails();  
-    }else
+    else if (response == 4) 
+      deleteAllGames();
+    else if (response == 5) 
+      deleteAllGameDetails(); 
+    else
       keepMenu = false;
 
     return keepMenu;
@@ -92,6 +98,22 @@ public class Api {
       System.out.println(games.get(1).getName()); // --------------------remove
       connect.insertManyGameDetails(games);
     } catch (Exception e) {
+      System.out.println("can not data shown : " + e);
+    }
+  }
+
+  private void deleteAllGames(){
+    try{
+      this.connect.deleteManyGame();
+    }catch(Exception e){
+      System.out.println("can not data shown : " + e);
+    }
+  }
+
+  private void deleteAllGameDetails(){
+    try{
+      this.connect.deleteManyGameDetails();
+    }catch(Exception e){
       System.out.println("can not data shown : " + e);
     }
   }

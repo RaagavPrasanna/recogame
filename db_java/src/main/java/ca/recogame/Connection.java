@@ -2,8 +2,6 @@ package ca.recogame;
 
 //for dotenv - look at the pom.xml for the package
 import io.github.cdimascio.dotenv.*;
-
-import java.util.Arrays;
 import java.util.List;
 
 //the import below are for connecting with Atlas and the collection
@@ -74,7 +72,7 @@ public class Connection {
         database.getCollection("all-games", Game.class);
       allgames.deleteMany(Filters.gte("appid", 0 ));
     }catch (Exception E){
-      System.out.println(" List of games can't be add in database");
+      System.out.println(" List of games can't be deleted in database");
     }
   }
 
@@ -101,6 +99,17 @@ public class Connection {
       allgames.insertMany(games);
     }catch (Exception E){
       System.out.println(" List of gameDetails can't be add in database");
+    }
+  }
+  public void deleteManyGameDetails(){
+    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
+      //configure database to use the codec
+      MongoDatabase database = mongoClient.getDatabase(this.database);
+      MongoCollection<GameDetails> gameDetails = 
+        database.getCollection("game-details", GameDetails.class);
+      gameDetails.deleteMany(Filters.gte("sourceId", 0 ));
+    }catch (Exception E){
+      System.out.println(" List of gameDetails can't be removed in database");
     }
   }
   
