@@ -33,6 +33,7 @@ function UserSettings({ onCancel }) {
     <Modal>
       <div className={styles.settings}>
         <h2>Settings</h2>
+        <hr></hr>
         <SettingsSwitch
           label={'Make my profile private'}
           ref={makePrivateRef}
