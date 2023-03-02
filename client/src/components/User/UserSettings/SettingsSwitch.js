@@ -4,13 +4,14 @@ import { useState } from 'react';
 import styles from './SettingsSwitch.module.css';
 
 const SettingsSwitch = React.forwardRef(function SettingsSwitch(
-  { label },
+  { label, onSwitch },
   ref
 ) {
   const [isEnabled, setIsEnabled] = useState(false);
 
   function changeHandler() {
     setIsEnabled((prevState) => !prevState);
+    onSwitch?.();
   }
 
   useImperativeHandle(ref, () => {

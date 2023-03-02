@@ -2,26 +2,42 @@ import styles from './UserSettings.module.css';
 import Modal from '../../UI/Modal/Modal.js';
 import SettingsSwitch from './SettingsSwitch';
 import Button from '../../UI/Button/Button';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function UserSettings({ onCancel }) {
-  const shareDataRef = useRef();
+  const makePrivateRef = useRef();
+  const [isPublic, setIsPublic] = useState(false);
 
   //TODO: Add use effect to get user settings from the server.
   //      Add asn isChecked prop to the SettingsSwitch component.
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const makePrivateSwitch = makePrivateRef.current;
+    setIsPublic(makePrivateSwitch.isEnabled);
+  }, []);
 
   function saveSettings() {
-    console.log('shareData: ', shareDataRef.current.isEnabled);
+    console.log('Settings Saved!');
+  }
+
+  function onPublicSwitch() {
+    setIsPublic((prevState) => !prevState);
   }
 
   return (
     <Modal>
       <div className={styles.settings}>
         <h2>Settings</h2>
-        <SettingsSwitch label={'Make my profile private'} />
-        <SettingsSwitch label={'Receive messages from other users'} />
-        <SettingsSwitch label={'Recommend my games to other users'} />
+        <SettingsSwitch
+          label={'Make my profile private'}
+          ref={makePrivateRef}
+          onSwitch={onPublicSwitch}
+        />
+        {isPublic && (
+          <>
+            <SettingsSwitch label={'Receive messages from other users'} />
+            <SettingsSwitch label={'Recommend my games to other users'} />
+          </>
+        )}
         <div className={styles.buttons}>
           <Button onClick={onCancel}>Cancel</Button>
           <Button onClick={saveSettings}>Save Changes</Button>
