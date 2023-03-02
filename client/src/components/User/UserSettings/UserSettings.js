@@ -6,17 +6,23 @@ import { useEffect, useRef, useState } from 'react';
 
 function UserSettings({ onCancel }) {
   const makePrivateRef = useRef();
+  const receiveMsgRef = useRef();
+  const recommendGamesRef = useRef();
   const [isPublic, setIsPublic] = useState(false);
 
   //TODO: Add use effect to get user settings from the server.
   //      Add asn isChecked prop to the SettingsSwitch component.
   useEffect(() => {
-    const makePrivateSwitch = makePrivateRef.current;
-    setIsPublic(makePrivateSwitch.isEnabled);
+    setIsPublic(makePrivateRef.current.isEnabled);
   }, []);
 
   function saveSettings() {
     console.log('Settings Saved!');
+    console.log({
+      isProfilePrivate: makePrivateRef.current.isEnabled,
+      isMessagesAllowed: receiveMsgRef.current?.isEnabled || false,
+      isGameRecAllowed: recommendGamesRef.current?.isEnabled || false,
+    });
   }
 
   function onPublicSwitch() {
@@ -34,8 +40,14 @@ function UserSettings({ onCancel }) {
         />
         {isPublic && (
           <>
-            <SettingsSwitch label={'Receive messages from other users'} />
-            <SettingsSwitch label={'Recommend my games to other users'} />
+            <SettingsSwitch
+              label={'Receive messages from other users'}
+              ref={receiveMsgRef}
+            />
+            <SettingsSwitch
+              label={'Recommend my games to other users'}
+              ref={recommendGamesRef}
+            />
           </>
         )}
         <div className={styles.buttons}>
