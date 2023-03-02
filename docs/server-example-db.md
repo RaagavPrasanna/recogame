@@ -46,7 +46,7 @@ async function steamGameToMongo(){
     let games = await api.fetchAllSteamApps();
     await queries.insertAllGames(games);
   } catch (e){
-    console.error('can not insert game info in all-games');
+    console.error('can not insert game info in game-all');
   }
 }
 
