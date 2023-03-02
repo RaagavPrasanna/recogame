@@ -6,7 +6,7 @@ const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
 
 /**
- * fetch game from IGDB setup path,' method, header, and data
+ * fetch game from IGDB setup path, method, header, and data
  * @param {string} dataField
  * @returns fetch data
  */
@@ -93,12 +93,12 @@ async function fetchGameInfoWord(keyword) {
  * @param {info} game info
  * @returns {Promise<types.GameInfo>} GameInfo types.
  */
-function groupType(info, apiName = 'igdb'){
+function groupType(info){
   return {
     sourceId:
       info.id,
     sourceName:
-      apiName,
+      'igdb',
     name:
       info.name,
     developers:

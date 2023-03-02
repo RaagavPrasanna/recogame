@@ -53,13 +53,13 @@ async function fetchStoreInfo(id) {
  * @param {number} id ID of the game.
  * @returns {Promise<types.GameInfo>} Game info without the price.
  */
-async function fetchGameInfo(id, apiName = 'steam') {
+async function fetchGameInfo(id) {
   const info = await fetchStoreInfo(id);
   return {
     sourceId:
       info.steam_appid,
     sourceName:
-      apiName,
+      'steam',
     name:
       info.name,
     developers:
