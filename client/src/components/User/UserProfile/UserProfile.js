@@ -20,8 +20,13 @@ function UserProfile() {
       <Button onClick={showSettings} className={styles.settings}>User Settings</Button>
       <div className={styles['user-info']}>
         <h2>USERNAME123</h2>
+        <h3>Account Type: Steam Account</h3>
       </div>
       {isSettingsVisible && <UserSettings onCancel={hideSettings}/>}
+      <div className={styles['game-recommendations']}>
+        <h2>Game Recommendations</h2>
+        <hr></hr>
+      </div>
     </div>
   );
 }

@@ -16,6 +16,25 @@
   margin-top: 2rem;
 }
 
-.user-profile h2 {
-  color: #536878;
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  color: #ffffff;
+  margin-top: 2rem;
+}
+
+.game-recommendations {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  align-content: flex-start;
+}
+
+.game-recommendations hr {
+  width: 100%;
+}
+
+.game-recommendations h2 {
+  color: #6E7F80;
 }
