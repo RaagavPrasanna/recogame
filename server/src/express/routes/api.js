@@ -7,7 +7,7 @@ const CLEAN_PROJECTION = { _id: false, __v: false };
 
 
 async function getAllGamesFromDB() {
-  return await models.AllGames.find({}, CLEAN_PROJECTION);
+  return await (await models.ViewGameDetailsShort.getModel()).find({}, CLEAN_PROJECTION);
 }
 
 /** Currently just returns the game with the given id */
@@ -19,7 +19,7 @@ router.use(express.json());
 
 /**
  * @swagger
- * /all-games:
+ * /game-all:
  *   get:
  *     summary: Retrieve all games
  *     description: Retrieve all games that are found in the database which can then be used to query specfiic game data
@@ -44,7 +44,7 @@ router.use(express.json());
  *      500:
  *        description: Issues with our server
  */
-router.get('/all-games', async (_, res) => {
+router.get('/game-all', async (_, res) => {
   try {
     const games = await getAllGamesFromDB();
     res.json(games);
