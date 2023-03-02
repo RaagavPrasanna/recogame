@@ -31,14 +31,27 @@ public class App
         //     System.out.println("can not data shown : "+e);
         // }
      // // ---------------test for get 1 game details----
+        // try{
+        //     NodeReader nReader = new NodeReader();
+        //     GameDetails game = nReader.getOneGameDetails("steam", 440);
+        //     System.out.println(game.getName());
+        //     connect.insertOneGameDetails(game);
+        // }catch(Exception e){
+        //    System.out.println("can not data shown : "+e);
+        // }      
+        // ----------------test of multi gameDetails-----------        
         try{
             NodeReader nReader = new NodeReader();
-            GameDetails game = nReader.getOneGameDetails("steam", 440);
-            System.out.println(game.getName());
-            connect.insertOneGameDetails(game);
+            GameDetails game1 = nReader.getOneGameDetails("steam", 440);
+            GameDetails game2 = nReader.getOneGameDetails("steam", 10);
+            List<GameDetails> games = new ArrayList<GameDetails>();
+            games.add(game1);
+            
+            System.out.println(game1.getName());
+            connect.insertManyGameDetails(games);
         }catch(Exception e){
             System.out.println("can not data shown : "+e);
-        }        
+        }      
 
     }
 }

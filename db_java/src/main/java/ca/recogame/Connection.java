@@ -92,5 +92,16 @@ public class Connection {
     }
   }
 
+  public void insertManyGameDetails(List<GameDetails> games){
+    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
+      //configure database to use the codec
+      MongoDatabase database = mongoClient.getDatabase(this.database);
+      MongoCollection<GameDetails> allgames = 
+        database.getCollection("game-details", GameDetails.class);
+      allgames.insertMany(games);
+    }catch (Exception E){
+      System.out.println(" List of gameDetails can't be add in database");
+    }
+  }
   
 }
