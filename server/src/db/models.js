@@ -31,8 +31,8 @@ const GameDetails = mongoose.model(
   })
 );
 
-const ViewAllGames = new View(
-  'view-game-all',
+const ViewGameDetailsShort = new View(
+  'view-game-details-short',
   'game-details',
   new mongoose.Schema({
     name: String,
@@ -53,6 +53,6 @@ const ViewAllGames = new View(
 
 export default {
   GameDetails,
-  ViewAllGames
+  ViewGameDetailsShort
 };
 

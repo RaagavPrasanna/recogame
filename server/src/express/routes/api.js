@@ -7,7 +7,7 @@ const CLEAN_PROJECTION = { _id: false, __v: false };
 
 
 async function getAllGamesFromDB() {
-  return await (await models.ViewAllGames.getModel()).find({}, CLEAN_PROJECTION);
+  return await (await models.ViewGameDetailsShort.getModel()).find({}, CLEAN_PROJECTION);
 }
 
 /** Currently just returns the game with the given id */
