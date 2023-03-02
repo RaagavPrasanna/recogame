@@ -19,10 +19,9 @@ function UserSettings({ onCancel }) {
     <Modal>
       <div className={styles.settings}>
         <h2>Settings</h2>
-        <SettingsSwitch label={'Share My Data'} ref={shareDataRef} />
-        <SettingsSwitch label={'Other Setting'} />
-        <SettingsSwitch label={'Other Setting'} />
-        <SettingsSwitch label={'Other Setting'} />
+        <SettingsSwitch label={'Make my profile private'} />
+        <SettingsSwitch label={'Receive messages from other users'} />
+        <SettingsSwitch label={'Recommend my games to other users'} />
         <div className={styles.buttons}>
           <Button onClick={onCancel}>Cancel</Button>
           <Button onClick={saveSettings}>Save Changes</Button>
