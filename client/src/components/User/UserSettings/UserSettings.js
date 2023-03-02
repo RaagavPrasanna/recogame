@@ -39,7 +39,7 @@ function UserSettings({ onCancel }) {
           ref={makePrivateRef}
           onSwitch={onPublicSwitch}
         />
-        {isPublic && (
+        {isPublic || (
           <>
             <SettingsSwitch
               label={'Receive messages from other users'}
