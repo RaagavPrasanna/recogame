@@ -1,12 +1,15 @@
+import { jest } from '@jest/globals';
 import mockingoose from 'mockingoose';
 import request from 'supertest';
 
 import app from '../express/app.js';
 import models from '../db/models.js';
+import mongoose from 'mongoose';
 
 const GAMES = [
   {
     sourceId: 10,
+    sourceName: 'steam',
     name: 'Counter-Strike',
     developers: ['Valve'],
     publishers: ['Valve'],
@@ -31,6 +34,7 @@ const GAMES = [
   },
   {
     sourceId: 2280,
+    sourceName: 'steam',
     name: 'DOOM (1993)',
     developers: ['id Software'],
     publishers: ['id Software'],
@@ -58,14 +62,30 @@ const GAMES = [
 
 describe('API GET', () => {
   test('Get all games', async () => {
-    mockingoose(models.GameDetails).toReturn(GAMES, 'find');
+    jest.spyOn(models.ViewGameDetailsShort, 'getModel')
+      .mockImplementation(async () => {
+        return mongoose.model(
+          'view',
+          models.ViewGameDetailsShort.schema
+        );
+      });
+    mockingoose(await models.ViewGameDetailsShort.getModel()).toReturn(GAMES, 'find');
 
-    const res = await request(app).get('/api/all-games');
+    const res = await request(app).get('/api/game-all');
 
     // To remove extra _id key value pair that is added by mockingoose
     res.body.forEach(e => delete e._id);
     expect(res.statusCode).toEqual(200);
-    expect(res.body).toEqual(GAMES);
+    expect(res.body).toEqual(
+      GAMES.map((g) => {
+        return {
+          name: g.name,
+          developers: g.developers,
+          imageHeader: g.imageHeader,
+          shortDescription: g.shortDescription,
+        };
+      })
+    );
   });
 
   test('Get game by id', async () => {

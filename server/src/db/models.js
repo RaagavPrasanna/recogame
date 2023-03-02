@@ -5,11 +5,12 @@ import View from './view.js';
 const GameDetails = mongoose.model(
   'game-details',
   new mongoose.Schema({
-    steamId: {
+    sourceId: {
       type: Number,
-      required: [true, 'steamId is requird'],
+      required: [true, 'sourceId is requird'],
       unique: true
     },
+    sourceName: String,
     name: String,
     developers: [String],
     publishers: [String],
