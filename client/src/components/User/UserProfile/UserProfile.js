@@ -12,7 +12,7 @@ function UserProfile() {
     // TODO: Fetch account details from the server
     setUsername('USERNAME123');
     setAccountType('Steam Account');
-  });
+  }, []);
 
   function showSettings() {
     setIsSettingsVisible(true);
