@@ -1,8 +1,8 @@
 import express from 'express';
 import models from '../../db/models.js';
 const router = express.Router();
-// eslint-disable-next-line no-unused-vars
-import { isAuthenticated, csrfProtect } from '../utils.js';
+
+// import { isAuthenticated, csrfProtect } from '../utils.js';
 
 /**
  * PLEASE NOTE THAT ANY POST REQUEST THAT MODIFIES THE DB NEEDS TO BE DONE AS SUCH:

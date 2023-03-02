@@ -35,16 +35,13 @@ router.post('/auth', async (req, res) => {
   }
   const { name, email, picture } = ticket.getPayload();
 
-  const user = { 'name': name, 'email': email, 'picture': picture };
-  const existsAlready = users.find(u => u.email === user.email);
+  const user = { name, email, picture };
 
-  if(existsAlready) {
+  if(!users.some(u => u.email === user.email)) {
     users.push(user);
-  } else {
-    users[existsAlready] = user;
   }
 
-  req.session.regenerate(function(err) {
+  req.session.regenerate((err) => {
     if(err) {
       return res.sendStatus(500);
     }
