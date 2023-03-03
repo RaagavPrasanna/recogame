@@ -1,11 +1,12 @@
-/**
- * Game Oject use InputValidation class to verify string input
- */
+
 package ca.recogame;
 
 //mongo objects all have ObjectID types
 import org.bson.types.*;
 
+/**
+ * Game Oject use InputValidation class to verify string input
+ */
 public class Game extends InputValidation
 {
   private ObjectId id;

@@ -10,8 +10,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
+/**
+ * Read data from console with node command and covert to class object
+ */
 public class NodeReader {
-
     private Gson gson;
 
     public NodeReader() {

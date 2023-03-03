@@ -1,13 +1,12 @@
 package ca.recogame;
 
-/**
- * This app will connect to a MongoDB instance and insert a document
- *
- */
 import java.io.IOException;
 
-public class App 
-{
+/**
+ * This app will connect to a MongoDB instance, read data from console
+ * or file then upload the data to MangoDB 
+ */
+public class App {
     public static void main( String[] args ) 
         throws IOException, InterruptedException
     {            

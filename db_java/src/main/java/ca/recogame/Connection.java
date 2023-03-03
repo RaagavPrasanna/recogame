@@ -3,7 +3,6 @@ package ca.recogame;
 //for dotenv - look at the pom.xml for the package
 import io.github.cdimascio.dotenv.*;
 import java.util.List;
-
 //the import below are for connecting with Atlas and the collection
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -17,6 +16,9 @@ import com.mongodb.client.model.Filters;
 import org.bson.codecs.configuration.*;
 import org.bson.codecs.pojo.*;
 
+/**
+ * connection to mongodb with Queries
+ */
 public class Connection {
   MongoClientSettings clientSettings;
   String database;
@@ -25,7 +27,9 @@ public class Connection {
     this.database = database;
     getDatabase();
   }
-
+  /**
+   * create connection to mongodb
+   */
   public void getDatabase() {
     Dotenv dotenv = Dotenv.load();
     ConnectionString connectionString = 
@@ -47,6 +51,10 @@ public class Connection {
     System.out.println("connection sucessfuly");
   }
 
+  /**
+   * Query to insertOne game
+   * @param game  Game object
+   */
   public void insertOneGame(Game game) {
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       // configure database to use the codec
@@ -58,7 +66,10 @@ public class Connection {
       System.out.println(game.getName() + " can't be add in database");
     }
   }
-
+  /**
+   * Query to insertMany games
+   * @param games   List<Game>
+   */
   public void insertManyGame(List<Game> games) {
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       // configure database to use the codec
@@ -71,6 +82,9 @@ public class Connection {
     }
   }
 
+  /**
+   * Query to deleteMany game
+   */
   public void deleteManyGame() {
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       // configure database to use the codec
@@ -82,7 +96,10 @@ public class Connection {
       System.out.println(" List of games can't be deleted in database");
     }
   }
-
+  /**
+   * Query to insertOne GameDetails
+   * @param game    GameDetail object
+   */
   public void insertOneGameDetails(GameDetails game) {
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       // configure database to use the codec
@@ -95,6 +112,10 @@ public class Connection {
     }
   }
 
+  /**
+   * Query to insertMany GameDetails
+   * @param games   List<GameDetails>
+   */
   public void insertManyGameDetails(List<GameDetails> games) {
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       // configure database to use the codec
@@ -107,6 +128,9 @@ public class Connection {
     }
   }
 
+  /**
+   * Query to deleteMany GameDetails
+   */
   public void deleteManyGameDetails() {
     try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
       // configure database to use the codec

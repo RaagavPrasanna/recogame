@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 import org.json.JSONArray;
 
+/**
+ * read json string from a file 
+ */
 public class ReadFile {
   private String data;
 
@@ -33,7 +36,10 @@ public class ReadFile {
   public String getData() {
     return this.data;
   }
-
+/**
+ * convert read json data to List<Integer>
+ * @return list   typeof List<Integer>
+ */
   public List<Integer> getlistId() {
     List<Integer> list = new ArrayList<>();
     JSONArray jsonArray = new JSONArray(this.data);

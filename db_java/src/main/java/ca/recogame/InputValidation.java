@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InputValidation {
-
-   /**
+/**
    * validate string
    * 
    * @param input a string
    * @return boolean the result of normalized string
    */
+public class InputValidation {
+   
   public boolean normalizedString(String input) {
     boolean isValide = false;
     String checkText = Normalizer.normalize(input, Form.NFKC);

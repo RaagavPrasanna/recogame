@@ -4,6 +4,9 @@ package ca.recogame;
 import org.bson.types.*;
 import java.util.*;
 
+/**
+ * GameDetals Object
+ */
 public class GameDetails extends InputValidation {
   private ObjectId id;
   private int sourceId;
