@@ -152,7 +152,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setDetailedDescription(String detailedDescription) {
-    this.detailedDescription = getNormalizedString(detailedDescription, "detailedDescription");
+    this.detailedDescription = 
+      getNormalizedString(detailedDescription, "detailedDescription");
   }
 
   public String getShortDescription() {
@@ -160,7 +161,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setShortDescription(String shortDescription) {
-    this.shortDescription = getNormalizedString(shortDescription, "shortDescription");
+    this.shortDescription = 
+      getNormalizedString(shortDescription, "shortDescription");
   }
 
   public List<String> getSupportedLanguages() {
@@ -168,7 +170,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setSupportedLanguages(List<String> supportedLanguages) {
-    this.supportedLanguages = getNormalizedList(supportedLanguages, "supportedLanguages");
+    this.supportedLanguages = 
+      getNormalizedList(supportedLanguages, "supportedLanguages");
   }
 
   public List<String> getPlatforms() {
@@ -176,7 +179,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setPlatforms(List<String> platforms) {
-    this.platforms = getNormalizedList(platforms, "platforms");
+    this.platforms = 
+      getNormalizedList(platforms, "platforms");
   }
 
   public String getMetacritic() {
@@ -184,7 +188,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setMetacritic(String metacritic) {
-    this.metacritic = getNormalizedString(metacritic, "metacritic");
+    this.metacritic = 
+      getNormalizedString(metacritic, "metacritic");
   }
 
   public List<String> getScreenshots() {
@@ -192,7 +197,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setScreenshots(List<String> screenshots) {
-    this.screenshots = getNormalizedList(screenshots, "screenshots");
+    this.screenshots = 
+      getNormalizedList(screenshots, "screenshots");
   }
 
   public List<String> getMovies() {
@@ -224,7 +230,8 @@ public class GameDetails extends InputValidation {
   }
 
   public void setContentDescriptors(String contentDescriptors) {
-    this.contentDescriptors = getNormalizedString(contentDescriptors, "contentDescriptors");
+    this.contentDescriptors = 
+      getNormalizedString(contentDescriptors, "contentDescriptors");
   }
   
   @Override

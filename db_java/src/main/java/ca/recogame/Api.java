@@ -9,9 +9,11 @@ public class Api {
   private static Scanner reader = new Scanner(System.in);
   private Connection connect;
   private NodeReader nodeReader;
+  private String path;
 
-  public Api(String database) {
+  public Api(String database, String path) {
     this.connect = new Connection(database);
+    this.path = path;
     this.nodeReader = new NodeReader();
   }
 
@@ -22,11 +24,11 @@ public class Api {
     do {
       System.out.println(
           "1) Import all games \n" +
-          "2) Import one game details \n" +
-          "3) Import mutiple game details \n" +
-          "4) delete all games \n" +
-          "5) delete all gameDetails \n" +
-          "6) Exit\n");
+              "2) Import one game details \n" +
+              "3) Import mutiple game details \n" +
+              "4) delete all games \n" +
+              "5) delete all gameDetails \n" +
+              "6) Exit\n");
       // Manage response from user
       int response = reader.nextInt();
       keepMenu = manageResponse(response);
@@ -43,78 +45,66 @@ public class Api {
       importListGames();
     else if (response == 2)
       importOneGameDetails();
-    else if (response == 3) 
-      importMulitGameDetails();  
-    else if (response == 4) 
+    else if (response == 3)
+      importMulitGameDetails();
+    else if (response == 4)
       deleteAllGames();
-    else if (response == 5) 
-      deleteAllGameDetails(); 
+    else if (response == 5)
+      deleteAllGameDetails();
     else
       keepMenu = false;
-
     return keepMenu;
   }
 
   private void importListGames() {
     try {
       List<Game> games = nodeReader.getAllGames("steam");
-      System.out.println(games.get(5).getAppid()); // --------------------remove
+      System.out.println(games.get(5).getAppid());
       connect.insertManyGame(games);
     } catch (Exception e) {
-      System.out.println("can not data shown : " + e);
+      System.out.println("can not import list of games : " + e);
     }
   }
 
   private void importOneGameDetails() {
+    System.out.print("enter a game id : ");
     int id = reader.nextInt();
     try {
       GameDetails game = nodeReader.getOneGameDetails("steam", id);
-      System.out.println(game.getName()); // +------------------------remove
       connect.insertOneGameDetails(game);
     } catch (Exception e) {
-      System.out.println("can not data shown : " + e);
+      System.out.println("can not import the gameDetails with id : " + id + "\n" +
+          "error: " + e);
     }
   }
 
   private void importMulitGameDetails() {
-    int[] idList = {
-        225840,
-        630,
-        224260,
-        13570,
-        440,
-        365450,
-        2280,
-        100,
-        367520,
-        506540,
-    };
+    ReadFile read = new ReadFile(this.path);
     List<GameDetails> games = new ArrayList<GameDetails>();
     try {
-      for (int id : idList) {
+      for (int id : read.getlistId()) {
         GameDetails game = nodeReader.getOneGameDetails("steam", id);
         games.add(game);
       }
-      System.out.println(games.get(1).getName()); // --------------------remove
       connect.insertManyGameDetails(games);
     } catch (Exception e) {
-      System.out.println("can not data shown : " + e);
+      System.out.println("can not import list of game details : " + e);
     }
   }
 
-  private void deleteAllGames(){
-    try{
+  private void deleteAllGames() {
+    try {
       this.connect.deleteManyGame();
-    }catch(Exception e){
-      System.out.println("can not data shown : " + e);
+    } catch (Exception e) {
+      System.out.println("can not delete all-games data : " + e);
     }
   }
 
-  private void deleteAllGameDetails(){
-    try{
+  private void deleteAllGameDetails() {
+    try {
       this.connect.deleteManyGameDetails();
-    }catch(Exception e){
-      System.out.println("can not data shown : " + e);
+    } catch (Exception e) {
+      System.out.println("can not delete all game-Details data : " + e);
     }
   }
 }
