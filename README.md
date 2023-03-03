@@ -50,3 +50,8 @@ Link: https://recogame-final.azurewebsites.net/
 - Return code `0` and game JSON data
 - Return code `1` and error message
 
+#### What to run Java
+```bash
+    java -jar recogame.jar
+```   
+- Read file for file.txt. The file containes Array of list game id in json format.
