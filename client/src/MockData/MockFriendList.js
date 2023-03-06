@@ -7,6 +7,10 @@ const mockFriendList = [
     id: 2,
     friendName: 'Jaye',
   },
+  {
+    id: 3,
+    friendName: 'Georges',
+  },
 ];
 
 export { mockFriendList };
