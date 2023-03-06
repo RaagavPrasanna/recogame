@@ -13,7 +13,5 @@ public class App {
        Api api = new Api("620-recogame", "file.txt");
        api.run();      
     }
-}
-
-      
+}      
       

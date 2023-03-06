@@ -53,7 +53,5 @@ public class Game {
   public String toString() {
     return "Game [id=" + id + ", appid=" + appid + ", name=" + name + "]";
   }
-
  
 }
-
