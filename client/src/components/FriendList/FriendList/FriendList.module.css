@@ -1,3 +1,10 @@
+.friendListDiv{
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 .friendList{
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }

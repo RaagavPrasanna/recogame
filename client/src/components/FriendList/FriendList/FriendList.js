@@ -16,11 +16,11 @@ function FriendList() {
   });
 
   return (
-    <div className={classes.friendList}>
+    <div className={classes.friendListDiv}>
       <br />
       <br />
       <br />
-      {friends}
+      <span className={classes.friendList}>{friends}</span>
     </div>
   );
 
