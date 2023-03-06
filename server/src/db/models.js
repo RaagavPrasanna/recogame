@@ -1,17 +1,6 @@
 import mongoose from 'mongoose';
+import View from './view.js';
 
-/**list of games with appid and name */
-const AllGames = mongoose.model(
-  'all-games',
-  new mongoose.Schema({
-    appid: {
-      type: Number,
-      required: true,
-      unique: true
-    },
-    name: String,
-  })
-);
 
 const GameDetails = mongoose.model(
   'game-details',
@@ -43,8 +32,28 @@ const GameDetails = mongoose.model(
   })
 );
 
+const ViewGameDetailsShort = new View(
+  'view-game-details-short',
+  'game-details',
+  new mongoose.Schema({
+    name: String,
+    developers: [String],
+    shortDescription: String,
+    imageHeader: String
+  }),
+  [{
+    $project: {
+      id: '$_id',
+      name: true,
+      developers: true,
+      shortDescription: true,
+      imageHeader: true
+    }
+  }]
+);
+
 export default {
-  AllGames,
-  GameDetails
+  GameDetails,
+  ViewGameDetailsShort
 };
 
