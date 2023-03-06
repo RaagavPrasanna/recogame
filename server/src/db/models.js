@@ -52,8 +52,31 @@ const ViewGameDetailsShort = new View(
   }]
 );
 
+const UserProfile = mongoose.model(
+  'user-profile',
+  new mongoose.Schema({
+    userId: {
+      type: String,
+      required: [true, 'userId is required'],
+      unique: true
+    },
+    profileName: String,
+    profilePicture: String,
+    preferences: {
+      playedGames: [Number],
+      platforms: [String],
+      keywords: [String],
+      wishlist: [Number],
+      receiveMsgs: Boolean,
+      enableFriendRecs: Boolean,
+      enableGameRecs: Boolean,
+    },
+  })
+);
+
 export default {
   GameDetails,
-  ViewGameDetailsShort
+  ViewGameDetailsShort,
+  UserProfile
 };
 
