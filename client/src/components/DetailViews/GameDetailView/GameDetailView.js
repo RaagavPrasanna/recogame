@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 import PostContext from '../../../store/posts-context';
 
 const defaultGameDetails = {
-  gameTitle: '',
-  gamePrice: 0,
-  gameImgSrc: '',
+  name: '',
+  price: 0,
+  imageHeader: '',
   gameDesc: '',
   reviews: [],
 };
@@ -17,9 +17,9 @@ function gameReducer(state, action) {
     const { game } = action;
     console.log(game);
     return {
-      gameTitle: game.name,
-      gamePrice: game.price,
-      gameImgSrc: game.imageHeader,
+      name: game.name,
+      price: game.price,
+      imageHeader: game.imageHeader,
       gameDesc: game.shortDescription,
       reviews: [],
     };
@@ -53,9 +53,9 @@ function GameDetailView() {
     <div className={styles.gameDetails}>
       {isLoading && <p>Loading...</p>}
       <h1>{gameDetails.name}</h1>
-      <img src={gameDetails.gameImgSrc} />
+      <img src={gameDetails.imageHeader} />
       <div className={styles.buttons}>
-        <span>${gameDetails.gamePrice}</span>
+        <span>${gameDetails.price}</span>
         <Button>BUY</Button>
         <Button>ADD TO WISHLIST</Button>
         <Button>ADD TO MY GAMELIST</Button>
