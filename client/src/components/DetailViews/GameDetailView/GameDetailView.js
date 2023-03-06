@@ -15,12 +15,12 @@ const defaultGameDetails = {
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
+    console.log(game);
     return {
-      gameTitle: game.gameTitle,
+      gameTitle: game.name,
       gamePrice: game.price,
-      gameImgSrc:
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-      gameDesc: game.description,
+      gameImgSrc: game.imageHeader,
+      gameDesc: game.shortDescription,
       reviews: [],
     };
   }
@@ -44,6 +44,7 @@ function GameDetailView() {
     const gameDetails = postsCtx.homePosts.find(
       (game) => game.id === Number(id)
     );
+    console.log(gameDetails);
     dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: gameDetails });
     setIsLoading(false);
   }, []);
@@ -51,7 +52,7 @@ function GameDetailView() {
   return (
     <div className={styles.gameDetails}>
       {isLoading && <p>Loading...</p>}
-      <h1>{gameDetails.gameTitle}</h1>
+      <h1>{gameDetails.name}</h1>
       <img src={gameDetails.gameImgSrc} />
       <div className={styles.buttons}>
         <span>${gameDetails.gamePrice}</span>
