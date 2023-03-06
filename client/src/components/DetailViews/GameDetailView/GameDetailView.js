@@ -31,13 +31,10 @@ function gameReducer(state, action) {
 function GameDetailView() {
   const { id } = useParams();
   const postsCtx = useContext(PostContext);
-  const [gameDetails, dispatchGameDetails] = useReducer(gameReducer, {
-    gameTitle: '',
-    gamePrice: 0,
-    gameImgSrc: '',
-    gameDesc: '',
-    reviews: [],
-  });
+  const [gameDetails, dispatchGameDetails] = useReducer(
+    gameReducer,
+    defaultGameDetails
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
