@@ -79,10 +79,12 @@ router.post('/google-auth', async (req, res) => {
   });
 });
 
+// Change urls when deployed
 router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: 'localhost:3000/' }), (req, res) => {
   res.redirect('http://localhost:3000/');
 });
 
+// Change redirect urls when deployed
 router.get('/steam-auth/return', passport.authenticate('steam', { failureRedirect: 'localhost:3000/' }), (req, res) => {
   console.log('in return');
   req.session.regenerate((err) => {
