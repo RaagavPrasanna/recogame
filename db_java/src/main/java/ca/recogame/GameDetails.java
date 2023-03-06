@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * GameDetals Object
  */
-public class GameDetails extends InputValidation {
+public class GameDetails {
   private ObjectId id;
   private int sourceId;
   private String sourceName;
@@ -83,7 +83,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setSourceName(String sourceName) {
-    this.sourceName = getNormalizedString(sourceName, "sourceName");
+    this.sourceName = InputValidation.getNormalizedString(sourceName, "sourceName");
   }
 
   public String getName() {
@@ -91,7 +91,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setName(String name) {
-    this.name = getNormalizedString(name, "name");
+    this.name = InputValidation.getNormalizedString(name, "name");
   }
 
   public List<String> getDevelopers() {
@@ -99,7 +99,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setDevelopers(List<String> developers) {
-    this.developers = getNormalizedList(developers, "developers");
+    this.developers = InputValidation.getNormalizedList(developers, "developers");
   }
 
   public List<String> getPublishers() {
@@ -107,7 +107,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setPublishers(List<String> publishers) {
-    this.publishers = getNormalizedList(publishers, "publisher");
+    this.publishers = InputValidation.getNormalizedList(publishers, "publisher");
   }
 
   public String getImageHeader() {
@@ -115,7 +115,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setImageHeader(String imageHeader) {
-    this.imageHeader = getNormalizedString(imageHeader, "imageHeader");
+    this.imageHeader = InputValidation.getNormalizedString(imageHeader, "imageHeader");
   }
 
   public String getImageBackground() {
@@ -123,7 +123,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setImageBackground(String imageBackground) {
-    this.imageBackground = getNormalizedString(imageBackground, "imageBackground");
+    this.imageBackground = InputValidation.getNormalizedString(imageBackground, "imageBackground");
   }
 
   public List<String> getCategories() {
@@ -131,7 +131,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setCategories(List<String> categories) {
-    this.categories = getNormalizedList(categories, "categories");
+    this.categories = InputValidation.getNormalizedList(categories, "categories");
   }
 
   public List<String> getGenres() {
@@ -139,7 +139,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setGenres(List<String> genres) {
-    this.genres = getNormalizedList(genres, "genres");
+    this.genres = InputValidation.getNormalizedList(genres, "genres");
   }
 
   public String getStoreUrl() {
@@ -147,7 +147,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setStoreUrl(String storeUrl) {
-    this.storeUrl = getNormalizedString(storeUrl, "storeUrl");
+    this.storeUrl = InputValidation.getNormalizedString(storeUrl, "storeUrl");
   }
 
   public String getDetailedDescription() {
@@ -156,7 +156,7 @@ public class GameDetails extends InputValidation {
 
   public void setDetailedDescription(String detailedDescription) {
     this.detailedDescription = 
-      getNormalizedString(detailedDescription, "detailedDescription");
+    InputValidation.getNormalizedString(detailedDescription, "detailedDescription");
   }
 
   public String getShortDescription() {
@@ -165,7 +165,7 @@ public class GameDetails extends InputValidation {
 
   public void setShortDescription(String shortDescription) {
     this.shortDescription = 
-      getNormalizedString(shortDescription, "shortDescription");
+    InputValidation.getNormalizedString(shortDescription, "shortDescription");
   }
 
   public List<String> getSupportedLanguages() {
@@ -174,7 +174,7 @@ public class GameDetails extends InputValidation {
 
   public void setSupportedLanguages(List<String> supportedLanguages) {
     this.supportedLanguages = 
-      getNormalizedList(supportedLanguages, "supportedLanguages");
+    InputValidation.getNormalizedList(supportedLanguages, "supportedLanguages");
   }
 
   public List<String> getPlatforms() {
@@ -183,7 +183,7 @@ public class GameDetails extends InputValidation {
 
   public void setPlatforms(List<String> platforms) {
     this.platforms = 
-      getNormalizedList(platforms, "platforms");
+    InputValidation.getNormalizedList(platforms, "platforms");
   }
 
   public String getMetacritic() {
@@ -192,7 +192,7 @@ public class GameDetails extends InputValidation {
 
   public void setMetacritic(String metacritic) {
     this.metacritic = 
-      getNormalizedString(metacritic, "metacritic");
+    InputValidation.getNormalizedString(metacritic, "metacritic");
   }
 
   public List<String> getScreenshots() {
@@ -201,7 +201,7 @@ public class GameDetails extends InputValidation {
 
   public void setScreenshots(List<String> screenshots) {
     this.screenshots = 
-      getNormalizedList(screenshots, "screenshots");
+    InputValidation.getNormalizedList(screenshots, "screenshots");
   }
 
   public List<String> getMovies() {
@@ -209,7 +209,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setMovies(List<String> movies) {
-    this.movies = getNormalizedList(movies, "movies");
+    this.movies = InputValidation.getNormalizedList(movies, "movies");
   }
 
   public int getRecommendations() {
@@ -225,7 +225,7 @@ public class GameDetails extends InputValidation {
   }
 
   public void setBackground(String background) {
-    this.background = getNormalizedString(background, "background");
+    this.background = InputValidation.getNormalizedString(background, "background");
   }
 
   public String getContentDescriptors() {
@@ -234,7 +234,7 @@ public class GameDetails extends InputValidation {
 
   public void setContentDescriptors(String contentDescriptors) {
     this.contentDescriptors = 
-      getNormalizedString(contentDescriptors, "contentDescriptors");
+    InputValidation.getNormalizedString(contentDescriptors, "contentDescriptors");
   }
   
   @Override

@@ -2,7 +2,6 @@ package ca.recogame;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,33 +40,30 @@ public class NodeReader {
             ProcessBuilder processBuilder = 
                 new ProcessBuilder("node", "./server/bin/fetch.js", name, "all");
             Process process = processBuilder.start();
-            // get the output stream of the process
-            InputStream stdout = process.getInputStream();
+           
             try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(stdout))) {
-                Thread task = new Thread(() -> {
-                    String line;
-                    try {
-                        while ((line = reader.readLine()) != null) {
-                            // convert json data to List<Game>
-                            List<Game> games = 
-                                this.gson.fromJson(line, gameListType);
-                            for (Game g : games) {
-                                allgames.add(g);
-                            }
+                new InputStreamReader(process.getInputStream())
+            )) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    List<Game> games = 
+                        this.gson.fromJson(line, gameListType);
+                        for (Game g : games) {
+                            allgames.add(g);
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                task.start();
-                task.join();
-                // wait for the process to finish
-                int exitCode = process.waitFor();
-                System.out.println("Process exited with code " + exitCode);
-                // System.out.println(allgames.get(100).getAppid());
-                return allgames;
+                }
             }
+
+            try {
+                int code = process.waitFor();
+                if (code != 0) {
+                    throw new IOException("Exit code " + code);
+                }
+                return allgames;
+            } catch (InterruptedException e) {
+                throw new IOException("Process interrupted");
+            }
+
         } else {
             return null;
         }
@@ -95,31 +91,28 @@ public class NodeReader {
             ProcessBuilder processBuilder = 
                 new ProcessBuilder("node", "./server/bin/fetch.js", name,"info", "--id", idStr);            
             Process process = processBuilder.start();
-            
-            // get the output stream of the process
-            InputStream stdout = process.getInputStream();          
+           
             try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(stdout))) {
-                Thread task = new Thread(() -> {
-                    try {
-                        String line;
-                        while ((line = reader.readLine()) != null) {                
-                            GameDetails newGame = 
-                                gson.fromJson(line, GameDetails.class);
-                            // send the object to outside
+                new InputStreamReader(process.getInputStream())
+            )) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    GameDetails newGame = 
+                            gson.fromJson(line, GameDetails.class);
                             gameDetails.add(newGame);
-                        }                    
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                task.start();
-                task.join();
-                // wait for the process to finish
-                int exitCode = process.waitFor();
-                System.out.println("Process exited with code " + exitCode);
-                return gameDetails.get(0);
+                }
             }
+
+            try {
+                int code = process.waitFor();
+                if (code != 0) {
+                    throw new IOException("Exit code " + code);
+                }
+                return gameDetails.get(0);
+            } catch (InterruptedException e) {
+                throw new IOException("Process interrupted");
+            }
+
         } else {
             return null;
         }

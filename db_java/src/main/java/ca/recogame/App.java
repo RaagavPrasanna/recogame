@@ -3,8 +3,8 @@ package ca.recogame;
 import java.io.IOException;
 
 /**
- * This app will connect to a MongoDB instance, read data from console
- * or file then upload the data to MangoDB 
+ * This app will connect to a MongoDB instance, read data from console2
+ * or file then upload the data to MangoDB 12
  */
 public class App {
     public static void main( String[] args ) 

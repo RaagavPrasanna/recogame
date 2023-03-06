@@ -7,8 +7,7 @@ import org.bson.types.*;
 /**
  * Game Oject use InputValidation class to verify string input
  */
-public class Game extends InputValidation
-{
+public class Game {
   private ObjectId id;
   private int appid;
   private String name;
@@ -43,7 +42,7 @@ public class Game extends InputValidation
   }
 
   public void setName(String name) {
-    if (normalizedString(name)){
+    if (InputValidation.normalizedString(name)){
       this.name = name;
     }else{
       System.out.println("Not valide 'name' !");

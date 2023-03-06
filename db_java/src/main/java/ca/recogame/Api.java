@@ -59,10 +59,9 @@ public class Api {
   private void importListGames() {
     try {
       List<Game> games = nodeReader.getAllGames("steam");
-      System.out.println(games.get(5).getAppid());
       connect.insertManyGame(games);
     } catch (Exception e) {
-      System.out.println("can not import list of games : " + e);
+      System.err.println();
     }
   }
 

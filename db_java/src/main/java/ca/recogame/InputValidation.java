@@ -12,9 +12,10 @@ import java.util.regex.Pattern;
    * @param input a string
    * @return boolean the result of normalized string
    */
-public class InputValidation {
+
+public final class InputValidation {
    
-  public boolean normalizedString(String input) {
+  public static boolean normalizedString(String input) {
     boolean isValide = false;
     String checkText = Normalizer.normalize(input, Form.NFKC);
     Pattern pattern = Pattern.compile("[<>]");
@@ -32,7 +33,7 @@ public class InputValidation {
    * @param input a list of string
    * @return true if all the string are vnormlized, else return false.
    */
-  public boolean normalizedList(List<String> input) {
+  public static boolean normalizedList(List<String> input) {
     for (String x : input) {
       if (normalizedString(x) == false) {
         return false;
@@ -49,7 +50,7 @@ public class InputValidation {
    * @param field String for error on normalization of this field.
    * @return the same input as List<String> or null
    */
-  public List<String> getNormalizedList(List<String> input, String field) {
+  public static List<String> getNormalizedList(List<String> input, String field) {
     if (input == null) {
       return null;
     } else if (normalizedList(input) == true) {
@@ -68,7 +69,7 @@ public class InputValidation {
    * @param field String for error message on specific field
    * @return input or null
    */
-  public String getNormalizedString(String input, String field) {
+  public static String getNormalizedString(String input, String field) {
     if (input == null) {
       return null;
     } else if (normalizedString(input) == true) {
