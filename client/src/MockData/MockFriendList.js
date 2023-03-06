@@ -1,15 +1,15 @@
 const mockFriendList = [
   {
     id: 1,
-    friendName: 'Julie',
+    name: 'Julie',
   },
   {
     id: 2,
-    friendName: 'Jaye',
+    name: 'Jaye',
   },
   {
     id: 3,
-    friendName: 'Georges',
+    name: 'Georges',
   },
 ];
 

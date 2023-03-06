@@ -3,7 +3,7 @@ import { mockFriendList } from '../MockData/MockFriendList';
 import { useState } from 'react';
 
 function FriendsProvider({ children }) {
-  const friends = useState(mockFriendList);
+  const [friends] = useState(mockFriendList);
   const [scrollPosition, setScrollPosition] = useState(0);
 
   function handleScrollPosition() {

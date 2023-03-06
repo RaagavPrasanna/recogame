@@ -12,7 +12,7 @@ function FriendList() {
   }, []);
 
   const friends = friendCtx.friendList.map((friend) => {
-    return <FriendPost key={friend.id} name={friend.friendName} />;
+    return <FriendPost key={friend.id} name={friend.name} />;
   });
 
   return (
