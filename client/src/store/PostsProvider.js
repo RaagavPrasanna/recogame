@@ -18,10 +18,11 @@ function PostsProvider({ children }) {
       .then((data) =>
         setPosts(
           data.map((game, index) => {
-            return { ...game, id: index };
+            return { ...game, id: index, rating: 5, price: 69.99 };
           })
         )
-      );
+      )
+      .catch((err) => console.error(err.message));
   }, []);
 
   function fetchMoreData() {
