@@ -3,7 +3,6 @@ import Button from '../UI/Button/Button';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 import { GoogleLogin } from '@react-oauth/google';
-// import { redirect } from "react-router-dom";
 
 function LoginForm({ onCancel }) {
   const [setUsername] = useState();
@@ -14,6 +13,7 @@ function LoginForm({ onCancel }) {
 
   const logout = async () => {
     const res = await fetch('/authentication/logout');
+    // TODO: Redirect to home page on logout
     if(res.status === 200) {
       // eslint-disable-next-line no-alert
       alert('Logged out');

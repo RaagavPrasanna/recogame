@@ -21,9 +21,9 @@ passport.deserializeUser((user, done) => {
 
 passport.use(new SteamStrategy({
   // Must be changed when deployed
-  returnURL: 'http://localhost:3001/authentication/steam-auth/return',
+  returnURL: `${process.env.HOST_URL}authentication/steam-auth/return`,
   // Must be changed when deployed
-  realm: 'http://localhost:3001/',
+  realm: process.env.HOST_URL,
   apiKey: process.env.STEAM_API_KEY
 }, function (identifier, profile, done) {
   process.nextTick(function () {
@@ -80,23 +80,24 @@ router.post('/google-auth', async (req, res) => {
 });
 
 // Change urls when deployed
-router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: 'localhost:3000/' }), (req, res) => {
-  res.redirect('http://localhost:3000/');
+router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), (req, res) => {
+  res.redirect(process.env.REDIRECT_URL);
 });
 
 // Change redirect urls when deployed
-router.get('/steam-auth/return', passport.authenticate('steam', { failureRedirect: 'localhost:3000/' }), (req, res) => {
-  console.log('in return');
-  req.session.regenerate((err) => {
-    if(err) {
-      return res.sendStatus(500);
-    }
-    req.session.user = req.user;
-    console.log('set session user');
-    console.log(req.session.user);
-    res.redirect('http://localhost:3000/');
+router.get('/steam-auth/return',
+  passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), (req, res) => {
+    console.log('in return');
+    req.session.regenerate((err) => {
+      if(err) {
+        return res.sendStatus(500);
+      }
+      req.session.user = req.user;
+      console.log('set session user');
+      console.log(req.session.user);
+      res.redirect(process.env.REDIRECT_URL);
+    });
   });
-});
 
 router.get('/get-user', isAuthenticated, function(req, res) {
   res.json(req.session.user);
