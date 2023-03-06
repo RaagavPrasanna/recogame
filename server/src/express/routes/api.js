@@ -1,14 +1,23 @@
 import express from 'express';
 import models from '../../db/models.js';
+import utils from '../utils.js';
+
 const router = express.Router();
 
-// import { isAuthenticated, csrfProtect } from '../utils.js';
+// import utils from '../utils.js';
 
 /**
  * PLEASE NOTE THAT ANY POST REQUEST THAT MODIFIES THE DB NEEDS TO BE DONE AS SUCH:
  * On the server side:
  *  // Make sure to include the csrfProtect middleware as well as the isAuthenticated middleware if required
- *  app.post('/api/your-endpoint', isAuthenticated, csrfProtect.csrfSynchronisedProtection, async (req, res) => {...});
+ *  app.post(
+ *    '/api/your-endpoint',
+ *     utils.authentication.isAuthenticated,
+ *     utils.authentication.csrfProtect.csrfSynchronisedProtection,
+ *     async (req, res) => {
+ *       ...
+ *     }
+ *  );
  * On the client side:
  *  // We first need to request the csrf token from the server
  *  const csrfToken = await fetch('/authentication/csrf-token').then(res => res.json());
@@ -26,8 +35,17 @@ const router = express.Router();
 
 const CLEAN_PROJECTION = { _id: false, __v: false };
 
-async function getAllGamesFromDB() {
-  return await (await models.ViewGameDetailsShort.getModel()).find({}, CLEAN_PROJECTION);
+/**
+ * @param page {number}
+ * @param limit {number}
+ */
+async function getAllGamesFromDB(page, limit = 4) {
+  return await (
+    (await models.ViewGameDetailsShort.getModel())
+      .find({}, CLEAN_PROJECTION)
+      .skip(page * limit)
+      .limit(limit)
+  );
 }
 
 /** Currently just returns the game with the given id */
@@ -40,7 +58,7 @@ async function getGameFromDB(id) {
  * /game-all:
  *   get:
  *     summary: Retrieve all games
- *     description: Retrieve all games that are found in the database which can then be used to query specfiic game data
+ *     description: Retrieve all games that are found in the database which can then be used to query specific game data
  *     responses:
  *      200:
  *        description: A list of all games
@@ -62,9 +80,17 @@ async function getGameFromDB(id) {
  *      500:
  *        description: Issues with our server
  */
-router.get('/game-all', async (_, res) => {
+router.get('/game-all', async (req, res) => {
+  const page = req.query.page || 0;
   try {
-    const games = await getAllGamesFromDB();
+    utils.validation.validateNumber(page, { int: true, min: 0 });
+  } catch (e) {
+    res.status(400).send(`Invalid page: ${e.message}`);
+    return;
+  }
+
+  try {
+    const games = await getAllGamesFromDB(page);
     res.json(games);
   } catch (err) {
     console.error(err);
@@ -177,13 +203,17 @@ router.get('/game-all', async (_, res) => {
  *        description: Issues with our server
  */
 router.get('/game/:id', async (req, res) => {
+  const id = req.params.id;
   try {
-    if(isNaN(req.params.id)) {
-      res.status(400).send('Invalid ID');
-      return;
-    }
-    const game = await getGameFromDB(req.params.id);
-    if(!game) {
+    utils.validation.validateNumber(id, { int: true, min: 0 });
+  } catch (e) {
+    res.status(400).send(`Invalid ID: ${e.message}`);
+    return;
+  }
+
+  try {
+    const game = await getGameFromDB(id);
+    if (!game) {
       res.status(404).send('Game not found');
       return;
     }

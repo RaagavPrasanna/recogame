@@ -1,7 +1,7 @@
 import express from 'express';
 import { OAuth2Client } from 'google-auth-library';
 import session from 'express-session';
-import { isAuthenticated, csrfProtect } from '../utils.js';
+import utils from '../utils.js';
 const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -50,11 +50,11 @@ router.post('/auth', async (req, res) => {
   });
 });
 
-router.get('/protected', isAuthenticated, function(req, res) {
+router.get('/protected', utils.authentication.isAuthenticated, function(req, res) {
   res.sendStatus(200);
 });
 
-router.get('/logout', isAuthenticated, function(req, res) {
+router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
   req.session.destroy(function(err) {
     if(err) {
       return res.sendStatus(500);
@@ -64,8 +64,15 @@ router.get('/logout', isAuthenticated, function(req, res) {
   });
 });
 
-// Must be requested by client everytime a post request is made
-router.get('/csrf-token', isAuthenticated, csrfProtect.csrfSynchronisedProtection, (req, res) => {
-  res.json({ token: csrfProtect.generateToken(req) });
-});
+// Must be requested by client every time a post request is made
+router.get(
+  '/csrf-token',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection,
+  (req, res) => {
+    res.json({ token: utils.authentication.csrfProtect.generateToken(req) });
+  }
+);
+
 export default router;
+
