@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import View from './view.js';
 
 
+const CLEAN_PROJECTION = { _id: false, __v: false };
+
 const GameDetails = mongoose.model(
   'game-details',
   new mongoose.Schema({
@@ -54,6 +56,7 @@ const ViewGameDetailsShort = new View(
 
 export default {
   GameDetails,
-  ViewGameDetailsShort
+  ViewGameDetailsShort,
+  CLEAN_PROJECTION
 };
 

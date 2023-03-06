@@ -1,39 +1,8 @@
 import express from 'express';
-import models from '../../db/models.js';
-import utils from '../utils.js';
+import models from '../../../db/models.js';
+import utils from '../../utils.js';
 
 const router = express.Router();
-
-// import utils from '../utils.js';
-
-/**
- * PLEASE NOTE THAT ANY POST REQUEST THAT MODIFIES THE DB NEEDS TO BE DONE AS SUCH:
- * On the server side:
- *  // Make sure to include the csrfProtect middleware as well as the isAuthenticated middleware if required
- *  app.post(
- *    '/api/your-endpoint',
- *     utils.authentication.isAuthenticated,
- *     utils.authentication.csrfProtect.csrfSynchronisedProtection,
- *     async (req, res) => {
- *       ...
- *     }
- *  );
- * On the client side:
- *  // We first need to request the csrf token from the server
- *  const csrfToken = await fetch('/authentication/csrf-token').then(res => res.json());
- *  // Then we need to set the csrf token in the header of the request
- *  const response = await fetch('/api/your-endpoint', {
- *    method: 'POST',
- *    headers: {
- *      'Content-Type': 'application/json',
- *      'X-CSRF-Token': csrfToken.csrfToken
- *    },
- *    body: JSON.stringify({ // Whatever data you would like to send to the server })
- *  });
- */
-
-
-const CLEAN_PROJECTION = { _id: false, __v: false };
 
 /**
  * @param page {number}
@@ -42,26 +11,34 @@ const CLEAN_PROJECTION = { _id: false, __v: false };
 async function getAllGamesFromDB(page, limit = 4) {
   return await (
     (await models.ViewGameDetailsShort.getModel())
-      .find({}, CLEAN_PROJECTION)
+      .find({}, models.CLEAN_PROJECTION)
       .skip(page * limit)
       .limit(limit)
   );
 }
 
-/** Currently just returns the game with the given id */
 async function getGameFromDB(id) {
-  return await models.GameDetails.findOne({ steamId: id }, CLEAN_PROJECTION);
+  return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
 }
 
 /**
  * @swagger
- * /game-all:
+ * /game/feed:
  *   get:
- *     summary: Retrieve all games
- *     description: Retrieve all games that are found in the database which can then be used to query specific game data
+ *     summary: Sorted and paginated game feed.
+ *     description: Retrieve shortened details about the games in a sorted and paginated form.
+ *     tags:
+ *       - games
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         default: 0
+ *         schema:
+ *           type: integer
+ *           description: Current page, skips items before returning the result.
  *     responses:
  *      200:
- *        description: A list of all games
+ *        description: A list of all games.
  *        content:
  *          application/json:
  *            schema:
@@ -71,16 +48,30 @@ async function getGameFromDB(id) {
  *                properties:
  *                  appid:
  *                    type: integer
- *                    description: The unique id of the game
- *                    example: 1353100
+ *                    description: Unique ID of the game.
+ *                    example: 63f3ca8d2b23f928d766a57f
  *                  name:
  *                    type: string
- *                    description: The name of the game
- *                    example: "SCP: The Foundation"
+ *                    description: Name of the game.
+ *                    example: "DOOM (1993)"
+ *                  developers:
+ *                    type: array
+ *                    items:
+ *                      type: string
+ *                    description: List of developers of the game.
+ *                    example: [ "idSoftware" ]
+ *                  imageHeader:
+ *                    type: string
+ *                    description: URL to the header image of the game.
+ *                    example: "https://cdn.akamai.steamstatic.com/steam/apps/2280/header.jpg?t=1663861909"
+ *                  shortDescription:
+ *                    type: string
+ *                    description: Short description of the game.
+ *                    example: "You’re a marine—one of Earth’s best—recently assigned..."
  *      500:
  *        description: Issues with our server
  */
-router.get('/game-all', async (req, res) => {
+router.get('/feed', async (req, res) => {
   const page = req.query.page || 0;
   try {
     utils.validation.validateNumber(page, { int: true, min: 0 });
@@ -98,22 +89,25 @@ router.get('/game-all', async (req, res) => {
   }
 });
 
+
 /**
  * @swagger
- * /game/{id}:
+ * /game/info/{id}:
  *   get:
- *     summary: Retrieve a single game
- *     description: Retrieve a single game from the database and use the data to display information about the game
+ *     summary: Retrieve a single game.
+ *     description: Retrieve a single game from the database and use the data to display information about the game.
+ *     tags:
+ *       - games
  *     parameters:
  *      - in: path
  *        name: id
  *        required: true
- *        description: The id of the game to retrieve
+ *        description: ID of the game to retrieve.
  *        schema:
- *          type: integer
+ *          type: string
  *     responses:
  *      200:
- *       description: A single game
+ *       description: A single game.
  *       content:
  *        application/json:
  *          schema:
@@ -121,79 +115,79 @@ router.get('/game-all', async (req, res) => {
  *            properties:
  *              steamId:
  *                type: integer
- *                description: The unique id of the game
+ *                description: Unique id of the game.
  *                example: 2280
  *              name:
  *                type: string
- *                description: The name of the game
+ *                description: Name of the game.
  *                example: "DOOM (1993)"
  *              developers:
  *                type: array
- *                description: The developers of the game
+ *                description: List of developers of the game.
  *                example: ["id Software"]
  *              publishers:
  *                type: array
- *                description: The publishers of the game
+ *                description: List of publishers of the game.
  *                example: ["id Software"]
  *              imageHeader:
  *                type: string
- *                description: The url of the header image
+ *                description: URL of the header image.
  *                example: "https://cdn.akamai.steamstatic.com/steam/apps/2280/header.jpg?t=1663861909"
  *              imageBackground:
  *                type: string
- *                description: The url of the background image
+ *                description: URL of the background image
  *                example: "https://cdn.akamai.steamstatic.com/steam/apps/2280/page.bg.jpg?t=1663861909"
  *              categories:
  *                type: array
- *                description: The categories that the game falls under
+ *                description: List of categories that the game falls under.
  *                example: ["Single-player", "Multi-player", "PvP", "Shared/Split Screen PvP", "Co-op"]
  *              genres:
  *                type: array
- *                description: The genres that the game falls under
+ *                description: List of genres that the game falls under.
  *                example: ["Action"]
  *              storeUrl:
  *                type: string
- *                description: The url of the game on the steam store
+ *                description: URL of the game on the steam store.
  *                example: "https://store.steampowered.com/app/2280"
  *              detailedDescription:
  *                type: string
- *                description: The detailed description of the game
+ *                description: Detailed description of the game
  *                example: "Developed by id Software and originally released in 1993."
  *              shortDescription:
  *                type: string
- *                description: The short description of the game
+ *                description: Short description of the game
  *                example: "You’re a marine—one of Earth’s best—recently assigned to the Union Aerospace."
  *              supportedLanguages:
  *                type: array
- *                description: The languages that the game supports
+ *                description: Languages that the game supports.
  *                example: ["English", "French", "Italian", "German", "Spanish - Spain"]
  *              platforms:
  *                type: array
- *                description: The platforms that the game supports
+ *                description: Platforms that the game supports.
  *                example: ["Windows"]
  *              metacritic:
  *                type: integer
- *                description: The metacritic score of the game
+ *                description: The MetaCritic score of the game
  *                example: null
  *              screenshots:
  *                type: array
- *                description: The screenshots of the game
+ *                description: List of screenshots of the game.
  *                example: ["https://cdn.akamai.steamstatic.com/steam/apps/2280/ss_0316d2cb78eed32d21a90.jpg"]
  *              movies:
  *                type: array
- *                description: The movies of the game
+ *                description: Movies of the game.
  *                example: null
  *              recommendations:
  *                type: integer
- *                description: The number of recommendations for the game
+ *                description: Number of recommendations for the game.
  *                example: 12381
  *              background:
  *                type: string
- *                description: The background of the game
+ *                description: Background of the game.
  *                example: "https://cdn.akamai.steamstatic.com/steam/apps/2280/page_bg_generated_v6b.jpg?t=1663861909"
  *              contentDescriptors:
  *                type: array
- *                description: The content descriptors of the game
+ *                description: List of content descriptors of the game.
  *                example: null
  *      400:
  *        description: Invalid ID (is not numeric)
@@ -202,14 +196,8 @@ router.get('/game-all', async (req, res) => {
  *      500:
  *        description: Issues with our server
  */
-router.get('/game/:id', async (req, res) => {
+router.get('/info/:id', async (req, res) => {
   const id = req.params.id;
-  try {
-    utils.validation.validateNumber(id, { int: true, min: 0 });
-  } catch (e) {
-    res.status(400).send(`Invalid ID: ${e.message}`);
-    return;
-  }
 
   try {
     const game = await getGameFromDB(id);
