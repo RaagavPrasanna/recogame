@@ -1,5 +1,7 @@
 # RecoGame service
 
+Link: https://recogame-final.azurewebsites.net/
+
 ## Setup
 
 1. Create a `.env file` in root directory

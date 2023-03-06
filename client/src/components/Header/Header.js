@@ -34,7 +34,9 @@ function Header() {
         <Button> User </Button>
       </header>
       <header className={styles.search}>
-        <Button> Log In </Button>
+        <Link to="/login">
+          <Button> Log In </Button>
+        </Link>
         <Button> Register </Button>
         <Button> Search </Button>
       </header>
