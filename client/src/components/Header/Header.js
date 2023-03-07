@@ -1,11 +1,14 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
+import UserContext from '../../store/user-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const headerRef = useRef();
+
+  const { user, logout } = useContext(UserContext);
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight ? setNavBg(true) : setNavBg(false);
@@ -17,6 +20,16 @@ function Header() {
       window.removeEventListener('scroll', changeNavBg);
     };
   }, []);
+
+  const retUserAuthButton = () => {
+    if(user !== null) {
+      return ( <Button onClick={logout}> Log Out here {user.provider === 'google' ? user.name : user.name} </Button> );
+    } else {
+      return ( <Link to="/login">
+        <Button> Log In </Button>
+      </Link> );
+    }
+  };
 
   return (
     <div
@@ -34,9 +47,7 @@ function Header() {
         <Button> User </Button>
       </header>
       <header className={styles.search}>
-        <Link to="/login">
-          <Button> Log In </Button>
-        </Link>
+        {retUserAuthButton()}
         <Button> Register </Button>
         <Button> Search </Button>
       </header>
