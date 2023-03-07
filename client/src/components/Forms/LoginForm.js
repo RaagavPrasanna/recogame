@@ -53,6 +53,12 @@ function LoginForm({ onCancel }) {
     console.error(err);
   };
 
+  const handleSteam = async () => {
+    // Must be changed in production
+    // eslint-disable-next-line no-undef
+    window.location.replace(`${process.env.REACT_APP_HOST_URL}authentication/steam-auth/return`);
+  };
+
   return (
     <Modal onClick={onCancel}>
       <form className={classes.loginForm}>
@@ -84,6 +90,8 @@ function LoginForm({ onCancel }) {
         <GoogleLogin onSuccess={handleLogin} onError={handleError}/>
         <br />
         <br />
+        {/* eslint-disable-next-line max-len */}
+        <img src='https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png' onClick={handleSteam}/>
         <div>
           <Button onClick={onCancel}>Cancel</Button>
           <Button onSubmit={handleSubmit}>Sign In</Button>
