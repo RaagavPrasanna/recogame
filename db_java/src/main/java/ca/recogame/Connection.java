@@ -63,7 +63,7 @@ public class Connection {
         database.getCollection("all-games", Game.class);
       allgames.insertOne(game);
     } catch (Exception E) {
-      System.out.println(game.getName() + " can't be add in database");
+      System.err.println();
     }
   }
   /**
@@ -78,7 +78,7 @@ public class Connection {
         database.getCollection("all-games", Game.class);
       allgames.insertMany(games);
     } catch (Exception E) {
-      System.out.println(" List of games can't be add in database");
+      System.err.println();
     }
   }
 
@@ -93,7 +93,7 @@ public class Connection {
         database.getCollection("all-games", Game.class);
       allgames.deleteMany(Filters.gte("appid", 0));
     } catch (Exception E) {
-      System.out.println(" List of games can't be deleted in database");
+      System.err.println();
     }
   }
   /**
@@ -108,7 +108,7 @@ public class Connection {
         database.getCollection("game-details", GameDetails.class);
       gameDetails.insertOne(game);
     } catch (Exception E) {
-      System.out.println(game.getName() + " can't be add in database of : " + this.database);
+      System.err.println();
     }
   }
 
@@ -124,7 +124,7 @@ public class Connection {
         database.getCollection("game-details", GameDetails.class);
       allgames.insertMany(games);
     } catch (Exception E) {
-      System.out.println(" List of gameDetails can't be add in database");
+      System.err.println();
     }
   }
 
@@ -139,7 +139,7 @@ public class Connection {
         database.getCollection("game-details", GameDetails.class);
       gameDetails.deleteMany(Filters.gte("sourceId", 0));
     } catch (Exception E) {
-      System.out.println(" List of gameDetails can't be removed in database");
+      System.err.println();
     }
   }
 

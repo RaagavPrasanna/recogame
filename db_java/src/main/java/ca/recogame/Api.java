@@ -24,11 +24,11 @@ public class Api {
     do {
       System.out.println(
           "1) Import all games \n" +
-              "2) Import one game details \n" +
-              "3) Import mutiple game details \n" +
-              "4) delete all games \n" +
-              "5) delete all gameDetails \n" +
-              "6) Exit\n");
+          "2) Import one game details \n" +
+          "3) Import mutiple game details \n" +
+          "4) delete all games \n" +
+          "5) delete all gameDetails \n" +
+          "6) Exit\n");
       // Manage response from user
       int response = reader.nextInt();
       keepMenu = manageResponse(response);
@@ -72,8 +72,7 @@ public class Api {
       GameDetails game = nodeReader.getOneGameDetails("steam", id);
       connect.insertOneGameDetails(game);
     } catch (Exception e) {
-      System.out.println("can not import the gameDetails with id : " + id + "\n" +
-          "error: " + e);
+      System.err.println();
     }
   }
 
@@ -87,7 +86,7 @@ public class Api {
       }
       connect.insertManyGameDetails(games);
     } catch (Exception e) {
-      System.out.println("can not import list of game details : " + e);
+      System.err.println();
     }
   }
 
@@ -95,7 +94,7 @@ public class Api {
     try {
       this.connect.deleteManyGame();
     } catch (Exception e) {
-      System.out.println("can not delete all-games data : " + e);
+      System.err.println();
     }
   }
 
@@ -103,7 +102,8 @@ public class Api {
     try {
       this.connect.deleteManyGameDetails();
     } catch (Exception e) {
-      System.out.println("can not delete all game-Details data : " + e);
+      System.err.println();
     }
   }
+
 }

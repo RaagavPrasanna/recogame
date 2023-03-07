@@ -28,8 +28,7 @@ public class ReadFile {
       this.data = data;
       myReader.close();
     } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
+      System.err.println();
     }
   }
 
