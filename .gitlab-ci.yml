@@ -54,6 +54,8 @@ build-importer:
   cache:
     key:
       prefix: importer
+      files:
+        - db_java/pom.xml
     paths:
       - db_java/target/
   before_script:
