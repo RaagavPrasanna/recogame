@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import View from './view.js';
 
 
+const CLEAN_PROJECTION = { _id: false, __v: false };
+
 const GameDetails = mongoose.model(
   'game-details',
   new mongoose.Schema({
@@ -52,8 +54,32 @@ const ViewGameDetailsShort = new View(
   }]
 );
 
+const UserProfile = mongoose.model(
+  'user-profile',
+  new mongoose.Schema({
+    userId: {
+      type: String,
+      required: [true, 'userId is required'],
+      unique: true
+    },
+    profileName: String,
+    profilePicture: String,
+    preferences: {
+      playedGames: [Number],
+      platforms: [String],
+      keywords: [String],
+      wishlist: [Number],
+      receiveMsgs: Boolean,
+      enableFriendRecs: Boolean,
+      enableGameRecs: Boolean,
+    },
+  })
+);
+
 export default {
+  CLEAN_PROJECTION,
   GameDetails,
-  ViewGameDetailsShort
+  ViewGameDetailsShort,
+  UserProfile
 };
 
