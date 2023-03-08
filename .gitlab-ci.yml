@@ -49,25 +49,6 @@ build-frontend:
       - client/build/
       - client/node_modules/
 
-build-importer:
-  stage: build
-  cache:
-    key:
-      prefix: importer
-      files:
-        - db_java/pom.xml
-    paths:
-      - db_java/target/
-  before_script:
-    - cd db_java
-  script:
-    - mvn clean package
-  artifacts:
-    expire_in: 1 days
-    when: on_success
-    paths:
-      - db_java/target
-
 #endregion
 
 
@@ -113,15 +94,6 @@ test-frontend:
     - cd client
   script:
     - npm run test
-
-test-importer:
-  stage: test
-  dependencies:
-    - build-importer
-  before_script:
-    - cd db_java
-  script:
-    - mvn test
 
 #endregion
 
