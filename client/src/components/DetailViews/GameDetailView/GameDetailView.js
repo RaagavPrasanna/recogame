@@ -71,7 +71,9 @@ function GameDetailView() {
       <div
         className={styles.gameDetails}
         style={{
-          background: `url(${gameDetails.background})`,
+          backgroundImage: `url(${gameDetails.background})`,
+          backgroundSize: 'cover',
+          overflow: 'hidden',
         }}
       >
         {isLoading && <p>Loading...</p>}

@@ -5,6 +5,7 @@
   position: fixed;
   padding: 1rem 3rem;
   transition: background-color 0.2s linear;
+  z-index: 3;
 }
 
 .header.showBg {
