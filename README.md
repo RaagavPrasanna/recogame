@@ -4,7 +4,7 @@ Link: https://recogame-final.azurewebsites.net/
 
 ## Setup
 
-1. Create a `.env file` in root directory
+1. Create a `.env` file in root directory
     ```bash
     # Mongo
     MONGO_CONNECTION_URI="mongodb+srv://<USERNAME>:<PASSWORD>..."
@@ -15,8 +15,8 @@ Link: https://recogame-final.azurewebsites.net/
     ```
 2. Install all the dependencies
     ```bash
-    cd server && npm run install && cd ..
-    cd client && npm run install && cd ..
+    npm install --prefix server
+    npm install --prefix client
     ```
 3. Run the server
     ```bash
@@ -30,10 +30,11 @@ Link: https://recogame-final.azurewebsites.net/
 #### How to run
 
 - Running
-    - Ensure that your `.env` and dependencies are [set up correctly](#-setup)
-    ```bash
-        ./server/bin/fetch.js --help
-    ```
+    1. Ensure that your `.env` and dependencies are [set up correctly](#-setup)
+    2. Run
+        ```bash
+            ./server/bin/fetch.js <<YOUR QUERY HERE>>
+        ```
 - Flags
     - Consult `--help` if needed
     - Supply the source of fetch with the first argument. Can be:
@@ -54,13 +55,14 @@ Link: https://recogame-final.azurewebsites.net/
 
 #### How to run
 
-- Compiling
-    ```bash
-    (cd db_java && mvn clean package)
-    ```
 - Running
-    - Ensure that your `.env` is [set up correctly](#-setup)
-    - Read file for file.txt. The file contains Array of list game id in json format
+    1. Ensure that your `.env` is [set up correctly](#-setup)
+    2. Check the file `starting-games.json`. The file contains an array of game IDs that you want to fetch.
+    3. Compile
+        ```bash
+        (cd db_java && mvn clean package)
+        ```
+    4. Run
     ```bash
         java -jar db_java/target/db_java-1.0.jar
     ```
