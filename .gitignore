@@ -2,7 +2,7 @@
 .vscode
 
 # Project specific
-.env
+/.env
 node_modules/
 client/build
 

@@ -1,26 +1,18 @@
 import mongoose from 'mongoose';
+import View from './view.js';
 
-/**list of games with appid and name */
-const AllGames = mongoose.model(
-  'all-games',
-  new mongoose.Schema({
-    appid: {
-      type: Number,
-      required: true,
-      unique: true
-    },
-    name: String,
-  })
-);
+
+const CLEAN_PROJECTION = { _id: false, __v: false };
 
 const GameDetails = mongoose.model(
   'game-details',
   new mongoose.Schema({
-    steamId: {
+    sourceId: {
       type: Number,
-      required: [true, 'steamId is requird'],
+      required: [true, 'sourceId is requird'],
       unique: true
     },
+    sourceName: String,
     name: String,
     developers: [String],
     publishers: [String],
@@ -42,8 +34,52 @@ const GameDetails = mongoose.model(
   })
 );
 
+const ViewGameDetailsShort = new View(
+  'view-game-details-short',
+  'game-details',
+  new mongoose.Schema({
+    name: String,
+    developers: [String],
+    shortDescription: String,
+    imageHeader: String
+  }),
+  [{
+    $project: {
+      id: '$_id',
+      name: true,
+      developers: true,
+      shortDescription: true,
+      imageHeader: true
+    }
+  }]
+);
+
+const UserProfile = mongoose.model(
+  'user-profile',
+  new mongoose.Schema({
+    userId: {
+      type: String,
+      required: [true, 'userId is required'],
+      unique: true
+    },
+    profileName: String,
+    profilePicture: String,
+    preferences: {
+      playedGames: [Number],
+      platforms: [String],
+      keywords: [String],
+      wishlist: [Number],
+      receiveMsgs: Boolean,
+      enableFriendRecs: Boolean,
+      enableGameRecs: Boolean,
+    },
+  })
+);
+
 export default {
-  AllGames,
-  GameDetails
+  CLEAN_PROJECTION,
+  GameDetails,
+  ViewGameDetailsShort,
+  UserProfile
 };
 

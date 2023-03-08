@@ -1,13 +1,13 @@
 # Search results
 
 1. **BACKEND**: Have an endpoint for the search field
-    - Names of the games - `/api/all-games`
+    - Names of the games - `/api/game-all`
     - Accounts - `/api/all-accounts`
     - *etc*
 2. **FRONTEND**: Fetch from this endpoint and use it as datalist
     - Fetch
         ```javascript
-        const allGames = await fetch('/api/all-games');
+        const allGames = await fetch('/api/game-all');
         ```
     - Add to datalist helper
         ```javascript
