@@ -61,7 +61,7 @@ public class Api {
       List<Game> games = nodeReader.getAllGames("steam");
       connect.insertManyGame(games);
     } catch (Exception e) {
-      System.err.println();
+      System.err.println("can not import list fo games");
     }
   }
 
@@ -72,7 +72,8 @@ public class Api {
       GameDetails game = nodeReader.getOneGameDetails("steam", id);
       connect.insertOneGameDetails(game);
     } catch (Exception e) {
-      System.err.println();
+      System.err.println("can not import the gameDetails with id : " + id + "\n" +
+          "error: " + e);
     }
   }
 
@@ -86,7 +87,7 @@ public class Api {
       }
       connect.insertManyGameDetails(games);
     } catch (Exception e) {
-      System.err.println();
+      System.err.println("can not import list of game details : " + e);
     }
   }
 
@@ -94,7 +95,7 @@ public class Api {
     try {
       this.connect.deleteManyGame();
     } catch (Exception e) {
-      System.err.println();
+      System.err.println("can not delete all-games data : " + e);
     }
   }
 
@@ -102,7 +103,7 @@ public class Api {
     try {
       this.connect.deleteManyGameDetails();
     } catch (Exception e) {
-      System.err.println();
+      System.err.println("can not delete all game-Details data : " + e);
     }
   }
 

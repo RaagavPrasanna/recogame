@@ -45,7 +45,7 @@ public class Game {
     if (InputValidation.normalizedString(name)){
       this.name = name;
     }else{
-      System.out.println("Not valide 'name' !");
+      System.err.println("Not valide 'name' !");
     }
   }
 

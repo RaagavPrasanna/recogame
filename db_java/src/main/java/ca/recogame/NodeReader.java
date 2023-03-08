@@ -121,7 +121,7 @@ public class NodeReader {
     private String validateName(String website) {
         String name = website.toLowerCase();
         if (!name.equals("steam")) {
-            System.out.println("Can't read from Node, no such website name : " + website);
+            System.err.println("Can't read from Node, no such website name : " + website);
             return null;
         }
         return name;

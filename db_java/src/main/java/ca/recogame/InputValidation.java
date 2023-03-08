@@ -56,7 +56,7 @@ public final class InputValidation {
     } else if (normalizedList(input) == true) {
       return input;
     } else {
-      System.out.println("Not valide in " + field + " !");
+      System.err.println("Not valide in " + field + " !");
       return null;
     }
   }
@@ -75,7 +75,7 @@ public final class InputValidation {
     } else if (normalizedString(input) == true) {
       return input;
     } else {
-      System.out.println("Not valide in " + field + " !");
+      System.err.println("Not valide in " + field + " !");
       return null;
     }
   }

@@ -28,7 +28,7 @@ public class ReadFile {
       this.data = data;
       myReader.close();
     } catch (FileNotFoundException e) {
-      System.err.println();
+      System.err.println("can not read file in : "+path);
     }
   }
 
