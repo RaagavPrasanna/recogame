@@ -1,9 +1,14 @@
-import Popup from 'reactjs-popup';
+// import Popup from 'reactjs-popup';
 import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
+import { useState } from 'react';
 
 function GameList() {
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div className={classes.gameList}>
@@ -13,14 +18,16 @@ function GameList() {
       <h3> Wishlist </h3>
       <section className={classes.card}>
         Lorem ipsum dolor sit amet.
-        <Popup trigger={<Button> Edit </Button>} modal>
-          {close => (
-            <div className={classes.buttons}>
-              <Button> Remove </Button>
-              <Button onClick={ close }> Cancel </Button>
-            </div>
-          )}
-        </Popup>
+        <Button onClick={handleShow}> Edit </Button>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Button onClick={handleClose}> Remove </Button>
+          <Button onClick={handleClose}> Cancel </Button>
+        </Modal>
       </section>
       <h3> In progress</h3>
 
