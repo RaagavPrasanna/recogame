@@ -30,7 +30,9 @@ function Header() {
         </Link>
         <Button> My Game List </Button>
         <Button> Community </Button>
-        <Button> Friends </Button>
+        <Link to="/friends">
+          <Button> Friends </Button>
+        </Link>
         <Button> User </Button>
       </header>
       <header className={styles.search}>
