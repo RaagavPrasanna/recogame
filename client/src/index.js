@@ -7,12 +7,12 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
     {/* eslint-disable-next-line no-undef*/}
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <PostsProvider>
         <App />
       </PostsProvider>
     </GoogleOAuthProvider>
-  </React.StrictMode>
+  </>
 );
