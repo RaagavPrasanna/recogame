@@ -3,23 +3,23 @@
   width:100%;
   padding-left:1em;
   padding-right:1em;
+  margin: 4em auto;
+  display:list-item;
+  list-style: none;
+  
 }
 
-.card {
+section {
   color: #2d3a44;
   background-color: #708090;
   display:flex;
-  padding-left: 2em;
-  padding: 5px;
-  border-radius: 10px;  
-}
-
-.buttons{
-  background-color: #536878;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
-Popup{
-  margin-left: 80%;
+section Button{
+  right: 0;
+  position: fixed;
+  padding-right: 5rem;
 }
+

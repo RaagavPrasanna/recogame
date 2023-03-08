@@ -5,37 +5,31 @@ import classes from './GameList.module.css';
 import { useState } from 'react';
 
 function GameList() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  function handleClose() {
+    useState(false);
+  }
+  function handleShow() {
+    useState(true);
+  }
 
   return (
     <div className={classes.gameList}>
-      <br />
-      <br />
-      <br />
-      <h3> Wishlist </h3>
-      <section className={classes.card}>
+      <h2> Wishlist </h2>
+      <section>
         Lorem ipsum dolor sit amet.
         <Button onClick={handleShow}> Edit </Button>
-        <Modal
-          show={show}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Button onClick={handleClose}> Remove </Button>
+        {/* <Modal onClick={handleClose}>
+          <Button> Remove </Button>
           <Button onClick={handleClose}> Cancel </Button>
-        </Modal>
+        </Modal> */}
       </section>
-      <h3> In progress</h3>
+      <h2> In progress</h2>
 
-      <h3> Finished </h3>
+      <h2> Finished </h2>
 
-      <h3> Completed 100% Achievements </h3>
+      <h2> Completed 100% Achievements </h2>
 
-      <h3> Never Played </h3>
+      <h2> Never Played </h2>
     </div>
   );
 }
