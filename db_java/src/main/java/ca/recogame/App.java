@@ -3,7 +3,7 @@ package ca.recogame;
 import java.io.IOException;
 
 /**
- * This app will connect to a MongoDB instance, and instert data
+ * This app will connect to a MongoDB instance, and insert data
  */
 public class App {
     public static void main( String[] args )
