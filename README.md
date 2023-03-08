@@ -50,8 +50,17 @@ Link: https://recogame-final.azurewebsites.net/
 - Return code `0` and game JSON data
 - Return code `1` and error message
 
-#### What to run Java
-```bash
-    java -jar recogame.jar
-```   
-- Read file for file.txt. The file containes Array of list game id in json format.
+### Java importer
+
+#### How to run
+
+- Compiling
+    ```bash
+    (cd db_java && mvn clean package)
+    ```
+- Running
+    - Ensure that your `.env` is [set up correctly](#-setup)
+    - Read file for file.txt. The file contains Array of list game id in json format
+    ```bash
+        java -jar db_java/target/db_java-1.0.jar
+    ```
