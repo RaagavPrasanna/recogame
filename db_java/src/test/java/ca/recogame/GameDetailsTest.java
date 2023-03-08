@@ -120,6 +120,7 @@ public class GameDetailsTest {
     );
   }
 
+
   @Test
   public void TestSetSourceId(){
     GameDetails game = new GameDetails();
@@ -284,14 +285,13 @@ public class GameDetailsTest {
     assertEquals("game", game.getContentDescriptors());
   }
 
+
   @Test
   public void TestNormalizedString1(){
     GameDetails game = new GameDetails();
     game.setName("<test");
     assertEquals(null, game.getName());
   }
-
-
 
   @Test
   public void TestNormalizedString2(){
