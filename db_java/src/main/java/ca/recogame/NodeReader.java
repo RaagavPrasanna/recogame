@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 
 /**
  * Read data from console with node command and covert to class object
@@ -18,56 +16,7 @@ public class NodeReader {
     public NodeReader() {
         this.gson = new Gson();
     }
-    /**
-     * ProcessBuilder run node command, take the standout as json data, convert to
-     * List<Game>
-     * 
-     * @return List<Game> of game in Game Object
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public List<Game> getAllGames(String website) throws 
-                IOException, 
-                InterruptedException 
-    {
-        // valide input string
-        String name = validateName(website);
-        if (name != null) {
-            // setup Gson for List<Game>
-            Type gameListType = new TypeToken<List<Game>>() {}.getType();
-            List<Game> allgames = new ArrayList<Game>();
-            // set/start ProcessBuilder
-            ProcessBuilder processBuilder = 
-                new ProcessBuilder("node", "./server/bin/fetch.js", name, "all");
-            Process process = processBuilder.start();
-           
-            try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(process.getInputStream())
-            )) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    List<Game> games = 
-                        this.gson.fromJson(line, gameListType);
-                        for (Game g : games) {
-                            allgames.add(g);
-                        }
-                }
-            }
-
-            try {
-                int code = process.waitFor();
-                if (code != 0) {
-                    throw new IOException("Exit code " + code);
-                }
-                return allgames;
-            } catch (InterruptedException e) {
-                throw new IOException("Process interrupted");
-            }
-
-        } else {
-            return null;
-        }
-    }
+   
 /**
  * ProcessBuilder run node command, take the standout as json data, convert to 
  * GameDetails object
@@ -82,8 +31,8 @@ public class NodeReader {
                 InterruptedException 
     {
         // valide input string
-        String name = validateName(website);
-        if (name != null || id > 0) {
+        String name = website.toLowerCase();
+        if (name == "steam" || id > 0) {
             String idStr = Integer.toString(id);
             List<GameDetails> gameDetails = new ArrayList<GameDetails>();
             
@@ -114,16 +63,9 @@ public class NodeReader {
             }
 
         } else {
+            System.err.println("Error on input parameters");
             return null;
         }
     }
 
-    private String validateName(String website) {
-        String name = website.toLowerCase();
-        if (!name.equals("steam")) {
-            System.err.println("Can't read from Node, no such website name : " + website);
-            return null;
-        }
-        return name;
-    }
 }
