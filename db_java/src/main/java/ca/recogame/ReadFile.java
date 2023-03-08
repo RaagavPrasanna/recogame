@@ -32,9 +32,6 @@ public class ReadFile {
     }
   }
 
-  public String getData() {
-    return this.data;
-  }
 /**
  * convert read json data to List<Integer>
  * @return list   typeof List<Integer>

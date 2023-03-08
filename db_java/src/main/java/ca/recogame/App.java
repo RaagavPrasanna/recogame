@@ -10,7 +10,7 @@ public class App {
     public static void main( String[] args ) 
         throws IOException, InterruptedException
     {            
-       Api api = new Api("620-rec-test2", "starting-games.json");
+       Api api = new Api("620-reco-test2", "starting-games.json");
        api.run(); 
     }
 }      
