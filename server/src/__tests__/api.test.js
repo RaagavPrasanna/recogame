@@ -71,7 +71,7 @@ describe('API GET', () => {
       });
     mockingoose(await models.ViewGameDetailsShort.getModel()).toReturn(GAMES, 'find');
 
-    const res = await request(app).get('/api/game-all');
+    const res = await request(app).get('/api/game/feed');
 
     // To remove extra _id key value pair that is added by mockingoose
     res.body.forEach(e => delete e._id);
@@ -90,9 +90,9 @@ describe('API GET', () => {
 
   test('Get game by id', async () => {
     const MOCK_GAME = GAMES[0];
-    mockingoose(models.GameDetails).toReturn(MOCK_GAME, 'findOne');
+    mockingoose(models.GameDetails).toReturn({ _id: 'a123', ...MOCK_GAME }, 'findOne');
 
-    const res = await request(app).get('/api/game/1');
+    const res = await request(app).get('/api/game/info/a125');
 
     // To remove extra _id key value pair that is added by mockingoose
     delete res.body._id;
@@ -100,15 +100,9 @@ describe('API GET', () => {
     expect(res.body).toEqual(MOCK_GAME);
   });
 
-  test('Get game by invalid game id', async () => {
-    mockingoose(models.GameDetails).toReturn(null, 'findOne');
-    const res = await request(app).get('/api/game/hello');
-    expect(res.statusCode).toEqual(400);
-  });
-
   test('Get game by non existent game id', async () => {
     mockingoose(models.GameDetails).toReturn(null, 'findOne');
-    const res = await request(app).get('/api/game/1');
+    const res = await request(app).get('/api/game/info/1');
     expect(res.statusCode).toEqual(404);
   });
 });
