@@ -3,6 +3,8 @@ import Button from '../../UI/Button/Button';
 import styles from './GameDetailView.module.css';
 import { useParams } from 'react-router-dom';
 import Spinner from '../../UI/Spinner';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { Carousel } from 'react-responsive-carousel';
 
 const defaultGameDetails = {
   name: '',
@@ -23,6 +25,7 @@ function gameReducer(state, action) {
       imageHeader: game.imageHeader,
       gameDesc: game.shortDescription,
       storeUrl: game.storeUrl,
+      screenshots: game.screenshots,
       reviews: [],
     };
   }
@@ -73,7 +76,21 @@ function GameDetailView() {
       >
         {isLoading && <p>Loading...</p>}
         <h1>{gameDetails.name}</h1>
-        <img src={gameDetails.imageHeader} />
+        <div className={styles.images}>
+          <div className={styles.screenshots}>
+            <Carousel className={styles.carousel} dynamicHeight={false}>
+              {gameDetails.screenshots?.map((screenshot, i) => {
+                return (
+                  <div key={i}>
+                    <img src={screenshot} />
+                  </div>
+                );
+              })}
+            </Carousel>
+            <img src={gameDetails.imageHeader} />
+            <p className={styles.desc}>{gameDetails.gameDesc}</p>
+          </div>
+        </div>
         <div className={styles.buttons}>
           <Button onClick={() => window.open(gameDetails.storeUrl, '_blank')}>
             BUY ON STEAM
@@ -82,7 +99,6 @@ function GameDetailView() {
           <Button>ADD TO MY GAMELIST</Button>
           {/* TODO: Drop down menu */}
         </div>
-        <p className={styles.desc}>{gameDetails.gameDesc}</p>
       </div>
       <div className={styles.reviews}>
         <h2>Community Reviews</h2>
