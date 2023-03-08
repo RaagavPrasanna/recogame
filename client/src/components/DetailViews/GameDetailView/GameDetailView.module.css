@@ -1,9 +1,24 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .gameDetails {
   padding: 3rem;
   display: flex;
   flex-direction: column;
-  color: #536878;
+  color: white;
 }
+
+.gameDetails * {
+  animation: fadein 1.5s;
+}
+
 
 .gameDetails h1 {
   margin-top: 2rem;
@@ -11,7 +26,8 @@
 }
 
 .gameDetails img {
-  width: 15em;
+  width: 25em;
+  border-radius: 10px;
   margin-top: 1rem;
 }
 
@@ -34,7 +50,12 @@
 }
 
 .reviews h2 {
-  margin-top: 4rem;
+  margin-top: 2rem;
   padding-left: 3rem;
   color: white;
+  animation: fadein 1.5s;
+}
+
+.spinner {
+  position: absolute;
 }

@@ -2,6 +2,7 @@ import { useEffect, useReducer, useState } from 'react';
 import Button from '../../UI/Button/Button';
 import styles from './GameDetailView.module.css';
 import { useParams } from 'react-router-dom';
+import Spinner from '../../UI/Spinner';
 
 const defaultGameDetails = {
   name: '',
@@ -59,6 +60,11 @@ function GameDetailView() {
 
   return (
     <>
+      {isLoading ? (
+        <div className={styles.spinner}>
+          <Spinner />
+        </div>
+      ) : null}
       <div
         className={styles.gameDetails}
         style={{
@@ -69,11 +75,7 @@ function GameDetailView() {
         <h1>{gameDetails.name}</h1>
         <img src={gameDetails.imageHeader} />
         <div className={styles.buttons}>
-          <Button
-            onClick={() =>
-              window.open(gameDetails.storeUrl, '_blank')
-            }
-          >
+          <Button onClick={() => window.open(gameDetails.storeUrl, '_blank')}>
             BUY ON STEAM
           </Button>
           <Button>ADD TO WISHLIST</Button>
