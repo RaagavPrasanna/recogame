@@ -5,6 +5,7 @@ function PostsProvider({ children }) {
   const [posts, setPosts] = useState([]);
   // TODO: Add separate scoll position states for each page
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [currPageHome, setCurrPageHome] = useState(0);
 
   useEffect(() => {
     fetch('/api/game-all')
