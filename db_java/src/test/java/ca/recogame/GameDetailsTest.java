@@ -144,19 +144,21 @@ public class GameDetailsTest {
   @Test
   public void TestSetDevelopers(){
     GameDetails game = new GameDetails();
-    List<String> developers = new ArrayList<String>();
-    developers.add("Valve");
-    game.setDevelopers(developers);
-    assertEquals("Valve", game.getDevelopers().get(0));
+    game.setDevelopers(List.of("Valve"));
+    assertEquals(
+      List.of("Valve"),
+      game.getDevelopers()
+    );
   }
 
   @Test
   public void TestSetPublishers(){
     GameDetails game = new GameDetails();
-    List<String> publishers = new ArrayList<String>();
-    publishers.add("Valve");
-    game.setPublishers(publishers);
-    assertEquals("Valve", game.getPublishers().get(0));
+    game.setPublishers(List.of("Valve"));
+    assertEquals(
+      List.of("Valve"),
+      game.getPublishers()
+    );
   }
 
   @Test
@@ -176,31 +178,31 @@ public class GameDetailsTest {
   @Test
   public void TestSetCategories(){
     GameDetails game = new GameDetails();
-    List<String> category = new ArrayList<String>();
-    category.add("Multi-player");
-    category.add("PvP");
-    category.add("Online PvP");
-    game.setCategories(category);;
-    assertEquals("Online PvP", game.getCategories().get(2));
+    game.setCategories(List.of("Multi-player", "PvP"));
+    assertEquals(
+      List.of("Multi-player", "PvP"),
+      game.getCategories()
+    );
   }
 
   @Test
   public void TestSetGenres(){
     GameDetails game = new GameDetails();
-    List<String> genres = new ArrayList<String>();
-    genres.add("Action");
-    game.setGenres(genres);
-    assertEquals("Action", game.getGenres().get(0));
+    game.setGenres(List.of("Multi-player", "PvP"));
+    assertEquals(
+      List.of("Multi-player", "PvP"),
+      game.getGenres()
+    );
   }
 
   @Test
-  public void TestSetLanguages(){
+  public void TestSetSupportedLanguages(){
     GameDetails game = new GameDetails();
-    List<String> languages = new ArrayList<String>();
-    languages.add("English");
-    languages.add("Italian");
-    game.setSupportedLanguages(languages);
-    assertEquals("Italian", game.getSupportedLanguages().get(1));
+    game.setSupportedLanguages(List.of("English", "Italian"));
+    assertEquals(
+      List.of("English", "Italian"),
+      game.getSupportedLanguages()
+    );
   }
 
   @Test
@@ -227,10 +229,11 @@ public class GameDetailsTest {
   @Test
   public void TestSetPlatforms(){
     GameDetails game = new GameDetails();
-    List<String> plateforms = new ArrayList<String>();
-    plateforms.add("Windows");
-    game.setPlatforms(plateforms);
-    assertEquals("Windows", game.getPlatforms().get(0));
+    game.setPlatforms(List.of("Windows"));
+    assertEquals(
+      List.of("Windows"),
+      game.getPlatforms()
+    );
   }
 
   @Test
@@ -243,23 +246,21 @@ public class GameDetailsTest {
   @Test
   public void TestSetScreenshots(){
     GameDetails game = new GameDetails();
-    List<String> screenshots = new ArrayList<String>();
-    screenshots.add(
-      "https://cdn.akamai.steamstatic.com/steam/apps/10/0000002539.600x338.jpg?t=1666823513");
-    game.setScreenshots(screenshots);
-    assertEquals("https://cdn.akamai.steamstatic.com/steam/apps/10/0000002539.600x338.jpg?t=1666823513",
-          game.getScreenshots().get(0));
+    game.setScreenshots(List.of("Screenshot"));
+    assertEquals(
+      List.of("Screenshot"),
+      game.getScreenshots()
+    );
   }
 
   @Test
   public void TestSetMovies(){
     GameDetails game = new GameDetails();
-    List<String> movies = new ArrayList<String>();
-    movies.add(
-      "https://cdn.akamai.steamstatic.com/steam/apps/10/0000002539.600x338.jpg?t=1666823513");
-    game.setMovies(movies);
-    assertEquals("https://cdn.akamai.steamstatic.com/steam/apps/10/0000002539.600x338.jpg?t=1666823513",
-      game.getMovies().get(0));
+    game.setMovies(List.of("Movie"));
+    assertEquals(
+      List.of("Movie"),
+      game.getMovies()
+    );
   }
 
   @Test
@@ -333,3 +334,4 @@ public class GameDetailsTest {
     assertEquals(null, game.getName());
   }
 }
+
