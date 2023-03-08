@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Api {
-
   private Connection connect;
   private NodeReader nodeReader;
   private String path;
@@ -16,10 +15,10 @@ public class Api {
   }
 
   public void run() {
-      this.importMulitGameDetails();
+    this.importMultiGameDetails();
   }
 
-  private void importMulitGameDetails() {
+  private void importMultiGameDetails() {
     ReadFile read = new ReadFile(this.path);
     List<GameDetails> games = new ArrayList<GameDetails>();
     try {
@@ -29,19 +28,15 @@ public class Api {
       }
       connect.insertManyGameDetails(games);
     } catch (Exception e) {
-      System.err.println("can not import list of game details : " + e);
+      System.err.println("Cannot import list of game details: " + e);
     }
   }
 
-/**
- * hidden function for test and remove data from mongodb
- */
   public void deleteAllGameDetails() {
     try {
       this.connect.deleteManyGameDetails();
     } catch (Exception e) {
-      System.err.println("can not delete all game-Details data : " + e);
+      System.err.println("Cannot delete all game-Details data: " + e);
     }
   }
-
 }

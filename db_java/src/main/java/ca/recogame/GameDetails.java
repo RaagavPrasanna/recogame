@@ -1,6 +1,5 @@
 package ca.recogame;
 
-//mongo objects all have ObjectID types
 import org.bson.types.*;
 import java.util.*;
 
@@ -30,7 +29,7 @@ public class GameDetails {
   private String background;
   private String contentDescriptors;
 
-  // empty constructor for POJO
+  // Empty constructor for POJO
   public GameDetails() {
   }
 
@@ -155,7 +154,7 @@ public class GameDetails {
   }
 
   public void setDetailedDescription(String detailedDescription) {
-    this.detailedDescription = 
+    this.detailedDescription =
     InputValidation.getNormalizedString(detailedDescription, "detailedDescription");
   }
 
@@ -164,7 +163,7 @@ public class GameDetails {
   }
 
   public void setShortDescription(String shortDescription) {
-    this.shortDescription = 
+    this.shortDescription =
     InputValidation.getNormalizedString(shortDescription, "shortDescription");
   }
 
@@ -173,7 +172,7 @@ public class GameDetails {
   }
 
   public void setSupportedLanguages(List<String> supportedLanguages) {
-    this.supportedLanguages = 
+    this.supportedLanguages =
     InputValidation.getNormalizedList(supportedLanguages, "supportedLanguages");
   }
 
@@ -182,7 +181,7 @@ public class GameDetails {
   }
 
   public void setPlatforms(List<String> platforms) {
-    this.platforms = 
+    this.platforms =
     InputValidation.getNormalizedList(platforms, "platforms");
   }
 
@@ -191,7 +190,7 @@ public class GameDetails {
   }
 
   public void setMetacritic(String metacritic) {
-    this.metacritic = 
+    this.metacritic =
     InputValidation.getNormalizedString(metacritic, "metacritic");
   }
 
@@ -200,7 +199,7 @@ public class GameDetails {
   }
 
   public void setScreenshots(List<String> screenshots) {
-    this.screenshots = 
+    this.screenshots =
     InputValidation.getNormalizedList(screenshots, "screenshots");
   }
 
@@ -233,10 +232,10 @@ public class GameDetails {
   }
 
   public void setContentDescriptors(String contentDescriptors) {
-    this.contentDescriptors = 
+    this.contentDescriptors =
     InputValidation.getNormalizedString(contentDescriptors, "contentDescriptors");
   }
-  
+
   @Override
   public String toString() {
     return "GameDetails [id=" + id + ", sourceId=" + sourceId + ", sourceName=" + sourceName + ", name=" + name

@@ -8,7 +8,7 @@ import java.util.Scanner;
 import org.json.JSONArray;
 
 /**
- * read json string from a file 
+ * Read json string from a file
  */
 public class ReadFile {
   private String data;

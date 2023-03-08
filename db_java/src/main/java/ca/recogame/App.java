@@ -3,15 +3,16 @@ package ca.recogame;
 import java.io.IOException;
 
 /**
- * This app will connect to a MongoDB instance, read data from console2
- * or file then upload the data to MangoDB 12
+ * This app will connect to a MongoDB instance, and instert data
  */
 public class App {
-    public static void main( String[] args ) 
-        throws IOException, InterruptedException
-    {            
-       Api api = new Api("620-reco-test2", "starting-games.json");
-       api.run(); 
+    public static void main( String[] args )
+      throws IOException, InterruptedException
+    {
+      System.out.println("Fetching games");
+      Api api = new Api("620-recogame", "starting-games.json");
+      api.run();
+      System.out.println("Done");
     }
-}      
-      
+}
+
