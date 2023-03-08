@@ -10,9 +10,8 @@ public class App {
     public static void main( String[] args ) 
         throws IOException, InterruptedException
     {            
-       Api api = new Api("620-reco-test2", "file.txt");
+       Api api = new Api("620-recogame", "file.txt");
        api.run(); 
-    //    api.deleteAllGameDetails();     
     }
 }      
       
