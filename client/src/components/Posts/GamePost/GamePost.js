@@ -19,6 +19,8 @@ function GamePost({
         <h1>{gameTitle}</h1>
         <span>{devName}</span>
         <span>{'⭐️'.repeat(rating)}</span>
+        <br />
+        <br />
         <p>{description}</p>
       </div>
     </Link>

@@ -32,7 +32,9 @@ function Header() {
         <Link to="/">
           <Button> Home </Button>
         </Link>
-        <Button> My Game List </Button>
+        <Link to="/gamelist">
+          <Button> My Game List </Button>
+        </Link>
         <Link to="/community">
           <Button> Community </Button>
         </Link>
