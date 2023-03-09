@@ -20,7 +20,12 @@ function gameReducer(state, action) {
     console.log(game.background);
     return {
       name: game.name,
-      price: game.price,
+      genre: game.genres,
+      category: game.categories,
+      developer: game.developers,
+      publisher: game.publishers,
+      platforms: game.platforms,
+      contentDescriptors: game.contentDescriptors,
       background: game.background,
       imageHeader: game.imageHeader,
       gameDesc: game.shortDescription,
@@ -52,8 +57,6 @@ function GameDetailView() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // TODO: Use game id to fetch game details from the backend
-    // TODO: Add loading animation while fetching data
     setIsLoading(true);
     getGameDetails(id, (data) => {
       dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: data });
@@ -97,11 +100,13 @@ function GameDetailView() {
               <div className={styles.info}>
                 <img src={gameDetails.imageHeader} />
                 <ul>
-                  <li>Information</li>
-                  <li>Information</li>
-                  <li>Information</li>
-                  <li>Information</li>
-                  <li>Information</li>
+                  <li>TITLE: &nbsp;{gameDetails.name}</li>
+                  <li>GENRE: {gameDetails.genre?.join(', ')}</li>
+                  <li>DEVELOPER: &nbsp;{gameDetails.developer?.join(', ')}</li>
+                  <li>PUBLISHER: &nbsp;{gameDetails.publisher?.join(', ')}</li>
+                  <li>CATEGORIES: &nbsp;{gameDetails.category?.join(', ')}</li>
+                  <li>PLATFORMS: {gameDetails.platforms?.join(', ')}</li>
+                  <li>CONTENT DESCRIPTION: &nbsp;{gameDetails.contentDescriptors}</li>
                 </ul>
               </div>
             </div>
