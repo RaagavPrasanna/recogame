@@ -8,7 +8,6 @@ import { Carousel } from 'react-responsive-carousel';
 
 const defaultGameDetails = {
   name: '',
-  price: 0,
   imageHeader: '',
   gameDesc: '',
   reviews: [],
