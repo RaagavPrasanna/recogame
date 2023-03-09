@@ -45,7 +45,6 @@ function Header() {
         <Link to="/login">
           <Button> Log In </Button>
         </Link>
-        <Button> Register </Button>
         <Button> Search </Button>
       </header>
     </div>
