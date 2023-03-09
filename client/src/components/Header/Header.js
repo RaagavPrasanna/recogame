@@ -3,14 +3,11 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
-import UserContext from '../../store/user-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
   const headerRef = useRef();
-
-  const { user, logout } = useContext(UserContext);
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
