@@ -1,8 +1,8 @@
 .gameList {
   color: #6e7f80;
   width:100%;
-  padding-left:1em;
-  padding-right:1em;
+  padding-left:1rem;
+  padding-right:1rem;
   margin: 4em auto;
   display:list-item;
   list-style: none;
@@ -17,14 +17,10 @@ section {
 }
 
 section Button{
-  right: 0;
-  display: flex;
-  position: fixed;
-  padding-right: 1rem;
-  
+  margin-left: 4.5em;
 }
 
 .buttonsModal{
-  
+  justify-content:center;
 }
 

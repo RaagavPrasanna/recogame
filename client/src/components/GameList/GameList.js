@@ -17,10 +17,14 @@ function GameList() {
     <div className={classes.gameList}>
       <h2> Wishlist </h2>
       <section>
-        Lorem ipsum dolor sit amet.
+        <p> Lorem ipsum dolor sit amet. </p>
         <Button onClick={handleShow}> Edit </Button>
         {show && (
-          <Modal className={classes.buttonsModal} visible={show} onClick={handleClose}>
+          <Modal
+            className={classes.buttonsModal}
+            visible={show}
+            onClick={handleClose}
+          >
             <Button> Remove </Button>
             <Button onClick={handleClose}> Cancel </Button>
           </Modal>
