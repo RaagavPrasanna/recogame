@@ -5,6 +5,8 @@ import GameDetailView from './components/DetailViews/GameDetailView/GameDetailVi
 import Login from './components/Forms/LoginForm';
 import { useContext, useEffect } from 'react';
 import UserContext from './store/user-context';
+import FriendList from './components/FriendList/FriendList/FriendList';
+import CommunityList from './components/Community/CommunityList/CommunityList';
 
 function App() {
   const { user, setSessionUser } = useContext(UserContext);
@@ -21,6 +23,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/game/:id" element={<GameDetailView />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/friends" element={<FriendList />} />
+          <Route path="/community" element={<CommunityList />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,32 +1,37 @@
 import PostContext from './posts-context';
-import { mockGamePosts } from '../MockData/MockGamePosts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+async function getGamePage(page, callback) {
+  const resp = await fetch(`/api/game/feed?page=${page}`);
+  if (!resp.ok) {
+    throw new Error(`Could not get page (${resp.status})`);
+  }
+  const data = await resp.json();
+  callback(data);
+}
 
 function PostsProvider({ children }) {
-  const [posts, setPosts] = useState(mockGamePosts);
+  const [posts, setPosts] = useState([]);
   // TODO: Add separate scoll position states for each page
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [currPageHome, setCurrPageHome] = useState(0);
+
+  useEffect(() => {
+    getGamePage(currPageHome, (data) => {
+      setPosts((prevPosts) => {
+        return [...prevPosts, ...data];
+      });
+      setCurrPageHome((currPage) => ++currPage);
+    });
+  }, []);
 
   function fetchMoreData() {
-    setTimeout(() => {
+    getGamePage(currPageHome, (data) => {
       setPosts((prevPosts) => {
-        return prevPosts.concat(
-          Array.from({ length: 2 }).map(() => {
-            const id = Math.random();
-            return {
-              id,
-              gameTitle: 'Game Name',
-              devName: 'Dev Name',
-              description:
-                // eslint-disable-next-line max-len
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-              rating: 5,
-              price: 79.99,
-            };
-          })
-        );
+        return [...prevPosts, ...data];
       });
-    }, 1500);
+      setCurrPageHome((currPage) => ++currPage);
+    });
   }
 
   function handleScrollPosition() {
