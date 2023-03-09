@@ -1,0 +1,38 @@
+.communityPost {
+  list-style-type: none;
+  display: flex;
+  background-color: #6E7F80;
+  color: #2D3A44;
+  margin: 20px auto;
+  width: 90%;
+  border-radius: 15px;
+}
+
+.communityPost:hover {
+  cursor: pointer;
+  background-color: #899fa0;
+}
+
+.communityPost img {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 15em;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+h1,
+div,
+p {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+h1,
+p,
+span {
+  margin-left: 2rem;
+}
