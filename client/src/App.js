@@ -6,6 +6,7 @@ import Login from './components/Forms/LoginForm';
 import FriendList from './components/FriendList/FriendList/FriendList';
 import GameList from './components/GameList/GameList';
 import CommunityList from './components/Community/CommunityList/CommunityList';
+import UserProfile from './components/User/UserProfile/UserProfile';
 import { useContext, useEffect } from 'react';
 import UserContext from './store/user-context';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/friends" element={<FriendList />} />
           <Route path="/gamelist" element={<GameList />} />
           <Route path="/community" element={<CommunityList />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </>

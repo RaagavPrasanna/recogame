@@ -1,0 +1,16 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  color: #ffffff;
+  padding: 1.5rem;
+}
+
+.settings h2, .settings hr {
+  margin-bottom: 1rem;
+}
+
+.settings .buttons {
+  margin-top: 3rem;
+  justify-content: flex-end;
+}
