@@ -17,7 +17,6 @@ const defaultGameDetails = {
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
-    console.log(game.background);
     return {
       name: game.name,
       genre: game.genres,
@@ -44,7 +43,6 @@ async function getGameDetails(id, callback) {
     throw new Error(`Could not fetch game (${resp.status})`);
   }
   const data = await resp.json();
-  console.log(data);
   callback(data);
 }
 
