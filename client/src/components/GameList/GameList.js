@@ -5,6 +5,8 @@ import classes from './GameList.module.css';
 import { useState } from 'react';
 
 function GameList() {
+  // TODO: Add tags to so it can go to the right section
+
   const [show, setShow] = useState(false);
   const mockData = 'Game Name';
 
