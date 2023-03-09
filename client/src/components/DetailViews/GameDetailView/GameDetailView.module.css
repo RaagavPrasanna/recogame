@@ -74,6 +74,7 @@
 
 .screenshot {
   background-color: black;
+  border-radius: 5px;
   height: 100%;
 }
 
@@ -83,10 +84,13 @@
   height: fit-content;
   width: fit-content;
   background-color: #0d223186;
+  border-radius: 5px;
 }
 
 .info img {
   align-self: flex-start;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .info ul {
