@@ -6,7 +6,6 @@
   margin: 4em auto;
   display:list-item;
   list-style: none;
-  
 }
 
 section {
@@ -19,7 +18,13 @@ section {
 
 section Button{
   right: 0;
+  display: flex;
   position: fixed;
-  padding-right: 5rem;
+  padding-right: 1rem;
+  
+}
+
+.buttonsModal{
+  
 }
 

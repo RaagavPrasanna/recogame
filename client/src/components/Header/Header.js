@@ -31,7 +31,9 @@ function Header() {
         <Link to="/gamelist">
           <Button> My Game List </Button>
         </Link>
-        <Button> Community </Button>
+        <Link to="/community">
+          <Button> Community </Button>
+        </Link>
         <Link to="/friends">
           <Button> Friends </Button>
         </Link>

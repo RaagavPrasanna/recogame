@@ -20,7 +20,7 @@ function GameList() {
         Lorem ipsum dolor sit amet.
         <Button onClick={handleShow}> Edit </Button>
         {show && (
-          <Modal visible={show} onClick={handleClose}>
+          <Modal className={classes.buttonsModal} visible={show} onClick={handleClose}>
             <Button> Remove </Button>
             <Button onClick={handleClose}> Cancel </Button>
           </Modal>
