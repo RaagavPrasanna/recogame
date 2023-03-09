@@ -26,15 +26,13 @@
   color: white;
 }
 
-.gameDetails img {
+.info img {
   width: 35em;
-  border-radius: 10px;
-  margin-top: 1rem;
   align-self: flex-start;
 }
 
 .buttons * {
-  margin: 2rem 1rem;
+  margin: 1rem 1rem 2rem 1rem;
 }
 
 .buttons span {
@@ -43,7 +41,7 @@
 }
 
 .gameDetails p {
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
 .gameDetails h1,
@@ -72,6 +70,31 @@
 .screenshots {
   display: flex;
   width: fit-content;
+}
+
+.screenshot {
+  background-color: black;
+  height: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: fit-content;
+  background-color: #0d223186;
+}
+
+.info img {
+  align-self: flex-start;
+}
+
+.info ul {
+  margin: 1rem;
+}
+
+.info li {
+  list-style: none;
 }
 
 .spinner {

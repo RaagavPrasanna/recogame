@@ -80,19 +80,32 @@ function GameDetailView() {
         <h1>{gameDetails.name}</h1>
         <div className={styles.images}>
           <div className={styles.screenshots}>
-            <Carousel className={styles.carousel} dynamicHeight={false}>
+            <Carousel
+              className={styles.carousel}
+              dynamicHeight={false}
+              infiniteLoop={true}
+            >
               {gameDetails.screenshots?.map((screenshot, i) => {
                 return (
-                  <div key={i}>
+                  <div className={styles.screenshot} key={i}>
                     <img src={screenshot} />
                   </div>
                 );
               })}
             </Carousel>
+          </div>
+          <div className={styles.info}>
             <img src={gameDetails.imageHeader} />
-            <p className={styles.desc}>{gameDetails.gameDesc}</p>
+            <ul>
+              <li>Information</li>
+              <li>Information</li>
+              <li>Information</li>
+              <li>Information</li>
+              <li>Information</li>
+            </ul>
           </div>
         </div>
+        <p className={styles.desc}>{gameDetails.gameDesc}</p>
         <div className={styles.buttons}>
           <Button onClick={() => window.open(gameDetails.storeUrl, '_blank')}>
             BUY ON STEAM
