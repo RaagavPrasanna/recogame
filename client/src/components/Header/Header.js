@@ -58,8 +58,9 @@ function Header() {
         <Button> User </Button>
       </header>
       <header className={styles.search}>
-        {retUserAuthButton()}
-        <Button> Register </Button>
+        <Link to="/login">
+          <Button> Log In </Button>
+        </Link>
         <Button> Search </Button>
       </header>
     </div>
