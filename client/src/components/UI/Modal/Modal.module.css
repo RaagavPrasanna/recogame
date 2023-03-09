@@ -28,10 +28,6 @@
   }
 }
 
-body {
-  background-color: #3f3f3f;
-}
-
 @keyframes slide-down {
   from {
     opacity: 0;
