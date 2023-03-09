@@ -1,15 +1,14 @@
 import express from 'express';
-import { OAuth2Client } from 'google-auth-library';
 import session from 'express-session';
-import { isAuthenticated, csrfProtect } from '../utils.js';
+import { OAuth2Client } from 'google-auth-library';
 import passport from 'passport';
 import passportSteam from 'passport-steam';
 import models from '../../db/models.js';
+import utils from '../utils.js';
 
 const SteamStrategy = passportSteam.Strategy;
-const router = express.Router();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-
+const router = express.Router();
 const users = new Array();
 
 passport.serializeUser((user, done) => {
@@ -90,7 +89,7 @@ router.post('/google-auth', async (req, res) => {
 });
 
 // Change urls when deployed
-router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), (req, res) => {
+router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), (_, res) => {
   res.redirect(process.env.REDIRECT_URL);
 });
 
@@ -134,11 +133,11 @@ router.get('/steam-auth/return',
     });
   });
 
-router.get('/get-user', isAuthenticated, function(req, res) {
-  res.status(200).json(req.session.user);
+router.get('/get-user', utils.authentication.isAuthenticated, function(req, res) {
+  res.json(req.session.user);
 });
 
-router.get('/logout', isAuthenticated, function(req, res) {
+router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
   req.session.destroy(function(err) {
     if(err) {
       console.error(err);
@@ -150,8 +149,15 @@ router.get('/logout', isAuthenticated, function(req, res) {
   });
 });
 
-// Must be requested by client everytime a post request is made
-router.get('/csrf-token', isAuthenticated, csrfProtect.csrfSynchronisedProtection, (req, res) => {
-  res.json({ token: csrfProtect.generateToken(req) });
-});
+// Must be requested by client every time a post request is made
+router.get(
+  '/csrf-token',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection,
+  (req, res) => {
+    res.json({ token: utils.authentication.csrfProtect.generateToken(req) });
+  }
+);
+
 export default router;
+
