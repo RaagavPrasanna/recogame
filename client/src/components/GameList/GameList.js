@@ -5,11 +5,12 @@ import classes from './GameList.module.css';
 import { useState } from 'react';
 
 function GameList() {
+  const [show, setShow] = useState(false);
   function handleClose() {
-    useState(false);
+    setShow(false);
   }
   function handleShow() {
-    useState(true);
+    setShow(true);
   }
 
   return (
@@ -18,10 +19,12 @@ function GameList() {
       <section>
         Lorem ipsum dolor sit amet.
         <Button onClick={handleShow}> Edit </Button>
-        {/* <Modal onClick={handleClose}>
-          <Button> Remove </Button>
-          <Button onClick={handleClose}> Cancel </Button>
-        </Modal> */}
+        {show && (
+          <Modal visible={show} onClick={handleClose}>
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
       </section>
       <h2> In progress</h2>
 
