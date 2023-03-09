@@ -38,7 +38,6 @@ class Database {
   /** Establish connection to the DB */
   async connect(db) {
     if (!this.isConnected) {
-      console.log('Starting connection with DB');
       mongoose.set('strictQuery', false);
       this.connection = await mongoose.connect(
         process.env.MONGO_CONNECTION_URI,
@@ -47,16 +46,16 @@ class Database {
           dbName: db
         }
       );
-      console.log('connection to db established');
+      console.info('Started connection with DB');
     } else {
-      console.log('already connected');
+      console.info('Was already connected to DB');
     }
   }
 
   /** End connection to the DB */
   async disconnect() {
     await this.connection.disconnect();
-    console.log('Ending connection with DB');
+    console.info('Connection with DB ended');
   }
 }
 

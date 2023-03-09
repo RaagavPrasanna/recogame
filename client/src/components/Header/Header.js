@@ -1,10 +1,12 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import PostContext from '../../store/posts-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
+  const postCtx = useContext(PostContext);
   const headerRef = useRef();
 
   const changeNavBg = () => {
@@ -26,19 +28,25 @@ function Header() {
       onScroll={changeNavBg}
       ref={headerRef}
     >
-      <header className={styles.buttons}>
+      <header className={styles.buttons} onClick={postCtx.handlePostClick}>
         <Link to="/">
           <Button> Home </Button>
         </Link>
         <Button> My Game List </Button>
-        <Button> Community </Button>
-        <Button> Friends </Button>
         <Link to="/profile">
           <Button> User </Button>
         </Link>
+        <Link to="/community">
+          <Button> Community </Button>
+        </Link>
+        <Link to="/friends">
+          <Button> Friends </Button>
+        </Link>
       </header>
       <header className={styles.search}>
-        <Button> Log In </Button>
+        <Link to="/login">
+          <Button> Log In </Button>
+        </Link>
         <Button> Register </Button>
         <Button> Search </Button>
       </header>

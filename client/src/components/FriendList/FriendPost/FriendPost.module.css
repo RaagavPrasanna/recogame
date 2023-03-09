@@ -1,0 +1,21 @@
+.friendPost {
+  display: flex;
+  background-color: #6E7F80;
+  color: #2D3A44;
+  width: 15%;
+  border-radius: 15px;
+  flex-direction: column;
+  text-align:center;
+  margin: 10px;
+}
+
+.friendPost img {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 75%;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,21 +1,38 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .gameDetails {
-  margin: 3rem;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
-  color: #536878;
+  color: white;
+  padding-bottom: 0;
 }
+
+.gameDetails * {
+  animation: fadein 1.5s;
+}
+
 
 .gameDetails h1 {
   margin-top: 2rem;
+  color: white;
 }
 
-.gameDetails img {
-  width: 15em;
-  margin-top: 1rem;
+.info img {
+  width: 35em;
+  align-self: flex-start;
 }
 
 .buttons * {
-  margin: 2rem 1rem;
+  margin: 1rem 1rem 2rem 1rem;
 }
 
 .buttons span {
@@ -24,7 +41,7 @@
 }
 
 .gameDetails p {
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
 .gameDetails h1,
@@ -32,6 +49,58 @@
   margin-left: 0;
 }
 
-.gameDetails h2 {
-  margin-top: 4rem;
+.reviews h2 {
+  margin-top: 2rem;
+  padding-left: 3rem;
+  color: white;
+  animation: fadein 1.5s;
+}
+
+.carousel {
+  width: 40rem;
+  margin-right: 4rem;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.screenshots {
+  display: flex;
+  width: fit-content;
+}
+
+.screenshot {
+  background-color: black;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  width: 35rem;
+  background-color: #0d223186;
+  border-radius: 5px;
+}
+
+.info img {
+  align-self: flex-start;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.info ul {
+  margin: 1rem;
+}
+
+.info li {
+  list-style: none;
+}
+
+.spinner {
+  position: absolute;
 }
