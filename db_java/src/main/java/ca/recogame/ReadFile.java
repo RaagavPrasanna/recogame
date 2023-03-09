@@ -33,8 +33,7 @@ public class ReadFile {
   }
 
 /**
- * convert read json data to List<Integer>
- * @return list   typeof List<Integer>
+ * Convert read json data to List<Integer>
  */
   public List<Integer> getlistId() {
     List<Integer> list = new ArrayList<>();

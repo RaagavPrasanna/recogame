@@ -1,7 +1,8 @@
 package ca.recogame;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+
+import com.mongodb.MongoException;
 
 public class Api {
   private Connection connect;
@@ -20,23 +21,34 @@ public class Api {
 
   private void importMultiGameDetails() {
     ReadFile read = new ReadFile(this.path);
-    List<GameDetails> games = new ArrayList<GameDetails>();
     try {
       for (int id : read.getlistId()) {
-        GameDetails game = nodeReader.getOneGameDetails("steam", id);
-        games.add(game);
+        boolean exists = connect.checkGameExists("steam", id);
+        if (!exists) {
+          System.out.println("Inserting " + id);
+          GameDetails game = nodeReader.getOneGameDetails("steam", id);
+          connect.insertGameDetails(game);
+        } else {
+          System.out.println("Skipping (already in DB) " + id);
+        }
       }
-      connect.insertManyGameDetails(games);
-    } catch (Exception e) {
-      System.err.println("Cannot import list of game details: " + e);
+    } catch (IOException e) {
+      System.err.println("Could not fetch the list of games. This may be because you fetched too much from Steam: ");
+      e.printStackTrace();
+    } catch (MongoException e) {
+      System.err.println("Cannot import list of game details:");
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      System.err.println("Interrupted");
     }
   }
 
   public void deleteAllGameDetails() {
     try {
       this.connect.deleteManyGameDetails();
-    } catch (Exception e) {
-      System.err.println("Cannot delete all game-Details data: " + e);
+    } catch (MongoException e) {
+      System.err.println("Cannot delete all game-Details data:");
+      e.printStackTrace();
     }
   }
 }

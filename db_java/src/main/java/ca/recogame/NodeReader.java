@@ -22,7 +22,7 @@ public class NodeReader {
  * GameDetails object
  * @param website - name
  * @param id of the game
- * @return GameDetails
+ * @return
  * @throws IOException
  * @throws InterruptedException
  */

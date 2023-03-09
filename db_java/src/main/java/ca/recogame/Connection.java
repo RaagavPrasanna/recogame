@@ -1,35 +1,47 @@
 package ca.recogame;
 
+import java.util.ArrayList;
+import java.util.List;
 // Dotenv
 import io.github.cdimascio.dotenv.*;
-import java.util.List;
 // MongoDB
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoBulkWriteException;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoException;
+import com.mongodb.client.model.BulkWriteOptions;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.InsertOneModel;
+import com.mongodb.client.model.WriteModel;
 // BSON and POJO
 import org.bson.codecs.configuration.*;
 import org.bson.codecs.pojo.*;
+import org.bson.conversions.Bson;
 
 /**
  * Connection to mongodb with Queries
  */
 public class Connection {
-  MongoClientSettings clientSettings;
-  String database;
+  private MongoClientSettings clientSettings;
+  private String databaseName;
+  private MongoDatabase database;
 
   public Connection(String database) {
-    this.database = database;
-    getDatabase();
+    this.databaseName = database;
+    getDatabaseName();
+    System.out.println("Connection successful");
+    MongoClient client = MongoClients.create(this.clientSettings);
+    this.database = client.getDatabase(this.databaseName);
   }
   /**
    * Create connection to mongodb
    */
-  public void getDatabase() {
+  public void getDatabaseName() {
     Dotenv dotenv = Dotenv.load();
     ConnectionString connectionString =
       new ConnectionString(dotenv.get("MONGO_CONNECTION_URI"));
@@ -50,22 +62,65 @@ public class Connection {
       .applyConnectionString(connectionString)
       .codecRegistry(codecRegistry)
       .build();
-    System.out.println("Connection successful");
+  }
+
+  public boolean checkGameExists(String source, int id) {
+    try {
+      // Configure database to use the codec
+      MongoCollection<GameDetails> gameDetails =
+        database.getCollection("game-details", GameDetails.class);
+      Bson query = new BasicDBObject()
+        .append("sourceName", source)
+        .append("sourceId", id);
+      long count = gameDetails.countDocuments(query);
+      return count > 0;
+    } catch (MongoException e) {
+      System.err.println("gameDetails cannot be checked in database");
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public void insertGameDetails(GameDetails game) {
+    try {
+      // Configure database to use the codec
+      MongoCollection<GameDetails> gameDetails =
+        database.getCollection("game-details", GameDetails.class);
+      gameDetails.insertOne(game);
+    } catch (MongoException e) {
+      System.err.println("List of gameDetails cannot be added in database");
+      e.printStackTrace();
+    }
   }
 
   /**
    * Query to insert many GameDetails
-   * @param games   List<GameDetails>
+   * @param games
    */
   public void insertManyGameDetails(List<GameDetails> games) {
-    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
-      // configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase(this.database);
-      MongoCollection<GameDetails> allgames =
+    try {
+      // Configure database to use the codec
+      MongoCollection<GameDetails> gameDetails =
         database.getCollection("game-details", GameDetails.class);
-      allgames.insertMany(games);
-    } catch (Exception E) {
-      System.err.println(" List of gameDetails can't be add in database");
+
+      // Write skipping duplicates
+      List<WriteModel<GameDetails>> writes = new ArrayList<>();
+      for (GameDetails g : games) {
+        writes.add(new InsertOneModel<GameDetails>(g));
+      }
+      BulkWriteOptions options = new BulkWriteOptions().ordered(false);
+      try {
+        gameDetails.bulkWrite(writes, options);
+      } catch (MongoBulkWriteException e) {
+        for (var ee : e.getWriteErrors()) {
+          if (ee.getCode() != 11000) {
+            throw e;
+          }
+        }
+      }
+    } catch (MongoException e) {
+      System.err.println("List of gameDetails cannot be added in database");
+      e.printStackTrace();
     }
   }
 
@@ -73,15 +128,15 @@ public class Connection {
    * Query to delete many GameDetails
    */
   public void deleteManyGameDetails() {
-    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
+    try {
       // Configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase(this.database);
       MongoCollection<GameDetails> gameDetails =
         database.getCollection("game-details", GameDetails.class);
       gameDetails.deleteMany(Filters.gte("sourceId", 0));
-    } catch (Exception E) {
+    } catch (MongoException e) {
       System.err.println("List of gameDetails cannot be removed in database");
+      e.printStackTrace();
     }
   }
-
 }
+
