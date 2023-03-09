@@ -12,9 +12,9 @@ async function getGamePage(page, callback) {
 
 function PostsProvider({ children }) {
   const [posts, setPosts] = useState([]);
-  // TODO: Add separate scoll position states for each page
   const [scrollPosition, setScrollPosition] = useState(0);
   const [currPageHome, setCurrPageHome] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     getGamePage(currPageHome, (data) => {
@@ -27,10 +27,15 @@ function PostsProvider({ children }) {
 
   function fetchMoreData() {
     getGamePage(currPageHome, (data) => {
-      setPosts((prevPosts) => {
-        return [...prevPosts, ...data];
-      });
-      setCurrPageHome((currPage) => ++currPage);
+      if (data.length > 0) {
+        setHasMore(true);
+        setPosts((prevPosts) => {
+          return [...prevPosts, ...data];
+        });
+        setCurrPageHome((currPage) => ++currPage);
+      } else {
+        setHasMore(false);
+      }
     });
   }
 
@@ -50,6 +55,7 @@ function PostsProvider({ children }) {
     fetchMoreHomePosts: fetchMoreData,
     homeScrollPosition: handleScrollPosition,
     handlePostClick,
+    hasMore,
   };
 
   return (
