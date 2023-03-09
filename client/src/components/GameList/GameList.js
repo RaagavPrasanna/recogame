@@ -6,6 +6,8 @@ import { useState } from 'react';
 
 function GameList() {
   const [show, setShow] = useState(false);
+  const mockData = 'Game Name';
+
   function handleClose() {
     setShow(false);
   }
@@ -16,13 +18,13 @@ function GameList() {
   return (
     <div className={classes.gameList}>
       <h2> Wishlist </h2>
+
       <section>
-        <p> Lorem ipsum dolor sit amet. </p>
+        <p> {mockData} </p>
         <Button onClick={handleShow}> Edit </Button>
         {show && (
           <Modal
             className={classes.buttonsModal}
-            visible={show}
             onClick={handleClose}
           >
             <Button> Remove </Button>
@@ -30,13 +32,71 @@ function GameList() {
           </Modal>
         )}
       </section>
+
       <h2> In progress</h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
 
       <h2> Finished </h2>
 
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
       <h2> Completed 100% Achievements </h2>
 
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
       <h2> Never Played </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
     </div>
   );
 }
