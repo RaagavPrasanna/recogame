@@ -8,7 +8,7 @@ const router = express.Router();
  * @param page {number}
  * @param limit {number}
  */
-async function getAllGamesFromDB(page, limit = 4) {
+async function getAllGamesFromDB(page, limit = 10) {
   return await (
     (await models.ViewGameDetailsShort.getModel())
       .find({}, models.CLEAN_PROJECTION)
