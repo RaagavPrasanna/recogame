@@ -36,13 +36,13 @@ function PostList() {
       <InfiniteScroll
         dataLength={postsCtx.homePosts.length}
         next={postsCtx.fetchMoreHomePosts}
-        hasMore={true}
+        hasMore={postsCtx.hasMore}
         loader={<Spinner />}
         className={styles.infiniteScroll}
         endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
+          <div className={styles['end-message']}>
+            <p>Yay! You have seen it all</p>
+          </div>
         }
         refreshFunction={postsCtx.fetchMoreHomePosts}
         pullDownToRefresh
