@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import PostsProvider from './store/PostsProvider';
 import FriendProvider from './store/FriendsProvider';
+import CommunityProvider from './store/CommunityProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,9 @@ root.render(
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <PostsProvider>
         <FriendProvider>
-          <App />
+          <CommunityProvider>
+            <App />
+          </CommunityProvider>
         </FriendProvider>
       </PostsProvider>
     </GoogleOAuthProvider>
