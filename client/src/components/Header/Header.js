@@ -36,6 +36,9 @@ function Header() {
         <Link to="/profile">
           <Button> User </Button>
         </Link>
+        <Link to="/gamelist">
+          <Button> My Game List </Button>
+        </Link>
         <Link to="/community">
           <Button> Community </Button>
         </Link>
@@ -47,7 +50,6 @@ function Header() {
         <Link to="/login">
           <Button> Log In </Button>
         </Link>
-        <Button> Register </Button>
         <Button> Search </Button>
       </header>
     </div>

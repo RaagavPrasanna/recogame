@@ -1,31 +1,104 @@
-import { useState } from 'react';
+// import Popup from 'reactjs-popup';
 import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
+import { useState } from 'react';
 
 function GameList() {
-  const [checked, setChecked] = useState(false);
+  // TODO: Add tags to so it can go to the right section
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  const [show, setShow] = useState(false);
+  const mockData = 'Game Name';
+
+  function handleClose() {
+    setShow(false);
+  }
+  function handleShow() {
+    setShow(true);
+  }
 
   return (
     <div className={classes.gameList}>
-      <h3> Wishlist </h3>
-      <article>
-        <input type='checkbox' onChange={handleChange} />
-        Lorem ipsum dolor sit amet.
-        <Button> Edit </Button>
-      </article>
-      <br />
-      <Button> Remove </Button>
-      <h3> In progress</h3>
+      <h2> Wishlist </h2>
 
-      <h3> Finished </h3>
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
 
-      <h3> Completed 100% Achievements </h3>
+      <h2> In progress</h2>
 
-      <h3> Never Played </h3>
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
+      <h2> Finished </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
+      <h2> Completed 100% Achievements </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
+      <h2> Never Played </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> Edit </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> Remove </Button>
+            <Button onClick={handleClose}> Cancel </Button>
+          </Modal>
+        )}
+      </section>
+
     </div>
   );
 }

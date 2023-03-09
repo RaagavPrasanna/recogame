@@ -3,9 +3,15 @@
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
-  padding: 1rem 3rem;
+  padding: 1rem;
   transition: background-color 0.2s linear;
   z-index: 3;
+}
+.search{
+  right: 0;
+  display: flex;
+  position: fixed;
+  padding-right: 1rem;
 }
 
 .header.showBg {
@@ -13,17 +19,17 @@
   transition: background-color 0.2s linear;
 }
 
-.header button{
+.header button {
   transition: background-color 0.2s linear;
 }
 
-.header.showBg button{
-  background-color: #2D3A44;
-  color: #6E7F80;
+.header.showBg button {
+  background-color: #2d3a44;
+  color: #6e7f80;
   transition: background-color 0.2s linear;
 }
 
-.header.showBg button:hover{
-  background-color: #6E7F80;
-  color: #2D3A44;
+.header.showBg button:hover {
+  background-color: #6e7f80;
+  color: #2d3a44;
 }
