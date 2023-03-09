@@ -67,58 +67,62 @@ function GameDetailView() {
         <div className={styles.spinner}>
           <Spinner />
         </div>
-      ) : null}
-      <div
-        className={styles.gameDetails}
-        style={{
-          backgroundImage: `url(${gameDetails.background})`,
-          backgroundSize: 'cover',
-          overflow: 'hidden',
-        }}
-      >
-        {isLoading && <p>Loading...</p>}
-        <h1>{gameDetails.name}</h1>
-        <div className={styles.images}>
-          <div className={styles.screenshots}>
-            <Carousel
-              className={styles.carousel}
-              dynamicHeight={false}
-              infiniteLoop={true}
-            >
-              {gameDetails.screenshots?.map((screenshot, i) => {
-                return (
-                  <div className={styles.screenshot} key={i}>
-                    <img src={screenshot} />
-                  </div>
-                );
-              })}
-            </Carousel>
+      ) : (
+        <>
+          <div
+            className={styles.gameDetails}
+            style={{
+              backgroundImage: `url(${gameDetails.background})`,
+              backgroundSize: 'cover',
+              overflow: 'hidden',
+            }}
+          >
+            <h1>{gameDetails.name}</h1>
+            <div className={styles.images}>
+              <div className={styles.screenshots}>
+                <Carousel
+                  className={styles.carousel}
+                  dynamicHeight={false}
+                  infiniteLoop={true}
+                >
+                  {gameDetails.screenshots?.map((screenshot, i) => {
+                    return (
+                      <div className={styles.screenshot} key={i}>
+                        <img src={screenshot} />
+                      </div>
+                    );
+                  })}
+                </Carousel>
+              </div>
+              <div className={styles.info}>
+                <img src={gameDetails.imageHeader} />
+                <ul>
+                  <li>Information</li>
+                  <li>Information</li>
+                  <li>Information</li>
+                  <li>Information</li>
+                  <li>Information</li>
+                </ul>
+              </div>
+            </div>
+            <p className={styles.desc}>{gameDetails.gameDesc}</p>
+            <div className={styles.buttons}>
+              <Button
+                onClick={() => window.open(gameDetails.storeUrl, '_blank')}
+              >
+                BUY ON STEAM
+              </Button>
+              <Button>ADD TO WISHLIST</Button>
+              <Button>ADD TO MY GAMELIST</Button>
+              {/* TODO: Drop down menu */}
+            </div>
           </div>
-          <div className={styles.info}>
-            <img src={gameDetails.imageHeader} />
-            <ul>
-              <li>Information</li>
-              <li>Information</li>
-              <li>Information</li>
-              <li>Information</li>
-              <li>Information</li>
-            </ul>
+          <div className={styles.reviews}>
+            <h2>Community Reviews</h2>
+            {/* TODO: Render reviews */}
           </div>
-        </div>
-        <p className={styles.desc}>{gameDetails.gameDesc}</p>
-        <div className={styles.buttons}>
-          <Button onClick={() => window.open(gameDetails.storeUrl, '_blank')}>
-            BUY ON STEAM
-          </Button>
-          <Button>ADD TO WISHLIST</Button>
-          <Button>ADD TO MY GAMELIST</Button>
-          {/* TODO: Drop down menu */}
-        </div>
-      </div>
-      <div className={styles.reviews}>
-        <h2>Community Reviews</h2>
-        {/* TODO: Render reviews */}
-      </div>
+        </>
+      )}
     </>
   );
 }
