@@ -6,8 +6,16 @@ import Login from './components/Forms/LoginForm';
 import FriendList from './components/FriendList/FriendList/FriendList';
 import GameList from './components/GameList/GameList';
 import CommunityList from './components/Community/CommunityList/CommunityList';
+import { useContext, useEffect } from 'react';
+import UserContext from './store/user-context';
 
 function App() {
+  const { user, setSessionUser } = useContext(UserContext);
+
+  useEffect(() => {
+    setSessionUser();
+  }, [user]);
+
   return (
     <>
       <BrowserRouter>

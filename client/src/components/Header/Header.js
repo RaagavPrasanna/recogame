@@ -3,11 +3,14 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
+import UserContext from '../../store/user-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
   const headerRef = useRef();
+
+  const { user, logout } = useContext(UserContext);
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
@@ -21,6 +24,17 @@ function Header() {
       window.removeEventListener('scroll', changeNavBg);
     };
   }, []);
+
+  const retUserAuthButton = () => {
+    if(user !== null) {
+      // eslint-disable-next-line max-len
+      return ( <Button onClick={logout}> Log Out here {user.provider === 'google' ? user.name : user.displayName} </Button> );
+    } else {
+      return ( <Link to="/login">
+        <Button> Log In </Button>
+      </Link> );
+    }
+  };
 
   return (
     <div
@@ -44,9 +58,7 @@ function Header() {
         <Button> User </Button>
       </header>
       <header className={styles.search}>
-        <Link to="/login">
-          <Button> Log In </Button>
-        </Link>
+        {retUserAuthButton()}
         <Button> Register </Button>
         <Button> Search </Button>
       </header>

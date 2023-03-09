@@ -3,6 +3,7 @@ import session from 'express-session';
 import { OAuth2Client } from 'google-auth-library';
 import passport from 'passport';
 import passportSteam from 'passport-steam';
+import models from '../../db/models.js';
 import utils from '../utils.js';
 
 const SteamStrategy = passportSteam.Strategy;
@@ -62,8 +63,17 @@ router.post('/google-auth', async (req, res) => {
   }
   const { name, email, picture } = ticket.getPayload();
 
-  const user = { name, email, picture, provider: 'google' };
+  const user = { name, email, picture, provider: 'google', firstLogin: false };
 
+  const existingUser = await models.UserProfile.findOne({ userId: user.email });
+
+  if(existingUser === null) {
+    user.firstLogin = true;
+    await models.UserProfile.create({
+      userId: user.email, profileName: user.name,
+      profilePicture: user.picture, accountType: user.provider
+    });
+  }
 
   if(!users.some(u => u.email === user.email)) {
     users.push(user);
@@ -85,11 +95,36 @@ router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: proc
 
 // Change redirect urls when deployed
 router.get('/steam-auth/return',
-  passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), (req, res) => {
+  passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), async (req, res) => {
     console.log('in return');
-    req.session.regenerate((err) => {
+    req.session.regenerate(async (err) => {
       if(err) {
         return res.sendStatus(500);
+      }
+
+      req.user.firstLogin = false;
+
+
+      const existingUser = await models.UserProfile.findOne({ userId: req.user._json.steamid });
+
+      console.log(existingUser);
+
+      if(existingUser === null) {
+        req.user.firstLogin = true;
+        await models.UserProfile.create({
+          userId: req.user._json.steamid, profileName: req.user._json.personaname,
+          profilePicture: req.user._json.avatarfull, accountType: req.user.provider
+        });
+      } else if(Object.keys(existingUser.preferences).every((key) => {
+        if(Array.isArray(existingUser.preferences[key])) {
+          return existingUser.preferences[key].length === 0;
+        } else {
+          return true;
+        }
+      })){
+        req.user.firstLogin = true;
+        console.log('empty preferences');
+        console.log(existingUser.preferences);
       }
       req.session.user = req.user;
       console.log('set session user');
