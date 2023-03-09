@@ -13,14 +13,19 @@ function PostList() {
   }, []);
 
   const availablePosts = postsCtx.homePosts.map((post) => {
+    post.id ||= Math.random();
     return (
       <GamePost
         id={post.id}
         key={post.id}
-        gameTitle={post.gameTitle}
-        devName={post.devName}
-        description={post.description}
-        rating={post.rating}
+        imageSrc={
+          post?.imageHeader ||
+          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+        }
+        gameTitle={post?.name || 'Game Name'}
+        devName={post?.developers.join(', ') || 'Developer Name'}
+        description={post?.shortDescription || 'No Description.'}
+        rating={post?.rating || 5}
         onGameClick={postsCtx.handlePostClick}
       />
     );

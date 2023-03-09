@@ -1,14 +1,18 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import PostContext from '../../store/posts-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
+  const postCtx = useContext(PostContext);
   const headerRef = useRef();
 
   const changeNavBg = () => {
-    window.scrollY >= headerRef.current.offsetHeight ? setNavBg(true) : setNavBg(false);
+    window.scrollY >= headerRef.current.offsetHeight
+      ? setNavBg(true)
+      : setNavBg(false);
   };
 
   useEffect(() => {
@@ -24,13 +28,17 @@ function Header() {
       onScroll={changeNavBg}
       ref={headerRef}
     >
-      <header className={styles.buttons}>
+      <header className={styles.buttons} onClick={postCtx.handlePostClick}>
         <Link to="/">
           <Button> Home </Button>
         </Link>
         <Button> My Game List </Button>
-        <Button> Community </Button>
-        <Button> Friends </Button>
+        <Link to="/community">
+          <Button> Community </Button>
+        </Link>
+        <Link to="/friends">
+          <Button> Friends </Button>
+        </Link>
         <Button> User </Button>
       </header>
       <header className={styles.search}>
