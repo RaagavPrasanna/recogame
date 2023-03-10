@@ -3,10 +3,12 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
+import CommunityContext from '../../store/community-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
+  const commCtx = useContext(CommunityContext);
   const headerRef = useRef();
 
   const changeNavBg = () => {
@@ -22,13 +24,18 @@ function Header() {
     };
   }, []);
 
+  function handlePageChange() {
+    postCtx.handlePostClick();
+    commCtx.handlePostClick();
+  }
+
   return (
     <div
       className={`${styles.header} ${navBg && styles.showBg}`}
       onScroll={changeNavBg}
       ref={headerRef}
     >
-      <header className={styles.buttons} onClick={postCtx.handlePostClick}>
+      <header className={styles.buttons} onClick={handlePageChange}>
         <Link to="/">
           <Button> Home </Button>
         </Link>
