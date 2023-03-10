@@ -1,11 +1,10 @@
 import React from 'react';
 
-const PostContext = React.createContext({
-  homePosts: [],
+const CommunityContext = React.createContext({
+  communityPosts: [],
   fetchMoreHomePosts: () => {},
   homeScrollPosition: () => {},
   handlePostClick: () => {},
-  hasMore: true,
 });
 
-export default PostContext;
+export default CommunityContext;

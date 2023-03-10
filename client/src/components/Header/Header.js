@@ -1,17 +1,21 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import PostContext from '../../store/posts-context';
 import LanguageSelector from '../../multi_language/language_selector';
 import { useTranslation } from 'react-i18next';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
+  const postCtx = useContext(PostContext);
   const headerRef = useRef();
   const { t } = useTranslation();
 
   const changeNavBg = () => {
-    window.scrollY >= headerRef.current.offsetHeight ? setNavBg(true) : setNavBg(false);
+    window.scrollY >= headerRef.current.offsetHeight
+      ? setNavBg(true)
+      : setNavBg(false);
   };
 
   useEffect(() => {
@@ -27,20 +31,28 @@ function Header() {
       onScroll={changeNavBg}
       ref={headerRef}
     >
-      <header className={styles.buttons}>
+      <header className={styles.buttons} onClick={postCtx.handlePostClick}>
         <Link to="/">
           <Button>{t('Home')}</Button>
         </Link>
-        <Button> {t('My Game List')} </Button>
-        <Button> {t('Community')} </Button>
-        <Button> {t('Friends')} </Button>
-        <Button> {t('User')} </Button>
+        <Button> My Game List </Button>
+        <Link to="/profile">
+          <Button> {t('User')} </Button>
+        </Link>
+        <Link to="/gamelist">
+          <Button> {t('My Game List')} </Button>
+        </Link>
+        <Link to="/community">
+          <Button> {t('Community')} </Button>
+        </Link>
+        <Link to="/friends">
+          <Button> {t('Friends')} </Button>
+        </Link>
       </header>
       <header className={styles.search}>
         <Link to="/login">
           <Button> {t('Log In')} </Button>
         </Link>
-        <Button> {t('Register')} </Button>
         <Button> {t('Search')} </Button>
         <LanguageSelector/>
       </header>
