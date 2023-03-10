@@ -48,7 +48,13 @@ function PostsProvider({ children }) {
   }
 
   function handlePostClick() {
-    setScrollPosition(window.pageYOffset);
+    if (isHomeDisplayed) {
+      setScrollPosition(window.pageYOffset);
+    }
+  }
+
+  function homeMounted(isHomeMounted) {
+    setIsHomeDisplayed(isHomeMounted);
   }
 
   const postsContext = {
@@ -56,6 +62,7 @@ function PostsProvider({ children }) {
     fetchMoreHomePosts: fetchMoreData,
     homeScrollPosition: handleScrollPosition,
     handlePostClick,
+    homeMounted,
     hasMore,
   };
 
