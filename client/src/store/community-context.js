@@ -5,6 +5,7 @@ const CommunityContext = React.createContext({
   fetchMoreHomePosts: () => {},
   homeScrollPosition: () => {},
   handlePostClick: () => {},
+  isCommDisplayed: () => {},
 });
 
 export default CommunityContext;
