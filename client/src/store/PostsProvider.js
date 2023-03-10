@@ -15,6 +15,7 @@ function PostsProvider({ children }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [currPageHome, setCurrPageHome] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [isHomeDisplayed, setIsHomeDisplayed] = useState(false);
 
   useEffect(() => {
     getGamePage(currPageHome, (data) => {
