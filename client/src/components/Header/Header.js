@@ -3,7 +3,7 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
-import LanguageSelector from '../../multi_language/language_selector';
+import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 
 function Header() {
@@ -40,7 +40,7 @@ function Header() {
           <Button> {t('User')} </Button>
         </Link>
         <Link to="/gamelist">
-          <Button> {t('My Game List')} </Button>
+          <Button> {t('Game List')} </Button>
         </Link>
         <Link to="/community">
           <Button> {t('Community')} </Button>
@@ -54,7 +54,7 @@ function Header() {
           <Button> {t('Log In')} </Button>
         </Link>
         <Button> {t('Search')} </Button>
-        <LanguageSelector/>
+        <Button><LanguageSelector/></Button>
       </header>
     </div>
   );
