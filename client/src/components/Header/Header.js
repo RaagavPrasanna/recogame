@@ -35,7 +35,6 @@ function Header() {
         <Link to="/">
           <Button>{t('Home')}</Button>
         </Link>
-        <Button> My Game List </Button>
         <Link to="/profile">
           <Button> {t('User')} </Button>
         </Link>
