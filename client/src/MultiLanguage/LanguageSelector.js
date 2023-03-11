@@ -2,9 +2,9 @@ import React from 'react';
 import i18n from './I18n';
 
 const languages = {
-  en: { nativeName: 'English', code: 'en' },
-  fr: { nativeName: 'Français', code: 'fr' },
-  zh: { nativeName: '中文简体', code: 'zh' }
+  en: { nativeName: 'English' },
+  fr: { nativeName: 'Français' },
+  zh: { nativeName: '中文简体' }
 };
 
 const LanguageSelector = () => {
@@ -16,7 +16,7 @@ const LanguageSelector = () => {
           style={{ backgroundColor:'#6E7F80' }}
         >
           {Object.keys(languages).map((lng) => (
-            <option value={lng} id={lng} key={lng.code}>
+            <option value={lng} key={lng}>
               {languages[lng].nativeName}
             </option>
           ))}
