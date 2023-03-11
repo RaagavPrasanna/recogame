@@ -3,11 +3,14 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
+import LanguageSelector from '../../MultiLanguage/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
   const headerRef = useRef();
+  const { t } = useTranslation();
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
@@ -30,27 +33,27 @@ function Header() {
     >
       <header className={styles.buttons} onClick={postCtx.handlePostClick}>
         <Link to="/">
-          <Button> Home </Button>
+          <Button>{t('Home')}</Button>
         </Link>
-        <Button> My Game List </Button>
         <Link to="/profile">
-          <Button> User </Button>
+          <Button> {t('User')} </Button>
         </Link>
         <Link to="/gamelist">
-          <Button> My Game List </Button>
+          <Button> {t('My Game List')} </Button>
         </Link>
         <Link to="/community">
-          <Button> Community </Button>
+          <Button> {t('Community')} </Button>
         </Link>
         <Link to="/friends">
-          <Button> Friends </Button>
+          <Button> {t('Friends')} </Button>
         </Link>
       </header>
       <header className={styles.search}>
         <Link to="/login">
-          <Button> Log In </Button>
+          <Button> {t('Log In')} </Button>
         </Link>
-        <Button> Search </Button>
+        <Button> {t('Search')} </Button>
+        <Button><LanguageSelector/></Button>
       </header>
     </div>
   );
