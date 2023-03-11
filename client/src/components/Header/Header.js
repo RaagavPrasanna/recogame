@@ -40,7 +40,7 @@ function Header() {
           <Button> {t('User')} </Button>
         </Link>
         <Link to="/gamelist">
-          <Button> {t('Game List')} </Button>
+          <Button> {t('My Game List')} </Button>
         </Link>
         <Link to="/community">
           <Button> {t('Community')} </Button>
