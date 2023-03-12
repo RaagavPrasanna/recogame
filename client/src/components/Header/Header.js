@@ -31,10 +31,10 @@ function Header() {
   const retUserAuthButton = () => {
     if(user !== null) {
       // eslint-disable-next-line max-len
-      return ( <Button onClick={logout}> Log Out here {user.provider === 'google' ? user.name : user.displayName} </Button> );
+      return ( <Button onClick={logout}> Log Out here:  {user.provider === 'google' ? user.name : user.displayName} </Button> );
     } else {
       return ( <Link to="/login">
-        <Button> Log In </Button>
+        <Button> {t('Log In')} </Button>
       </Link> );
     }
   };
