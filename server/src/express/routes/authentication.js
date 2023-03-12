@@ -134,7 +134,7 @@ router.get('/steam-auth/return',
   });
 
 router.get('/get-user', utils.authentication.isAuthenticated, function(req, res) {
-  res.json(req.session.user);
+  res.status(200).json(req.session.user);
 });
 
 router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
