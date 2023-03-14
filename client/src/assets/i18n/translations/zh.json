@@ -23,5 +23,8 @@
   "In progress":"进行中",
   "Finished":"完成",
   "Completed 100% Achievements":"完成 100%",
-  "Never Played":"从未玩过"
+  "Never Played":"从未玩过",
+  "Username":"用户名",
+  "Password":"密码",
+  "Sign In":"登录"
 }

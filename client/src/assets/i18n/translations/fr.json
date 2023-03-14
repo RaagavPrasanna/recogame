@@ -23,5 +23,8 @@
   "In progress":"En cours",
   "Finished":"completed",
   "Completed 100% Achievements":"Réalisations terminées à 100 %",
-  "Never Played":"Jamais joué"
+  "Never Played":"Jamais joué",
+  "Username":"Nom d’utilisateur",
+  "Password":"Mot de passe",
+  "Sign In":"Connexion"
 }

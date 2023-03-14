@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../UI/Spinner';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { useTranslation } from 'react-i18next';
 
 const defaultGameDetails = {
   name: '',
@@ -12,6 +13,7 @@ const defaultGameDetails = {
   gameDesc: '',
   reviews: [],
 };
+const { t } = useTranslation();
 
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
@@ -112,7 +114,7 @@ function GameDetailView() {
               <Button
                 onClick={() => window.open(gameDetails.storeUrl, '_blank')}
               >
-                BUY ON STEAM
+                {t('BUY ON STEAM')}
               </Button>
               <Button>ADD TO WISHLIST</Button>
               <Button>ADD TO MY GAMELIST</Button>
