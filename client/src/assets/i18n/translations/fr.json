@@ -16,5 +16,12 @@
   "Receive messages from other users":"Recevoir des messages d’autres utilisateurs",
   "Recommend my games to other users":"Recommander mes jeux à d’autres utilisateurs",
   "Cancel":"Annuler",
-  "Save Changes":"Sauvegarder"
+  "Save Changes":"Sauvegarder",
+  "Wishlist":"Liste de souhaits",
+  "Edit":"modifier",
+  "Remove":"supprimer",
+  "In progress":"En cours",
+  "Finished":"completed",
+  "Completed 100% Achievements":"Réalisations terminées à 100 %",
+  "Never Played":"Jamais joué"
 }

@@ -16,5 +16,12 @@
   "Receive messages from other users":"接收来自其他用户的消息",
   "Recommend my games to other users":"向其他用户推荐我的游戏",
   "Cancel":"取消",
-  "Save Changes":"保存"
+  "Save Changes":"保存",
+  "Wishlist":"愿望清单",
+  "Edit":"编辑",
+  "Remove":"删除",
+  "In progress":"进行中",
+  "Finished":"完成",
+  "Completed 100% Achievements":"完成 100%",
+  "Never Played":"从未玩过"
 }

@@ -16,5 +16,12 @@
   "Receive messages from other users":"Receive messages from other users",
   "Recommend my games to other users":"Recommend my games to other users",
   "Cancel":"Cancel",
-  "Save Changes":"Save Changes"
+  "Save Changes":"Save Changes",
+  "Wishlist":"Wishlist",
+  "Edit":"Edit",
+  "Remove":"Remove",
+  "In progress":"In progress",
+  "Finished":"Finished",
+  "Completed 100% Achievements":"Completed 100% Achievements",
+  "Never Played":"Never Played"
 }
