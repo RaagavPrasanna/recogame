@@ -1,3 +1,42 @@
 .thumbs {
-  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  width: 6.5em;
+  color: white;
+  background-color: #2D3A44;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.thumbs-up,
+.thumbs-down {
+  font-size: 1.5rem;
+  position: static;
+  animation: deflate 0.25s;
+}
+
+.thumbs-up:hover,
+.thumbs-down:hover {
+  animation: inflate 0.25s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes inflate {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes deflate {
+  0% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

@@ -8,8 +8,8 @@ import styles from './Thumbs.module.css';
 function Thumbs() {
   return (
     <div className={styles.thumbs}>
-      <BsFillHandThumbsUpFill />
-      <BsFillHandThumbsDownFill />
+      <BsFillHandThumbsUpFill className={styles['thumbs-up']} />
+      <BsFillHandThumbsDownFill className={styles['thumbs-down']} />
     </div>
   );
 }
