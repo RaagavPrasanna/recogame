@@ -1,3 +1,4 @@
+import he from 'he';
 import pathsUrls from './steam_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './steam_types.js';
@@ -61,36 +62,36 @@ async function fetchGameInfo(id) {
     sourceName:
       'steam',
     name:
-      info.name,
+      he.decode(info.name),
     developers:
-      info.developers,
+      info.developers.map(he.decode),
     publishers:
-      info.publishers,
+      info.publishers.map(he.decode),
     imageHeader:
       info.header_image || null,
     imageBackground:
       info.background_raw || null,
     categories:
       info.categories !== undefined
-        ? info.categories.map(c => c.description)
+        ? info.categories.map(c => he.decode(c.description))
         : null,
     genres:
       info.genres !== undefined
-        ? info.genres.map(c => c.description)
+        ? info.genres.map(c => he.decode(c.description))
         : null,
     storeUrl:
       `https://store.steampowered.com/app/${info.steam_appid}`,
     detailedDescription:
-      info.detailed_description || null,
+      info.detailed_description ? he.decode(info.detailed_description) : null,
     shortDescription:
-      info.short_description || null,
+      info.short_description ? he.decode(info.short_description) : null,
     supportedLanguages:
       info.supported_languages !== undefined
-        ? info.supported_languages.split(', ')
+        ? info.supported_languages.split(', ').map(he.decode)
         : null,
     platforms:
       info.platforms !== undefined
-        ? Object.keys(info.platforms).filter(os => info.platforms[os])
+        ? Object.keys(info.platforms).filter(os => info.platforms[os]).map(he.decode)
         : null,
     metacritic:
       info.metacritic !== undefined
@@ -109,8 +110,8 @@ async function fetchGameInfo(id) {
     background:
       info.background || null,
     contentDescriptors:
-      info.content_descriptors !== undefined
-        ? info.content_descriptors.notes
+      info.content_descriptors?.notes
+        ? he.decode(info.content_descriptors.notes)
         : null
   };
 }
