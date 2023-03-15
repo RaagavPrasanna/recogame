@@ -5,6 +5,7 @@ import passport from 'passport';
 import passportSteam from 'passport-steam';
 import models from '../../db/models.js';
 import utils from '../utils.js';
+import steamApi from '../../controller/steamapi/steam_api.js';
 
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -158,6 +159,31 @@ router.get(
     res.json({ token: utils.authentication.csrfProtect.generateToken(req) });
   }
 );
+
+router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req, res) => {
+  if(req.session.user.provider !== 'steam') {
+    res.status(400).send('User is not logged in with steam');
+    return;
+  }
+
+  const steamId = req.session.user.id;
+
+  // eslint-disable-next-line max-len
+  const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${process.env.STEAM_API_KEY}&steamid=${steamId}`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+  const games = [];
+
+  await Promise.all(
+    data.response.games.map(async (gameId) => {
+      const game = await steamApi.fetchGameInfo(gameId.appid);
+      games.push(game);
+    }
+    ));
+
+  res.status(200).json(games.length);
+});
 
 export default router;
 
