@@ -30,7 +30,6 @@ function Thumbs() {
   }
 
   function thumbsUp() {
-    console.log('upp');
     setIsThumbsDown(false);
     setIsThumbsUp(true);
   }
