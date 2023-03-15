@@ -21,15 +21,16 @@ function Thumbs() {
     const clickedThumb = thumb.id;
 
     if (clickedThumb === 'thumbs-up') {
-      thumbsUp();
+      isThumbsUp || thumbsUp();
     }
 
     if (clickedThumb === 'thumbs-down') {
-      thumbsDown();
+      isThumbsDown || thumbsDown();
     }
   }
 
   function thumbsUp() {
+    console.log('upp');
     setIsThumbsDown(false);
     setIsThumbsUp(true);
   }
