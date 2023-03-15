@@ -26,5 +26,16 @@
   "Never Played":"从未玩过",
   "Username":"用户名",
   "Password":"密码",
-  "Sign In":"登录"
+  "Sign In":"登录",
+  "TITLE":"标题:",
+  "GENRE":"类型:",
+  "DEVELOPER":"开发 人员:",
+  "PUBLISHER":"发行人:",
+  "CATEGORIES":"类别:",
+  "PLATFORMS":"平台:",
+  "CONTENT DESCRIPTION":"内容描述:",
+  "BUY ON STEAM":"在STEAM上购买",
+  "ADD TO WISHLIST":"添加到愿望清单",
+  "ADD TO MY GAMELIST":"添加到我的游戏",
+  "Community Reviews":"社区评论"
 }

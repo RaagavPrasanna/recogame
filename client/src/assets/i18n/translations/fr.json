@@ -26,5 +26,16 @@
   "Never Played":"Jamais joué",
   "Username":"Nom d’utilisateur",
   "Password":"Mot de passe",
-  "Sign In":"Connexion"
+  "Sign In":"Connexion",
+  "TITLE":"TITRE:",
+  "GENRE":"GENRE:",
+  "DEVELOPER":"DEVELOPPEUR:",
+  "PUBLISHER":"ÉDITEUR:",
+  "CATEGORIES":"CATÉGORIES:",
+  "PLATFORMS":"PLATES-FORMES:",
+  "CONTENT DESCRIPTION":"DESCRIPTION:",
+  "BUY ON STEAM":"ACHETER SUR STEAM",
+  "ADD TO WISHLIST":"AJOUTER À LA LISTE DE SOUHAITS",
+  "ADD TO MY GAMELIST":"AJOUTER À MA LISTE DE JEUX",
+  "Community Reviews":"Avis de la communauté"
 }

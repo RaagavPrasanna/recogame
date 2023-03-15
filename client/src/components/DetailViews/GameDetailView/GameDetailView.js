@@ -13,7 +13,6 @@ const defaultGameDetails = {
   gameDesc: '',
   reviews: [],
 };
-const { t } = useTranslation();
 
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
@@ -54,6 +53,7 @@ function GameDetailView() {
     defaultGameDetails
   );
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLoading(true);
@@ -99,13 +99,13 @@ function GameDetailView() {
               <div className={styles.info}>
                 <img src={gameDetails.imageHeader} />
                 <ul>
-                  <li>TITLE: &nbsp;{gameDetails.name}</li>
-                  <li>GENRE: {gameDetails.genre?.join(', ')}</li>
-                  <li>DEVELOPER: &nbsp;{gameDetails.developer?.join(', ')}</li>
-                  <li>PUBLISHER: &nbsp;{gameDetails.publisher?.join(', ')}</li>
-                  <li>CATEGORIES: &nbsp;{gameDetails.category?.join(', ')}</li>
-                  <li>PLATFORMS: {gameDetails.platforms?.join(', ')}</li>
-                  <li>CONTENT DESCRIPTION: &nbsp;{gameDetails.contentDescriptors}</li>
+                  <li>{t('TITLE')} &nbsp;{ gameDetails.name }</li>
+                  <li>{t('GENRE')} {gameDetails.genre?.join(', ')}</li>
+                  <li>{t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}</li>
+                  <li>{t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}</li>
+                  <li>{t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}</li>
+                  <li>{t('PLATFORMS')} {gameDetails.platforms?.join(', ')}</li>
+                  <li>{t('CONTENT DESCRIPTION')} &nbsp;{gameDetails.contentDescriptors}</li>
                 </ul>
               </div>
             </div>
@@ -116,13 +116,13 @@ function GameDetailView() {
               >
                 {t('BUY ON STEAM')}
               </Button>
-              <Button>ADD TO WISHLIST</Button>
-              <Button>ADD TO MY GAMELIST</Button>
+              <Button>{t('ADD TO WISHLIST')}</Button>
+              <Button>{t('ADD TO MY GAMELIST')}</Button>
               {/* TODO: Drop down menu */}
             </div>
           </div>
           <div className={styles.reviews}>
-            <h2>Community Reviews</h2>
+            <h2>{t('Community Reviews')}</h2>
             {/* TODO: Render reviews */}
           </div>
         </>
