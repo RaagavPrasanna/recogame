@@ -34,6 +34,15 @@ const GameDetails = mongoose.model(
   })
 );
 
+const GameRating = mongoose.model(
+  'game-rating',
+  new mongoose.Schema({
+    user: { type: mongoose.Schema.ObjectId, ref: 'UserProfile', required: true },
+    game: { type: mongoose.Schema.ObjectId, ref: 'GameDetails', required: true },
+    thumbsUp: Boolean
+  }).index({ user: 1, game: 1 }, { unique: true })
+);
+
 const ViewGameDetailsShort = new View(
   'view-game-details-short',
   'game-details',
@@ -79,7 +88,8 @@ const UserProfile = mongoose.model(
 export default {
   CLEAN_PROJECTION,
   GameDetails,
+  GameRating,
   ViewGameDetailsShort,
-  UserProfile
+  UserProfile,
 };
 

@@ -207,8 +207,12 @@ router.get('/info/:id', async (req, res) => {
     }
     res.json(game);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
+    if (err.name === 'CastError') {
+      res.status(400).send(`Invalid game id: ${id}`);
+    } else {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
   }
 });
 
