@@ -212,5 +212,16 @@ router.get('/info/:id', async (req, res) => {
   }
 });
 
+router.get('/user-steam-games-', utils.authentication.isAuthenticated, async (req, res) => {
+  if(req.session.user.provider !== 'steam') {
+    res.status(400).send('User is not logged in with steam');
+    return;
+  }
+
+  const steamId = req.session.user.userId;
+
+  
+});
+
 export default router;
 
