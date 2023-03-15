@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   BsFillHandThumbsUpFill,
   BsFillHandThumbsDownFill,
@@ -6,6 +7,9 @@ import {
 import styles from './Thumbs.module.css';
 
 function Thumbs() {
+  const [isThumbsUp, setIsThumbsUp] = useState(false);
+  const [isThumbsDown, setIsThumbsDown] = useState(false);
+
   function thumbHandler(e) {
     e.preventDefault();
     const clicked = e.target;
@@ -14,14 +18,35 @@ function Thumbs() {
     if (!thumb) {
       return;
     }
-    console.log(thumb.id);
+    const clickedThumb = thumb.id;
+
+    if (clickedThumb === 'thumbs-up') {
+      thumbsUp();
+    }
+
+    if (clickedThumb === 'thumbs-down') {
+      thumbsDown();
+    }
+  }
+
+  function thumbsUp() {
+    setIsThumbsDown(false);
+    setIsThumbsUp(true);
+  }
+
+  function thumbsDown() {
+    setIsThumbsUp(false);
+    setIsThumbsDown(true);
   }
 
   return (
     <div className={styles.thumbs} onClick={thumbHandler}>
-      <BsFillHandThumbsUpFill className={styles['thumbs-up']} id="thumbs-up" />
+      <BsFillHandThumbsUpFill
+        className={`${styles['thumbs-up']} ${isThumbsUp && styles.clicked}`}
+        id="thumbs-up"
+      />
       <BsFillHandThumbsDownFill
-        className={styles['thumbs-down']}
+        className={`${styles['thumbs-down']} ${isThumbsDown && styles.clicked}`}
         id="thumbs-down"
       />
     </div>
