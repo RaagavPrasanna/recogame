@@ -9,7 +9,7 @@ const GameDetails = mongoose.model(
   new mongoose.Schema({
     sourceId: {
       type: Number,
-      required: [true, 'sourceId is requird'],
+      required: [true, 'sourceId is requried'],
       unique: true
     },
     sourceName: String,
@@ -43,14 +43,58 @@ const GameRating = mongoose.model(
   }).index({ user: 1, game: 1 }, { unique: true })
 );
 
+const ViewGameDetailsFull = new View(
+  'view-game-details-full',
+  'game-details',
+  new mongoose.Schema({
+    ...GameDetails.schema.obj,
+    likes: Number,
+    dislikes: Number
+  }),
+  [
+    {
+      $lookup: {
+        from: 'game-ratings',
+        localField: '_id',
+        foreignField: 'game',
+        as: 'ratings'
+      }
+    },
+    {
+      $addFields: {
+        likes: {
+          $size: {
+            $filter: {
+              input: '$ratings',
+              as: 'rating',
+              cond: { $eq: ['$$rating.thumbsUp', true] }
+            }
+          }
+        },
+        dislikes: {
+          $size: {
+            $filter: {
+              input: '$ratings',
+              as: 'rating',
+              cond: { $eq: ['$$rating.thumbsUp', false] }
+            }
+          }
+        },
+      }
+    }
+  ]
+);
+
 const ViewGameDetailsShort = new View(
   'view-game-details-short',
-  'game-details',
+  'view-game-details-fulls',
   new mongoose.Schema({
     name: String,
     developers: [String],
     shortDescription: String,
-    imageHeader: String
+    imageHeader: String,
+    likes: Number,
+    dislikes: Number
   }),
   [{
     $project: {
@@ -58,7 +102,9 @@ const ViewGameDetailsShort = new View(
       name: true,
       developers: true,
       shortDescription: true,
-      imageHeader: true
+      imageHeader: true,
+      likes: true,
+      dislikes: true
     }
   }]
 );
@@ -89,7 +135,7 @@ export default {
   CLEAN_PROJECTION,
   GameDetails,
   GameRating,
+  ViewGameDetailsFull,
   ViewGameDetailsShort,
   UserProfile,
 };
-
