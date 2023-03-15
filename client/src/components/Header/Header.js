@@ -6,14 +6,21 @@ import PostContext from '../../store/posts-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
+import SearchBar from '../../SearchBar/SearchBar';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
+  const [show, setShow] = useState(false);
+
   const postCtx = useContext(PostContext);
   const headerRef = useRef();
   const { t } = useTranslation();
 
   const { user, logout } = useContext(UserContext);
+
+  function handleShow() {
+    setShow(true);
+  }
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
@@ -65,7 +72,8 @@ function Header() {
       </header>
       <header className={styles.search}>
         {retUserAuthButton()}
-        <Button> {t('Search')} </Button>
+        {show && (<SearchBar />)}
+        <Button onClick={handleShow}> {t('Search')} </Button>
         <Button><LanguageSelector/></Button>
       </header>
     </div>
