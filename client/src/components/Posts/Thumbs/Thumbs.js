@@ -3,6 +3,15 @@ import {
   BsFillHandThumbsDownFill,
 } from 'react-icons/bs';
 
+import styles from './Thumbs.module.css';
+
 function Thumbs() {
-  return <></>;
+  return (
+    <div className={styles.thumbs}>
+      <BsFillHandThumbsUpFill />
+      <BsFillHandThumbsDownFill />
+    </div>
+  );
 }
+
+export default Thumbs;

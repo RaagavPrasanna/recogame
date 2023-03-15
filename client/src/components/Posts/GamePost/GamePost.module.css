@@ -8,6 +8,10 @@
   border-radius: 15px;
 }
 
+.details {
+  padding: 1rem;
+}
+
 .gamepost:hover {
   cursor: pointer;
   background-color: #899fa0;
@@ -18,7 +22,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   width: 20rem;
-  height: 10rem;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
@@ -36,10 +39,21 @@ p {
 h1,
 p,
 span {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 p {
   margin-top: 1rem;
   padding-right: 1rem;
+}
+
+.gamepost h1 {
+  width: fit-content;
+}
+
+.thumbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 2rem;
 }
