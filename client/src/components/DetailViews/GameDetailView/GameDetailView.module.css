@@ -17,7 +17,7 @@
 }
 
 .gameDetails * {
-  animation: fadein 1.5s;
+  animation: fadein 1.25s;
 }
 
 
@@ -31,8 +31,14 @@
   align-self: flex-start;
 }
 
-.buttons * {
-  margin: 1rem 1rem 2rem 1rem;
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 40rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .buttons span {

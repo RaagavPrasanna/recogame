@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../UI/Spinner';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import Thumbs from '../../Posts/Thumbs/Thumbs';
 
 const defaultGameDetails = {
   name: '',
@@ -103,7 +104,9 @@ function GameDetailView() {
                   <li>PUBLISHER: &nbsp;{gameDetails.publisher?.join(', ')}</li>
                   <li>CATEGORIES: &nbsp;{gameDetails.category?.join(', ')}</li>
                   <li>PLATFORMS: {gameDetails.platforms?.join(', ')}</li>
-                  <li>CONTENT DESCRIPTION: &nbsp;{gameDetails.contentDescriptors}</li>
+                  <li>
+                    CONTENT DESCRIPTION: &nbsp;{gameDetails.contentDescriptors}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -116,6 +119,7 @@ function GameDetailView() {
               </Button>
               <Button>ADD TO WISHLIST</Button>
               <Button>ADD TO MY GAMELIST</Button>
+              <Thumbs />
               {/* TODO: Drop down menu */}
             </div>
           </div>
