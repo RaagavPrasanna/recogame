@@ -67,7 +67,7 @@ function LoginForm({ onCancel }) {
       <form className={classes.loginForm}>
         <h2>{t('Log In')}</h2>
         <label>
-          Username:
+          {t('Username')}
           <br />
           <input
             id='username'
@@ -79,7 +79,7 @@ function LoginForm({ onCancel }) {
         <br />
         <br />
         <label>
-          Password:
+          {t('Password')}
           <br />
           <input
             id='password'
