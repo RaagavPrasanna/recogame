@@ -61,11 +61,11 @@ const GAMES = [
 ];
 
 describe('API GET', () => {
-  test('Get all games', async () => {
+  test('Get feed', async () => {
     jest.spyOn(models.ViewGameDetailsShort, 'getModel')
       .mockImplementation(async () => {
         return mongoose.model(
-          'view',
+          'view-feed',
           models.ViewGameDetailsShort.schema
         );
       });
@@ -87,6 +87,31 @@ describe('API GET', () => {
       })
     );
   });
+
+  test('Get list', async () => {
+    jest.spyOn(models.ViewGameName, 'getModel')
+      .mockImplementation(async () => {
+        return mongoose.model(
+          'view-list',
+          models.ViewGameName.schema
+        );
+      });
+    mockingoose(await models.ViewGameName.getModel()).toReturn(GAMES, 'find');
+
+    const res = await request(app).get('/api/game/list');
+
+    // To remove extra _id key value pair that is added by mockingoose
+    res.body.forEach(e => delete e._id);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(
+      GAMES.map((g) => {
+        return {
+          name: g.name
+        };
+      })
+    );
+  });
+
 
   test('Get game by id', async () => {
     const MOCK_GAME = GAMES[0];
