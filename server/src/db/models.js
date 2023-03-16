@@ -54,6 +54,20 @@ const ViewGameDetailsShort = new View(
   }]
 );
 
+const ViewGameName = new View(
+  'view-game-name',
+  'game-details',
+  new mongoose.Schema({
+    name: String,
+  }),
+  [{
+    $project: {
+      id: '$_id',
+      name: true
+    }
+  }]
+);
+
 const UserProfile = mongoose.model(
   'user-profile',
   new mongoose.Schema({
@@ -81,6 +95,7 @@ export default {
   CLEAN_PROJECTION,
   GameDetails,
   ViewGameDetailsShort,
+  ViewGameName,
   UserProfile
 };
 
