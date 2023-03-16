@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Thumbs from '../Thumbs/Thumbs';
 import styles from './GamePost.module.css';
 
 function GamePost({
@@ -8,15 +9,22 @@ function GamePost({
   rating,
   id,
   onGameClick,
-  imageSrc
+  imageSrc,
 }) {
   return (
     <Link className={styles.gamepost} to={`/game/${id}`} onClick={onGameClick}>
-      <img
-        src={imageSrc}
-      />
-      <div>
-        <h1>{gameTitle}</h1>
+      <img src={imageSrc} />
+      <div className={styles.details}>
+        <div
+          className={styles.background}
+          style={{
+            backgroundImage: `url(${imageSrc})`,
+          }}
+        ></div>
+        <div className={styles.thumbs}>
+          <h1>{gameTitle}</h1>
+          <Thumbs />
+        </div>
         <span>{devName}</span>
         <span>{'⭐️'.repeat(rating)}</span>
         <br />

@@ -38,10 +38,10 @@ function Header() {
   const retUserAuthButton = () => {
     if(user !== null) {
       // eslint-disable-next-line max-len
-      return ( <Button onClick={logout}> Log Out here:  {user.provider === 'google' ? user.name : user.displayName} </Button> );
+      return ( <Button onClick={logout} className={styles.log}> Log Out here:  {user.provider === 'google' ? user.name : user.displayName} </Button> );
     } else {
       return ( <Link to="/login">
-        <Button> {t('Log In')} </Button>
+        <Button className={styles.log}> {t('Log In')} </Button>
       </Link> );
     }
   };
@@ -72,9 +72,10 @@ function Header() {
       </header>
       <header className={styles.search}>
         {retUserAuthButton()}
-        {show && (<SearchBar />)}
-        <Button onClick={handleShow}> {t('Search')} </Button>
-        <Button><LanguageSelector/></Button>
+        {/* {show && (<SearchBar />)}
+        <Button onClick={handleShow}> {t('Search')} </Button> */}
+        <SearchBar/>
+        <Button ><LanguageSelector/></Button>
       </header>
     </div>
   );
