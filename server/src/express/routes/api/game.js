@@ -7,6 +7,7 @@ const router = express.Router();
  * @param page {number}
  * @param limit {number}
  */
+/**Moved these functions to utils */
 // async function getAllGamesFromDB(page, limit = 4) {
 //   return await (
 //     (await models.ViewGameDetailsShort.getModel())
@@ -87,7 +88,6 @@ router.get('/feed', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
 
 /**
  * @swagger
