@@ -13,12 +13,6 @@
   transition: background-color 0.2s ease;
 }
 
-@media only screen and (max-width: 55em) {
-  .gamepost {
-    flex-direction: column;
-  }
-}
-
 .details {
   position: relative;
   padding: 1rem;
@@ -48,7 +42,17 @@
   flex-direction: row;
   flex-wrap: wrap;
   height: 12rem;
+  margin-left: 1.5rem;
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 55em) {
+  .gamepost {
+    flex-direction: column;
+  }
+  .gamepost img {
+    margin-left: 0;
+  }
 }
 
 h1,
