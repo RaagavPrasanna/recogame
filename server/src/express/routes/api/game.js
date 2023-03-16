@@ -53,8 +53,8 @@ async function getAllGames() {
  *              items:
  *                type: object
  *                properties:
- *                  appid:
- *                    type: integer
+ *                  id:
+ *                    type: string
  *                    description: Unique ID of the game.
  *                    example: 63f3ca8d2b23f928d766a57f
  *                  name:
@@ -219,7 +219,36 @@ router.get('/info/:id', async (req, res) => {
   }
 });
 
-router.get('/list', async (req, res) => {
+/**
+ * @swagger
+ * /game/list:
+ *   get:
+ *     summary: List of all names ang game ids.
+ *     description: Retrieve bare minumum details about all the games.
+ *     tags:
+ *       - games
+ *     responses:
+ *      200:
+ *        description: A list of all games.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: string
+ *                    description: Unique ID of the game.
+ *                    example: 63f3ca8d2b23f928d766a57f
+ *                  name:
+ *                    type: string
+ *                    description: Name of the game.
+ *                    example: "DOOM (1993)"
+ *      500:
+ *        description: Issues with our server
+ */
+router.get('/list', async (_, res) => {
   try {
     res.json(await getAllGames());
   } catch (err) {
