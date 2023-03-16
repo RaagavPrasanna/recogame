@@ -3,6 +3,7 @@ import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
+import CommunityContext from '../../store/community-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
@@ -10,6 +11,7 @@ import UserContext from '../../store/user-context';
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
+  const commCtx = useContext(CommunityContext);
   const headerRef = useRef();
   const { t } = useTranslation();
 
@@ -28,17 +30,28 @@ function Header() {
     };
   }, []);
 
+  function handlePageChange() {
+    postCtx.handlePostClick();
+    commCtx.handlePostClick();
+  }
   const retUserAuthButton = () => {
-    if(user !== null) {
+    if (user !== null) {
       // eslint-disable-next-line max-len
-      return ( <Button onClick={logout}> Log Out here:  {user.provider === 'google' ? user.name : user.displayName} </Button> );
+      return (
+        <Button onClick={logout}>
+          {' '}
+          Log Out here:{' '}
+          {user.provider === 'google' ? user.name : user.displayName}{' '}
+        </Button>
+      );
     } else {
-      return ( <Link to="/login">
-        <Button> {t('Log In')} </Button>
-      </Link> );
+      return (
+        <Link to="/login">
+          <Button> {t('Log In')} </Button>
+        </Link>
+      );
     }
   };
-
 
   return (
     <div
@@ -46,7 +59,7 @@ function Header() {
       onScroll={changeNavBg}
       ref={headerRef}
     >
-      <header className={styles.buttons} onClick={postCtx.handlePostClick}>
+      <header className={styles.buttons} onClick={handlePageChange}>
         <Link to="/">
           <Button>{t('Home')}</Button>
         </Link>
@@ -66,7 +79,9 @@ function Header() {
       <header className={styles.search}>
         {retUserAuthButton()}
         <Button> {t('Search')} </Button>
-        <Button><LanguageSelector/></Button>
+        <Button>
+          <LanguageSelector />
+        </Button>
       </header>
     </div>
   );
