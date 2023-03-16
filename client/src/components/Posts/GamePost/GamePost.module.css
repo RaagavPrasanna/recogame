@@ -2,7 +2,7 @@
   position: relative;
   list-style-type: none;
   display: flex;
-  background-color: #6E7F80;
+  /* background-color: #6E7F80; */
   color: white;
   text-shadow: 2px 2px 3px #0000006f;
   margin: 20px auto;
@@ -18,7 +18,7 @@
 }
 
 .background {
-  filter: blur(45px);
+  filter: blur(45px) brightness(70%);
   position: absolute;
   top: 0;
   left: 0;
