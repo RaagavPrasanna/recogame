@@ -23,7 +23,7 @@ function PostList() {
           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
         }
         gameTitle={post?.name || 'Game Name'}
-        devName={post?.developers.join(', ') || 'Developer Name'}
+        devName={post?.developers.map((d, i) => <div key={i}>{d}</div>) || 'Developer Name'}
         description={post?.shortDescription || 'No Description.'}
         rating={post?.rating || 5}
         onGameClick={postsCtx.handlePostClick}

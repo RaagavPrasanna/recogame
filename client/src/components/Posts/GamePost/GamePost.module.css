@@ -2,13 +2,21 @@
   position: relative;
   list-style-type: none;
   display: flex;
-  /* background-color: #6E7F80; */
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
   color: white;
   text-shadow: 2px 2px 3px #0000006f;
   margin: 20px auto;
   width: 90%;
   border-radius: 15px;
   overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+@media only screen and (max-width: 55em) {
+  .gamepost {
+    flex-direction: column;
+  }
 }
 
 .details {
@@ -18,7 +26,7 @@
 }
 
 .background {
-  filter: blur(45px) brightness(70%);
+  filter: blur(45px) brightness(60%);
   position: absolute;
   top: 0;
   left: 0;
@@ -39,10 +47,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 25rem;
-  height: 15rem;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  height: 12rem;
+  border-radius: 10px;
 }
 
 h1,
@@ -67,12 +73,30 @@ p {
 }
 
 .gamepost h1 {
-  width: fit-content;
+  width: 100%;
+  padding-right: 2em;
 }
 
 .thumbs {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   margin-right: 2rem;
+  flex-wrap: nowrap;
+}
+
+.rating {
+  flex-direction: column;
+  width: auto;
+}
+
+.devName {
+  padding-top: 1em;
+  padding-left: 2em;
+}
+
+.stars {
+  margin: 0;
+  text-align: right;
 }

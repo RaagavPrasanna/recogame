@@ -21,12 +21,14 @@ function GamePost({
             backgroundImage: `url(${imageSrc})`,
           }}
         ></div>
+        <h1>{gameTitle}</h1>
         <div className={styles.thumbs}>
-          <h1>{gameTitle}</h1>
-          <Thumbs />
+          <div className={styles.devName}>{devName}</div>
+          <div className={styles.rating}>
+            <span className={styles.stars}>{'⭐️'.repeat(rating)}</span>
+            <Thumbs />
+          </div>
         </div>
-        <span>{devName}</span>
-        <span>{'⭐️'.repeat(rating)}</span>
         <br />
         <br />
         <p>{description}</p>
