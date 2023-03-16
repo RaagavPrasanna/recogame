@@ -11,6 +11,13 @@
   overflow: hidden;
 }
 
+@media only screen and (max-width: 55em) {
+  .gamepost {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .details {
   position: relative;
   padding: 1rem;
@@ -41,8 +48,7 @@
   flex-wrap: wrap;
   width: 25rem;
   height: 15rem;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
 }
 
 h1,
