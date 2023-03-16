@@ -67,12 +67,16 @@ p {
 }
 
 .gamepost h1 {
-  width: fit-content;
+  flex: 1;
+  word-break: break-all;
+  min-width: 0;
 }
 
 .thumbs {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   margin-right: 2rem;
+  flex-wrap: nowrap;
 }
