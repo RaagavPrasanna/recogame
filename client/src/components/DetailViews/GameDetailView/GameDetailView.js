@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../UI/Spinner';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import Thumbs from '../../Posts/Thumbs/Thumbs';
 import { useTranslation } from 'react-i18next';
 
 const defaultGameDetails = {
@@ -99,13 +100,28 @@ function GameDetailView() {
               <div className={styles.info}>
                 <img src={gameDetails.imageHeader} />
                 <ul>
-                  <li>{t('TITLE')} &nbsp;{ gameDetails.name }</li>
-                  <li>{t('GENRE')} {gameDetails.genre?.join(', ')}</li>
-                  <li>{t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}</li>
-                  <li>{t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}</li>
-                  <li>{t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}</li>
-                  <li>{t('PLATFORMS')} {gameDetails.platforms?.join(', ')}</li>
-                  <li>{t('CONTENT DESCRIPTION')} &nbsp;{gameDetails.contentDescriptors}</li>
+                  <li>
+                    {t('TITLE')} &nbsp;{gameDetails.name}
+                  </li>
+                  <li>
+                    {t('GENRE')} {gameDetails.genre?.join(', ')}
+                  </li>
+                  <li>
+                    {t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}
+                  </li>
+                  <li>
+                    {t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}
+                  </li>
+                  <li>
+                    {t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}
+                  </li>
+                  <li>
+                    {t('PLATFORMS')} {gameDetails.platforms?.join(', ')}
+                  </li>
+                  <li>
+                    {t('CONTENT DESCRIPTION')} &nbsp;
+                    {gameDetails.contentDescriptors}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -118,6 +134,7 @@ function GameDetailView() {
               </Button>
               <Button>{t('ADD TO WISHLIST')}</Button>
               <Button>{t('ADD TO MY GAMELIST')}</Button>
+              <Thumbs />
               {/* TODO: Drop down menu */}
             </div>
           </div>
