@@ -3,7 +3,8 @@
   justify-content: space-between;
   width: 6.5em;
   color: white;
-  background-color: #2D3A44;
+  background-color: #2d3a4485;
+  box-shadow: 2px 2px 3px #0000006f;
   padding: 1rem;
   border-radius: 10px;
 }
@@ -54,9 +55,9 @@
 }
 
 .thumbs-up.clicked {
-  color: green;
+  color: #4CBB17;
 }
 
 .thumbs-down.clicked {
-  color: red;
+  color: #EE4B2B;
 }

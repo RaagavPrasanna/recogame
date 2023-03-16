@@ -100,13 +100,28 @@ function GameDetailView() {
               <div className={styles.info}>
                 <img src={gameDetails.imageHeader} />
                 <ul>
-                  <li>{t('TITLE')} &nbsp;{ gameDetails.name }</li>
-                  <li>{t('GENRE')} {gameDetails.genre?.join(', ')}</li>
-                  <li>{t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}</li>
-                  <li>{t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}</li>
-                  <li>{t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}</li>
-                  <li>{t('PLATFORMS')} {gameDetails.platforms?.join(', ')}</li>
-                  <li>{t('CONTENT DESCRIPTION')} &nbsp;{gameDetails.contentDescriptors}</li>
+                  <li>
+                    {t('TITLE')} &nbsp;{gameDetails.name}
+                  </li>
+                  <li>
+                    {t('GENRE')} {gameDetails.genre?.join(', ')}
+                  </li>
+                  <li>
+                    {t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}
+                  </li>
+                  <li>
+                    {t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}
+                  </li>
+                  <li>
+                    {t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}
+                  </li>
+                  <li>
+                    {t('PLATFORMS')} {gameDetails.platforms?.join(', ')}
+                  </li>
+                  <li>
+                    {t('CONTENT DESCRIPTION')} &nbsp;
+                    {gameDetails.contentDescriptors}
+                  </li>
                 </ul>
               </div>
             </div>
