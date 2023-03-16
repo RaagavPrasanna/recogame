@@ -175,6 +175,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
   const data = await response.json();
   const games = [];
 
+  // TODO - Add check to see if game is already in database. If not, add it to db.
   await Promise.all(
     data.response.games.map(async (gameId) => {
       const game = await steamApi.fetchGameInfo(gameId.appid);
@@ -182,7 +183,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
     }
     ));
 
-  res.status(200).json(games.length);
+  res.status(200).json(games);
 });
 
 export default router;
