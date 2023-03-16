@@ -1,4 +1,5 @@
 import { csrfSync } from 'csrf-sync';
+import models from '../db/models.js';
 
 const csrfProtect = csrfSync();
 
@@ -43,6 +44,30 @@ function validateNumber(value, validation) {
   }
 }
 
+/**
+ * @param page {number}
+ * @param limit {number}
+ */
+async function getAllGamesFromDB(page, limit = 4) {
+  return await (
+    (await models.ViewGameDetailsShort.getModel())
+      .find({}, models.CLEAN_PROJECTION)
+      .skip(page * limit)
+      .limit(limit)
+  );
+}
+
+async function getGameFromDB(id) {
+  return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
+}
+
+async function getGameById(gameId) {
+  return await models.GameDetails.findOne({ sourceId: gameId }, models.CLEAN_PROJECTION);
+}
+
+async function pushGameToDB(game) {
+  await models.GameDetails.create(game);
+}
 
 export default {
   authentication: {
@@ -51,6 +76,14 @@ export default {
   },
   validation: {
     validateNumber
+  },
+  retrieveData: {
+    getAllGamesFromDB,
+    getGameFromDB,
+    getGameById
+  },
+  pushData: {
+    pushGameToDB
   }
 };
 

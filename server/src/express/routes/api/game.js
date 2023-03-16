@@ -1,5 +1,4 @@
 import express from 'express';
-import models from '../../../db/models.js';
 import utils from '../../utils.js';
 
 const router = express.Router();
@@ -8,18 +7,18 @@ const router = express.Router();
  * @param page {number}
  * @param limit {number}
  */
-async function getAllGamesFromDB(page, limit = 4) {
-  return await (
-    (await models.ViewGameDetailsShort.getModel())
-      .find({}, models.CLEAN_PROJECTION)
-      .skip(page * limit)
-      .limit(limit)
-  );
-}
+// async function getAllGamesFromDB(page, limit = 4) {
+//   return await (
+//     (await models.ViewGameDetailsShort.getModel())
+//       .find({}, models.CLEAN_PROJECTION)
+//       .skip(page * limit)
+//       .limit(limit)
+//   );
+// }
 
-async function getGameFromDB(id) {
-  return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
-}
+// async function getGameFromDB(id) {
+//   return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
+// }
 
 /**
  * @swagger
@@ -81,7 +80,7 @@ router.get('/feed', async (req, res) => {
   }
 
   try {
-    const games = await getAllGamesFromDB(page);
+    const games = await utils.retrieveData.getAllGamesFromDB(page);
     res.json(games);
   } catch (err) {
     console.error(err);
@@ -200,7 +199,7 @@ router.get('/info/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
-    const game = await getGameFromDB(id);
+    const game = await utils.retrieveData.getGameFromDB(id);
     if (!game) {
       res.status(404).send('Game not found');
       return;

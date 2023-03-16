@@ -5,7 +5,6 @@ import passport from 'passport';
 import passportSteam from 'passport-steam';
 import models from '../../db/models.js';
 import utils from '../utils.js';
-import steamApi from '../../controller/steamapi/steam_api.js';
 
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -173,12 +172,21 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
 
   const response = await fetch(url);
   const data = await response.json();
+
+  if(!('games' in data.response)) {
+    res.status(404).send('User has no games. Check account privacy settings or add games to account.');
+    return;
+  }
+
   const games = [];
 
-  // TODO - Add check to see if game is already in database. If not, add it to db.
   await Promise.all(
     data.response.games.map(async (gameId) => {
-      const game = await steamApi.fetchGameInfo(gameId.appid);
+      let game = await utils.retrieveData.getGameById(gameId.appid);
+      if(game === null) {
+        await utils.pushData.pushGameToDB(game);
+        console.log('new game added to db');
+      }
       games.push(game);
     }
     ));
