@@ -109,6 +109,20 @@ const ViewGameDetailsShort = new View(
   }]
 );
 
+const ViewGameName = new View(
+  'view-game-name',
+  'game-details',
+  new mongoose.Schema({
+    name: String,
+  }),
+  [{
+    $project: {
+      id: '$_id',
+      name: true
+    }
+  }]
+);
+
 const UserProfile = mongoose.model(
   'user-profile',
   new mongoose.Schema({
@@ -124,10 +138,11 @@ const UserProfile = mongoose.model(
       platforms: [String],
       keywords: [String],
       wishlist: [Number],
-      receiveMsgs: Boolean,
-      enableFriendRecs: Boolean,
-      enableGameRecs: Boolean,
+      receiveMsgs: { type: Boolean, default: true },
+      enableFriendRecs: { type: Boolean, default: true },
+      enableGameRecs: { type: Boolean, default: true },
     },
+    accountType: String
   })
 );
 
@@ -137,5 +152,6 @@ export default {
   GameRating,
   ViewGameDetailsFull,
   ViewGameDetailsShort,
+  ViewGameName,
   UserProfile,
 };

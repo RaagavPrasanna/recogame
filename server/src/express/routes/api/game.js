@@ -8,7 +8,7 @@ const router = express.Router();
  * @param page {number}
  * @param limit {number}
  */
-async function getAllGamesFromDB(page, limit = 10) {
+async function getGameFeed(page, limit = 10) {
   return await (
     (await models.ViewGameDetailsShort.getModel())
       .find({}, models.CLEAN_PROJECTION)
@@ -17,8 +17,15 @@ async function getAllGamesFromDB(page, limit = 10) {
   );
 }
 
-async function getGameFromDB(id) {
+async function getGameDetails(id) {
   return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
+}
+
+async function getAllGames() {
+  return await (
+    (await models.ViewGameName.getModel())
+      .find({}, models.CLEAN_PROJECTION)
+  );
 }
 
 /**
@@ -46,8 +53,8 @@ async function getGameFromDB(id) {
  *              items:
  *                type: object
  *                properties:
- *                  appid:
- *                    type: integer
+ *                  id:
+ *                    type: string
  *                    description: Unique ID of the game.
  *                    example: 63f3ca8d2b23f928d766a57f
  *                  name:
@@ -81,7 +88,7 @@ router.get('/feed', async (req, res) => {
   }
 
   try {
-    const games = await getAllGamesFromDB(page);
+    const games = await getGameFeed(page);
     res.json(games);
   } catch (err) {
     console.error(err);
@@ -200,7 +207,7 @@ router.get('/info/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
-    const game = await getGameFromDB(id);
+    const game = await getGameDetails(id);
     if (!game) {
       res.status(404).send('Game not found');
       return;
@@ -213,6 +220,44 @@ router.get('/info/:id', async (req, res) => {
       console.error(err);
       res.status(500).send('Server error');
     }
+  }
+});
+
+/**
+ * @swagger
+ * /game/list:
+ *   get:
+ *     summary: List of all names ang game ids.
+ *     description: Retrieve bare minumum details about all the games.
+ *     tags:
+ *       - games
+ *     responses:
+ *      200:
+ *        description: A list of all games.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: string
+ *                    description: Unique ID of the game.
+ *                    example: 63f3ca8d2b23f928d766a57f
+ *                  name:
+ *                    type: string
+ *                    description: Name of the game.
+ *                    example: "DOOM (1993)"
+ *      500:
+ *        description: Issues with our server
+ */
+router.get('/list', async (_, res) => {
+  try {
+    res.json(await getAllGames());
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
   }
 });
 
