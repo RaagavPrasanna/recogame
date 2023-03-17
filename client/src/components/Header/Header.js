@@ -79,7 +79,7 @@ function Header() {
       <header className={styles.search}>
         {retUserAuthButton()}
         <Button> {t('Search')} </Button>
-        <Button>
+        <Button className={styles['lang-btn']}>
           <LanguageSelector className={styles['lang-selector']} />
         </Button>
       </header>

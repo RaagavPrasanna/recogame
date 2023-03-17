@@ -41,14 +41,33 @@
   transition: background-color 0.2s linear;
 }
 
-.lang-selector select{
+.header select{
   border: none;
   background-color: #ffffff00;
   color: #2d3a44;
 }
 
-.lang-selector option{
+.header option{
   background-color: #6e7f80;
   color: #2d3a44;
+}
+
+.header.showBg select{
+  border: none;
+  background-color: #ffffff00;
+  color: #6e7f80;
+}
+
+.header.showBg .lang-selector{
+  color: #2d3a44;
+}
+
+.lang-btn:hover select{
+  color: #2d3a44;
+}
+
+.header.showBg option{
+  background-color: #ffffff00;
+  color: #6e7f80;
 }
 
