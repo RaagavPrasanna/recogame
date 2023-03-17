@@ -7,6 +7,7 @@ import CommunityContext from '../../store/community-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
+import { MenuToggle } from './menuToggle';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
@@ -76,6 +77,7 @@ function Header() {
           <Link to="/gamelist">
             <Button> {t('My Game List')} </Button>
           </Link>
+          <MenuToggle />
         </span>
         <span>
           {retUserAuthButton()}
