@@ -8,3 +8,57 @@ Our communication as a team has improved since the preliminary sprint. Firstly, 
 
 We still do not pre-assign tasks. Instead, we let team members choose tasks they are interested or capable in. This method works well for us, since we are effectively using issue boards and stand-ups to stay organized.
 
+# Sprint 2
+
+For this sprint, we were able to focus more on what information we wanted to display to our users. On the frontend side, we added the user profile with settings, a community page (with mock data for now), a log in feature with Google Authentication and Steam, a friend list (with mock data for now) and the game detail view. As for the backend side, we completed the Java Importer tool, the models for the DB, the routes and we are now able to display games to our Home page.
+
+As a team, we have really improved our teamwork and were able to complete the tasks assigned for this sprint.
+
+Our communication has been similar to the last sprint but we have used our communication tool more often to ensure we weren't causing issues to other teammates as the tasks were overlapping more for this sprint.
+
+We have ensure to assign the tasks that are in progress more as it was mentioned that it could cause confusion.
+
+## Mykyta Onipchenko
+- **Champion feature**
+  - Mobile friendliness
+- **This sprint**
+  - Adapted game feed tiles for mobile view
+    - Moved and grouped rating elements to maximize space for text elements (title, description, developers)
+    - Made a layout with picture on top
+    - Darkened the background to show a clickable area
+
+## Shirley Maa
+- **Champion feature**
+  - Multi language
+- **This sprint**
+  - Setting up the react structure for multi language feather 
+  - Translated
+    - header.js
+    - UserProfile.js
+    - UserSetting.js
+    - GameList.js
+    - GameDetailView.js 
+
+## Liliane Tran Le
+- **Champion feature**
+ - Accessibility
+- **This sprint**
+ - Researching on how to create a dark/light mode
+ - Increasing fonts for better readability
+
+## Raagav Prasanna
+- **Champion feature**
+  - User Messaging application
+- **Sprint2**
+  - Did research on how to specfically implement web sockets in the application.
+    - Found out about a library called Socket.io
+    - Will implement this feature in the 3rd Sprint.
+
+# Paul Patrick Rabanal
+- **Champion feature**
+  - Mobile friendliness
+- **This sprint**
+  - Adapted navbar for mobile view:
+    - Created a toggable hamburger icon.
+    - Created a menu that will display a column of the navigation links when the hamburger icon is pressed.
+    - Modified the navbar to hide the navigation links and show the hamburger icon when the screen is shrinked.
