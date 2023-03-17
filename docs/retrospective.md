@@ -53,3 +53,12 @@ We have ensure to assign the tasks that are in progress more as it was mentioned
   - Did research on how to specfically implement web sockets in the application.
     - Found out about a library called Socket.io
     - Will implement this feature in the 3rd Sprint.
+
+# Paul Patrick Rabanal
+- **Champion feature**
+  - Mobile friendliness
+- **This sprint**
+  - Adapted navbar for mobile view:
+    - Created a toggable hamburger icon.
+    - Created a menu that will display a column of the navigation links when the hamburger icon is pressed.
+    - Modified the navbar to hide the navigation links and show the hamburger icon when the screen is shrinked.
