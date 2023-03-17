@@ -55,9 +55,9 @@
   }
 }
 
-h1,
+.details h1,
 div,
-p {
+.details p {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

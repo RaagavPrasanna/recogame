@@ -7,11 +7,15 @@
   transition: background-color 0.2s linear;
   z-index: 150;
 }
-.search{
-  right: 0;
+
+.buttons {
   display: flex;
-  position: fixed;
-  padding-right: 1rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.left-section {
+  margin-left: 0;
 }
 
 .header.showBg {

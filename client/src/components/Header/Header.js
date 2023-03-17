@@ -60,28 +60,30 @@ function Header() {
       ref={headerRef}
     >
       <header className={styles.buttons} onClick={handlePageChange}>
-        <Link to="/">
-          <Button>{t('Home')}</Button>
-        </Link>
-        <Link to="/profile">
-          <Button> {t('User')} </Button>
-        </Link>
-        <Link to="/gamelist">
-          <Button> {t('My Game List')} </Button>
-        </Link>
-        <Link to="/community">
-          <Button> {t('Community')} </Button>
-        </Link>
-        <Link to="/friends">
-          <Button> {t('Friends')} </Button>
-        </Link>
-      </header>
-      <header className={styles.search}>
-        {retUserAuthButton()}
-        <Button> {t('Search')} </Button>
-        <Button className={styles['lang-btn']}>
-          <LanguageSelector className={styles['lang-selector']} />
-        </Button>
+        <span className={styles['left-section']}>
+          <Link to="/">
+            <Button>{t('Home')}</Button>
+          </Link>
+          <Link to="/community">
+            <Button> {t('Community')} </Button>
+          </Link>
+          <Link to="/friends">
+            <Button> {t('Friends')} </Button>
+          </Link>
+          <Link to="/profile">
+            <Button> {t('User')} </Button>
+          </Link>
+          <Link to="/gamelist">
+            <Button> {t('My Game List')} </Button>
+          </Link>
+        </span>
+        <span>
+          {retUserAuthButton()}
+          <Button> {t('Search')} </Button>
+          <Button className={styles['lang-btn']}>
+            <LanguageSelector className={styles['lang-selector']} />
+          </Button>
+        </span>
       </header>
     </div>
   );
