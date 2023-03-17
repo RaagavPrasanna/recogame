@@ -1,12 +1,8 @@
 .toggle {
-  position: absolute;
   z-index: 1500;
   cursor: pointer;
-  display: inline-flex;
-  width: fit-content;
+  margin-left: 2rem;
 }
 
-.toggle svg {
-  margin-top: 0.35rem;
-}
+
 

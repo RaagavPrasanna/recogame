@@ -6,6 +6,7 @@
   padding: 1rem;
   transition: background-color 0.2s linear;
   z-index: 150;
+  height: 64px;
 }
 
 .buttons {

@@ -1,0 +1,26 @@
+.menu {
+  padding: 5;
+  width: 5rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+}
+
+.options {
+  background-color: #536878e1;
+  width: fit-content;
+  margin-top: 9px;
+  margin-left: 0;
+  animation: show 0.5s
+}
+
+@keyframes show {
+  0% {
+    transform: translate(-100%)
+  }
+
+  100% {
+    transform: translate(0)
+  }
+}
