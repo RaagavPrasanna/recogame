@@ -4,15 +4,22 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 0;
+  /* left: 0; */
 }
 
 .options {
   background-color: #536878e1;
-  width: fit-content;
-  margin-top: 9px;
-  margin-left: 0;
-  animation: show 0.5s
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  animation: show 0.25s
+}
+
+.options button {
+  border-radius: 10px;
+  width: 6rem;
+  margin: 0rem 1rem 0.5rem 1rem;
 }
 
 @keyframes show {

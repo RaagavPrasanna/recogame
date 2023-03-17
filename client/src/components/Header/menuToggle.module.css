@@ -1,7 +1,7 @@
 .toggle {
   z-index: 1500;
   cursor: pointer;
-  margin-left: 2rem;
+  position: fixed;
 }
 
 

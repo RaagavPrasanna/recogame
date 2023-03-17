@@ -57,13 +57,18 @@ function Header() {
 
   return (
     <div
-      className={`${styles.header} ${navBg && styles.showBg || isMobile && styles.showBg}`}
+      className={`${styles.header} ${
+        (navBg && styles.showBg) || (isMobile && styles.showBg)
+      }`}
       onScroll={changeNavBg}
       ref={headerRef}
     >
       <header className={styles.buttons} onClick={handlePageChange}>
         {isMobile ? (
-          <MobileNav />
+          <MobileNav
+            retUserAuthButton={retUserAuthButton}
+            handlePageChange={handlePageChange}
+          />
         ) : (
           <>
             <span className={styles['left-section']}>
