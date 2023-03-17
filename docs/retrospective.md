@@ -45,4 +45,11 @@ We have ensure to assign the tasks that are in progress more as it was mentioned
 - **This sprint**
  - Researching on how to create a dark/light mode
  - Increasing fonts for better readability
- 
+
+## Raagav Prasanna
+- **Champion feature**
+  - User Messaging application
+- **Sprint2**
+  - Did research on how to specfically implement web sockets in the application.
+    - Found out about a library called Socket.io
+    - Will implement this feature in the 3rd Sprint.
