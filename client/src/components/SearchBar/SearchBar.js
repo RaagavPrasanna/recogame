@@ -4,26 +4,41 @@ import styles from './SearchBar.module.css';
 
 function SearchBar() {
   const { t } = useTranslation();
-  // const [query, setQuery] = useState('');
-  // TO FIX
-  // const data = '0';
+  const [searchInput, setSearchInput] = useState('');
+  const [allGames, setAllGames] = useState([]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+  };
+
+
+  async function getGames() {
+    const resp = await fetch('/api/game/list');
+    if (!resp.ok) {
+      throw new Error(`Could not fetch list (${resp.status})`);
+    }
+    const data = await resp.json();
+    setAllGames(data);
+  }
+
   return (
     <div className={styles.search}>
-      <input type='search' placeholder={t('Search')} />
-      {/* {
-        data.filter(post => {
-          if (query === '') {
-            return post;
-          } else if (post.title.toLowerCase().includes(query.toLowerCase())) {
-            return post;
+      <input type='search' placeholder={t('Search')} onChange={ handleChange } />
+      {
+        allGames.filter(game => {
+          if (searchInput === '') {
+            return game;
+          } else{
+            return game.gameName.toLowerCase().includes(searchInput.toLowerCase());
+
           }
-        }).map((post, index) => {
+        }).map((game, index) => {
           <div key={index}>
-            <p>{post.title}</p>
-            <p>{post.author}</p>
+            <p>{game.gameName}</p>
           </div>;
         })
-      } */}
+      }
     </div>
   );
 }
