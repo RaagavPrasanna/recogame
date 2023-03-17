@@ -34,3 +34,21 @@
   background-color: #6e7f80;
   color: #2d3a44;
 }
+
+.header.showBg select{
+  background-color: #2d3a44;
+  color: #6e7f80;
+  transition: background-color 0.2s linear;
+}
+
+.lang-selector select{
+  border: none;
+  background-color: #ffffff00;
+  color: #2d3a44;
+}
+
+.lang-selector option{
+  background-color: #6e7f80;
+  color: #2d3a44;
+}
+

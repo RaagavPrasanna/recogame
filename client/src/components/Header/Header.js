@@ -80,7 +80,7 @@ function Header() {
         {retUserAuthButton()}
         <Button> {t('Search')} </Button>
         <Button>
-          <LanguageSelector />
+          <LanguageSelector className={styles['lang-selector']} />
         </Button>
       </header>
     </div>

@@ -13,7 +13,6 @@ const LanguageSelector = ({ className }) => {
       <form type="submit" onSubmit={(e) => e.preventDefault()}>
         <select
           onChange={(e) => i18n.changeLanguage(e.target.value)}
-          style={{ backgroundColor: '#6E7F80' }}
         >
           {Object.keys(languages).map((lng) => (
             <option value={lng} key={lng}>
