@@ -111,7 +111,7 @@ p {
   }
 }
 
-@media only screen and (max-width: 35em) {
+@media only screen and (max-width: 30em) {
   .gamepost img {
     margin-top: 0;
     width: 100%;
