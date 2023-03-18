@@ -88,15 +88,19 @@ function Header() {
                 <Button> {t('My Game List')} </Button>
               </Link>
             </span>
-            <span>
+          </>
+        )}
+        <span className={styles['right-section']}>
+          <Button> {t('Search')} </Button>
+          {isMobile || (
+            <>
               {retUserAuthButton()}
-              <Button> {t('Search')} </Button>
               <Button className={styles['lang-btn']}>
                 <LanguageSelector className={styles['lang-selector']} />
               </Button>
-            </span>
-          </>
-        )}
+            </>
+          )}
+        </span>
       </header>
     </div>
   );

@@ -31,7 +31,6 @@ function MobileNav({ handlePageChange, retUserAuthButton }) {
             <Button> {t('My Game List')} </Button>
           </Link>
           {retUserAuthButton()}
-          <Button> {t('Search')} </Button>
           <Button className={styles['lang-btn']}>
             <LanguageSelector className={styles['lang-selector']} />
           </Button>
