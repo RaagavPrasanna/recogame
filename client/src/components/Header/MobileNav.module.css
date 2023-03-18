@@ -14,7 +14,11 @@
   margin-top: 48px;
   padding: 1rem 0 0.5rem 0;
   border-bottom-right-radius: 15px;
-  animation: show 0.25s
+  animation: hide 0.3s forwards ease-in-out;
+}
+
+.options.visible {
+  animation: show 0.3s ease-in-out;
 }
 
 .options button {
@@ -30,5 +34,15 @@
 
   100% {
     transform: translate(0)
+  }
+}
+
+@keyframes hide {
+  0% {
+    transform: translate(0)
+  }
+
+  100% {
+    transform: translate(-100%)
   }
 }

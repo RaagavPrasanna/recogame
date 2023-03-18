@@ -13,29 +13,27 @@ function MobileNav({ handlePageChange, retUserAuthButton }) {
   return (
     <div className={`${styles.menu}`} onClick={handlePageChange}>
       <MenuToggle isOpen={isOpen} toggle={setOpen.bind(null, !isOpen)} />
-      {isOpen && (
-        <div className={styles.options}>
-          <Link to="/">
-            <Button>{t('Home')}</Button>
-          </Link>
-          <Link to="/community">
-            <Button> {t('Community')} </Button>
-          </Link>
-          <Link to="/friends">
-            <Button> {t('Friends')} </Button>
-          </Link>
-          <Link to="/profile">
-            <Button> {t('User')} </Button>
-          </Link>
-          <Link to="/gamelist">
-            <Button> {t('My Game List')} </Button>
-          </Link>
-          {retUserAuthButton()}
-          <Button className={styles['lang-btn']}>
-            <LanguageSelector className={styles['lang-selector']} />
-          </Button>
-        </div>
-      )}
+      <div className={`${styles.options} ${isOpen && styles.visible}`}>
+        <Link to="/">
+          <Button>{t('Home')}</Button>
+        </Link>
+        <Link to="/community">
+          <Button> {t('Community')} </Button>
+        </Link>
+        <Link to="/friends">
+          <Button> {t('Friends')} </Button>
+        </Link>
+        <Link to="/profile">
+          <Button> {t('User')} </Button>
+        </Link>
+        <Link to="/gamelist">
+          <Button> {t('My Game List')} </Button>
+        </Link>
+        {retUserAuthButton()}
+        <Button className={styles['lang-btn']}>
+          <LanguageSelector className={styles['lang-selector']} />
+        </Button>
+      </div>
     </div>
   );
 }
