@@ -86,7 +86,7 @@ p {
   width: auto;
 }
 
-.devName {
+.dev-name {
   padding-top: 1em;
   padding-left: 2em;
 }
@@ -112,6 +112,19 @@ p {
 }
 
 @media only screen and (max-width: 30em) {
+  .gamepost h1 {
+    margin-left: 1.4rem;
+    font-size: 1rem;
+  }
+
+  .dev-name {
+    font-size: 0.7rem;
+  }
+
+  .thumbs {
+    margin-right: 0;
+  }
+
   .gamepost img {
     margin-top: 0;
     width: 100%;

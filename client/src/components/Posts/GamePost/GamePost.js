@@ -23,7 +23,7 @@ function GamePost({
       <div className={styles.details}>
         <h1>{gameTitle}</h1>
         <div className={styles.thumbs}>
-          <div className={styles.devName}>{devName}</div>
+          <div className={styles['dev-name']}>{devName}</div>
           <div className={styles.rating}>
             <span className={styles.stars}>{'⭐️'.repeat(rating)}</span>
             <Thumbs />
