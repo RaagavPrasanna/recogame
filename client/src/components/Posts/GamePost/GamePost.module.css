@@ -46,15 +46,6 @@
   border-radius: 10px;
 }
 
-@media only screen and (max-width: 55em) {
-  .gamepost {
-    flex-direction: column;
-  }
-  .gamepost img {
-    margin-left: 0;
-  }
-}
-
 .details h1,
 div,
 .details p {
@@ -103,4 +94,18 @@ p {
 .stars {
   margin: 0;
   text-align: right;
+}
+
+@media only screen and (max-width: 55em) {
+  .gamepost {
+    flex-direction: column;
+  }
+
+  .details p {
+    display: none;
+  }
+
+  .gamepost img {
+    margin-left: 0;
+  }
 }
