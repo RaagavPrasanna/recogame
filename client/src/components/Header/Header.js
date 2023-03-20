@@ -8,7 +8,7 @@ import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
 import { useMediaQuery } from 'react-responsive';
-import MobileNav from './MobileNav.js';
+import MobileNav from './MobileNav';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
