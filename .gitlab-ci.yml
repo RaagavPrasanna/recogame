@@ -109,12 +109,26 @@ deploy-azure:
   only:
     - main
     - staging
+    # TODO Remove
+    - fix-azure-login
   before_script:
     - "az login --allow-no-subscriptions --service-principal -u $AZURE_DEPLOY_APP_ID -p $AZURE_DEPLOY_PASSWORD --tenant $AZURE_DEPLOY_TENANT"
   script:
-    - zip -r deploy.zip server client/build package.json -x "__tests__"
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings WEBSITE_RUN_FROM_PACKAGE=$AZURE_DEPLOY_WEBSITE_RUN_FROM_PACKAGE"
+    # Mongo
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings MONGO_CONNECTION_URI=$MONGO_CONNECTION_URI"
+    # IGDB
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings IGDB_ID=$IGDB_ID"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings IGDB_AUTH=$IGDB_AUTH"
+    # Authentication
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings STEAM_API_KEY=$STEAM_API_KEY"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings SECRET=$SECRET"
+    # Redirects
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings HOST_URL=$HOST_URL"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings REDIRECT_URL=$REDIRECT_URL"
+    # Deploy
+    - zip -r deploy.zip server client/build package.json -x "__tests__"
     - "az webapp deployment source config-zip --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --src deploy.zip"
 
 #endregion
