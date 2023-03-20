@@ -127,8 +127,8 @@ deploy-azure:
     # Redirects
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings HOST_URL=$HOST_URL"
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings REDIRECT_URL=$HOST_URL"
-    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings REACT_APP_HOST_URL=$HOST_URL"
     # Deploy
+    - vim -c "%s/http:\/\/localhost:3001\//https:\/\/recogame-final.azurewebsites.net\/" -c "write" -c "quit" ./client/.env
     - zip -r deploy.zip server client/build package.json -x "__tests__"
     - "az webapp deployment source config-zip --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --src deploy.zip"
 
