@@ -1,3 +1,7 @@
-input::placeholder{
+.search{
+    z-index:1;
+}
+
+.search input::placeholder{
     color: #2D3A44;
 }

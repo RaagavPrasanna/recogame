@@ -7,7 +7,7 @@ import CommunityContext from '../../store/community-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
-import SearchBar from '../../SearchBar/SearchBar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
@@ -85,7 +85,8 @@ function Header() {
       </header>
       <header className={styles.search}>
         {retUserAuthButton()}
-        <Button> {t('Search')} </Button>
+        <Button onClick={handleShow}> {t('Search')} </Button>
+        {show && <SearchBar />}
         <Button>
           <LanguageSelector />
         </Button>
