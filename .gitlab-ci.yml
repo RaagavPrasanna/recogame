@@ -1,13 +1,5 @@
 image: node:18.4
 
-cache:
-  key:
-    prefix: frontend
-    files:
-      - client/package-lock.json
-  paths:
-    - client/node_modules/
-
 stages:
   - build
   - lint
@@ -37,6 +29,13 @@ build-backend:
 
 build-frontend:
   stage: build
+  cache:
+    key:
+      prefix: frontend
+      files:
+        - client/package-lock.json
+    paths:
+      - client/node_modules/
   before_script:
     - cd client
     - npm install
