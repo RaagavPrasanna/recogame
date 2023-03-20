@@ -7,25 +7,29 @@ const router = express.Router();
 /**
  * @param query {{ categories: string[]?}?}
  * @param page {number?}
- * @param limit {number}
+ * @param limit {number?}
  */
-async function getGameFeed(query = {}, page, limit = 4) {
-  const ids = (await models.GameDetails.find(
-    {
-      ...(query?.categories ? { categories: { $all: query.categories } } : {})
-    },
-    { _id: 1 }
-  )).map(o => o._id);
+async function filterGames(query = {}, page, limit) {
+  return (
+    await models.GameDetails.find(
+      {
+        ...(query?.categories ? { categories: { $all: query.categories } } : {})
+      },
+      { _id: 1 }
+    )
+      .skip(page && limit ? page * limit : null)
+      .limit(limit || null)
+  ).map(o => o._id);
+}
 
-  page = page || 0;
+async function getGameFeed(query, page = 0, limit = 4) {
+  const ids = await filterGames(query, page, limit);
   return await (
     (await models.ViewGameDetailsShort.getModel())
       .find(
         { id: { $in: ids } },
         models.CLEAN_PROJECTION
       )
-      .skip(page * limit)
-      .limit(limit)
   );
 }
 
@@ -273,6 +277,20 @@ router.get('/info/:id', async (req, res) => {
 router.get('/list', async (_, res) => {
   try {
     res.json(await getAllGames());
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * TODO add swagger
+ */
+router.get('/categories', async (req, res) => {
+  try {
+    const ids = await filterGames({ categories: req.query.categories });
+    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('categories');
+    res.json(categories);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
