@@ -126,6 +126,7 @@ deploy-azure:
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings SECRET=$SECRET"
     # Redirects
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings HOST_URL=$HOST_URL"
+    - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings REDIRECT_URL=$HOST_URL"
     - "az webapp config appsettings set --resource-group $AZURE_DEPLOY_RESOURCE_GROUP --name $AZURE_DEPLOY_APP_NAME --settings REACT_APP_HOST_URL=$HOST_URL"
     # Deploy
     - zip -r deploy.zip server client/build package.json -x "__tests__"
