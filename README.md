@@ -11,7 +11,7 @@ Link: https://recogame-final.azurewebsites.net/
 
     # IGDB
     IGDB_ID="<CLIENT_ID>"
-    IGDB_AUTH="<TOKEN_TYPE> <ACCESS_TOKEN>"
+    IGDB_AUTH="<TOKEN_TYPE>_<ACCESS_TOKEN>"
     ```
 2. Install all the dependencies
     ```bash
