@@ -22,7 +22,7 @@
 .details {
   position: relative;
   padding: 1rem;
-  z-index: 100;
+  z-index: 1;
 }
 
 .background {
@@ -30,7 +30,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -100;
+  z-index: -1;
   background-size: cover;
   height: 100%;
   border-radius: 15px;
@@ -42,7 +42,7 @@
 }
 
 .gamepost img {
-  z-index: 100;
+  z-index: 1;
   position: relative;
   display: flex;
   flex-direction: row;
