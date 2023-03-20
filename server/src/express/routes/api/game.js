@@ -5,13 +5,25 @@ import utils from '../../utils.js';
 const router = express.Router();
 
 /**
- * @param page {number}
+ * @param query {{ categories: string[]?}?}
+ * @param page {number?}
  * @param limit {number}
  */
-async function getGameFeed(page, limit = 4) {
+async function getGameFeed(query = {}, page, limit = 4) {
+  const ids = (await models.GameDetails.find(
+    {
+      ...(query?.categories ? { categories: { $all: query.categories } } : {})
+    },
+    { _id: 1 }
+  )).map(o => o._id);
+
+  page = page || 0;
   return await (
     (await models.ViewGameDetailsShort.getModel())
-      .find({}, models.CLEAN_PROJECTION)
+      .find(
+        { id: { $in: ids } },
+        models.CLEAN_PROJECTION
+      )
       .skip(page * limit)
       .limit(limit)
   );
@@ -87,8 +99,18 @@ router.get('/feed', async (req, res) => {
     return;
   }
 
+  let categories = req.query.categories;
+  if (typeof (categories) === 'string') {
+    categories = categories.split(',');
+  }
+
   try {
-    const games = await getGameFeed(page);
+    const games = await getGameFeed(
+      {
+        categories
+      },
+      page
+    );
     res.json(games);
   } catch (err) {
     console.error(err);
@@ -258,4 +280,3 @@ router.get('/list', async (_, res) => {
 });
 
 export default router;
-
