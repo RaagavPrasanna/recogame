@@ -40,7 +40,11 @@ function SearchBar({
       <input type="search" placeholder="Search Game" onChange={inputHandler} />
       <div>
         {filteredData.map((game) => (
-          <p key={game.id}>{game.name}</p>
+          <p key={game.id}>
+            <Link to={`/info/:${game.id}`}>
+              {game.name}
+            </Link>
+          </p>
         ))}
       </div>
     </Modal>
