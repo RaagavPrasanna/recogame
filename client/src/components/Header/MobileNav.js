@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import MenuToggle from './MenuToggle';
+import MenuToggle from './MenuToggle.js';
 
 function MobileNav({ handlePageChange, retUserAuthButton }) {
   const { t } = useTranslation();
