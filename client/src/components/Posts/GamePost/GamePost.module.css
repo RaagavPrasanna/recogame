@@ -1,10 +1,38 @@
 .gamepost {
+  position: relative;
   list-style-type: none;
   display: flex;
-  background-color: #6E7F80;
-  color: #2D3A44;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+  text-shadow: 2px 2px 3px #0000006f;
   margin: 20px auto;
   width: 90%;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+@media only screen and (max-width: 55em) {
+  .gamepost {
+    flex-direction: column;
+  }
+}
+
+.details {
+  position: relative;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.background {
+  filter: blur(45px) brightness(60%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  background-size: cover;
+  height: 100%;
   border-radius: 15px;
 }
 
@@ -14,13 +42,13 @@
 }
 
 .gamepost img {
+  z-index: 100;
+  position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 20rem;
-  height: 10rem;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  height: 12rem;
+  border-radius: 10px;
 }
 
 h1,
@@ -36,10 +64,39 @@ p {
 h1,
 p,
 span {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 p {
   margin-top: 1rem;
   padding-right: 1rem;
+}
+
+.gamepost h1 {
+  width: 100%;
+  padding-right: 2em;
+}
+
+.thumbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-right: 2rem;
+  flex-wrap: nowrap;
+}
+
+.rating {
+  flex-direction: column;
+  width: auto;
+}
+
+.devName {
+  padding-top: 1em;
+  padding-left: 2em;
+}
+
+.stars {
+  margin: 0;
+  text-align: right;
 }
