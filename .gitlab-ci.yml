@@ -109,8 +109,6 @@ deploy-azure:
   only:
     - main
     - staging
-    # TODO Remove
-    - fix-azure-login
   before_script:
     - "az login --allow-no-subscriptions --service-principal -u $AZURE_DEPLOY_APP_ID -p $AZURE_DEPLOY_PASSWORD --tenant $AZURE_DEPLOY_TENANT"
   script:
