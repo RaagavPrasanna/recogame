@@ -1,3 +1,13 @@
+<<<<<<< HEAD
 .search input::placeholder{
     color: #2D3A44;
 }
+=======
+.search{
+    z-index:1;
+}
+
+.search input::placeholder{
+    color: #2D3A44;
+}
+>>>>>>> 570637eba13ca49f4572b07d083ea77a5c72cf49
