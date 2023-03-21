@@ -6,7 +6,7 @@ import Modal from '../UI/Modal/Modal';
 function SearchBar() {
   const [userInput, setUserInput] = useState('');
   const [dataJson, setDataJson] = useState([]);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
 
 
@@ -37,11 +37,9 @@ function SearchBar() {
 
 
   return (
-    <Modal
-      className={styles.search}
-      onClick = { handleClose }
-    >
-      <input type="search" placeholder="Search Game" onChange={ inputHandler } />
+
+    <Modal className={styles.search} onClick={handleClose}>
+      <input type="search" placeholder="Search Game" onChange={inputHandler} />
       {filteredData.map((game) => (
         <p key={game.id}>
           <Link to={`/game/${game.id}`} onClick={handleClose}>

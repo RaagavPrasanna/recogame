@@ -86,7 +86,7 @@ function Header() {
       <header className={styles.search}>
         {retUserAuthButton()}
         <Button onClick={handleShow}> {t('Search')} </Button>
-        {show && <SearchBar />}
+        {show && (<SearchBar />)}
         <Button>
           <LanguageSelector />
         </Button>
