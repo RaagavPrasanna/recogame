@@ -32,6 +32,16 @@ const pathsUrls = {
   searchByIdFields : (id) => {
     let data = `${fields} where id=${id};`;
     return data;
+  },
+
+  /**
+   *
+   * @param {number} search game by plaform
+   * @returns game info
+   */
+  searchByPlatform : (name) => {
+    let data = `${fields} where platforms.name="${name}";`;
+    return data;
   }
 };
 
