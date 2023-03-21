@@ -175,4 +175,50 @@ describe('API GET', () => {
     const res = await request(app).get('/api/game/info/1');
     expect(res.statusCode).toEqual(404);
   });
+
+
+  test('Get developers', async () => {
+    mockingoose(models.GameDetails).toReturn(['Valve', 'id Software'], 'distinct');
+
+    const res = await request(app).get('/api/game/developers');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(['Valve', 'id Software']);
+  });
+
+  test('Get publishers', async () => {
+    mockingoose(models.GameDetails).toReturn(['Vavle', 'Bethesda'], 'distinct');
+
+    const res = await request(app).get('/api/game/publishers');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(['Vavle', 'Bethesda']);
+  });
+
+  test('Get categories', async () => {
+    mockingoose(models.GameDetails).toReturn(['First-Person', 'Original'], 'distinct');
+
+    const res = await request(app).get('/api/game/categories');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(['First-Person', 'Original']);
+  });
+
+  test('Get genres', async () => {
+    mockingoose(models.GameDetails).toReturn(['Action', 'Original'], 'distinct');
+
+    const res = await request(app).get('/api/game/genres');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(['Action', 'Original']);
+  });
+
+  test('Get platforms', async () => {
+    mockingoose(models.GameDetails).toReturn(['windows', 'mac', 'linux'], 'distinct');
+
+    const res = await request(app).get('/api/game/categories');
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(['windows', 'mac', 'linux']);
+  });
 });
