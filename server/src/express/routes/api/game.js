@@ -36,13 +36,17 @@ async function filterGames(query = {}, page = null, limit = null) {
   return (
     await models.GameDetails.find(
       {
-        ...(query?.categories ? { categories: { $all: query.categories } } : {})
+        ...(query?.developers ? { developers: { $all: query.developers } } : {}),
+        ...(query?.publishers ? { publishers: { $all: query.publishers } } : {}),
+        ...(query?.categories ? { categories: { $all: query.categories } } : {}),
+        ...(query?.genres ? { genres: { $all: query.genres } } : {}),
+        ...(query?.platforms ? { platforms: { $all: query.platforms } } : {}),
       },
       { _id: 1 }
     )
       .skip(page && limit ? page * limit : null)
       .limit(limit || null)
-  ).map(o => o._id);
+  )?.map(o => o._id) || {};
 }
 
 async function getGameFeed(query, page = 0, limit = 4) {
@@ -93,7 +97,7 @@ async function getAllGames() {
  *         schema:
  *           type: string
  *         description: Comma-separated list of publishers to filter by.
- *         example: "Bethesda"
+ *         example: "Bethesda Softworks"
  *       - in: query
  *         name: categories
  *         schema:
@@ -350,7 +354,7 @@ router.get('/list', async (_, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of publishers to filter by.
- *         example: "Bethesda"
+ *         example: "Bethesda Softworks"
  *       - in: query
  *         name: categories
  *         schema:
@@ -414,7 +418,7 @@ router.get('/developers', async (req, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of publishers to filter by.
- *         example: "Bethesda"
+ *         example: "Bethesda Softworks"
  *       - in: query
  *         name: categories
  *         schema:
@@ -442,7 +446,7 @@ router.get('/developers', async (req, res) => {
  *               type: array
  *               items:
  *                 type: string
- *             example: ["Bethesda"]
+ *             example: ["Bethesda Softworks"]
  *       500:
  *        description: Issues with our server
  */
@@ -478,7 +482,7 @@ router.get('/publishers', async (req, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of publishers to filter by.
- *         example: "Bethesda"
+ *         example: "Bethesda Softworks"
  *       - in: query
  *         name: categories
  *         schema:
@@ -542,7 +546,7 @@ router.get('/categories', async (req, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of publishers to filter by.
- *         example: "Bethesda"
+ *         example: "Bethesda Softworks"
  *       - in: query
  *         name: categories
  *         schema:
@@ -606,7 +610,7 @@ router.get('/genres', async (req, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of publishers to filter by.
- *         example: "Bethesda"
+ *         example: "Bethesda Softworks"
  *       - in: query
  *         name: categories
  *         schema:

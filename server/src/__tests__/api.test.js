@@ -37,7 +37,7 @@ const GAMES = [
     sourceName: 'steam',
     name: 'DOOM (1993)',
     developers: ['id Software'],
-    publishers: ['id Software'],
+    publishers: ['Bethesda'],
     imageHeader: 'https://cdn.akamai.steamstatic.com/steam/apps/2280/header.jpg?t=1663861909',
     imageBackground: 'https://cdn.akamai.steamstatic.com/steam/apps/2280/page.bg.jpg?t=1663861909',
     categories: ['Original'],
@@ -61,7 +61,7 @@ const GAMES = [
 ];
 
 describe('API GET', () => {
-  test('Get feed', async () => {
+  test('Get feed without parameters', async () => {
     jest.spyOn(models.ViewGameDetailsShort, 'getModel')
       .mockImplementation(async () => {
         return mongoose.model(
@@ -78,6 +78,51 @@ describe('API GET', () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual(
       GAMES.map((g) => {
+        return {
+          name: g.name,
+          developers: g.developers,
+          imageHeader: g.imageHeader,
+          shortDescription: g.shortDescription,
+        };
+      })
+    );
+  });
+
+  test.each([
+    ['developers', 'Valve', [0]],
+    ['developers', 'id Software', [1]],
+    ['developers', 'Ubisoft', []],
+    ['developers', 'Valve', [0]],
+    ['developers', 'Bethesda', [1]],
+    ['developers', 'Ubisoft', []],
+    ['categories', 'First-Person', [0]],
+    ['categories', 'Original', [1]],
+    ['categories', 'Sports', []],
+    ['genres', 'Action', [0, 1]],
+    ['genres', 'Adventure', []],
+    ['platforms', 'windows', [0, 1]],
+    ['platforms', 'mac', [0]],
+    ['platforms', 'ps4', []],
+  ])('Get feed with parameters', async (key, value, expectedIndexes) => {
+    jest.spyOn(models.ViewGameDetailsShort, 'getModel')
+      .mockImplementation(async () => {
+        return mongoose.model(
+          'view-feed',
+          models.ViewGameDetailsShort.schema
+        );
+      });
+    mockingoose(await models.ViewGameDetailsShort.getModel()).toReturn(
+      expectedIndexes.map(i => GAMES[i]),
+      'find'
+    );
+
+    const res = await request(app).get(`/api/game/feed?${key}=${value}`);
+
+    // To remove extra _id key value pair that is added by mockingoose
+    res.body.forEach(e => delete e._id);
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toEqual(
+      expectedIndexes.map(i => GAMES[i]).map((g) => {
         return {
           name: g.name,
           developers: g.developers,
