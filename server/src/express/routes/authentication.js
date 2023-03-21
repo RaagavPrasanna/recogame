@@ -39,7 +39,7 @@ router.use(session({
   saveUninitialized: false,
   resave: false,
   cookie : {
-    maxAge: 120000,
+    maxAge: 1200000,
     secure: false,
     httpOnly: true,
     sameSite: 'strict'

@@ -2,9 +2,11 @@ import PreferenceForm from './PreferenceForm';
 import classes from './Preferences.module.css';
 import { useContext, useState } from 'react';
 import UserContext from '../../store/user-context';
+import { useNavigate } from 'react-router-dom';
 
 function FirstLogin() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [userPrefs, setUserPrefs] = useState(
     {
       playedGames: [],
@@ -28,6 +30,11 @@ function FirstLogin() {
       // eslint-disable-next-line no-alert
       alert('posting prefs');
     }
+  }
+
+  if(user === null) {
+    navigate('/login');
+    return (<div></div>);
   }
 
   return (

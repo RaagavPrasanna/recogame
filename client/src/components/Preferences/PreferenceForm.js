@@ -1,57 +1,103 @@
 import { useState, useEffect } from 'react';
+import Button from '../UI/Button/Button';
 
-function PreferenceForm() {
+function PreferenceForm({ setUserPrefs, submitForm }) {
 
   const [allGames, setAllGames] = useState([]);
   const [playersSteamGames, setPlayersSteamGames] = useState([]);
 
-  useEffect(() => {
-    async function getGames() {
-      const response = await fetch('/api/games');
-      const data = await response.json();
-      setAllGames([...data]);
-    }
-    getGames();
-  }, []);
+  const [allGamesInput, setAllGamesInput] = useState('');
+  const [playersGamesInput, setPlayersGamesInput] = useState('');
+
+
+  function allGamesHandler(e) {
+    setAllGamesInput(e.target.value.toLowerCase());
+  }
+
+  function playersGamesHandler(e) {
+    setPlayersGamesInput(e.target.value.toLowerCase());
+  }
 
   useEffect(() => {
     async function getGames() {
+      const response = await fetch('/api/game/list');
+      const data = await response.json();
+      setAllGames([...data]);
+    }
+
+    async function getUsersGames() {
       const response = await fetch('/authentication/user-steam-games');
       const data = await response.json();
       setPlayersSteamGames([...data]);
     }
     getGames();
+    getUsersGames();
   }, []);
 
 
+  const playersGamesFilteredData = playersSteamGames.filter((game) => {
+    if(playersGamesInput === '') {
+      return game;
+    } else {
+      return game.name.toLowerCase().includes(playersGamesInput);
+    }
+  });
+
+  const allGamesFilteredData = allGames.filter((game) => {
+    if(allGamesInput === '') {
+      return game;
+    } else {
+      return game.name.toLowerCase().includes(allGamesInput);
+    }
+  });
+
+  const allGamesSearch = () => {
+    return (
+      <div>
+        <input type="search" placeholder="Search Game" onChange={allGamesHandler} />
+        <div >
+          {allGamesFilteredData.map((game) => (
+            <p key={game.id} onKeyDown={(e) => {
+              if(e.key === 'Enter') {
+                console.log(`selected ${game.name}`);
+              }
+            }} onClick={() => {
+              console.log(`selected ${game.name}`);
+            }}>
+              {game.name}
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const playersGamesSearch = () => {
+    return (
+      <div>
+        <input type="search" placeholder="Search Game" onChange={playersGamesHandler} />
+        <div >
+          {playersGamesFilteredData.map((game) => (
+            <p key={game.id} onKeyDown={(e) => {
+              if(e.key === 'Enter') {
+                console.log(`selected ${game.name}`);
+              }
+            }} onClick={() => {
+              console.log(`selected ${game.name}`);
+            }}>
+              {game.name}
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
-      <input required type="search" list="all-games" id="games-query" name="games=query" />
-      <datalist id="all-games">
-        {
-          allGames.map((game, key) => {
-            return (
-              <option value={game.name} key={key} onClick={() => {
-                console.log('clicked all games option');
-              }}/>
-            );
-          })
-        }
-      </datalist>
-      <br/>
-      <input required type="search" list="players-steam-games" id="steam-games-query" name="steam-games-query"/>
-      <datalist id="players-steam-games">
-        {
-          playersSteamGames.map((game, key) => {
-            return (
-              <option value={game.name} key={key} onClick={() => {
-                console.log('clicked players steam games option');
-              }}/>
-            );
-          })
-        }
-      </datalist>
+      {playersGamesSearch()}
+      {allGamesSearch()}
+      <Button onClick={submitForm}>Submit</Button>
     </div>
   );
 }
