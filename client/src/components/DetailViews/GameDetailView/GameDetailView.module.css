@@ -16,7 +16,7 @@
   padding-bottom: 0;
 }
 
-.images{
+.images {
   animation: fadein 1.25s;
 }
 
@@ -109,4 +109,41 @@
 
 .spinner {
   position: absolute;
+}
+
+@media only screen and (max-width: 55em) {
+  .gameDetails {
+    padding: 0;
+  }
+
+  .info img {
+    width: 100%;
+  }
+
+  .carousel,.desc {
+    margin: auto;
+  }
+
+
+  .desc p{
+    word-break: break-all;
+  }
+
+
+  .buttons {
+    width: 100%;
+    margin: 1rem;
+    justify-content: center;
+  }
+
+  .images {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: auto;
+  }
+
+  .info {
+    width: 100%;
+    margin: auto;
+  }
 }

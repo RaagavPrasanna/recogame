@@ -120,12 +120,14 @@ function GameDetailView() {
                   </li>
                   <li>
                     {t('CONTENT DESCRIPTION')} &nbsp;
-                    {gameDetails.contentDescriptors}
+                    <p>{gameDetails.contentDescriptors}</p>
                   </li>
                 </ul>
               </div>
             </div>
-            <p className={styles.desc}>{gameDetails.gameDesc}</p>
+            <div className={styles.desc}>
+              <p>{gameDetails.gameDesc}</p>
+            </div>
             <div className={styles.buttons}>
               <Button
                 onClick={() => window.open(gameDetails.storeUrl, '_blank')}
