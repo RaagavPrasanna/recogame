@@ -388,9 +388,14 @@ router.get('/list', async (_, res) => {
  */
 router.get('/developers', async (req, res) => {
   try {
-    const ids = await filterGames(constructQuery(req.query));
-    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('developers');
-    res.json(categories);
+    const query = constructQuery(req.query);
+    const ids = await filterGames(query);
+    const developers = await models.GameDetails.find({ _id: { $in: ids } }).distinct('developers');
+    res.json(
+      query.developers ?
+        developers.filter(e => !query.developers.includes(e))
+        : developers
+    );
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -452,9 +457,14 @@ router.get('/developers', async (req, res) => {
  */
 router.get('/publishers', async (req, res) => {
   try {
-    const ids = await filterGames(constructQuery(req.query));
-    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('publishers');
-    res.json(categories);
+    const query = constructQuery(req.query);
+    const ids = await filterGames(query);
+    const publishers = await models.GameDetails.find({ _id: { $in: ids } }).distinct('publishers');
+    res.json(
+      query.publishers ?
+        publishers.filter(e => !query.publishers.includes(e))
+        : publishers
+    );
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -516,9 +526,14 @@ router.get('/publishers', async (req, res) => {
  */
 router.get('/categories', async (req, res) => {
   try {
-    const ids = await filterGames(constructQuery(req.query));
+    const query = constructQuery(req.query);
+    const ids = await filterGames(query);
     const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('categories');
-    res.json(categories);
+    res.json(
+      query.categories ?
+        categories.filter(e => !query.categories.includes(e))
+        : categories
+    );
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -580,9 +595,14 @@ router.get('/categories', async (req, res) => {
  */
 router.get('/genres', async (req, res) => {
   try {
-    const ids = await filterGames(constructQuery(req.query));
-    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('genres');
-    res.json(categories);
+    const query = constructQuery(req.query);
+    const ids = await filterGames(query);
+    const genres = await models.GameDetails.find({ _id: { $in: ids } }).distinct('genres');
+    res.json(
+      query.genres ?
+        genres.filter(e => !query.genres.includes(e))
+        : genres
+    );
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -644,9 +664,14 @@ router.get('/genres', async (req, res) => {
  */
 router.get('/platforms', async (req, res) => {
   try {
-    const ids = await filterGames(constructQuery(req.query));
-    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('platforms');
-    res.json(categories);
+    const query = constructQuery(req.query);
+    const ids = await filterGames(query);
+    const platforms = await models.GameDetails.find({ _id: { $in: ids } }).distinct('platforms');
+    res.json(
+      query.platforms ?
+        platforms.filter(e => !query.platforms.includes(e))
+        : platforms
+    );
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
