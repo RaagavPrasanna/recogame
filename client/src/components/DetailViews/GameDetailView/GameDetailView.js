@@ -115,10 +115,12 @@ function GameDetailView() {
                     {t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}
                   </li>
                   <li>
-                    {t('CATEGORIES')} &nbsp;
-                    {gameDetails.category?.map((cat, i) => {
-                      return <Tag key={i} tagName={cat} />;
-                    })}
+                    {`${t('CATEGORIES')}`}
+                    <div className={styles['tag-scroll']}>
+                      {gameDetails.category?.map((cat, i) => {
+                        return <Tag key={i} tagName={cat} />;
+                      })}
+                    </div>
                   </li>
                   <li>
                     {t('PLATFORMS')} {gameDetails.platforms?.join(', ')}
