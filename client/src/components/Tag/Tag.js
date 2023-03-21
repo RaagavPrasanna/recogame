@@ -1,7 +1,7 @@
-import styles from 'Tag.module.css';
+import styles from './Tag.module.css';
 
-function Tag(props) {
-  return <div className={styles.tag}>{props.children}</div>;
+function Tag({ tagName }) {
+  return <div className={styles.tag}>{tagName}</div>;
 }
 
 export default Tag;

@@ -7,6 +7,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import Thumbs from '../../Posts/Thumbs/Thumbs';
 import { useTranslation } from 'react-i18next';
+import Tag from '../../Tag/Tag';
 
 const defaultGameDetails = {
   name: '',
@@ -18,6 +19,7 @@ const defaultGameDetails = {
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
+    console.log(game);
     return {
       name: game.name,
       genre: game.genres,
@@ -113,7 +115,10 @@ function GameDetailView() {
                     {t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}
                   </li>
                   <li>
-                    {t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}
+                    {t('CATEGORIES')} &nbsp;
+                    {gameDetails.category?.map((cat, i) => {
+                      return <Tag key={i} tagName={cat} />;
+                    })}
                   </li>
                   <li>
                     {t('PLATFORMS')} {gameDetails.platforms?.join(', ')}
