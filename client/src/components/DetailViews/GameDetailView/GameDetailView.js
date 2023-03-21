@@ -106,7 +106,12 @@ function GameDetailView() {
                     {t('TITLE')} &nbsp;{gameDetails.name}
                   </li>
                   <li>
-                    {t('GENRE')} {gameDetails.genre?.join(', ')}
+                    {t('GENRE')}{' '}
+                    <div className={styles['tag-container']}>
+                      {gameDetails.genre?.map((genre, i) => {
+                        return <Tag key={i} tagName={genre} />;
+                      })}
+                    </div>
                   </li>
                   <li>
                     {t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}
