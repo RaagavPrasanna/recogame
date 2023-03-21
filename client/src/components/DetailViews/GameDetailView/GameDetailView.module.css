@@ -112,21 +112,31 @@
 }
 
 @media only screen and (max-width: 55em) {
+
   .gameDetails {
     padding: 0;
+    padding-top: 5rem;
+  }
+
+  .gameDetails h1 {
+    font-size: larger;
+    margin: 1rem auto;
   }
 
   .info img {
     width: 100%;
   }
 
-  .carousel,.desc {
+  .carousel,
+  .desc {
     margin: auto;
   }
 
 
-  .desc p{
+  .desc p {
     word-break: break-all;
+    font-size: smaller;
+    margin-left: 1rem;
   }
 
 
@@ -134,6 +144,10 @@
     width: 100%;
     margin: 1rem;
     justify-content: center;
+  }
+
+  .buttons button {
+    font-size: x-small;
   }
 
   .images {
@@ -145,5 +159,6 @@
   .info {
     width: 100%;
     margin: auto;
+    font-size: smaller;
   }
 }
