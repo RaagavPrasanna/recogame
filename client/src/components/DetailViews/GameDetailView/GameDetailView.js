@@ -116,14 +116,19 @@ function GameDetailView() {
                   </li>
                   <li>
                     {`${t('CATEGORIES')}`}
-                    <div className={styles['tag-scroll']}>
+                    <div className={styles['tag-container']}>
                       {gameDetails.category?.map((cat, i) => {
                         return <Tag key={i} tagName={cat} />;
                       })}
                     </div>
                   </li>
                   <li>
-                    {t('PLATFORMS')} {gameDetails.platforms?.join(', ')}
+                    {t('PLATFORMS')}
+                    <div className={styles.platforms}>
+                      {gameDetails.platforms?.map((plat, i) => {
+                        return <Tag key={i} tagName={plat} />;
+                      })}
+                    </div>
                   </li>
                   <li>
                     {t('CONTENT DESCRIPTION')} &nbsp;

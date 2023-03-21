@@ -111,11 +111,13 @@
   position: absolute;
 }
 
-.tag-scroll {
+.tag-container,
+.platforms {
   display: flex;
   flex-direction: row;
 }
 
-.tag-scroll div {
+.tag-container div,
+.platforms div {
   margin: 0.25rem 0.4rem 0.25rem 0;
 }
