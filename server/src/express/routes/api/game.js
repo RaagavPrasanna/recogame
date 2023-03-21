@@ -82,6 +82,36 @@ async function getAllGames() {
  *         schema:
  *           type: integer
  *           description: Current page, skips items before returning the result.
+ *       - in: query
+ *         name: developers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of developers to filter by.
+ *         example: "Valve,Hidden Path Entertainment"
+ *       - in: query
+ *         name: publishers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of publishers to filter by.
+ *         example: "Bethesda"
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of categories to filter by.
+ *         example: "Multi-player"
+ *       - in: query
+ *         name: genres
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of genres to filter by.
+ *         example: "Action"
+ *       - in: query
+ *         name: platforms
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of platforms to filter by.
+ *         example: "linux"
  *     responses:
  *      200:
  *        description: A list of all games.
@@ -213,7 +243,7 @@ router.get('/feed', async (req, res) => {
  *              platforms:
  *                type: array
  *                description: Platforms that the game supports.
- *                example: ["Windows"]
+ *                example: ["windows"]
  *              metacritic:
  *                type: integer
  *                description: The MetaCritic score of the game
@@ -290,11 +320,137 @@ router.get('/info/:id', async (req, res) => {
  *      500:
  *        description: Issues with our server
  */
-
-
 router.get('/list', async (_, res) => {
   try {
     res.json(await getAllGames());
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @swagger
+ * /game/developers:
+ *   get:
+ *     summary: Get a list of available game developers.
+ *     description: Returns a list of strings representing the developers of available games.
+ *       Can be filtered by developers, publishers, categories, genres, or platforms.
+ *     tags:
+ *       - other
+ *     parameters:
+ *       - in: query
+ *         name: developers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of developers to filter by.
+ *         example: "Valve,Hidden Path Entertainment"
+ *       - in: query
+ *         name: publishers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of publishers to filter by.
+ *         example: "Bethesda"
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of categories to filter by.
+ *         example: "Multi-player"
+ *       - in: query
+ *         name: genres
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of genres to filter by.
+ *         example: "Action"
+ *       - in: query
+ *         name: platforms
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of platforms to filter by.
+ *         example: "linux"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             example: ["Valve", "Hidden Path Entertainment"]
+ *       500:
+ *        description: Issues with our server
+ */
+router.get('/developers', async (req, res) => {
+  try {
+    const ids = await filterGames(constructQuery(req.query));
+    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('developers');
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @swagger
+ * /game/publishers:
+ *   get:
+ *     summary: Get a list of available game publishers.
+ *     description: Returns a list of strings representing the publishers of available games.
+ *       Can be filtered by developers, publishers, categories, genres, or platforms.
+ *     tags:
+ *       - other
+ *     parameters:
+ *       - in: query
+ *         name: developers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of developers to filter by.
+ *         example: "Valve,Hidden Path Entertainment"
+ *       - in: query
+ *         name: publishers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of publishers to filter by.
+ *         example: "Bethesda"
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of categories to filter by.
+ *         example: "Multi-player"
+ *       - in: query
+ *         name: genres
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of genres to filter by.
+ *         example: "Action"
+ *       - in: query
+ *         name: platforms
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of platforms to filter by.
+ *         example: "linux"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             example: ["Bethesda"]
+ *       500:
+ *        description: Issues with our server
+ */
+router.get('/publishers', async (req, res) => {
+  try {
+    const ids = await filterGames(constructQuery(req.query));
+    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('publishers');
+    res.json(categories);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
@@ -308,13 +464,15 @@ router.get('/list', async (_, res) => {
  *     summary: Get a list of available game categories.
  *     description: Returns a list of strings representing the categories of available games.
  *       Can be filtered by developers, publishers, categories, genres, or platforms.
+ *     tags:
+ *       - other
  *     parameters:
  *       - in: query
  *         name: developers
  *         schema:
  *           type: string
  *         description: Comma-separated list of developers to filter by.
- *         example: "Valve,Hidden Path"
+ *         example: "Valve,Hidden Path Entertainment"
  *       - in: query
  *         name: publishers
  *         schema:
@@ -326,6 +484,7 @@ router.get('/list', async (_, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of categories to filter by.
+ *         example: "Multi-player"
  *       - in: query
  *         name: genres
  *         schema:
@@ -337,7 +496,7 @@ router.get('/list', async (_, res) => {
  *         schema:
  *           type: string
  *         description: Comma-separated list of platforms to filter by.
- *         example: "Multi-player"
+ *         example: "linux"
  *     responses:
  *       200:
  *         description: OK
@@ -355,6 +514,134 @@ router.get('/categories', async (req, res) => {
   try {
     const ids = await filterGames(constructQuery(req.query));
     const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('categories');
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @swagger
+ * /game/genres:
+ *   get:
+ *     summary: Get a list of available game genres.
+ *     description: Returns a list of strings representing the genres of available games.
+ *       Can be filtered by developers, publishers, categories, genres, or platforms.
+ *     tags:
+ *       - other
+ *     parameters:
+ *       - in: query
+ *         name: developers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of developers to filter by.
+ *         example: "Valve,Hidden Path Entertainment"
+ *       - in: query
+ *         name: publishers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of publishers to filter by.
+ *         example: "Bethesda"
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of categories to filter by.
+ *         example: "Multi-player"
+ *       - in: query
+ *         name: genres
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of genres to filter by.
+ *         example: "Action"
+ *       - in: query
+ *         name: platforms
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of platforms to filter by.
+ *         example: "linux"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             example: ["Action"]
+ *       500:
+ *        description: Issues with our server
+ */
+router.get('/genres', async (req, res) => {
+  try {
+    const ids = await filterGames(constructQuery(req.query));
+    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('genres');
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+/**
+ * @swagger
+ * /game/platforms:
+ *   get:
+ *     summary: Get a list of available game platforms.
+ *     description: Returns a list of strings representing the platforms of available games.
+ *       Can be filtered by developers, publishers, categories, genres, or platforms.
+ *     tags:
+ *       - other
+ *     parameters:
+ *       - in: query
+ *         name: developers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of developers to filter by.
+ *         example: "Valve,Hidden Path Entertainment"
+ *       - in: query
+ *         name: publishers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of publishers to filter by.
+ *         example: "Bethesda"
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of categories to filter by.
+ *         example: "Multi-player"
+ *       - in: query
+ *         name: genres
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of genres to filter by.
+ *         example: "Action"
+ *       - in: query
+ *         name: platforms
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of platforms to filter by.
+ *         example: "linux"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             example: ["linux", "windows"]
+ *       500:
+ *        description: Issues with our server
+ */
+router.get('/platforms', async (req, res) => {
+  try {
+    const ids = await filterGames(constructQuery(req.query));
+    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('platforms');
     res.json(categories);
   } catch (err) {
     console.error(err);
