@@ -15,6 +15,7 @@ function PostsProvider({ children }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [currPageHome, setCurrPageHome] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [isHomeDisplayed, setIsHomeDisplayed] = useState(false);
 
   useEffect(() => {
     getGamePage(currPageHome, (data) => {
@@ -42,12 +43,17 @@ function PostsProvider({ children }) {
   function handleScrollPosition() {
     if (scrollPosition) {
       window.scrollTo(0, scrollPosition);
-      setScrollPosition(0);
     }
   }
 
   function handlePostClick() {
-    setScrollPosition(window.pageYOffset);
+    if (isHomeDisplayed) {
+      setScrollPosition(window.pageYOffset);
+    }
+  }
+
+  function homeMounted(isHomeMounted) {
+    setIsHomeDisplayed(isHomeMounted);
   }
 
   const postsContext = {
@@ -55,6 +61,7 @@ function PostsProvider({ children }) {
     fetchMoreHomePosts: fetchMoreData,
     homeScrollPosition: handleScrollPosition,
     handlePostClick,
+    homeMounted,
     hasMore,
   };
 

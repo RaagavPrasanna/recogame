@@ -1,0 +1,10 @@
+.toggle {
+  z-index: 1500;
+  cursor: pointer;
+  position: fixed;
+  width: 23px;
+  margin-top: 7px;
+}
+
+
+

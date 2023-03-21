@@ -5,12 +5,15 @@ import classes from './LoginForm.module.css';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../store/user-context';
+import { useTranslation } from 'react-i18next';
+
 
 function LoginForm({ onCancel }) {
   const [setUsername] = useState();
   const [setPassword] = useState();
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,15 +59,16 @@ function LoginForm({ onCancel }) {
   const handleSteam = async () => {
     // Must be changed in production
     // eslint-disable-next-line no-undef
-    window.location.replace(`${process.env.REACT_APP_HOST_URL}authentication/steam-auth/return`);
+    // window.location.replace(`${process.env.REACT_APP_HOST_URL}authentication/steam-auth/return`);
+    window.location.replace(`${window.location.origin}/authentication/steam-auth/return`);
   };
 
   return (
     <Modal onClick={onCancel}>
       <form className={classes.loginForm}>
-        <h2>Login</h2>
+        <h2>{t('Log In')}</h2>
         <label>
-          Username:
+          {t('Username')}
           <br />
           <input
             id='username'
@@ -76,7 +80,7 @@ function LoginForm({ onCancel }) {
         <br />
         <br />
         <label>
-          Password:
+          {t('Password')}
           <br />
           <input
             id='password'
@@ -93,8 +97,8 @@ function LoginForm({ onCancel }) {
         {/* eslint-disable-next-line max-len */}
         <img src='https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png' onClick={handleSteam}/>
         <div>
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button onSubmit={handleSubmit}>Sign In</Button>
+          <Button onClick={onCancel}>{t('Cancel')}</Button>
+          <Button onSubmit={handleSubmit}>{t('Sign In')}</Button>
         </div>
       </form>
     </Modal>
