@@ -132,6 +132,10 @@
     margin: auto;
   }
 
+  .carousel {
+    width: 100vw;
+  }
+
 
   .desc p {
     word-break: break-all;
