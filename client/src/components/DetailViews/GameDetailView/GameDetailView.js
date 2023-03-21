@@ -16,6 +16,10 @@ const defaultGameDetails = {
   reviews: [],
 };
 
+function captialize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
@@ -131,7 +135,7 @@ function GameDetailView() {
                     {t('PLATFORMS')}
                     <div className={styles.platforms}>
                       {gameDetails.platforms?.map((plat, i) => {
-                        return <Tag key={i} tagName={plat} />;
+                        return <Tag key={i} tagName={captialize(plat)} />;
                       })}
                     </div>
                   </li>
