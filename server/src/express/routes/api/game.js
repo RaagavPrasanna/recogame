@@ -5,11 +5,34 @@ import utils from '../../utils.js';
 const router = express.Router();
 
 /**
- * @param query {{ categories: string[]?}?}
+ * @typedef {Object} Query
+ * @property {string[]?} developers
+ * @property {string[]?} publishers
+ * @property {string[]?} categories
+ * @property {string[]?} genres
+ * @property {string[]?} platforms
+ */
+
+/**
+ * @param {Object} params
+ * @returns {Query}
+ */
+function constructQuery(params) {
+  return {
+    developers: params.developers?.split(','),
+    publishers: params.publishers?.split(','),
+    categories: params.categories?.split(','),
+    genres: params.genres?.split(','),
+    platforms: params.platforms?.split(','),
+  };
+}
+
+/**
+ * @param query {Query}?
  * @param page {number?}
  * @param limit {number?}
  */
-async function filterGames(query = {}, page, limit) {
+async function filterGames(query = {}, page = null, limit = null) {
   return (
     await models.GameDetails.find(
       {
@@ -103,16 +126,9 @@ router.get('/feed', async (req, res) => {
     return;
   }
 
-  let categories = req.query.categories;
-  if (typeof (categories) === 'string') {
-    categories = categories.split(',');
-  }
-
   try {
     const games = await getGameFeed(
-      {
-        categories
-      },
+      constructQuery(req.query),
       page
     );
     res.json(games);
@@ -250,7 +266,7 @@ router.get('/info/:id', async (req, res) => {
  * /game/list:
  *   get:
  *     summary: List of all names ang game ids.
- *     description: Retrieve bare minumum details about all the games.
+ *     description: Retrieve bare minimum details about all the games.
  *     tags:
  *       - games
  *     responses:
@@ -274,6 +290,8 @@ router.get('/info/:id', async (req, res) => {
  *      500:
  *        description: Issues with our server
  */
+
+
 router.get('/list', async (_, res) => {
   try {
     res.json(await getAllGames());
@@ -284,11 +302,58 @@ router.get('/list', async (_, res) => {
 });
 
 /**
- * TODO add swagger
+ * @swagger
+ * /game/categories:
+ *   get:
+ *     summary: Get a list of available game categories.
+ *     description: Returns a list of strings representing the categories of available games.
+ *       Can be filtered by developers, publishers, categories, genres, or platforms.
+ *     parameters:
+ *       - in: query
+ *         name: developers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of developers to filter by.
+ *         example: "Valve,Hidden Path"
+ *       - in: query
+ *         name: publishers
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of publishers to filter by.
+ *         example: "Bethesda"
+ *       - in: query
+ *         name: categories
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of categories to filter by.
+ *       - in: query
+ *         name: genres
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of genres to filter by.
+ *         example: "Action"
+ *       - in: query
+ *         name: platforms
+ *         schema:
+ *           type: string
+ *         description: Comma-separated list of platforms to filter by.
+ *         example: "Multi-player"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             example: ["Multi-player", "Single-player"]
+ *       500:
+ *        description: Issues with our server
  */
 router.get('/categories', async (req, res) => {
   try {
-    const ids = await filterGames({ categories: req.query.categories });
+    const ids = await filterGames(constructQuery(req.query));
     const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('categories');
     res.json(categories);
   } catch (err) {
