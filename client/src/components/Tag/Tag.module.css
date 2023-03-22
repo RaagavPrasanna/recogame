@@ -11,3 +11,12 @@
   color: #2d3a44;
   background-color: #6e7f80;
 }
+
+.close {
+  margin-left: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+.close:hover {
+  color: white;
+}
