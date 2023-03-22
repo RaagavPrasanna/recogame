@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import Button from '../../UI/Button/Button';
 import styles from './GameDetailView.module.css';
 import { useParams } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 import Thumbs from '../../Posts/Thumbs/Thumbs';
 import { useTranslation } from 'react-i18next';
 import Tag from '../../Tag/Tag';
+import UserContext from '../../../store/user-context';
 
 const defaultGameDetails = {
   name: '',
@@ -61,6 +62,7 @@ function GameDetailView() {
   );
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
+  const userCtx = useContext(UserContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -167,8 +169,12 @@ function GameDetailView() {
               >
                 {t('BUY ON STEAM')}
               </Button>
-              <Button>{t('ADD TO WISHLIST')}</Button>
-              <Button>{t('ADD TO MY GAMELIST')}</Button>
+              {userCtx.user && (
+                <>
+                  <Button>{t('ADD TO WISHLIST')}</Button>
+                  <Button>{t('ADD TO MY GAMELIST')}</Button>
+                </>
+              )}
               <Thumbs />
               {/* TODO: Drop down menu */}
             </div>
