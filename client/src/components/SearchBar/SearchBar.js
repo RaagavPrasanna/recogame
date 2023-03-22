@@ -29,11 +29,10 @@ function SearchBar(props) {
     return `${game.name}`.toLowerCase().includes(userInput);
   });
 
-
   return (
     <Modal className={styles.search} onClick={props.handleShow}>
       <input type="search" placeholder="Search Game" onChange={inputHandler} />
-      {filteredData.map((game) => (
+      {filteredData.slice(0, 10).map((game) => (
         <p key={game.id}>
           <Link to={`/game/${game.id}`} onClick={props.handleShow}>
             {game.name}

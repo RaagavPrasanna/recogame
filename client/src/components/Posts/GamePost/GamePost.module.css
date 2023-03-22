@@ -15,13 +15,8 @@
 
 .details {
   position: relative;
-<<<<<<< HEAD
-  padding: 1rem;
-  z-index: 1;
-=======
   padding: 1rem 1rem 1rem 0;
-  z-index: 100;
->>>>>>> 65d72f6721a5550e43e2c22e217a01a93fca15f4
+  z-index: 1;
 }
 
 .background {
