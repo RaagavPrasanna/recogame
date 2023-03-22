@@ -7,18 +7,26 @@ import CommunityContext from '../../store/community-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
+  const [show, setShow] = useState(false);
+
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
+  const userCtx = useContext(UserContext);
   const headerRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
 
   const { user, logout } = useContext(UserContext);
+
+  function handleShow() {
+    setShow(!show);
+  }
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
@@ -78,20 +86,25 @@ function Header() {
               <Link to="/community">
                 <Button> {t('Community')} </Button>
               </Link>
-              <Link to="/friends">
-                <Button> {t('Friends')} </Button>
-              </Link>
-              <Link to="/profile">
-                <Button> {t('User')} </Button>
-              </Link>
-              <Link to="/gamelist">
-                <Button> {t('My Game List')} </Button>
-              </Link>
+              {userCtx.user && (
+                <>
+                  <Link to="/friends">
+                    <Button> {t('Friends')} </Button>
+                  </Link>
+                  <Link to="/profile">
+                    <Button> {t('User')} </Button>
+                  </Link>
+                  <Link to="/gamelist">
+                    <Button> {t('My Game List')} </Button>
+                  </Link>
+                </>
+              )}
             </span>
           </>
         )}
         <span className={styles['right-section']}>
-          <Button> {t('Search')} </Button>
+          <Button onClick={handleShow} > {t('Search')} </Button>
+          {show && (<SearchBar handleShow = { handleShow } />)}
           {isMobile || (
             <>
               {retUserAuthButton()}
