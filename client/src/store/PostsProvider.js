@@ -1,5 +1,5 @@
 import PostContext from './posts-context';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 async function getGamePage(page, callback) {
   const resp = await fetch(`/api/game/feed?page=${page}`);
@@ -10,12 +10,19 @@ async function getGamePage(page, callback) {
   callback(data);
 }
 
+function tagsReducer(state, action) {
+  return state;
+}
+
 function PostsProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [currPageHome, setCurrPageHome] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [isHomeDisplayed, setIsHomeDisplayed] = useState(false);
+  const [tags, dispatchTags] = useReducer(tagsReducer, {
+    categories: [],
+  });
 
   useEffect(() => {
     getGamePage(currPageHome, (data) => {
@@ -63,6 +70,8 @@ function PostsProvider({ children }) {
     handlePostClick,
     homeMounted,
     hasMore,
+    tags,
+    dispatchTags,
   };
 
   return (

@@ -7,6 +7,8 @@ const PostContext = React.createContext({
   handlePostClick: () => {},
   homeMounted: () => {},
   hasMore: true,
+  tags: [],
+  dispatchTags: () => {},
 });
 
 export default PostContext;
