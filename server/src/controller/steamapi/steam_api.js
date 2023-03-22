@@ -1,7 +1,7 @@
 import pathsUrls from './steam_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './steam_types.js';
-
+import igdb from '../igdbapi/igdb_api.js';
 
 /**
  * Request an API and return JSON data from it.
@@ -17,7 +17,6 @@ async function fetchJson(url) {
   return await response.json();
 }
 
-
 /**
  * Fetch the list of apps on steam.
  *
@@ -27,7 +26,6 @@ async function fetchAllSteamApps() {
   return (await fetchJson(pathsUrls.allGames))['applist']['apps']
     .filter(a => Boolean(a.name));
 }
-
 
 /**
  * Fetch the store info about the app.
@@ -53,7 +51,7 @@ async function fetchStoreInfo(id) {
  * @param {number} id ID of the game.
  * @returns {Promise<types.GameInfo>} Game info without the price.
  */
-async function fetchGameInfo(id) {
+async function fetchGameType(id) {
   const info = await fetchStoreInfo(id);
   return {
     sourceId:
@@ -113,6 +111,43 @@ async function fetchGameInfo(id) {
         ? info.content_descriptors.notes
         : null
   };
+}
+
+/**
+ * fetch a game information with merged platform from steam and igdb
+ * @param {number} id of a game
+ * @returns {Promise<types.GameInfo>} Game details
+ */
+async function fetchGameInfo(id) {
+  let steamGame = await fetchGameType(id);
+  let igdbId = await igdb.fetchGameInfoId(id);
+  if (steamGame !== null &&
+        steamGame.name.toLowerCase() === igdbId.name.toLowerCase()) {
+    steamGame.platforms = merge2Platforms(igdbId.platforms, steamGame.platforms);
+    return steamGame;
+  } else if (steamGame !== null) {
+    let igdbName = await igdb.fetchGameInfoName(steamGame.name);
+    steamGame.platforms =
+      merge2Platforms(igdbName.platforms, steamGame.platforms);
+    return steamGame;
+  } else {
+    console.error('error on merging platforms of IGDB and Steam');
+    return null;
+  }
+}
+
+/**
+ * Merge 2 arrays of strings
+ * @param {array of string} IGDB game platforms
+ * @param {array of string} steam game platforms
+ * @returns array of string merged
+ */
+function merge2Platforms(igdbArr, steamArr){
+  let igdbPlateforms = igdbArr.map((ip)=>
+    ip === 'PC (Microsoft Windows)' ? 'windows' : ip.toLowerCase());
+  // merge 2 arrays of strings with no duplication
+  let platforms = [...new Set(igdbPlateforms.concat(steamArr))];
+  return platforms;
 }
 
 export default { fetchAllSteamApps, fetchGameInfo };

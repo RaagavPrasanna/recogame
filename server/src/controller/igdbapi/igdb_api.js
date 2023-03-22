@@ -53,6 +53,7 @@ async function fetchStoreInfo(urlPath) {
     return info;
   }
 }
+
 /**
  * Fetch the game info.
  *
@@ -64,7 +65,7 @@ async function fetchGameInfoId(id) {
     const info = (await fetchStoreInfo(pathsUrls.searchByIdFields(id)))[0];
     return groupType(info);
   } catch (e) {
-    console.error(`Could not fetch the game info with id "${id}"`);
+    console.error(`Could not fetch the game info in IGDB with id "${id}"`);
     return null;
   }
 }
@@ -72,17 +73,15 @@ async function fetchGameInfoId(id) {
 /**
  * Fetch the game info.
  *
- * @param {string} keyword of the game.
+ * @param {string} name of the game.
  * @returns {Promise<types.GameInfo>} Game info without the price.
  */
-
-async function fetchGameInfoWord(keyword) {
+async function fetchGameInfoName(name) {
   try {
-    const data = await fetchStoreInfo(pathsUrls.searchByKeywordFields(keyword));
-    return data.map(info=> groupType(info)
-    );
+    const info = (await fetchStoreInfo(pathsUrls.searchByNameFields(name)))[0];
+    return groupType(info);
   } catch (e) {
-    console.error(`Could not fetch the game info with keyword : "${keyword}"`);
+    console.error(`Could not fetch the game info in IGDB with name "${name}"`);
     return null;
   }
 }
@@ -154,4 +153,4 @@ function groupType(info){
   };
 }
 
-export default { fetchAllIgdbApps: fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoWord };
+export default { fetchAllIgdbApps: fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoName };
