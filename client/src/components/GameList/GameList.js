@@ -1,31 +1,106 @@
-import { useState } from 'react';
+// import Popup from 'reactjs-popup';
 import Button from '../UI/Button/Button';
+import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function GameList() {
-  const [checked, setChecked] = useState(false);
+  // TODO: Add tags to so it can go to the right section
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  const [show, setShow] = useState(false);
+  const mockData = 'Game Name';
+  const { t } = useTranslation();
+
+  function handleClose() {
+    setShow(false);
+  }
+  function handleShow() {
+    setShow(true);
+  }
 
   return (
     <div className={classes.gameList}>
-      <h3> Wishlist </h3>
-      <article>
-        <input type='checkbox' onChange={handleChange} />
-        Lorem ipsum dolor sit amet.
-        <Button> Edit </Button>
-      </article>
-      <br />
-      <Button> Remove </Button>
-      <h3> In progress</h3>
+      <h2> {t('Wishlist')} </h2>
 
-      <h3> Finished </h3>
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> {t('Edit')} </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> {t('Remove')} </Button>
+            <Button onClick={handleClose}> {t('Cancel')} </Button>
+          </Modal>
+        )}
+      </section>
 
-      <h3> Completed 100% Achievements </h3>
+      <h2> {t('In progress')}</h2>
 
-      <h3> Never Played </h3>
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> {t('Edit')} </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> {t('Remove')} </Button>
+            <Button onClick={handleClose}> {t('Cancel')} </Button>
+          </Modal>
+        )}
+      </section>
+
+      <h2> {t('Finished')} </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> {t('Edit')} </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> {t('Remove')} </Button>
+            <Button onClick={handleClose}> {t('Cancel')} </Button>
+          </Modal>
+        )}
+      </section>
+
+      <h2> {t('Completed 100% Achievements')} </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> {t('Edit')} </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> {t('Remove')} </Button>
+            <Button onClick={handleClose}> {t('Cancel')} </Button>
+          </Modal>
+        )}
+      </section>
+
+      <h2>{t('Never Played')} </h2>
+
+      <section>
+        <p> {mockData} </p>
+        <Button onClick={handleShow}> {t('Edit')} </Button>
+        {show && (
+          <Modal
+            className={classes.buttonsModal}
+            onClick={handleClose}
+          >
+            <Button> {t('Remove')} </Button>
+            <Button onClick={handleClose}> {t('Cancel')} </Button>
+          </Modal>
+        )}
+      </section>
+
     </div>
   );
 }

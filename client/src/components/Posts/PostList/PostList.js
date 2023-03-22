@@ -13,14 +13,19 @@ function PostList() {
   }, []);
 
   const availablePosts = postsCtx.homePosts.map((post) => {
+    post.id ||= Math.random();
     return (
       <GamePost
         id={post.id}
         key={post.id}
-        gameTitle={post.gameTitle}
-        devName={post.devName}
-        description={post.description}
-        rating={post.rating}
+        imageSrc={
+          post?.imageHeader ||
+          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+        }
+        gameTitle={post?.name || 'Game Name'}
+        devName={post?.developers.map((d, i) => <div key={i}>{d}</div>) || 'Developer Name'}
+        description={post?.shortDescription || 'No Description.'}
+        rating={post?.rating || 5}
         onGameClick={postsCtx.handlePostClick}
       />
     );
@@ -31,22 +36,22 @@ function PostList() {
       <InfiniteScroll
         dataLength={postsCtx.homePosts.length}
         next={postsCtx.fetchMoreHomePosts}
-        hasMore={true}
+        hasMore={postsCtx.hasMore}
         loader={<Spinner />}
         className={styles.infiniteScroll}
         endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
+          <div className={styles['end-message']}>
+            <p>Yay! You have seen it all</p>
+          </div>
         }
         refreshFunction={postsCtx.fetchMoreHomePosts}
         pullDownToRefresh
         pullDownToRefreshThreshold={50}
         pullDownToRefreshContent={
-          <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+          <h3 className={styles['pull-down']} style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
         }
         releaseToRefreshContent={
-          <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+          <h3 className={styles['release']} style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
         }
       >
         {availablePosts}

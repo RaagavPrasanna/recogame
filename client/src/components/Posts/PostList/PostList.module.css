@@ -5,3 +5,20 @@
 .postList a {
   text-decoration: none;
 }
+
+.end-message {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.end-message p {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  color: white;
+  font-size: 1.25rem;
+}
+
+.pull-down, .release {
+  color: #6e7f80;
+  margin: 0 auto;
+}

@@ -5,6 +5,8 @@ const PostContext = React.createContext({
   fetchMoreHomePosts: () => {},
   homeScrollPosition: () => {},
   handlePostClick: () => {},
+  homeMounted: () => {},
+  hasMore: true,
 });
 
 export default PostContext;

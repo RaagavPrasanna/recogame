@@ -16,7 +16,7 @@ async function fetchPath(dataField) {
     headers: {
       'Accept': 'application/json',
       'Client-ID': id,
-      'Authorization': auth,
+      'Authorization': auth.split('_').join(' '),
     },
     body: dataField
   });
@@ -34,6 +34,7 @@ async function fetchPath(dataField) {
 async function fetchAllIGDBApps(){
   let data = [];
   await fetchPath(pathsUrls.allGamesFields).then(info=> data = info);
+  data = JSON.parse(JSON.stringify(data).replace(/"id":/g, '"appid":'));
   return data ;
 }
 
@@ -94,8 +95,10 @@ async function fetchGameInfoWord(keyword) {
  */
 function groupType(info){
   return {
-    id:
+    sourceId:
       info.id,
+    sourceName:
+      'igdb',
     name:
       info.name,
     developers:
