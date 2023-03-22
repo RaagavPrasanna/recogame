@@ -35,7 +35,6 @@ function FirstLogin() {
 
 
   const content = () => {
-    console.log(user);
     if(user === null) {
       console.log('reached here');
       return (
