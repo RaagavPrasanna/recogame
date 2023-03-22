@@ -11,7 +11,6 @@ function SearchBar(props) {
     setUserInput(e.target.value.toLowerCase());
   }
 
-
   async function fetchGames() {
     const response = await fetch('/api/game/list');
     if (!response.ok) {
