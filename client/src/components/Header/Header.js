@@ -14,6 +14,7 @@ function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
+  const userCtx = useContext(UserContext);
   const headerRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
@@ -78,15 +79,19 @@ function Header() {
               <Link to="/community">
                 <Button> {t('Community')} </Button>
               </Link>
-              <Link to="/friends">
-                <Button> {t('Friends')} </Button>
-              </Link>
-              <Link to="/profile">
-                <Button> {t('User')} </Button>
-              </Link>
-              <Link to="/gamelist">
-                <Button> {t('My Game List')} </Button>
-              </Link>
+              {userCtx.user && (
+                <>
+                  <Link to="/friends">
+                    <Button> {t('Friends')} </Button>
+                  </Link>
+                  <Link to="/profile">
+                    <Button> {t('User')} </Button>
+                  </Link>
+                  <Link to="/gamelist">
+                    <Button> {t('My Game List')} </Button>
+                  </Link>
+                </>
+              )}
             </span>
           </>
         )}
