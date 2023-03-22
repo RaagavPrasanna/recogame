@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   BsFillHandThumbsUpFill,
   BsFillHandThumbsDownFill,
 } from 'react-icons/bs';
+import UserContext from '../../../store/user-context';
 
 import styles from './Thumbs.module.css';
 
 function Thumbs() {
   const [isThumbsUp, setIsThumbsUp] = useState(false);
   const [isThumbsDown, setIsThumbsDown] = useState(false);
+  const userCtx = useContext(UserContext);
 
   function thumbHandler(e) {
     e.preventDefault();
@@ -40,16 +42,20 @@ function Thumbs() {
   }
 
   return (
-    <div className={styles.thumbs} onClick={thumbHandler}>
-      <BsFillHandThumbsUpFill
-        className={`${styles['thumbs-up']} ${isThumbsUp && styles.clicked}`}
-        id="thumbs-up"
-      />
-      <BsFillHandThumbsDownFill
-        className={`${styles['thumbs-down']} ${isThumbsDown && styles.clicked}`}
-        id="thumbs-down"
-      />
-    </div>
+    userCtx.user && (
+      <div className={styles.thumbs} onClick={thumbHandler}>
+        <BsFillHandThumbsUpFill
+          className={`${styles['thumbs-up']} ${isThumbsUp && styles.clicked}`}
+          id="thumbs-up"
+        />
+        <BsFillHandThumbsDownFill
+          className={`${styles['thumbs-down']} ${
+            isThumbsDown && styles.clicked
+          }`}
+          id="thumbs-down"
+        />
+      </div>
+    )
   );
 }
 
