@@ -12,18 +12,6 @@ const pathsUrls = {
   /** List of all games fore the. */
   allGames: new URL('https://api.igdb.com/v4/games'),
 
-  allGamesFields : 'fields id, name ; limit 10;',
-  /**
-   * search games by keyword
-   *
-   * @param {string} search games keyword
-   * @returns games info
-   */
-  searchByKeywordFields : (keyword) => {
-    let data = `${fields} search "${keyword}";`;
-    return data;
-  },
-
   /**
    *
    * @param {number} search game by id
@@ -31,16 +19,6 @@ const pathsUrls = {
    */
   searchByIdFields : (id) => {
     let data = `${fields} where id=${id};`;
-    return data;
-  },
-
-  /**
-   *
-   * @param {number} search game by plaform
-   * @returns game info
-   */
-  searchByPlatform : (name) => {
-    let data = `${fields} where platforms.name="${name}";`;
     return data;
   },
   /**

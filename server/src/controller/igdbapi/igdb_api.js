@@ -86,45 +86,6 @@ async function fetchGameInfoName(name) {
 }
 
 /**
- * Fetch the game info.
- *
- * @param {string} keyword of the game.
- * @returns {Promise<types.GameInfo>} Game info without the price.
- */
-
-async function fetchGameInfoWord(keyword) {
-  try {
-    const data = await fetchStoreInfo(pathsUrls.searchByKeywordFields(keyword));
-    return data.map(info=> groupType(info)
-    );
-  } catch (e) {
-    console.error(`Could not fetch the game info with keyword : "${keyword}"`);
-    return null;
-  }
-}
-
-/**
- * Fetch the game info.
- *
- * @param {string} keyword of platform.
- * @returns {Promise<types.GameInfo>} Game info without the price.
- */
-async function fetchGamePlatform(keyword) {
-  //firstLetter has to be uppercase. Windows have to convert to PC (Microsoft Windows)
-  let name = (keyword === 'Windows' || keyword === 'windows') ?
-    'PC (Microsoft Windows)' : keyword.charAt(0).toUpperCase() + keyword.slice(1);
-  console.log(name);
-  try {
-    const data = await fetchStoreInfo(pathsUrls.searchByPlatform(name));
-    return data.map(info=> groupType(info)
-    );
-  } catch (e) {
-    console.error(`Could not fetch any game with platform : "${name}"`);
-    return null;
-  }
-}
-
-/**
  *regroup fetch data to GameInfo types
  *
  * @param {info} game info
@@ -195,6 +156,4 @@ export default {
   fetchAllIgdbApps:
   fetchAllIGDBApps,
   fetchGameInfoId,
-  fetchGameInfoWord,
-  fetchGamePlatform,
   fetchGameInfoName };

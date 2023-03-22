@@ -2,7 +2,6 @@ import pathsUrls from './steam_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './steam_types.js';
 import igdb from '../igdbapi/igdb_api.js';
-import {} from 'dotenv/config';
 
 /**
  * Request an API and return JSON data from it.
@@ -115,17 +114,23 @@ async function fetchGameType(id) {
         : null
   };
 }
+
+/**
+ * fetch a game information with merged platform from steam and igdb
+ * @param {number} id of a game
+ * @returns {Promise<types.GameInfo>} Game details
+ */
 async function fetchGameInfo(id){
   let steamGame = await fetchGameType(id);
   let igdbId = await igdb.fetchGameInfoId(id);
-  if ( await steamGame !== null &&
-        (await steamGame.name).toLowerCase() === (await igdbId.name).toLowerCase()){
+  if ( steamGame !== null &&
+        ( steamGame.name ).toLowerCase() === ( igdbId.name ).toLowerCase()){
     steamGame.platforms = merge2Platforms(igdbId.platforms, steamGame.platforms);
     return steamGame;
-  } else if (await steamGame !== null ){
-    let igdbName = await igdb.fetchGameInfoName(steamGame.name);
+  } else if ( steamGame !== null ){
+    let igdbName = await igdb.fetchGameInfoName( steamGame.name );
     steamGame.platforms =
-      merge2Platforms(await igdbName.platforms, await steamGame.platforms);
+      merge2Platforms( igdbName.platforms, steamGame.platforms);
     console.log( 'elseif:' + steamGame.platforms);
     return steamGame;
   } else {
@@ -133,6 +138,7 @@ async function fetchGameInfo(id){
     return null;
   }
 }
+
 /**
  * Merge 2 array of strings
  * @param {array of string} IGDB game platforms
@@ -146,17 +152,5 @@ function merge2Platforms(igdbArr, steamArr){
   let platforms = [...new Set(igdbPlateforms.concat(steamArr))];
   return platforms;
 }
-async function test(){
-  let data = await fetchGameInfo(440);
-  // let data = await igdb.fetchGameInfoId(440);
-  // let data = await fetchGameInfo(10);
-  // let data = await api.fetchGamePlatform('windows');
-  console.log(data);
-  return data;
-}
-// async function test1(){
-//   test();
-// }
-test();
 
 export default { fetchAllSteamApps, fetchGameInfo };
