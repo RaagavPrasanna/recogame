@@ -48,7 +48,7 @@ async function fetchStoreInfo(id) {
 }
 
 /**
- * Fetch the game info.
+ * Fetch the game info.c
  *
  * @param {number} id ID of the game.
  * @returns {Promise<types.GameInfo>} Game info without the price.
