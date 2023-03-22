@@ -17,7 +17,6 @@ async function fetchJson(url) {
   return await response.json();
 }
 
-
 /**
  * Fetch the list of apps on steam.
  *
@@ -27,7 +26,6 @@ async function fetchAllSteamApps() {
   return (await fetchJson(pathsUrls.allGames))['applist']['apps']
     .filter(a => Boolean(a.name));
 }
-
 
 /**
  * Fetch the store info about the app.

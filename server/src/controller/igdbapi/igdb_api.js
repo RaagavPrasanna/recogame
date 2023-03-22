@@ -54,6 +54,7 @@ async function fetchStoreInfo(urlPath) {
     return info;
   }
 }
+
 /**
  * Fetch the game info.
  *
@@ -69,6 +70,7 @@ async function fetchGameInfoId(id) {
     return null;
   }
 }
+
 /**
  * Fetch the game info.
  *
