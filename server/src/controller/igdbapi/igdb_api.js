@@ -1,7 +1,6 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './igdb_types.js';
-import {} from 'dotenv/config';
 
 const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
@@ -154,8 +153,4 @@ function groupType(info){
   };
 }
 
-export default {
-  fetchAllIgdbApps:
-  fetchAllIGDBApps,
-  fetchGameInfoId,
-  fetchGameInfoName };
+export default { fetchAllIgdbApps: fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoName };
