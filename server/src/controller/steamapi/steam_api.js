@@ -118,18 +118,17 @@ async function fetchGameType(id) {
  * @param {number} id of a game
  * @returns {Promise<types.GameInfo>} Game details
  */
-async function fetchGameInfo(id){
+async function fetchGameInfo(id) {
   let steamGame = await fetchGameType(id);
   let igdbId = await igdb.fetchGameInfoId(id);
-  if ( steamGame !== null &&
-        ( steamGame.name ).toLowerCase() === ( igdbId.name ).toLowerCase()){
+  if (steamGame !== null &&
+        steamGame.name.toLowerCase() === igdbId.name.toLowerCase()) {
     steamGame.platforms = merge2Platforms(igdbId.platforms, steamGame.platforms);
     return steamGame;
-  } else if ( steamGame !== null ){
-    let igdbName = await igdb.fetchGameInfoName( steamGame.name );
+  } else if (steamGame !== null) {
+    let igdbName = await igdb.fetchGameInfoName(steamGame.name);
     steamGame.platforms =
-      merge2Platforms( igdbName.platforms, steamGame.platforms);
-    console.log( 'elseif:' + steamGame.platforms);
+      merge2Platforms(igdbName.platforms, steamGame.platforms);
     return steamGame;
   } else {
     console.error('error on merging platforms of IGDB and Steam');
@@ -138,7 +137,7 @@ async function fetchGameInfo(id){
 }
 
 /**
- * Merge 2 array of strings
+ * Merge 2 arrays of strings
  * @param {array of string} IGDB game platforms
  * @param {array of string} steam game platforms
  * @returns array of string merged
@@ -146,7 +145,7 @@ async function fetchGameInfo(id){
 function merge2Platforms(igdbArr, steamArr){
   let igdbPlateforms = igdbArr.map((ip)=>
     ip === 'PC (Microsoft Windows)' ? 'windows' : ip.toLowerCase());
-  // merger 2 array of string with no dupulication
+  // merge 2 arrays of strings with no duplication
   let platforms = [...new Set(igdbPlateforms.concat(steamArr))];
   return platforms;
 }
