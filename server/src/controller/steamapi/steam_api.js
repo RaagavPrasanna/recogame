@@ -1,7 +1,7 @@
 import pathsUrls from './steam_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './steam_types.js';
-
+import covert from 'html-to-text';
 
 /**
  * Request an API and return JSON data from it.
@@ -54,6 +54,7 @@ async function fetchStoreInfo(id) {
  * @returns {Promise<types.GameInfo>} Game info without the price.
  */
 async function fetchGameInfo(id) {
+  const convertOptions = { wordwrap: 130 } ;
   const info = await fetchStoreInfo(id);
   return {
     sourceId:
