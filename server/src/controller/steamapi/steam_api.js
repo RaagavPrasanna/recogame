@@ -47,7 +47,7 @@ async function fetchStoreInfo(id) {
 }
 
 /**
- * Fetch the game info.c
+ * Fetch the game info.
  *
  * @param {number} id ID of the game.
  * @returns {Promise<types.GameInfo>} Game info without the price.
@@ -133,7 +133,7 @@ async function fetchGameInfo(id) {
     let igdbName = await igdb.fetchGameInfoName(steamGame.name);
     if (igdbName !== null) {
       steamGame.platforms =
-      merge2Platforms(igdbName.platforms, steamGame.platforms);
+        merge2Platforms(igdbName.platforms, steamGame.platforms);
     }
     return steamGame;
   } else {
