@@ -24,7 +24,6 @@ function captialize(str) {
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
-    console.log(game);
     return {
       name: game.name,
       genre: game.genres,
