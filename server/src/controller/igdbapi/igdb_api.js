@@ -1,6 +1,7 @@
 import pathsUrls from './igdb_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './igdb_types.js';
+import {} from 'dotenv/config';
 
 const id = process.env.IGDB_ID;
 const auth = process.env.IGDB_AUTH;
@@ -64,7 +65,22 @@ async function fetchGameInfoId(id) {
     const info = (await fetchStoreInfo(pathsUrls.searchByIdFields(id)))[0];
     return groupType(info);
   } catch (e) {
-    console.error(`Could not fetch the game info with id "${id}"`);
+    console.error(`Could not fetch the game info in IGDB with id "${id}"`);
+    return null;
+  }
+}
+/**
+ * Fetch the game info.
+ *
+ * @param {string} name of the game.
+ * @returns {Promise<types.GameInfo>} Game info without the price.
+ */
+async function fetchGameInfoName(name) {
+  try {
+    const info = (await fetchStoreInfo(pathsUrls.searchByNameFields(name)))[0];
+    return groupType(info);
+  } catch (e) {
+    console.error(`Could not fetch the game info in IGDB with name "${name}"`);
     return null;
   }
 }
@@ -175,4 +191,10 @@ function groupType(info){
   };
 }
 
-export default { fetchAllIgdbApps: fetchAllIGDBApps, fetchGameInfoId, fetchGameInfoWord, fetchGamePlatform };
+export default {
+  fetchAllIgdbApps:
+  fetchAllIGDBApps,
+  fetchGameInfoId,
+  fetchGameInfoWord,
+  fetchGamePlatform,
+  fetchGameInfoName };
