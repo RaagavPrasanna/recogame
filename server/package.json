@@ -20,7 +20,6 @@
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
     "google-auth-library": "^8.7.0",
-    "html-to-text": "^9.0.4",
     "mongoose": "^6.9.1",
     "passport": "^0.6.0",
     "passport-steam": "^1.0.17",
