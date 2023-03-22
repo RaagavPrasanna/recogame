@@ -5,6 +5,7 @@ import passport from 'passport';
 import passportSteam from 'passport-steam';
 import models from '../../db/models.js';
 import utils from '../utils.js';
+import steam from '../../controller/steamapi/steam_api.js'
 
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -184,6 +185,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
     data.response.games.map(async (gameId) => {
       let game = await utils.retrieveData.getGameById(gameId.appid);
       if(game === null) {
+        game = await steam.fetchGameInfo(gameId.appid);
         await utils.pushData.pushGameToDB(game);
         console.log('new game added to db');
       }
