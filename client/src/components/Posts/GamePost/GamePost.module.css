@@ -13,16 +13,15 @@
   transition: background-color 0.2s ease;
 }
 
-@media only screen and (max-width: 55em) {
-  .gamepost {
-    flex-direction: column;
-  }
-}
-
 .details {
   position: relative;
+<<<<<<< HEAD
   padding: 1rem;
   z-index: 1;
+=======
+  padding: 1rem 1rem 1rem 0;
+  z-index: 100;
+>>>>>>> 65d72f6721a5550e43e2c22e217a01a93fca15f4
 }
 
 .background {
@@ -48,12 +47,13 @@
   flex-direction: row;
   flex-wrap: wrap;
   height: 12rem;
+  margin-left: 1.5rem;
   border-radius: 10px;
 }
 
-h1,
+.details h1,
 div,
-p {
+.details p {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -91,12 +91,63 @@ p {
   width: auto;
 }
 
-.devName {
+.dev-name {
   padding-top: 1em;
   padding-left: 2em;
 }
 
 .stars {
   margin: 0;
-  text-align: right;
+  text-align: center;
+}
+
+@media only screen and (max-width: 55em) {
+  .gamepost {
+    flex-direction: column;
+  }
+
+  .details p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: small;
+    margin-left: 2rem;
+  }
+
+  .gamepost img {
+    margin-left: 0;
+    margin-top: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 30em) {
+  .gamepost {
+    margin: 0 0 1rem 0;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .gamepost h1 {
+    margin-left: 1.4rem;
+    font-size: 1rem;
+  }
+
+  .dev-name {
+    font-size: 0.7rem;
+  }
+
+  .thumbs {
+    margin-right: 0;
+  }
+
+  .gamepost img {
+    border-radius: 0;
+    margin-top: 0;
+    width: 100%;
+  }
+
+  .details p {
+    margin-left: 1.3rem;
+  }
 }
