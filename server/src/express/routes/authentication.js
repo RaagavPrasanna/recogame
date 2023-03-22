@@ -185,11 +185,17 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
     data.response.games.map(async (gameId) => {
       let game = await utils.retrieveData.getGameById(gameId.appid);
       if(game === null) {
-        game = await steam.fetchGameInfo(gameId.appid);
-        await utils.pushData.pushGameToDB(game);
-        console.log('new game added to db');
+        try {
+          game = await steam.fetchGameInfo(gameId.appid);
+          await utils.pushData.pushGameToDB(game);
+          console.log('new game added to db');
+          games.push(game);
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        games.push(game);
       }
-      games.push(game);
     }
     ));
 
