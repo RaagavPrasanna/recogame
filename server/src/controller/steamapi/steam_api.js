@@ -1,7 +1,8 @@
 import pathsUrls from './steam_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './steam_types.js';
-
+import igdb from '../igdbapi/igdb_api.js';
+import {} from 'dotenv/config';
 
 /**
  * Request an API and return JSON data from it.
@@ -53,7 +54,7 @@ async function fetchStoreInfo(id) {
  * @param {number} id ID of the game.
  * @returns {Promise<types.GameInfo>} Game info without the price.
  */
-async function fetchGameInfo(id) {
+async function fetchGameType(id) {
   const info = await fetchStoreInfo(id);
   return {
     sourceId:
@@ -114,5 +115,48 @@ async function fetchGameInfo(id) {
         : null
   };
 }
+async function fetchGameInfo(id){
+  let steamGame = await fetchGameType(id);
+  let igdbId = await igdb.fetchGameInfoId(id);
+  if ( await steamGame !== null &&
+        (await steamGame.name).toLowerCase() === (await igdbId.name).toLowerCase()){
+    steamGame.platforms = merge2Platforms(igdbId.platforms, steamGame.platforms);
+    return steamGame;
+  } else if (await steamGame !== null ){
+    let igdbName = await igdb.fetchGameInfoName(steamGame.name);
+    steamGame.platforms =
+      merge2Platforms(await igdbName.platforms, await steamGame.platforms);
+    console.log( 'elseif:' + steamGame.platforms);
+    return steamGame;
+  } else {
+    console.error('error on merging platforms of IGDB and Steam');
+    return null;
+  }
+}
+/**
+ * Merge 2 array of strings
+ * @param {array of string} IGDB game platforms
+ * @param {array of string} steam game platforms
+ * @returns array of string merged
+ */
+function merge2Platforms(igdbArr, steamArr){
+  let igdbPlateforms = igdbArr.map((ip)=>
+    ip === 'PC (Microsoft Windows)' ? 'windows' : ip.toLowerCase());
+  // merger 2 array of string with no dupulication
+  let platforms = [...new Set(igdbPlateforms.concat(steamArr))];
+  return platforms;
+}
+async function test(){
+  let data = await fetchGameInfo(440);
+  // let data = await igdb.fetchGameInfoId(440);
+  // let data = await fetchGameInfo(10);
+  // let data = await api.fetchGamePlatform('windows');
+  console.log(data);
+  return data;
+}
+// async function test1(){
+//   test();
+// }
+test();
 
 export default { fetchAllSteamApps, fetchGameInfo };
