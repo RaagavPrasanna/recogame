@@ -81,7 +81,8 @@ const UserProfile = mongoose.model(
     preferences: {
       playedGames: [Number],
       platforms: [String],
-      keywords: [String],
+      genres: [String],
+      categories: [String],
       wishlist: [Number],
       receiveMsgs: { type: Boolean, default: true },
       enableFriendRecs: { type: Boolean, default: true },
