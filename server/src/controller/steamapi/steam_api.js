@@ -54,7 +54,7 @@ async function fetchStoreInfo(id) {
  * @returns {Promise<types.GameInfo>} Game info without the price.
  */
 async function fetchGameInfo(id) {
-  const convertOptions = { wordwrap: 130 } ;
+  const convertOption = { wordwrap: 130 } ;
   const info = await fetchStoreInfo(id);
   return {
     sourceId:
@@ -82,7 +82,7 @@ async function fetchGameInfo(id) {
     storeUrl:
       `https://store.steampowered.com/app/${info.steam_appid}`,
     detailedDescription:
-      info.detailed_description || null,
+      covert(info.detailed_description, convertOption) || null,
     shortDescription:
       info.short_description || null,
     supportedLanguages:
