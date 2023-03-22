@@ -3,20 +3,14 @@ import { Link } from 'react-router-dom';
 import styles from './SearchBar.module.css';
 import Modal from '../UI/Modal/Modal';
 
-function SearchBar() {
+function SearchBar(props) {
   const [userInput, setUserInput] = useState('');
   const [dataJson, setDataJson] = useState([]);
-  const [show, setShow] = useState(true);
-
-
 
   function inputHandler(e) {
     setUserInput(e.target.value.toLowerCase());
   }
 
-  function handleClose() {
-    setShow(false);
-  }
 
   async function fetchGames() {
     const response = await fetch('/api/game/list');
@@ -37,12 +31,11 @@ function SearchBar() {
 
 
   return (
-
-    <Modal className={styles.search} onClick={handleClose}>
+    <Modal className={styles.search} onClick={props.handleShow}>
       <input type="search" placeholder="Search Game" onChange={inputHandler} />
       {filteredData.map((game) => (
         <p key={game.id}>
-          <Link to={`/game/${game.id}`} onClick={handleClose}>
+          <Link to={`/game/${game.id}`} onClick={props.handleShow}>
             {game.name}
           </Link>
         </p>

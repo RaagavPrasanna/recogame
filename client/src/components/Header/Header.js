@@ -21,7 +21,7 @@ function Header() {
   const { user, logout } = useContext(UserContext);
 
   function handleShow() {
-    setShow(true);
+    setShow(!show);
   }
 
   const changeNavBg = () => {
@@ -85,8 +85,8 @@ function Header() {
       </header>
       <header className={styles.search}>
         {retUserAuthButton()}
-        <Button onClick={handleShow}> {t('Search')} </Button>
-        {show && (<SearchBar />)}
+        <Button onClick={handleShow} > {t('Search')} </Button>
+        {show && (<SearchBar handleShow = { handleShow } />)}
         <Button>
           <LanguageSelector />
         </Button>
