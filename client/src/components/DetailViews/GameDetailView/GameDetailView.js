@@ -118,10 +118,24 @@ function GameDetailView() {
                     </div>
                   </li>
                   <li>
-                    {t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}
+                    {
+                      <>
+                        {t('DEVELOPER')} &nbsp;
+                        {gameDetails.developer?.map((dev, i) => {
+                          return <Tag key={i} tagName={dev} />;
+                        })}
+                      </>
+                    }
                   </li>
                   <li>
-                    {t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}
+                    {
+                      <>
+                        {t('PUBLISHER')} &nbsp;
+                        {gameDetails.publisher?.map((pub, i) => {
+                          return <Tag key={i} tagName={pub} />;
+                        })}
+                      </>
+                    }
                   </li>
                   <li>
                     {`${t('CATEGORIES')}`}
