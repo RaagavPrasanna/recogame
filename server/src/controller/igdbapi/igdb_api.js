@@ -16,7 +16,7 @@ async function fetchPath(dataField) {
     headers: {
       'Accept': 'application/json',
       'Client-ID': id,
-      'Authorization': auth,
+      'Authorization': auth.split('_').join(' '),
     },
     body: dataField
   });

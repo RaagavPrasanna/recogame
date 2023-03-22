@@ -13,17 +13,17 @@ function GamePost({
 }) {
   return (
     <Link className={styles.gamepost} to={`/game/${id}`} onClick={onGameClick}>
+      <div
+        className={styles.background}
+        style={{
+          backgroundImage: `url(${imageSrc})`,
+        }}
+      ></div>
       <img src={imageSrc} />
       <div className={styles.details}>
-        <div
-          className={styles.background}
-          style={{
-            backgroundImage: `url(${imageSrc})`,
-          }}
-        ></div>
         <h1>{gameTitle}</h1>
         <div className={styles.thumbs}>
-          <div className={styles.devName}>{devName}</div>
+          <div className={styles['dev-name']}>{devName}</div>
           <div className={styles.rating}>
             <span className={styles.stars}>{'⭐️'.repeat(rating)}</span>
             <Thumbs />

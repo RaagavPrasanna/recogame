@@ -7,12 +7,15 @@ import CommunityContext from '../../store/community-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
+import { useMediaQuery } from 'react-responsive';
+import MobileNav from './MobileNav';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
   const headerRef = useRef();
+  const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
 
   const { user, logout } = useContext(UserContext);
@@ -36,7 +39,6 @@ function Header() {
   }
   const retUserAuthButton = () => {
     if (user !== null) {
-      // eslint-disable-next-line max-len
       return (
         <Button onClick={logout}>
           {' '}
@@ -55,33 +57,50 @@ function Header() {
 
   return (
     <div
-      className={`${styles.header} ${navBg && styles.showBg}`}
+      className={`${styles.header} ${
+        (navBg && styles.showBg) || (isMobile && styles.showBg)
+      }`}
       onScroll={changeNavBg}
       ref={headerRef}
     >
       <header className={styles.buttons} onClick={handlePageChange}>
-        <Link to="/">
-          <Button>{t('Home')}</Button>
-        </Link>
-        <Link to="/profile">
-          <Button> {t('User')} </Button>
-        </Link>
-        <Link to="/gamelist">
-          <Button> {t('My Game List')} </Button>
-        </Link>
-        <Link to="/community">
-          <Button> {t('Community')} </Button>
-        </Link>
-        <Link to="/friends">
-          <Button> {t('Friends')} </Button>
-        </Link>
-      </header>
-      <header className={styles.search}>
-        {retUserAuthButton()}
-        <Button> {t('Search')} </Button>
-        <Button>
-          <LanguageSelector />
-        </Button>
+        {isMobile ? (
+          <MobileNav
+            retUserAuthButton={retUserAuthButton}
+            handlePageChange={handlePageChange}
+          />
+        ) : (
+          <>
+            <span className={styles['left-section']}>
+              <Link to="/">
+                <Button>{t('Home')}</Button>
+              </Link>
+              <Link to="/community">
+                <Button> {t('Community')} </Button>
+              </Link>
+              <Link to="/friends">
+                <Button> {t('Friends')} </Button>
+              </Link>
+              <Link to="/profile">
+                <Button> {t('User')} </Button>
+              </Link>
+              <Link to="/gamelist">
+                <Button> {t('My Game List')} </Button>
+              </Link>
+            </span>
+          </>
+        )}
+        <span className={styles['right-section']}>
+          <Button> {t('Search')} </Button>
+          {isMobile || (
+            <>
+              {retUserAuthButton()}
+              <Button className={styles['lang-btn']}>
+                <LanguageSelector className={styles['lang-selector']} />
+              </Button>
+            </>
+          )}
+        </span>
       </header>
     </div>
   );

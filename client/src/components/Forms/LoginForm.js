@@ -59,7 +59,8 @@ function LoginForm({ onCancel }) {
   const handleSteam = async () => {
     // Must be changed in production
     // eslint-disable-next-line no-undef
-    window.location.replace(`${process.env.REACT_APP_HOST_URL}authentication/steam-auth/return`);
+    // window.location.replace(`${process.env.REACT_APP_HOST_URL}authentication/steam-auth/return`);
+    window.location.replace(`${window.location.origin}/authentication/steam-auth/return`);
   };
 
   return (
