@@ -35,10 +35,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 40rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  align-self: center;
 }
 
 .buttons span {
@@ -64,18 +65,19 @@
 
 .carousel {
   width: 40rem;
-  margin-right: 4rem;
 }
 
 .images {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .screenshots {
   display: flex;
   width: fit-content;
+  align-content: start;
 }
 
 .screenshot {
@@ -88,13 +90,13 @@
   display: flex;
   flex-direction: column;
   height: fit-content;
-  width: 35rem;
   background-color: #0d223186;
   border-radius: 5px;
+  flex: 1;
 }
 
 .info img {
-  align-self: flex-start;
+  align-self: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -111,8 +113,18 @@
   position: absolute;
 }
 
-@media only screen and (max-width: 55em) {
+@media only screen and (max-width: 85em) {
+  .images {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: auto;
+  }
+  .screenshots {
+    align-self: center;
+  }
+}
 
+@media only screen and (max-width: 50em) {
   .gameDetails {
     padding: 0;
     padding-top: 5rem;
@@ -132,11 +144,6 @@
     margin: auto;
   }
 
-  .carousel {
-    width: 100vw;
-  }
-
-
   .desc p {
     word-break: break-all;
     font-size: smaller;
@@ -146,18 +153,11 @@
 
   .buttons {
     width: 100%;
-    margin: 1rem;
-    justify-content: center;
+    padding: 0 4rem;
   }
 
   .buttons button {
     font-size: x-small;
-  }
-
-  .images {
-    display: flex;
-    flex-direction: column-reverse;
-    margin: auto;
   }
 
   .info {
