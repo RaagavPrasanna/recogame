@@ -7,11 +7,14 @@ import CommunityContext from '../../store/community-context';
 import LanguageSelector from '../../MultiLanguage/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
+  const [show, setShow] = useState(false);
+
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
   const userCtx = useContext(UserContext);
@@ -20,6 +23,10 @@ function Header() {
   const { t } = useTranslation();
 
   const { user, logout } = useContext(UserContext);
+
+  function handleShow() {
+    setShow(!show);
+  }
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
@@ -96,7 +103,8 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button> {t('Search')} </Button>
+          <Button onClick={handleShow} > {t('Search')} </Button>
+          {show && (<SearchBar handleShow = { handleShow } />)}
           {isMobile || (
             <>
               {retUserAuthButton()}
