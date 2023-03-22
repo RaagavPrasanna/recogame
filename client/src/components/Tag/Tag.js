@@ -1,5 +1,4 @@
 import styles from './Tag.module.css';
-import { useState } from 'react';
 import { BsXSquare } from 'react-icons/bs';
 
 function Tag({ tagName, closable }) {
