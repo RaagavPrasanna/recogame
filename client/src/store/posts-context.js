@@ -9,6 +9,7 @@ const PostContext = React.createContext({
   hasMore: true,
   tags: [],
   dispatchTags: () => {},
+  setCurrPageHome: () => {},
 });
 
 export default PostContext;

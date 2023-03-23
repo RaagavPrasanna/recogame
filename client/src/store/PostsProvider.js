@@ -14,11 +14,13 @@ async function getGamePage(page, params, callback) {
 }
 
 function buildTagParams(tagObj) {
-  return Object.entries(tagObj)
-    // eslint-disable-next-line no-unused-vars
-    .filter(([_, tags]) => tags.length)
-    .map(([type, tags]) => `${type}=${tags.join(',')}`)
-    .join('&');
+  return (
+    Object.entries(tagObj)
+      // eslint-disable-next-line no-unused-vars
+      .filter(([_, tags]) => tags.length)
+      .map(([type, tags]) => `${type}=${tags.join(',')}`)
+      .join('&')
+  );
 }
 
 const initialTagState = {
@@ -92,6 +94,7 @@ function PostsProvider({ children }) {
     hasMore,
     tags,
     dispatchTags,
+    setCurrPageHome,
   };
 
   return (
