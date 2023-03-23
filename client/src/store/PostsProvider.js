@@ -14,23 +14,19 @@ async function getGamePage(page, params, callback) {
 }
 
 function buildTagParams(tagObj) {
-  return Object.entries(tagObj).reduce((total, [type, tags], i, arr) => {
-    if (tags.length) {
-      return (total += `${type}=${tags.join(',')}${
-        i !== arr.length - 1 ? '&' : ''
-      }`);
-    } else {
-      return '';
-    }
-  }, '');
+  return Object.entries(tagObj)
+    // eslint-disable-next-line no-unused-vars
+    .filter(([_, tags]) => tags.length)
+    .map(([type, tags]) => `${type}=${tags.join(',')}`)
+    .join('&');
 }
 
 const initialTagState = {
-  categories: [],
-  genres: [],
+  categories: ['Multi-player', 'Online PvP'],
+  genres: ['Indie', 'Casual'],
   developers: [],
   publishers: [],
-  platforms: [],
+  platforms: ['windows'],
 };
 
 function tagsReducer(prevState, action) {
