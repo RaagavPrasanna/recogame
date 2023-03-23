@@ -10,6 +10,7 @@ const PostContext = React.createContext({
   tags: [],
   dispatchTags: () => {},
   setCurrPageHome: () => {},
+  setPosts: () => {},
 });
 
 export default PostContext;

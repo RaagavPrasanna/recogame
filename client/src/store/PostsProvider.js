@@ -24,16 +24,19 @@ function buildTagParams(tagObj) {
 }
 
 const initialTagState = {
-  categories: ['Multi-player', 'Online PvP'],
-  genres: ['Indie', 'Casual'],
+  categories: [],
+  genres: [],
   developers: [],
   publishers: [],
-  platforms: ['windows'],
+  platforms: [],
 };
 
 function tagsReducer(prevState, action) {
   if (action.type === 'CATEGORY') {
-    return { categories: [...prevState.categories, ...action.data] };
+    return {
+      ...prevState,
+      categories: [...prevState.categories, action.data],
+    };
   }
   return initialTagState;
 }
@@ -95,6 +98,7 @@ function PostsProvider({ children }) {
     tags,
     dispatchTags,
     setCurrPageHome,
+    setPosts,
   };
 
   return (
