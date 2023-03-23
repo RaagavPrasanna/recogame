@@ -114,7 +114,7 @@ function GameDetailView() {
                     {t('GENRE')}{' '}
                     <div className={styles['tag-container']}>
                       {gameDetails.genre?.map((genre, i) => {
-                        return <Tag key={i} tagName={genre} />;
+                        return <Tag key={i} tagName={genre} type='GENRE'/>;
                       })}
                     </div>
                   </li>
@@ -123,7 +123,7 @@ function GameDetailView() {
                       <>
                         {t('DEVELOPER')} &nbsp;
                         {gameDetails.developer?.map((dev, i) => {
-                          return <Tag key={i} tagName={dev} />;
+                          return <Tag key={i} tagName={dev} type='DEVELOPER'/>;
                         })}
                       </>
                     }
@@ -133,7 +133,7 @@ function GameDetailView() {
                       <>
                         {t('PUBLISHER')} &nbsp;
                         {gameDetails.publisher?.map((pub, i) => {
-                          return <Tag key={i} tagName={pub} />;
+                          return <Tag key={i} tagName={pub} type='PUBLISHER'/>;
                         })}
                       </>
                     }
@@ -142,7 +142,7 @@ function GameDetailView() {
                     {`${t('CATEGORIES')}`}
                     <div className={styles['tag-container']}>
                       {gameDetails.category?.map((cat, i) => {
-                        return <Tag key={i} tagName={cat} />;
+                        return <Tag key={i} tagName={cat} type='CATEGORY'/>;
                       })}
                     </div>
                   </li>
@@ -150,7 +150,7 @@ function GameDetailView() {
                     {t('PLATFORMS')}
                     <div className={styles.platforms}>
                       {gameDetails.platforms?.map((plat, i) => {
-                        return <Tag key={i} tagName={captialize(plat)} />;
+                        return <Tag key={i} tagName={captialize(plat)} type='PLATFORM'/>;
                       })}
                     </div>
                   </li>
