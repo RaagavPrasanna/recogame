@@ -41,6 +41,16 @@ function tagsReducer(prevState, action) {
       ],
     };
   }
+  if (action.type === 'REMOVE') {
+    return {
+      ...prevState,
+      [action.data.tagType]: [
+        ...prevState[action.data.tagType].filter(
+          (tag) => tag !== action.data.tagName
+        ),
+      ],
+    };
+  }
   return initialTagState;
 }
 

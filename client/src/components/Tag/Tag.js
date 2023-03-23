@@ -6,22 +6,27 @@ import PostContext from '../../store/posts-context';
 function Tag({ tagName, closable, tagType }) {
   const postCtx = useContext(PostContext);
 
-  function tagClickHandler() {
+  function tagClickHandler(e) {
+    e.preventDefault();
     // eslint-disable-next-line curly
     if (closable) return;
     postCtx.setPosts([]);
     postCtx.dispatchTags({ type: 'ADD', data: { tagName, tagType } });
+    postCtx.setCurrPageHome(0);
+  }
 
-    if (!postCtx.homeMounted) {
-      postCtx.setCurrPageHome(0);
-    }
+  function tagRemoveHandler(e) {
+    e.preventDefault();
+    postCtx.setPosts([]);
+    postCtx.dispatchTags({ type: 'REMOVE', data: { tagName, tagType } });
+    postCtx.setCurrPageHome(0);
   }
 
   return (
     <div className={styles.tag} onClick={tagClickHandler}>
       {`${tagName}`}
-      {closable && (
-        <span className={styles.close}>
+      {true && (
+        <span className={styles.close} onClick={tagRemoveHandler}>
           <BsXSquare />
         </span>
       )}
