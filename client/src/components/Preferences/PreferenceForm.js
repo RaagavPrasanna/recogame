@@ -15,6 +15,11 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
   const [categoriesInput, setCategoriesInput] = useState('');
   const [genresInput, setGenresInput] = useState('');
 
+  const [playedGames, setPlayedGames] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [categories, setCategories] = useState([]);
+
   function allGamesHandler(e) {
     setAllGamesInput(e.target.value.toLowerCase());
   }
@@ -114,6 +119,33 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
     }
   });
 
+  const addGame = (game) => {
+    console.log(allGames);
+    console.log(playersSteamGames);
+    const allGamesInd = allGames.indexOf(game);
+    const steamGamesInd = playersSteamGames.findIndex((g) => g.name === game.name);
+    const notInAllGames = allGamesInd === -1;
+    if(!notInAllGames) {
+      console.log('in first if');
+      const gameCopy = [...allGames];
+      const gameToAdd = gameCopy.splice(allGamesInd, 1)[0];
+      setAllGames(gameCopy);
+      setPlayedGames([...playedGames, gameToAdd]);
+    }
+    if(steamGamesInd !== -1 && notInAllGames) {
+      console.log('in second if');
+      const gameCopy = [...playersSteamGames];
+      const gameToAdd = gameCopy.splice(steamGamesInd, 1)[0];
+      setPlayersSteamGames(gameCopy);
+      setPlayedGames([...playedGames, gameToAdd]);
+    } else if(steamGamesInd !== -1) {
+      console.log('in third if');
+      const gameCopy = [...playersSteamGames];
+      gameCopy.splice(steamGamesInd, 1);
+      setPlayersSteamGames(gameCopy);
+    }
+  };
+
   const allGamesSearch = () => {
     return (
       <div>
@@ -121,7 +153,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         <div>
           {allGamesFilteredData.map((game) => (
             <p key={game.id} onClick={() => {
-              console.log(`selected ${game.name}`);
+              addGame(game);
             }}>
               {game.name}
             </p>
@@ -138,7 +170,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         <div >
           {playersGamesFilteredData.map((game) => (
             <p key={game.id} onClick={() => {
-              console.log(`selected ${game.name}`);
+              addGame(game);
             }}>
               {game.name}
             </p>
@@ -197,7 +229,22 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         </div>
       </div>
     );
-  }
+  };
+
+  const listPlayedGames = () => {
+    return (
+      <div>
+        <h2>Played Games</h2>
+        {playedGames.map((game, ind) => {
+          return (
+            <p key={ind} onClick={() => {
+              // removeGame(game);
+            }}>{game.name}</p>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <div>
@@ -206,6 +253,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
       {platformsSearch()}
       {categoriesSearch()}
       {genresSearch()}
+      {listPlayedGames()}
       <Button onClick={submitForm}>Submit</Button>
     </div>
   );

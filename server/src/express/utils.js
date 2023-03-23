@@ -62,7 +62,7 @@ async function getGameFromDB(id) {
 }
 
 async function getGameById(gameId) {
-  return await models.GameDetails.findOne({ sourceId: gameId }, models.CLEAN_PROJECTION);
+  return await models.GameDetails.findOne({ sourceId: gameId });
 }
 
 async function pushGameToDB(game) {

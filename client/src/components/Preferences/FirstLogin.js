@@ -11,18 +11,26 @@ function FirstLogin() {
     {
       playedGames: [],
       platforms: [],
-      keywords: [],
+      genres: [],
+      categories: [],
     }
   );
 
   async function submitForm() {
-    if(userPrefs.platforms.length === 0) {
+    if(userPrefs.playedGames.length === 0) {
+      // eslint-disable-next-line no-alert
+      alert('Please select at least one game');
+    } else if(userPrefs.platforms.length === 0) {
       // eslint-disable-next-line no-alert
       alert('Please select at least one platform');
       return;
-    } else if(userPrefs.keywords.length === 0) {
+    } else if(userPrefs.genres.length === 0) {
       // eslint-disable-next-line no-alert
-      alert('Please select at least one keyword');
+      alert('Please select at least one genre');
+      return;
+    } else if(userPrefs.categories.length === 0) {
+      // eslint-disable-next-line no-alert
+      alert('Please select at least one category');
       return;
     } else {
       console.log(userPrefs);
