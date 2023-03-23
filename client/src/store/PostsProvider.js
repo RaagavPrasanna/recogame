@@ -71,6 +71,7 @@ function PostsProvider({ children }) {
 
   useEffect(() => {
     setCurrPageHome(0);
+    setHasMore(true);
     loadGames();
   }, [tags]);
 
