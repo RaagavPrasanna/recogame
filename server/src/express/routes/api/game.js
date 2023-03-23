@@ -49,7 +49,7 @@ async function filterGames(query = {}, page = null, limit = null) {
   )?.map(o => o._id) || {};
 }
 
-async function getGameFeed(query, page = 0, limit = 4) {
+async function getGameFeed(query, page = 0, limit = 10) {
   const ids = await filterGames(query, page, limit);
   return await (
     (await models.ViewGameDetailsShort.getModel())
