@@ -37,7 +37,7 @@ public class NodeReader {
 
       // Set/start ProcessBuilder - all args have to be String
       ProcessBuilder processBuilder =
-        new ProcessBuilder("node", "./server/bin/fetch.js", name,"info", "--id", idStr);
+        new ProcessBuilder("node", "./server/bin/fetch.js", name, "info", "--id", idStr);
       Process process = processBuilder.start();
 
       try (BufferedReader reader = new BufferedReader(

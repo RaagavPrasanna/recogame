@@ -10,7 +10,7 @@ public class App {
       throws IOException, InterruptedException
     {
       System.out.println("Fetching games");
-      Api api = new Api("620-recogame", "starting-games.json");
+      Api api = new Api("620-recogame-test", "starting-games.json");
       api.run();
       System.out.println("Done");
     }

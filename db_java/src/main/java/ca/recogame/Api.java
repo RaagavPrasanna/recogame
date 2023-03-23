@@ -1,8 +1,5 @@
 package ca.recogame;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Api {
   private Connection connect;
   private NodeReader nodeReader;
@@ -20,23 +17,19 @@ public class Api {
 
   private void importMultiGameDetails() {
     ReadFile read = new ReadFile(this.path);
-    List<GameDetails> games = new ArrayList<GameDetails>();
     try {
       for (int id : read.getlistId()) {
-        GameDetails game = nodeReader.getOneGameDetails("steam", id);
-        games.add(game);
+        System.out.println("- " + id);
+        if (!connect.checkGameExists("steam", id)) {
+            System.out.println("  Is not in the DB, inserting");
+            GameDetails game = nodeReader.getOneGameDetails("steam", id);
+            connect.insertGameDetails(game);
+        } else {
+            System.out.println("  Is already in DB, ignoring");
+        }
       }
-      connect.insertManyGameDetails(games);
     } catch (Exception e) {
       System.err.println("Cannot import list of game details: " + e);
-    }
-  }
-
-  public void deleteAllGameDetails() {
-    try {
-      this.connect.deleteManyGameDetails();
-    } catch (Exception e) {
-      System.err.println("Cannot delete all game-Details data: " + e);
     }
   }
 }
