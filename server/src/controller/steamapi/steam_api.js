@@ -1,6 +1,7 @@
 import pathsUrls from './steam_urls.js';
 // eslint-disable-next-line no-unused-vars
 import types from './steam_types.js';
+import { convert } from 'html-to-text';
 import igdb from '../igdbapi/igdb_api.js';
 
 /**
@@ -79,12 +80,14 @@ async function fetchGameType(id) {
     storeUrl:
       `https://store.steampowered.com/app/${info.steam_appid}`,
     detailedDescription:
-      info.detailed_description || null,
+    // convert html tags to text
+      convertHtmlToText(info.detailed_description) || null,
     shortDescription:
       info.short_description || null,
     supportedLanguages:
       info.supported_languages !== undefined
-        ? info.supported_languages.split(', ')
+      // remove all * in each language ex: English* and convert html tags to text
+        ? convertHtmlToText(info.supported_languages).replaceAll('*', '').split(', ')
         : null,
     platforms:
       info.platforms !== undefined
@@ -122,13 +125,16 @@ async function fetchGameInfo(id) {
   let steamGame = await fetchGameType(id);
   let igdbId = await igdb.fetchGameInfoId(id);
   if (steamGame !== null &&
+        igdbId !== null &&
         steamGame.name.toLowerCase() === igdbId.name.toLowerCase()) {
     steamGame.platforms = merge2Platforms(igdbId.platforms, steamGame.platforms);
     return steamGame;
   } else if (steamGame !== null) {
     let igdbName = await igdb.fetchGameInfoName(steamGame.name);
-    steamGame.platforms =
-      merge2Platforms(igdbName.platforms, steamGame.platforms);
+    if (igdbName !== null) {
+      steamGame.platforms =
+        merge2Platforms(igdbName.platforms, steamGame.platforms);
+    }
     return steamGame;
   } else {
     console.error('error on merging platforms of IGDB and Steam');
@@ -148,6 +154,18 @@ function merge2Platforms(igdbArr, steamArr){
   // merge 2 arrays of strings with no duplication
   let platforms = [...new Set(igdbPlateforms.concat(steamArr))];
   return platforms;
+}
+
+/**
+ * convert Html to text
+ * @param {string} html string
+ * @returns string without tags
+ */
+function convertHtmlToText(html){
+  const options = {
+    wordwrap: false,
+  };
+  return convert(html, options);
 }
 
 export default { fetchAllSteamApps, fetchGameInfo };
