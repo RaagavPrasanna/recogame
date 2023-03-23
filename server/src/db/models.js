@@ -9,10 +9,12 @@ const GameDetails = mongoose.model(
   new mongoose.Schema({
     sourceId: {
       type: Number,
-      required: [true, 'sourceId is requird'],
-      unique: true
+      required: [true, 'sourceId is required'],
     },
-    sourceName: String,
+    sourceName: {
+      type: String,
+      required: [true, 'sourceName is required'],
+    },
     name: String,
     developers: [String],
     publishers: [String],
@@ -31,7 +33,7 @@ const GameDetails = mongoose.model(
     recommendations: Number,
     background: String,
     contentDescriptors: String
-  })
+  }).index({ sourceId: 1, sourceName: 1 }, { unique: true })
 );
 
 const ViewGameDetailsShort = new View(
