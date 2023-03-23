@@ -33,20 +33,27 @@ function constructQuery(params) {
  * @param limit {number?}
  */
 async function filterGames(query = {}, page = null, limit = null) {
-  return (
-    await models.GameDetails.find(
-      {
-        ...(query?.developers ? { developers: { $all: query.developers } } : {}),
-        ...(query?.publishers ? { publishers: { $all: query.publishers } } : {}),
-        ...(query?.categories ? { categories: { $all: query.categories } } : {}),
-        ...(query?.genres ? { genres: { $all: query.genres } } : {}),
-        ...(query?.platforms ? { platforms: { $all: query.platforms } } : {}),
-      },
-      { _id: 1 }
-    )
-      .skip(page && limit ? page * limit : null)
-      .limit(limit || null)
-  )?.map(o => o._id) || {};
+  const filters = {};
+  if (query?.developers) {
+    filters.developers = { $all: query.developers };
+  }
+  if (query?.publishers) {
+    filters.publishers = { $all: query.publishers };
+  }
+  if (query?.categories) {
+    filters.categories = { $all: query.categories };
+  }
+  if (query?.genres) {
+    filters.genres = { $all: query.genres };
+  }
+  if (query?.platforms) {
+    filters.platforms = { $all: query.platforms };
+  }
+
+  const games = await models.GameDetails.find(filters, { _id: 1 })
+    .skip(page && limit ? page * limit : null)
+    .limit(limit || null);
+  return games?.map(o => o._id);
 }
 
 async function getGameFeed(query, page = 0, limit = 4) {
