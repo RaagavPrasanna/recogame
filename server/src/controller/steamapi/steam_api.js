@@ -87,7 +87,7 @@ async function fetchGameType(id) {
     supportedLanguages:
       info.supported_languages !== undefined
       // remove all * in each language ex: English* and convert html tags to text
-        ? convertHtmlToText(info.supported_languages).split('*').join('').split(', ')
+        ? convertHtmlToText(info.supported_languages).replaceAll('*', '').split(', ')
         : null,
     platforms:
       info.platforms !== undefined
@@ -162,15 +162,10 @@ function merge2Platforms(igdbArr, steamArr){
  * @returns string without tags
  */
 function convertHtmlToText(html){
-  const text = convert(html, {
-    formatters: {
-      // Create a formatter.
-      'fooBlockFormatter': function (elem, walk, builder) {
-        walk(elem.children, builder);
-      }
-    }
-  });
-  return text;
+  const options = {
+    wordwrap: false,
+  };
+  return convert(html, options);
 }
 
 export default { fetchAllSteamApps, fetchGameInfo };
