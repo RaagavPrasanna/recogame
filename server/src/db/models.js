@@ -92,11 +92,23 @@ const UserProfile = mongoose.model(
   })
 );
 
+const DeprecatedGames = mongoose.model(
+  'deprecated-games',
+  new mongoose.Schema({
+    sourceId: {
+      type: Number,
+      required: [true, 'sourceId is required'],
+      unique: true
+    }
+  })
+)
+
 export default {
   CLEAN_PROJECTION,
   GameDetails,
   ViewGameDetailsShort,
   ViewGameName,
-  UserProfile
+  UserProfile,
+  DeprecatedGames
 };
 

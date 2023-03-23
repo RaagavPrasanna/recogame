@@ -12,7 +12,6 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
   const [allGamesInput, setAllGamesInput] = useState('');
   const [playersGamesInput, setPlayersGamesInput] = useState('');
 
-
   function allGamesHandler(e) {
     setAllGamesInput(e.target.value.toLowerCase());
   }
