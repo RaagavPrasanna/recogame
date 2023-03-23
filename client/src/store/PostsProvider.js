@@ -33,13 +33,16 @@ const initialTagState = {
 
 function tagsReducer(prevState, action) {
   if (action.type === 'ADD') {
-    return {
-      ...prevState,
-      [action.data.tagType]: [
-        ...prevState[action.data.tagType],
-        action.data.tagName,
-      ],
-    };
+    if (!prevState[action.data.tagType].includes(action.data.tagName)) {
+      return {
+        ...prevState,
+        [action.data.tagType]: [
+          ...prevState[action.data.tagType],
+          action.data.tagName,
+        ],
+      };
+    }
+    return prevState;
   }
   if (action.type === 'REMOVE') {
     return {
