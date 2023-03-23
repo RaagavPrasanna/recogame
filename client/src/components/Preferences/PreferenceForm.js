@@ -122,8 +122,9 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
   const addGame = (game) => {
     console.log(allGames);
     console.log(playersSteamGames);
-    const allGamesInd = allGames.indexOf(game);
+    const allGamesInd = allGames.findIndex((g) => g.name === game.name);
     const steamGamesInd = playersSteamGames.findIndex((g) => g.name === game.name);
+    console.log(steamGamesInd);
     const notInAllGames = allGamesInd === -1;
     if(!notInAllGames) {
       console.log('in first if');
@@ -144,6 +145,68 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
       gameCopy.splice(steamGamesInd, 1);
       setPlayersSteamGames(gameCopy);
     }
+  };
+
+  const removeGame = (game) => {
+    const playedGamesInd = playedGames.findIndex((g) => g.name === game.name);
+    const gameCopy = [...playedGames];
+    const gameToAdd = gameCopy.splice(playedGamesInd, 1)[0];
+    setPlayedGames(gameCopy);
+    setAllGames([...allGames, gameToAdd]);
+  };
+
+  const addPlatform = (platform) => {
+    const platformCopy = [...platforms];
+    const allPlatformsCopy = [...allPlatforms];
+    const platformInd = allPlatformsCopy.findIndex((p) => p === platform);
+    allPlatformsCopy.splice(platformInd, 1);
+    platformCopy.push(platform);
+    setAllPlatforms(allPlatformsCopy);
+    setPlatforms(platformCopy);
+  };
+
+  const removePlatform = (platform) => {
+    const platformCopy = [...platforms];
+    const platformInd = platformCopy.findIndex((p) => p === platform);
+    platformCopy.splice(platformInd, 1);
+    setAllPlatforms([...allPlatforms, platform]);
+    setPlatforms(platformCopy);
+  };
+
+  const addGenre = (genre) => {
+    const genreCopy = [...genres];
+    const allGenresCopy = [...allGenres];
+    const genreInd = allGenresCopy.findIndex((g) => g === genre);
+    allGenresCopy.splice(genreInd, 1);
+    genreCopy.push(genre);
+    setAllGenres(allGenresCopy);
+    setGenres(genreCopy);
+  };
+
+  const removeGenre = (genre) => {
+    const genreCopy = [...genres];
+    const genreInd = genreCopy.findIndex((g) => g === genre);
+    genreCopy.splice(genreInd, 1);
+    setAllGenres([...allGenres, genre]);
+    setGenres(genreCopy);
+  };
+
+  const addCategory = (category) => {
+    const categoryCopy = [...categories];
+    const allCategoriesCopy = [...allCategories];
+    const categoryInd = allCategoriesCopy.findIndex((c) => c === category);
+    allCategoriesCopy.splice(categoryInd, 1);
+    categoryCopy.push(category);
+    setAllCategories(allCategoriesCopy);
+    setCategories(categoryCopy);
+  };
+
+  const removeCategory = (category) => {
+    const categoryCopy = [...categories];
+    const categoryInd = categoryCopy.findIndex((c) => c === category);
+    categoryCopy.splice(categoryInd, 1);
+    setAllCategories([...allCategories, category]);
+    setCategories(categoryCopy);
   };
 
   const allGamesSearch = () => {
@@ -187,7 +250,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         <div>
           {platformsFilteredData.map((platform) => (
             <p key={platform} onClick={() => {
-              console.log(`selected ${platform}`);
+              addPlatform(platform);
             }}>
               {platform}
             </p>
@@ -204,7 +267,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         <div>
           {categoriesFilteredData.map((category) => (
             <p key={category} onClick={() => {
-              console.log(`selected ${category}`);
+              addCategory(category);
             }}>
               {category}
             </p>
@@ -221,7 +284,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         <div>
           {genresFilteredData.map((genre) => (
             <p key={genre} onClick={() => {
-              console.log(`selected ${genre}`);
+              addGenre(genre);
             }}>
               {genre}
             </p>
@@ -238,10 +301,57 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
         {playedGames.map((game, ind) => {
           return (
             <p key={ind} onClick={() => {
-              // removeGame(game);
+              removeGame(game);
             }}>{game.name}</p>
           );
         })}
+      </div>
+    );
+  };
+
+  const listPlatforms = () => {
+    return (
+      <div>
+        <h2>Platforms</h2>
+        {platforms.map((platform, ind) => {
+          return (
+            <p key={ind} onClick={() => {
+              removePlatform(platform);
+            }}>{platform}</p>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const listGenres = () => {
+    return (
+      <div>
+        <h2>Genres</h2>
+        {genres.map((genre, ind) => {
+          return (
+            <p key={ind} onClick={() => {
+              removeGenre(genre);
+            }}>{genre}</p>
+          );
+        }
+        )}
+      </div>
+    );
+  };
+
+  const listCategories = () => {
+    return (
+      <div>
+        <h2>Categories</h2>
+        {categories.map((category, ind) => {
+          return (
+            <p key={ind} onClick={() => {
+              removeCategory(category);
+            }}>{category}</p>
+          );
+        }
+        )}
       </div>
     );
   };
@@ -254,6 +364,9 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
       {categoriesSearch()}
       {genresSearch()}
       {listPlayedGames()}
+      {listPlatforms()}
+      {listGenres()}
+      {listCategories()}
       <Button onClick={submitForm}>Submit</Button>
     </div>
   );
