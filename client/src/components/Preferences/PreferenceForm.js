@@ -5,10 +5,12 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
 
   const [allGames, setAllGames] = useState([]);
   const [playersSteamGames, setPlayersSteamGames] = useState([]);
+  const [allPlatforms, setAllPlatforms] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+  const [allGenres, setAllGenres] = useState([]);
 
   const [allGamesInput, setAllGamesInput] = useState('');
   const [playersGamesInput, setPlayersGamesInput] = useState('');
-
 
   function allGamesHandler(e) {
     setAllGamesInput(e.target.value.toLowerCase());
@@ -55,7 +57,7 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
     return (
       <div>
         <input type="search" placeholder="Search Game" onChange={allGamesHandler} />
-        <div >
+        <div>
           {allGamesFilteredData.map((game) => (
             <p key={game.id} onKeyDown={(e) => {
               if(e.key === 'Enter') {

@@ -2,11 +2,11 @@ import PreferenceForm from './PreferenceForm';
 import classes from './Preferences.module.css';
 import { useContext, useState } from 'react';
 import UserContext from '../../store/user-context';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Button from '../UI/Button/Button';
 
 function FirstLogin() {
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
   const [userPrefs, setUserPrefs] = useState(
     {
       playedGames: [],
@@ -32,15 +32,29 @@ function FirstLogin() {
     }
   }
 
-  if(user === null) {
-    navigate('/login');
-    return (<div></div>);
-  }
+
+
+  const content = () => {
+    if(user === null) {
+      console.log('reached here');
+      return (
+        <Button>
+          <Link to="/login">Login</Link>
+        </Button>
+      );
+    } else {
+      return (
+        <>
+          <p>First Login Component</p>
+          <PreferenceForm userPrefs={userPrefs} setUserPrefs={setUserPrefs} submitForm={submitForm}/>
+        </>
+      );
+    }
+  };
 
   return (
     <div className={classes.main_content}>
-      <p>First Login Component</p>
-      <PreferenceForm userPrefs={userPrefs} setUserPrefs={setUserPrefs} submitForm={submitForm}/>
+      {content()}
     </div>
   );
 }

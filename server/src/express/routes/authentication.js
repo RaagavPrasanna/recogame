@@ -5,6 +5,7 @@ import passport from 'passport';
 import passportSteam from 'passport-steam';
 import models from '../../db/models.js';
 import utils from '../utils.js';
+import steam from '../../controller/steamapi/steam_api.js';
 
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -184,10 +185,27 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
     data.response.games.map(async (gameId) => {
       let game = await utils.retrieveData.getGameById(gameId.appid);
       if(game === null) {
-        await utils.pushData.pushGameToDB(game);
-        console.log('new game added to db');
+        try {
+          const deprecated = await models.DeprecatedGames.findOne({ sourceId: gameId.appid });
+          if(deprecated === null) {
+            game = await steam.fetchGameInfo(gameId.appid);
+            await utils.pushData.pushGameToDB(game);
+            console.log('new game added to db');
+            games.push(game);
+          } else {
+            console.log(`Game ${gameId.appid} is deprecated`);
+          }
+        } catch (err) {
+          if(game === null) {
+            console.log(`Game ${gameId.appid} not found, adding to deprectated games`);
+            await models.DeprecatedGames.create({ sourceId: gameId.appid });
+          } else {
+            console.error(err);
+          }
+        }
+      } else {
+        games.push(game);
       }
-      games.push(game);
     }
     ));
 
