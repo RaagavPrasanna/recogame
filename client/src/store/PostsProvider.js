@@ -32,10 +32,13 @@ const initialTagState = {
 };
 
 function tagsReducer(prevState, action) {
-  if (action.type === 'CATEGORY') {
+  if (action.type === 'ADD') {
     return {
       ...prevState,
-      categories: [...prevState.categories, action.data],
+      [action.data.tagType]: [
+        ...prevState[action.data.tagType],
+        action.data.tagName,
+      ],
     };
   }
   return initialTagState;

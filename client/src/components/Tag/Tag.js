@@ -3,14 +3,14 @@ import { BsXSquare } from 'react-icons/bs';
 import { useContext } from 'react';
 import PostContext from '../../store/posts-context';
 
-function Tag({ tagName, closable, type }) {
+function Tag({ tagName, closable, tagType }) {
   const postCtx = useContext(PostContext);
 
   function tagClickHandler() {
     // eslint-disable-next-line curly
     if (closable) return;
     postCtx.setPosts([]);
-    postCtx.dispatchTags({ type, data: tagName });
+    postCtx.dispatchTags({ type: 'ADD', data: { tagName, tagType } });
 
     if (!postCtx.homeMounted) {
       postCtx.setCurrPageHome(0);
