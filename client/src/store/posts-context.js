@@ -11,6 +11,7 @@ const PostContext = React.createContext({
   dispatchTags: () => {},
   setCurrPageHome: () => {},
   setPosts: () => {},
+  loadGames: () => {},
 });
 
 export default PostContext;

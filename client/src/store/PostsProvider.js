@@ -62,14 +62,17 @@ function PostsProvider({ children }) {
   const [isHomeDisplayed, setIsHomeDisplayed] = useState(false);
   const [tags, dispatchTags] = useReducer(tagsReducer, initialTagState);
 
-  useEffect(() => {
-    getGamePage(currPageHome, buildTagParams(tags), (data) => {
-      setPosts((prevPosts) => {
-        return [...prevPosts, ...data];
-      });
+  function loadGames() {
+    getGamePage(0, buildTagParams(tags), (data) => {
+      setPosts(data);
       setCurrPageHome((currPage) => ++currPage);
     });
-  }, []);
+  }
+
+  useEffect(() => {
+    setCurrPageHome(0);
+    loadGames();
+  }, [tags]);
 
   function fetchMoreData() {
     getGamePage(currPageHome, buildTagParams(tags), (data) => {
@@ -112,6 +115,7 @@ function PostsProvider({ children }) {
     dispatchTags,
     setCurrPageHome,
     setPosts,
+    loadGames,
   };
 
   return (
