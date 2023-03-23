@@ -33,21 +33,28 @@ function constructQuery(params) {
  * @param limit {number?}
  */
 async function filterGames(query = {}, page = null, limit = null) {
+  /**
+   * @param values {string[]}
+   */
+  function generateFilter(values) {
+    return { $all: values.map(v => new RegExp(v, 'i')) };
+  }
+
   const filters = {};
   if (query?.developers) {
-    filters.developers = { $all: query.developers };
+    filters.developers = generateFilter(query.developers);
   }
   if (query?.publishers) {
-    filters.publishers = { $all: query.publishers };
+    filters.publishers = generateFilter(query.publishers);
   }
   if (query?.categories) {
-    filters.categories = { $all: query.categories };
+    filters.categories = generateFilter(query.categories);
   }
   if (query?.genres) {
-    filters.genres = { $all: query.genres };
+    filters.genres = generateFilter(query.genres);
   }
   if (query?.platforms) {
-    filters.platforms = { $all: query.platforms };
+    filters.platforms = generateFilter(query.platforms);
   }
 
   const games = await models.GameDetails.find(filters, { _id: 1 })
@@ -397,7 +404,9 @@ router.get('/developers', async (req, res) => {
   try {
     const query = constructQuery(req.query);
     const ids = await filterGames(query);
-    const developers = await models.GameDetails.find({ _id: { $in: ids } }).distinct('developers');
+    const developers = await models.GameDetails
+      .find({ _id: { $in: ids } })
+      .distinct('developers', { developers: { $nin: ['', null] } });
     res.json(
       query.developers ?
         developers.filter(e => !query.developers.includes(e))
@@ -466,7 +475,9 @@ router.get('/publishers', async (req, res) => {
   try {
     const query = constructQuery(req.query);
     const ids = await filterGames(query);
-    const publishers = await models.GameDetails.find({ _id: { $in: ids } }).distinct('publishers');
+    const publishers = await models.GameDetails
+      .find({ _id: { $in: ids } })
+      .distinct('publishers', { publishers: { $nin: ['', null] } });
     res.json(
       query.publishers ?
         publishers.filter(e => !query.publishers.includes(e))
@@ -535,7 +546,9 @@ router.get('/categories', async (req, res) => {
   try {
     const query = constructQuery(req.query);
     const ids = await filterGames(query);
-    const categories = await models.GameDetails.find({ _id: { $in: ids } }).distinct('categories');
+    const categories = await models.GameDetails
+      .find({ _id: { $in: ids } })
+      .distinct('categories', { categories: { $nin: ['', null] } });
     res.json(
       query.categories ?
         categories.filter(e => !query.categories.includes(e))
@@ -604,7 +617,9 @@ router.get('/genres', async (req, res) => {
   try {
     const query = constructQuery(req.query);
     const ids = await filterGames(query);
-    const genres = await models.GameDetails.find({ _id: { $in: ids } }).distinct('genres');
+    const genres = await models.GameDetails
+      .find({ _id: { $in: ids } })
+      .distinct('genres', { genres: { $nin: ['', null] } });
     res.json(
       query.genres ?
         genres.filter(e => !query.genres.includes(e))
@@ -673,7 +688,9 @@ router.get('/platforms', async (req, res) => {
   try {
     const query = constructQuery(req.query);
     const ids = await filterGames(query);
-    const platforms = await models.GameDetails.find({ _id: { $in: ids } }).distinct('platforms');
+    const platforms = await models.GameDetails
+      .find({ _id: { $in: ids } })
+      .distinct('platforms', { platforms: { $nin: ['', null] } });
     res.json(
       query.platforms ?
         platforms.filter(e => !query.platforms.includes(e))
