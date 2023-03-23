@@ -9,7 +9,10 @@ function CommunityList() {
   const commCtx = useContext(CommunityContext);
 
   useEffect(() => {
+    commCtx.commMounted(true);
     commCtx.homeScrollPosition();
+
+    return commCtx.commMounted.bind(null, false);
   }, []);
 
   const availablePosts = commCtx.communityPosts.map((post) => {

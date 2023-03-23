@@ -1,0 +1,64 @@
+.thumbs {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+  width: 6.5em;
+  color: white;
+  background-color: #2d3a4485;
+  box-shadow: 2px 2px 3px #0000006f;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+@keyframes inflate {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes deflate {
+  0% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.thumbs-up,
+.thumbs-down {
+  font-size: 1.5rem;
+  position: static;
+  animation: deflate 0.25s;
+}
+
+.thumbs-up:hover,
+.thumbs-down:hover,
+.thumbs-up.clicked:hover,
+.thumbs-down.clicked:hover {
+  animation: inflate 0.25s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes click-deflate {
+  0% {
+    transform: scale(2.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.thumbs-up.clicked {
+  color: #4CBB17;
+}
+
+.thumbs-down.clicked {
+  color: #EE4B2B;
+}

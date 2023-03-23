@@ -14,21 +14,20 @@ router.post(
   utils.authentication.csrfProtect.csrfSynchronisedProtection,
   async (req, res) => {
     const userId = (await models.UserProfile.findOne())._id;
-    const gameId = (await models.GameDetails.findOne())._id;
 
     // ID
-    const id = req.body.game;
+    const gameId = req.body.game;
     try {
-      if (!id) {
+      if (!gameId) {
         res.status(400).send('Specify game id');
         return;
-      } else if (!await models.GameDetails.findOne({ _id: id })) {
-        res.status(404).send(`Game not found: ${id}`);
+      } else if (!await models.GameDetails.findOne({ _id: gameId })) {
+        res.status(404).send(`Game not found: ${gameId}`);
         return;
       }
     } catch (err) {
       if (err.name === 'CastError') {
-        res.status(400).send(`Invalid game id: ${id}`);
+        res.status(400).send(`Invalid game id: ${gameId}`);
         return;
       } else {
         console.error(err);
