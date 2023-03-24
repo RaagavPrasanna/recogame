@@ -33,8 +33,20 @@ function FirstLogin() {
       alert('Please select at least one category');
       return;
     } else {
-      console.log(userPrefs);
-      console.log(user);
+
+      const resp = await fetch('/authentication/csrf-token');
+      const { token } = await resp.json();
+
+      const response = await fetch('/authentication/update-user-preferences', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': token,
+        },
+        body: JSON.stringify(userPrefs)
+      });
+
+
       // eslint-disable-next-line no-alert
       alert('posting prefs');
     }

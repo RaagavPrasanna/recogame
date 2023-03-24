@@ -101,7 +101,7 @@ const DeprecatedGames = mongoose.model(
       unique: true
     }
   })
-)
+);
 
 export default {
   CLEAN_PROJECTION,

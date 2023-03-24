@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import UserContext from '../../store/user-context';
 import Button from '../UI/Button/Button';
 
 function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
+  const { user } = useContext(UserContext);
   const [allGames, setAllGames] = useState([]);
   const [playersSteamGames, setPlayersSteamGames] = useState([]);
   const [allPlatforms, setAllPlatforms] = useState([]);
@@ -72,8 +74,10 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
       setAllGenres([...data]);
     }
 
+    if(user.provider === 'steam') {
+      getUsersGames();
+    }
     getGames();
-    getUsersGames();
     getPlatforms();
     getCategories();
     getGenres();
@@ -252,6 +256,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   const allGamesSearch = () => {
     return (
       <div>
+        <h2>Select Games</h2>
         <input type="search" placeholder="Search Game" onChange={allGamesHandler} />
         <div>
           {allGamesFilteredData.map((game) => (
@@ -269,6 +274,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   const playersGamesSearch = () => {
     return (
       <div>
+        <h2>Auto Imported Games</h2>
         <input type="search" placeholder="Search Game" onChange={playersGamesHandler} />
         <div >
           {playersGamesFilteredData.map((game) => (
@@ -286,6 +292,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   const platformsSearch = () => {
     return (
       <div>
+        <h2>Select Platforms</h2>
         <input type="search" placeholder="Search Platform" onChange={platformsHandler} />
         <div>
           {platformsFilteredData.map((platform) => (
@@ -303,6 +310,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   const categoriesSearch = () => {
     return (
       <div>
+        <h2>Select Categories</h2>
         <input type="search" placeholder="Search Category" onChange={categoriesHandler} />
         <div>
           {categoriesFilteredData.map((category) => (
@@ -320,6 +328,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   const genresSearch = () => {
     return (
       <div>
+        <h2>Select Genres</h2>
         <input type="search" placeholder="Search Genre" onChange={genresHandler} />
         <div>
           {genresFilteredData.map((genre) => (

@@ -43,13 +43,16 @@ function LoginForm({ onCancel }) {
     });
     const data = await res.json();
     console.log(data);
-    const tres = await fetch('/authentication/csrf-token');
-    const tdata = await tres.json();
-    console.log(tdata);
 
     setUser({ ...data });
 
-    navigate('/');
+    if(data.firstLogin) {
+      console.log('reached here');
+      navigate('/firstLogin');
+    } else {
+      console.log('navigate /');
+      navigate('/');
+    }
   };
 
   const handleError = err => {
