@@ -2,11 +2,12 @@ import PreferenceForm from './PreferenceForm';
 import classes from './Preferences.module.css';
 import { useContext, useState } from 'react';
 import UserContext from '../../store/user-context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../UI/Button/Button';
 
 function FirstLogin() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [userPrefs, setUserPrefs] = useState(
     {
       playedGames: [],
@@ -46,9 +47,10 @@ function FirstLogin() {
         body: JSON.stringify(userPrefs)
       });
 
-
+      if(response.status === 200) {
+        navigate('/');
+      }
       // eslint-disable-next-line no-alert
-      alert('posting prefs');
     }
   }
 

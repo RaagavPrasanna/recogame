@@ -199,6 +199,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
           if(deprecated === null) {
             game = await steam.fetchGameInfo(gameId.appid);
             await utils.pushData.pushGameToDB(game);
+            game = await utils.retrieveData.getGameById(gameId.appid);
             console.log('new game added to db');
             games.push(game);
           } else {
@@ -224,7 +225,61 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
 router.post('/update-user-preferences',
   utils.authentication.isAuthenticated,
   utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
+    console.log(typeof req.body);
     console.log(req.body);
+
+    for (const key in req.body) {
+      if(!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
+        console.log('not valid key');
+        res.status(400).send('Invalid request');
+        return;
+      } else if(!(Array.isArray(req.body[key]))) {
+        console.log('not array');
+        res.status(400).send('Invalid request');
+        return;
+      }
+    }
+
+    const playedGames = req.body.playedGames.map((game) => game.id);
+
+    if(req.session.user.provider === 'steam') {
+      console.log('starting update steam');
+      await models.UserProfile.updateOne({ userId: req.session.user.id },
+        {
+          $set: {
+            preferences: {
+              playedGames: playedGames,
+              platforms: req.body.platforms,
+              genres: req.body.genres,
+              categories: req.body.categories,
+              wishlist: [],
+              receiveMsgs: true,
+              enableFriendRecs: true,
+              enableGameRecs: true
+            }
+          }
+        });
+      console.log('done update ssteam');
+    } else {
+      console.log('starting update google');
+      await models.UserProfile.updateOne({ userId: req.session.user.email },
+        {
+          $set: {
+            preferences: {
+              playedGames: playedGames,
+              platforms: req.body.platforms,
+              genres: req.body.genres,
+              categories: req.body.categories,
+              wishlist: [],
+              receiveMsgs: true,
+              enableFriendRecs: true,
+              enableGameRecs: true
+            }
+          }
+        });
+      console.log('done update google');
+    }
+
     res.sendStatus(200);
   });
 
