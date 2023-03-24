@@ -1,10 +1,12 @@
 import Button from '../../UI/Button/Button';
 import styles from './UserProfile.module.css';
 import UserSettings from '../UserSettings/UserSettings';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import UserContext from '../../../store/user-context';
 
 function UserProfile() {
+  const userCtx = useContext(UserContext);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [accountType, setAccountType] = useState('');
@@ -12,8 +14,8 @@ function UserProfile() {
 
   useEffect(() => {
     // TODO: Fetch account details from the server
-    setUsername('USERNAME123');
-    setAccountType('Steam Account');
+    setUsername(userCtx.user.profileName);
+    setAccountType(userCtx.accountType);
   }, []);
 
   function showSettings() {
