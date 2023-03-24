@@ -13,9 +13,8 @@ function UserProfile() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    // TODO: Fetch account details from the server
-    setUsername(userCtx.user.profileName);
-    setAccountType(userCtx.accountType);
+    setUsername(userCtx.user.displayName);
+    setAccountType(userCtx.user.provider);
   }, []);
 
   function showSettings() {
@@ -28,7 +27,7 @@ function UserProfile() {
 
   return (
     <div className={styles['user-profile']}>
-      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
+      <img src={userCtx.user.photo[0][0]} />
       <Button onClick={showSettings} className={styles.settings}>
         {t('User Settings')}
       </Button>
