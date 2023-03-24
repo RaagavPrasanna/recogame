@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import Button from '../UI/Button/Button';
 
-function PreferenceForm({ setUserPrefs, submitForm }) {
+function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
   const [allGames, setAllGames] = useState([]);
   const [playersSteamGames, setPlayersSteamGames] = useState([]);
   const [allPlatforms, setAllPlatforms] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
   const [allGenres, setAllGenres] = useState([]);
+
 
   const [allGamesInput, setAllGamesInput] = useState('');
   const [playersGamesInput, setPlayersGamesInput] = useState('');
@@ -131,14 +132,24 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
       const gameCopy = [...allGames];
       const gameToAdd = gameCopy.splice(allGamesInd, 1)[0];
       setAllGames(gameCopy);
-      setPlayedGames([...playedGames, gameToAdd]);
+      const tempPlayedGames = [...playedGames];
+      tempPlayedGames.push(gameToAdd);
+      setPlayedGames([...tempPlayedGames]);
+      const userCopy = { ...userPrefs };
+      userCopy.playedGames = [...tempPlayedGames];
+      setUserPrefs(userCopy);
     }
     if(steamGamesInd !== -1 && notInAllGames) {
       console.log('in second if');
       const gameCopy = [...playersSteamGames];
       const gameToAdd = gameCopy.splice(steamGamesInd, 1)[0];
       setPlayersSteamGames(gameCopy);
-      setPlayedGames([...playedGames, gameToAdd]);
+      const tempPlayedGames = [...playedGames];
+      tempPlayedGames.push(gameToAdd);
+      setPlayedGames([...tempPlayedGames]);
+      const userCopy = { ...userPrefs };
+      userCopy.playedGames = [...tempPlayedGames];
+      setUserPrefs(userCopy);
     } else if(steamGamesInd !== -1) {
       console.log('in third if');
       const gameCopy = [...playersSteamGames];
@@ -152,7 +163,12 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
     const gameCopy = [...playedGames];
     const gameToAdd = gameCopy.splice(playedGamesInd, 1)[0];
     setPlayedGames(gameCopy);
-    setAllGames([...allGames, gameToAdd]);
+    const userCopy = { ...userPrefs };
+    userCopy.playedGames = [...gameCopy];
+    setUserPrefs(userCopy);
+    const tempAllGames = [...allGames];
+    tempAllGames.push(gameToAdd);
+    setAllGames([...tempAllGames]);
   };
 
   const addPlatform = (platform) => {
@@ -163,14 +179,22 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
     platformCopy.push(platform);
     setAllPlatforms(allPlatformsCopy);
     setPlatforms(platformCopy);
+    const userCopy = { ...userPrefs };
+    userCopy.platforms = [...platformCopy];
+    setUserPrefs(userCopy);
   };
 
   const removePlatform = (platform) => {
     const platformCopy = [...platforms];
     const platformInd = platformCopy.findIndex((p) => p === platform);
     platformCopy.splice(platformInd, 1);
-    setAllPlatforms([...allPlatforms, platform]);
+    const tempAllPlatforms = [...allPlatforms];
+    tempAllPlatforms.push(platform);
+    setAllPlatforms([...tempAllPlatforms]);
     setPlatforms(platformCopy);
+    const userCopy = { ...userPrefs };
+    userCopy.platforms = [...platformCopy];
+    setUserPrefs(userCopy);
   };
 
   const addGenre = (genre) => {
@@ -181,14 +205,22 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
     genreCopy.push(genre);
     setAllGenres(allGenresCopy);
     setGenres(genreCopy);
+    const userCopy = { ...userPrefs };
+    userCopy.genres = [...genreCopy];
+    setUserPrefs(userCopy);
   };
 
   const removeGenre = (genre) => {
     const genreCopy = [...genres];
     const genreInd = genreCopy.findIndex((g) => g === genre);
     genreCopy.splice(genreInd, 1);
-    setAllGenres([...allGenres, genre]);
+    const tempAllGenres = [...allGenres];
+    tempAllGenres.push(genre);
+    setAllGenres([...tempAllGenres]);
     setGenres(genreCopy);
+    const userCopy = { ...userPrefs };
+    userCopy.genres = [...genreCopy];
+    setUserPrefs(userCopy);
   };
 
   const addCategory = (category) => {
@@ -199,14 +231,22 @@ function PreferenceForm({ setUserPrefs, submitForm }) {
     categoryCopy.push(category);
     setAllCategories(allCategoriesCopy);
     setCategories(categoryCopy);
+    const userCopy = { ...userPrefs };
+    userCopy.categories = [...categoryCopy];
+    setUserPrefs(userCopy);
   };
 
   const removeCategory = (category) => {
     const categoryCopy = [...categories];
     const categoryInd = categoryCopy.findIndex((c) => c === category);
     categoryCopy.splice(categoryInd, 1);
-    setAllCategories([...allCategories, category]);
+    const tempAllCategories = [...allCategories];
+    tempAllCategories.push(category);
+    setAllCategories([...tempAllCategories]);
     setCategories(categoryCopy);
+    const userCopy = { ...userPrefs };
+    userCopy.categories = [...categoryCopy];
+    setUserPrefs(userCopy);
   };
 
   const allGamesSearch = () => {
