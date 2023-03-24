@@ -27,13 +27,13 @@ function UserProfile() {
 
   return (
     <div className={styles['user-profile']}>
-      <img src={userCtx.user.photo[0][0]} />
+      <img src={userCtx.user.photos[2].value} />
       <Button onClick={showSettings} className={styles.settings}>
         {t('User Settings')}
       </Button>
       <div className={styles['user-info']}>
         <h2>{username}</h2>
-        <h3>{t('Account Type: ' )}{accountType}</h3>
+        <h3>{t('Account Type: ')} {accountType}</h3>
       </div>
       {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
       <div className={styles['game-recommendations']}>
