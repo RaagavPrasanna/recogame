@@ -65,19 +65,20 @@ function LoginForm({ onCancel }) {
   };
 
   return (
-    <Modal onClick={onCancel}>
+    <Modal>
       <form className={classes.loginForm}>
         <h2>{t('Log In')}</h2>
         <br />
-        <br />
-        <GoogleLogin onSuccess={handleLogin} onError={handleError}/>
-        <br />
-        <br />
-        {/* eslint-disable-next-line max-len */}
-        <img src='https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png' onClick={handleSteam}/>
-        <div>
-          <Button onClick={onCancel}>{t('Cancel')}</Button>
-          <Button onSubmit={handleSubmit}>{t('Sign In')}</Button>
+        <div className={classes.loginBtn}>
+          <span>
+            <GoogleLogin onSuccess={handleLogin} onError={handleError} />
+          </span>
+          <span>
+            <img
+              src="https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png"
+              onClick={handleSteam}
+            />
+          </span>
         </div>
       </form>
     </Modal>
