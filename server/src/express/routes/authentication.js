@@ -10,7 +10,6 @@ import steam from '../../controller/steamapi/steam_api.js';
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const router = express.Router();
-const users = new Array();
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -74,18 +73,25 @@ router.post('/google-auth', async (req, res) => {
       userId: user.email, profileName: user.name,
       profilePicture: user.picture, accountType: user.provider
     });
+  }else if(Object.keys(existingUser.preferences).every((key) => {
+    if(Array.isArray(existingUser.preferences[key])) {
+      return existingUser.preferences[key].length === 0;
+    } else {
+      return true;
+    }
+  })){
+    user.firstLogin = true;
+    console.log('empty preferences');
+    console.log(existingUser.preferences);
   }
 
-  if(!users.some(u => u.email === user.email)) {
-    users.push(user);
-  }
 
   req.session.regenerate((err) => {
     if(err) {
       return res.sendStatus(500);
     }
     req.session.user = user;
-    res.json({ user: user });
+    res.json(user);
   });
 });
 
@@ -130,7 +136,11 @@ router.get('/steam-auth/return',
       req.session.user = req.user;
       console.log('set session user');
       console.log(req.session.user);
-      res.redirect(process.env.REDIRECT_URL);
+      if(req.session.user.firstLogin) {
+        res.redirect(process.env.REDIRECT_URL + 'firstLogin');
+      } else {
+        res.redirect(process.env.REDIRECT_URL);
+      }
     });
   });
 
@@ -154,7 +164,6 @@ router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
 router.get(
   '/csrf-token',
   utils.authentication.isAuthenticated,
-  utils.authentication.csrfProtect.csrfSynchronisedProtection,
   (req, res) => {
     res.json({ token: utils.authentication.csrfProtect.generateToken(req) });
   }
@@ -190,6 +199,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
           if(deprecated === null) {
             game = await steam.fetchGameInfo(gameId.appid);
             await utils.pushData.pushGameToDB(game);
+            game = await utils.retrieveData.getGameById(gameId.appid);
             console.log('new game added to db');
             games.push(game);
           } else {
@@ -211,6 +221,67 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
 
   res.status(200).json(games);
 });
+
+router.post('/update-user-preferences',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
+    console.log(typeof req.body);
+    console.log(req.body);
+
+    for (const key in req.body) {
+      if(!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
+        console.log('not valid key');
+        res.status(400).send('Invalid request');
+        return;
+      } else if(!(Array.isArray(req.body[key]))) {
+        console.log('not array');
+        res.status(400).send('Invalid request');
+        return;
+      }
+    }
+
+    const playedGames = req.body.playedGames.map((game) => game.id);
+
+    if(req.session.user.provider === 'steam') {
+      console.log('starting update steam');
+      await models.UserProfile.updateOne({ userId: req.session.user.id },
+        {
+          $set: {
+            preferences: {
+              playedGames: playedGames,
+              platforms: req.body.platforms,
+              genres: req.body.genres,
+              categories: req.body.categories,
+              wishlist: [],
+              receiveMsgs: true,
+              enableFriendRecs: true,
+              enableGameRecs: true
+            }
+          }
+        });
+      console.log('done update ssteam');
+    } else {
+      console.log('starting update google');
+      await models.UserProfile.updateOne({ userId: req.session.user.email },
+        {
+          $set: {
+            preferences: {
+              playedGames: playedGames,
+              platforms: req.body.platforms,
+              genres: req.body.genres,
+              categories: req.body.categories,
+              wishlist: [],
+              receiveMsgs: true,
+              enableFriendRecs: true,
+              enableGameRecs: true
+            }
+          }
+        });
+      console.log('done update google');
+    }
+
+    res.sendStatus(200);
+  });
 
 export default router;
 

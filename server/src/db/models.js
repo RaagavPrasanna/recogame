@@ -79,7 +79,7 @@ const UserProfile = mongoose.model(
     profileName: String,
     profilePicture: String,
     preferences: {
-      playedGames: [Number],
+      playedGames: [String],
       platforms: [String],
       genres: [String],
       categories: [String],
@@ -101,7 +101,7 @@ const DeprecatedGames = mongoose.model(
       unique: true
     }
   })
-)
+);
 
 export default {
   CLEAN_PROJECTION,

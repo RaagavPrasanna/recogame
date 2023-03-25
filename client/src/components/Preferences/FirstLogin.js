@@ -2,33 +2,55 @@ import PreferenceForm from './PreferenceForm';
 import classes from './Preferences.module.css';
 import { useContext, useState } from 'react';
 import UserContext from '../../store/user-context';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../UI/Button/Button';
 
 function FirstLogin() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [userPrefs, setUserPrefs] = useState(
     {
       playedGames: [],
       platforms: [],
-      keywords: [],
+      genres: [],
+      categories: [],
     }
   );
 
   async function submitForm() {
-    if(userPrefs.platforms.length === 0) {
+    if(userPrefs.playedGames.length === 0) {
+      // eslint-disable-next-line no-alert
+      alert('Please select at least one game');
+    } else if(userPrefs.platforms.length === 0) {
       // eslint-disable-next-line no-alert
       alert('Please select at least one platform');
       return;
-    } else if(userPrefs.keywords.length === 0) {
+    } else if(userPrefs.genres.length === 0) {
       // eslint-disable-next-line no-alert
-      alert('Please select at least one keyword');
+      alert('Please select at least one genre');
+      return;
+    } else if(userPrefs.categories.length === 0) {
+      // eslint-disable-next-line no-alert
+      alert('Please select at least one category');
       return;
     } else {
-      console.log(userPrefs);
-      console.log(user);
+
+      const resp = await fetch('/authentication/csrf-token');
+      const { token } = await resp.json();
+
+      const response = await fetch('/authentication/update-user-preferences', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': token,
+        },
+        body: JSON.stringify(userPrefs)
+      });
+
+      if(response.status === 200) {
+        navigate('/');
+      }
       // eslint-disable-next-line no-alert
-      alert('posting prefs');
     }
   }
 
