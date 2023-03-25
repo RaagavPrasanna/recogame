@@ -10,11 +10,21 @@ function UserProfile() {
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [username, setUsername] = useState('');
   const [accountType, setAccountType] = useState('');
+  const [img, setImg] = useState('');
   const { t } = useTranslation();
 
   useEffect(() => {
-    setUsername(userCtx.user.displayName);
-    setAccountType(userCtx.user.provider);
+    if (userCtx.user.provider === 'steam') {
+      setUsername(userCtx.user.displayName);
+      setAccountType(userCtx.user.provider);
+      setImg(userCtx.user.photos[2].value);
+    } else {
+      setUsername(userCtx.user.name);
+      setAccountType(userCtx.user.provider);
+      setImg(userCtx.user.picture);
+    }
+
+
   }, []);
 
   function showSettings() {
@@ -27,7 +37,7 @@ function UserProfile() {
 
   return (
     <div className={styles['user-profile']}>
-      <img src={userCtx.user.photos[2].value} />
+      <img src={img} />
       <Button onClick={showSettings} className={styles.settings}>
         {t('User Settings')}
       </Button>
