@@ -66,10 +66,13 @@ function FirstLogin() {
       );
     } else {
       return (
-        <>
-          <p>First Login Component</p>
-          <PreferenceForm userPrefs={userPrefs} setUserPrefs={setUserPrefs} submitForm={submitForm}/>
-        </>
+        <div>
+          <PreferenceForm
+            userPrefs={userPrefs}
+            setUserPrefs={setUserPrefs}
+            submitForm={submitForm}
+          />
+        </div>
       );
     }
   };

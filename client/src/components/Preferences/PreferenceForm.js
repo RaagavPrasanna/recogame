@@ -255,47 +255,43 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
   const allGamesSearch = () => {
     return (
-      <div>
+      <article>
         <h2>Select Games</h2>
         <input type="search" placeholder="Search Game" onChange={allGamesHandler} />
-        <div>
-          {allGamesFilteredData.map((game) => (
-            <p key={game.id} onClick={() => {
-              addGame(game);
-            }}>
-              {game.name}
-            </p>
-          ))}
-        </div>
-      </div>
+        {allGamesFilteredData.splice(0, 20).map((game) => (
+          <p key={game.id} onClick={() => {
+            addGame(game);
+          }}>
+            {game.name}
+          </p>
+        ))}
+      </article>
     );
   };
 
   const playersGamesSearch = () => {
     return (
-      <div>
+      <article>
         <h2>Auto Imported Games</h2>
         <input type="search" placeholder="Search Game" onChange={playersGamesHandler} />
-        <div >
-          {playersGamesFilteredData.map((game) => (
-            <p key={game.id} onClick={() => {
-              addGame(game);
-            }}>
-              {game.name}
-            </p>
-          ))}
-        </div>
-      </div>
+        {playersGamesFilteredData.map((game) => (
+          <p key={game.id} onClick={() => {
+            addGame(game);
+          }}>
+            {game.name}
+          </p>
+        ))}
+      </article>
     );
   };
 
   const platformsSearch = () => {
     return (
-      <div>
+      <article>
         <h2>Select Platforms</h2>
         <input type="search" placeholder="Search Platform" onChange={platformsHandler} />
         <div>
-          {platformsFilteredData.map((platform) => (
+          {platformsFilteredData.splice(0, 20).map((platform) => (
             <p key={platform} onClick={() => {
               addPlatform(platform);
             }}>
@@ -303,17 +299,17 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
             </p>
           ))}
         </div>
-      </div>
+      </article>
     );
   };
 
   const categoriesSearch = () => {
     return (
-      <div>
+      <article>
         <h2>Select Categories</h2>
         <input type="search" placeholder="Search Category" onChange={categoriesHandler} />
         <div>
-          {categoriesFilteredData.map((category) => (
+          {categoriesFilteredData.splice(0, 20).map((category) => (
             <p key={category} onClick={() => {
               addCategory(category);
             }}>
@@ -321,13 +317,13 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
             </p>
           ))}
         </div>
-      </div>
+      </article>
     );
   };
 
   const genresSearch = () => {
     return (
-      <div>
+      <article>
         <h2>Select Genres</h2>
         <input type="search" placeholder="Search Genre" onChange={genresHandler} />
         <div>
@@ -339,13 +335,13 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
             </p>
           ))}
         </div>
-      </div>
+      </article>
     );
   };
 
   const listPlayedGames = () => {
     return (
-      <div>
+      <article>
         <h2>Played Games</h2>
         {playedGames.map((game, ind) => {
           return (
@@ -354,13 +350,13 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
             }}>{game.name}</p>
           );
         })}
-      </div>
+      </article>
     );
   };
 
   const listPlatforms = () => {
     return (
-      <div>
+      <article>
         <h2>Platforms</h2>
         {platforms.map((platform, ind) => {
           return (
@@ -369,13 +365,13 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
             }}>{platform}</p>
           );
         })}
-      </div>
+      </article>
     );
   };
 
   const listGenres = () => {
     return (
-      <div>
+      <article>
         <h2>Genres</h2>
         {genres.map((genre, ind) => {
           return (
@@ -385,13 +381,13 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
           );
         }
         )}
-      </div>
+      </article>
     );
   };
 
   const listCategories = () => {
     return (
-      <div>
+      <article>
         <h2>Categories</h2>
         {categories.map((category, ind) => {
           return (
@@ -401,7 +397,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
           );
         }
         )}
-      </div>
+      </article>
     );
   };
 
@@ -416,7 +412,9 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
       {listPlatforms()}
       {listGenres()}
       {listCategories()}
-      <Button onClick={submitForm}>Submit</Button>
+      <div>
+        <Button onClick={submitForm}>Submit</Button>
+      </div>
     </div>
   );
 }

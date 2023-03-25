@@ -9,8 +9,6 @@ import { useTranslation } from 'react-i18next';
 
 
 function LoginForm({ onCancel }) {
-  const [setUsername] = useState();
-  const [setPassword] = useState();
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
@@ -70,28 +68,6 @@ function LoginForm({ onCancel }) {
     <Modal onClick={onCancel}>
       <form className={classes.loginForm}>
         <h2>{t('Log In')}</h2>
-        <label>
-          {t('Username')}
-          <br />
-          <input
-            id='username'
-            type='text'
-            onChange={(u) => setUsername(u.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <br />
-        <label>
-          {t('Password')}
-          <br />
-          <input
-            id='password'
-            type='password'
-            onChange={(p) => setPassword(p.target.value)}
-            required
-          />
-        </label>
         <br />
         <br />
         <GoogleLogin onSuccess={handleLogin} onError={handleError}/>

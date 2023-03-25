@@ -1,11 +1,28 @@
 .main_content {
-    margin-top: 6rem;
+    margin-top: 4rem;
 }
 
-.search{
-    z-index: 2;
+article{
+    background-color: #6E7F80;
+    color: #2d3a44;
+    margin: auto;
+    padding: 5px;
+    width:80%;
+    text-align: center;
+    margin-bottom: 20px;;
+}
+
+input{
+    background-color: #536878;
+    color: #2d3a44;
+    border: none;
+    padding: 8px;
+    text-align: center;
+    border-radius: 40em;
+    width: 50%;
 }
 
 input::placeholder{
     color: #2D3A44;
 }
+
