@@ -57,7 +57,6 @@ function FirstLogin() {
 
   const content = () => {
     if(user === null) {
-      console.log('reached here');
       return (
         <Button>
           <Link to="/login">Login</Link>

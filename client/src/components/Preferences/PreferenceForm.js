@@ -125,14 +125,10 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   });
 
   const addGame = (game) => {
-    console.log(allGames);
-    console.log(playersSteamGames);
     const allGamesInd = allGames.findIndex((g) => g.name === game.name);
     const steamGamesInd = playersSteamGames.findIndex((g) => g.name === game.name);
-    console.log(steamGamesInd);
     const notInAllGames = allGamesInd === -1;
     if(!notInAllGames) {
-      console.log('in first if');
       const gameCopy = [...allGames];
       const gameToAdd = gameCopy.splice(allGamesInd, 1)[0];
       setAllGames(gameCopy);
@@ -144,7 +140,6 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
       setUserPrefs(userCopy);
     }
     if(steamGamesInd !== -1 && notInAllGames) {
-      console.log('in second if');
       const gameCopy = [...playersSteamGames];
       const gameToAdd = gameCopy.splice(steamGamesInd, 1)[0];
       setPlayersSteamGames(gameCopy);
@@ -155,7 +150,6 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
       userCopy.playedGames = [...tempPlayedGames];
       setUserPrefs(userCopy);
     } else if(steamGamesInd !== -1) {
-      console.log('in third if');
       const gameCopy = [...playersSteamGames];
       gameCopy.splice(steamGamesInd, 1);
       setPlayersSteamGames(gameCopy);
