@@ -1,6 +1,6 @@
 import express from 'express';
-import models from '../../../db/models.js';
 import utils from '../../utils.js';
+import models from '../../../db/models.js';
 
 const router = express.Router();
 
@@ -185,7 +185,6 @@ router.get('/feed', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
 
 /**
  * @swagger

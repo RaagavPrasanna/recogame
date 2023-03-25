@@ -79,9 +79,10 @@ const UserProfile = mongoose.model(
     profileName: String,
     profilePicture: String,
     preferences: {
-      playedGames: [Number],
+      playedGames: [String],
       platforms: [String],
-      keywords: [String],
+      genres: [String],
+      categories: [String],
       wishlist: [Number],
       receiveMsgs: { type: Boolean, default: true },
       enableFriendRecs: { type: Boolean, default: true },
@@ -91,11 +92,23 @@ const UserProfile = mongoose.model(
   })
 );
 
+const DeprecatedGames = mongoose.model(
+  'deprecated-games',
+  new mongoose.Schema({
+    sourceId: {
+      type: Number,
+      required: [true, 'sourceId is required'],
+      unique: true
+    }
+  })
+);
+
 export default {
   CLEAN_PROJECTION,
   GameDetails,
   ViewGameDetailsShort,
   ViewGameName,
-  UserProfile
+  UserProfile,
+  DeprecatedGames
 };
 

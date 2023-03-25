@@ -1,6 +1,6 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
 import CommunityContext from '../../store/community-context';
@@ -14,6 +14,7 @@ import MobileNav from './MobileNav';
 function Header() {
   const [navBg, setNavBg] = useState(false);
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
@@ -48,7 +49,11 @@ function Header() {
   const retUserAuthButton = () => {
     if (user !== null) {
       return (
-        <Button onClick={logout}>
+        <Button onClick={async () => {
+          if(await logout()) {
+            navigate('/');
+          }
+        }}>
           {' '}
           Log Out here:{' '}
           {user.provider === 'google' ? user.name : user.displayName}{' '}
