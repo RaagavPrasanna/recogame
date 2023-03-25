@@ -101,7 +101,7 @@ async function main() {
         if (argv.id) {
           console.log(JSON.stringify(await igdb.fetchGameInfoId(argv.id)));
         } else {
-          console.log(JSON.stringify(await igdb.fetchGameInfoWord(argv.name)));
+          console.log(JSON.stringify(await igdb.fetchGameInfoName(argv.name)));
         }
       }
     }

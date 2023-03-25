@@ -5,11 +5,11 @@ import passport from 'passport';
 import passportSteam from 'passport-steam';
 import models from '../../db/models.js';
 import utils from '../utils.js';
+import steam from '../../controller/steamapi/steam_api.js';
 
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const router = express.Router();
-const users = new Array();
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -39,7 +39,7 @@ router.use(session({
   saveUninitialized: false,
   resave: false,
   cookie : {
-    maxAge: 120000,
+    maxAge: 1200000,
     secure: false,
     httpOnly: true,
     sameSite: 'strict'
@@ -73,18 +73,23 @@ router.post('/google-auth', async (req, res) => {
       userId: user.email, profileName: user.name,
       profilePicture: user.picture, accountType: user.provider
     });
+  }else if(Object.keys(existingUser.preferences).every((key) => {
+    if(Array.isArray(existingUser.preferences[key])) {
+      return existingUser.preferences[key].length === 0;
+    } else {
+      return true;
+    }
+  })){
+    user.firstLogin = true;
   }
 
-  if(!users.some(u => u.email === user.email)) {
-    users.push(user);
-  }
 
   req.session.regenerate((err) => {
     if(err) {
       return res.sendStatus(500);
     }
     req.session.user = user;
-    res.json({ user: user });
+    res.json(user);
   });
 });
 
@@ -96,7 +101,6 @@ router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: proc
 // Change redirect urls when deployed
 router.get('/steam-auth/return',
   passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), async (req, res) => {
-    console.log('in return');
     req.session.regenerate(async (err) => {
       if(err) {
         return res.sendStatus(500);
@@ -106,8 +110,6 @@ router.get('/steam-auth/return',
 
 
       const existingUser = await models.UserProfile.findOne({ userId: req.user._json.steamid });
-
-      console.log(existingUser);
 
       if(existingUser === null) {
         req.user.firstLogin = true;
@@ -123,13 +125,15 @@ router.get('/steam-auth/return',
         }
       })){
         req.user.firstLogin = true;
-        console.log('empty preferences');
-        console.log(existingUser.preferences);
       }
       req.session.user = req.user;
       console.log('set session user');
       console.log(req.session.user);
-      res.redirect(process.env.REDIRECT_URL);
+      if(req.session.user.firstLogin) {
+        res.redirect(process.env.REDIRECT_URL + 'firstLogin');
+      } else {
+        res.redirect(process.env.REDIRECT_URL);
+      }
     });
   });
 
@@ -153,11 +157,122 @@ router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
 router.get(
   '/csrf-token',
   utils.authentication.isAuthenticated,
-  utils.authentication.csrfProtect.csrfSynchronisedProtection,
   (req, res) => {
     res.json({ token: utils.authentication.csrfProtect.generateToken(req) });
   }
 );
+
+router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req, res) => {
+  if(req.session.user.provider !== 'steam') {
+    res.status(400).send('User is not logged in with steam');
+    return;
+  }
+
+  const steamId = req.session.user.id;
+
+  // eslint-disable-next-line max-len
+  const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${process.env.STEAM_API_KEY}&steamid=${steamId}`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if(!('games' in data.response)) {
+    res.status(404).send('User has no games. Check account privacy settings or add games to account.');
+    return;
+  }
+
+  const games = [];
+
+  await Promise.all(
+    data.response.games.map(async (gameId) => {
+      let game = await utils.retrieveData.getGameById(gameId.appid);
+      if(game === null) {
+        try {
+          const deprecated = await models.DeprecatedGames.findOne({ sourceId: gameId.appid });
+          if(deprecated === null) {
+            game = await steam.fetchGameInfo(gameId.appid);
+            await utils.pushData.pushGameToDB(game);
+            game = await utils.retrieveData.getGameById(gameId.appid);
+            console.log('new game added to db');
+            games.push(game);
+          } else {
+            console.log(`Game ${gameId.appid} is deprecated`);
+          }
+        } catch (err) {
+          if(game === null) {
+            console.log(`Game ${gameId.appid} not found, adding to deprectated games`);
+            await models.DeprecatedGames.create({ sourceId: gameId.appid });
+          } else {
+            console.error(err);
+          }
+        }
+      } else {
+        games.push(game);
+      }
+    }
+    ));
+
+  res.status(200).json(games);
+});
+
+router.post('/update-user-preferences',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
+
+    for (const key in req.body) {
+      if(!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
+        console.log('not valid key');
+        res.status(400).send('Invalid request');
+        return;
+      } else if(!(Array.isArray(req.body[key]))) {
+        console.log('not array');
+        res.status(400).send('Invalid request');
+        return;
+      }
+    }
+
+    const playedGames = req.body.playedGames.map((game) => game.id);
+
+    if(req.session.user.provider === 'steam') {
+      console.log('starting update steam');
+      await models.UserProfile.updateOne({ userId: req.session.user.id },
+        {
+          $set: {
+            preferences: {
+              playedGames: playedGames,
+              platforms: req.body.platforms,
+              genres: req.body.genres,
+              categories: req.body.categories,
+              wishlist: [],
+              receiveMsgs: true,
+              enableFriendRecs: true,
+              enableGameRecs: true
+            }
+          }
+        });
+      console.log('done update ssteam');
+    } else {
+      console.log('starting update google');
+      await models.UserProfile.updateOne({ userId: req.session.user.email },
+        {
+          $set: {
+            preferences: {
+              playedGames: playedGames,
+              platforms: req.body.platforms,
+              genres: req.body.genres,
+              categories: req.body.categories,
+              wishlist: [],
+              receiveMsgs: true,
+              enableFriendRecs: true,
+              enableGameRecs: true
+            }
+          }
+        });
+      console.log('done update google');
+    }
+
+    res.sendStatus(200);
+  });
 
 export default router;
 
