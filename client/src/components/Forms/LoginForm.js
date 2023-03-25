@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import Button from '../UI/Button/Button';
+import { useContext } from 'react';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 import { GoogleLogin } from '@react-oauth/google';
@@ -8,14 +7,10 @@ import UserContext from '../../store/user-context';
 import { useTranslation } from 'react-i18next';
 
 
-function LoginForm({ onCancel }) {
+function LoginForm() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   // const logout = async () => {
   //   const res = await fetch('/authentication/logout');

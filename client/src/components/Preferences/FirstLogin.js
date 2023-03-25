@@ -50,7 +50,6 @@ function FirstLogin() {
       if(response.status === 200) {
         navigate('/');
       }
-      // eslint-disable-next-line no-alert
     }
   }
 
