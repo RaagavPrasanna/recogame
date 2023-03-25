@@ -43,44 +43,20 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     setGenresInput(e.target.value.toLowerCase());
   }
 
+  async function getData(endpoint, setFunc) {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    setFunc([...data]);
+  }
+
   useEffect(() => {
-    async function getGames() {
-      const response = await fetch('/api/game/list');
-      const data = await response.json();
-      setAllGames([...data]);
-    }
-
-    async function getUsersGames() {
-      const response = await fetch('/authentication/user-steam-games');
-      const data = await response.json();
-      setPlayersSteamGames([...data]);
-    }
-
-    async function getPlatforms() {
-      const response = await fetch('/api/game/platforms');
-      const data = await response.json();
-      setAllPlatforms([...data]);
-    }
-
-    async function getCategories() {
-      const response = await fetch('/api/game/categories');
-      const data = await response.json();
-      setAllCategories([...data]);
-    }
-
-    async function getGenres() {
-      const response = await fetch('/api/game/genres');
-      const data = await response.json();
-      setAllGenres([...data]);
-    }
-
+    getData('/api/game/list', setAllGames);
+    getData('/api/game/platforms', setAllPlatforms);
+    getData('/api/game/categories', setAllCategories);
+    getData('/api/game/genres', setAllGenres);
     if(user.provider === 'steam') {
-      getUsersGames();
+      getData('/authentication/user-steam-games', setPlayersSteamGames);
     }
-    getGames();
-    getPlatforms();
-    getCategories();
-    getGenres();
   }, []);
 
 

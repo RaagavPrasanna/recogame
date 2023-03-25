@@ -81,8 +81,6 @@ router.post('/google-auth', async (req, res) => {
     }
   })){
     user.firstLogin = true;
-    console.log('empty preferences');
-    console.log(existingUser.preferences);
   }
 
 
