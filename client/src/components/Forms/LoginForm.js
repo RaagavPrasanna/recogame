@@ -40,10 +40,8 @@ function LoginForm() {
     setUser({ ...data });
 
     if(data.firstLogin) {
-      console.log('reached here');
       navigate('/firstLogin');
     } else {
-      console.log('navigate /');
       navigate('/');
     }
   };

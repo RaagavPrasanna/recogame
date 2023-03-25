@@ -103,7 +103,6 @@ router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: proc
 // Change redirect urls when deployed
 router.get('/steam-auth/return',
   passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), async (req, res) => {
-    console.log('in return');
     req.session.regenerate(async (err) => {
       if(err) {
         return res.sendStatus(500);
@@ -113,8 +112,6 @@ router.get('/steam-auth/return',
 
 
       const existingUser = await models.UserProfile.findOne({ userId: req.user._json.steamid });
-
-      console.log(existingUser);
 
       if(existingUser === null) {
         req.user.firstLogin = true;
@@ -130,8 +127,6 @@ router.get('/steam-auth/return',
         }
       })){
         req.user.firstLogin = true;
-        console.log('empty preferences');
-        console.log(existingUser.preferences);
       }
       req.session.user = req.user;
       console.log('set session user');
@@ -225,8 +220,6 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
 router.post('/update-user-preferences',
   utils.authentication.isAuthenticated,
   utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
-    console.log(typeof req.body);
-    console.log(req.body);
 
     for (const key in req.body) {
       if(!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
