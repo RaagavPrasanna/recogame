@@ -271,8 +271,11 @@ router.post('/update-user-preferences',
       console.log('done update google');
     }
 
+    utils.authentication.csrfProtect.generateToken(req);
     res.sendStatus(200);
   });
+
+
 
 export default router;
 
