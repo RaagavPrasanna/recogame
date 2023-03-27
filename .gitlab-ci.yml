@@ -18,15 +18,15 @@ build-backend:
         - server/package-lock.json
     paths:
       - server/node_modules/
-  before_script:
-    - cd server
-  script:
-    - npm install
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
       - server/node_modules/
+  before_script:
+    - cd server
+  script:
+    - npm install
 
 build-frontend:
   stage: build
@@ -37,17 +37,34 @@ build-frontend:
         - client/package-lock.json
     paths:
       - client/node_modules/
-  before_script:
-    - cd client
-    - npm install
-  script:
-    - npm run build
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
       - client/build/
       - client/node_modules/
+  before_script:
+    - cd client
+    - npm install
+  script:
+    - npm run build
+
+build-db-app:
+  stage: build
+  image: maven:3.8.7-openjdk-17
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+        - db_java/target
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - db_java/target
+  before_script:
+    - cd db_java
+  script:
+    - mvn clean package
 
 #endregion
 
