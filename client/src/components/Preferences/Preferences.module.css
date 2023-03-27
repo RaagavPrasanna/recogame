@@ -5,24 +5,60 @@
 article{
     background-color: #6E7F80;
     color: #2d3a44;
-    margin: auto;
     padding: 5px;
-    width:80%;
     text-align: center;
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
 }
 
 input{
     background-color: #536878;
     color: #2d3a44;
     border: none;
-    padding: 8px;
+    padding: 0.5rem 0;
     text-align: center;
     border-radius: 40em;
-    width: 50%;
 }
 
 input::placeholder{
     color: #2D3A44;
+}
+
+.split {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 1rem;
+  margin: 0 0.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  flex: 1;
+}
+
+.list p {
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  text-align: left;
+}
+
+.follow {
+  position: sticky;
+  top: 4rem;
+  max-height: calc(100vh - 9rem);
+  overflow: scroll;
+}
+
+.submit {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+}
+
+.formHeader {
+  text-align: center;
 }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import UserContext from '../../store/user-context';
 import Button from '../UI/Button/Button';
+import styles from './Preferences.module.css';
 
 function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
@@ -54,14 +55,14 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     getData('/api/game/platforms', setAllPlatforms);
     getData('/api/game/categories', setAllCategories);
     getData('/api/game/genres', setAllGenres);
-    if(user.provider === 'steam') {
+    if (user.provider === 'steam') {
       getData('/authentication/user-steam-games', setPlayersSteamGames);
     }
   }, []);
 
 
   const playersGamesFilteredData = playersSteamGames.filter((game) => {
-    if(playersGamesInput === '') {
+    if (playersGamesInput === '') {
       return game;
     } else {
       return game.name.toLowerCase().includes(playersGamesInput);
@@ -69,7 +70,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   });
 
   const allGamesFilteredData = allGames.filter((game) => {
-    if(allGamesInput === '') {
+    if (allGamesInput === '') {
       return game;
     } else {
       return game.name.toLowerCase().includes(allGamesInput);
@@ -77,7 +78,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   });
 
   const platformsFilteredData = allPlatforms.filter((platform) => {
-    if(platformsInput === '') {
+    if (platformsInput === '') {
       return platform;
     } else {
       return platform.toLowerCase().includes(platformsInput);
@@ -85,7 +86,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   });
 
   const categoriesFilteredData = allCategories.filter((category) => {
-    if(categoriesInput === '') {
+    if (categoriesInput === '') {
       return category;
     } else {
       return category.toLowerCase().includes(categoriesInput);
@@ -93,7 +94,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
   });
 
   const genresFilteredData = allGenres.filter((genre) => {
-    if(genresInput === '') {
+    if (genresInput === '') {
       return genre;
     } else {
       return genre.toLowerCase().includes(genresInput);
@@ -104,7 +105,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     const allGamesInd = allGames.findIndex((g) => g.name === game.name);
     const steamGamesInd = playersSteamGames.findIndex((g) => g.name === game.name);
     const notInAllGames = allGamesInd === -1;
-    if(!notInAllGames) {
+    if (!notInAllGames) {
       const gameCopy = [...allGames];
       const gameToAdd = gameCopy.splice(allGamesInd, 1)[0];
       setAllGames(gameCopy);
@@ -115,7 +116,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
       userCopy.playedGames = [...tempPlayedGames];
       setUserPrefs(userCopy);
     }
-    if(steamGamesInd !== -1 && notInAllGames) {
+    if (steamGamesInd !== -1 && notInAllGames) {
       const gameCopy = [...playersSteamGames];
       const gameToAdd = gameCopy.splice(steamGamesInd, 1)[0];
       setPlayersSteamGames(gameCopy);
@@ -125,7 +126,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
       const userCopy = { ...userPrefs };
       userCopy.playedGames = [...tempPlayedGames];
       setUserPrefs(userCopy);
-    } else if(steamGamesInd !== -1) {
+    } else if (steamGamesInd !== -1) {
       const gameCopy = [...playersSteamGames];
       gameCopy.splice(steamGamesInd, 1);
       setPlayersSteamGames(gameCopy);
@@ -373,18 +374,25 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
   return (
     <div>
-      {playersGamesSearch()}
-      {allGamesSearch()}
-      {platformsSearch()}
-      {categoriesSearch()}
-      {genresSearch()}
-      {listPlayedGames()}
-      {listPlatforms()}
-      {listGenres()}
-      {listCategories()}
-      <div>
-        <Button onClick={submitForm}>Submit</Button>
+      <div className={styles.split}>
+        <div className={styles.list}>
+          <h2 className={styles.formHeader}>Add preferences</h2>
+          {playersGamesSearch()}
+          {allGamesSearch()}
+          {platformsSearch()}
+          {categoriesSearch()}
+          {genresSearch()}
+        </div>
+
+        <div className={styles.list + ' ' + styles.follow}>
+          <h2 className={styles.formHeader}>Your preferences</h2>
+          {listPlayedGames()}
+          {listPlatforms()}
+          {listGenres()}
+          {listCategories()}
+        </div>
       </div>
+      <Button onClick={submitForm} className={styles.submit}>Submit</Button>
     </div>
   );
 }
