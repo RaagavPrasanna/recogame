@@ -64,7 +64,7 @@ build-db-app:
   before_script:
     - cd db_java
   script:
-    - mvn clean package
+    - mvn compile
 
 #endregion
 
@@ -111,6 +111,15 @@ test-frontend:
     - cd client
   script:
     - npm run test
+
+test-db-app:
+  stage: test
+  dependencies:
+    - build-db-app
+  before_script:
+    - cd db_java
+  script:
+    - mvn test
 
 #endregion
 
