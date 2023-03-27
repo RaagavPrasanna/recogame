@@ -51,7 +51,7 @@ build-frontend:
 
 build-db-app:
   stage: build
-  image: maven:3.8.7-openjdk-17
+  image: maven:3.8-openjdk-17
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
