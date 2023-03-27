@@ -4,6 +4,8 @@ import { useContext, useState } from 'react';
 import UserContext from '../../store/user-context';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../UI/Button/Button';
+import { useTranslation } from 'react-i18next';
+
 
 function FirstLogin() {
   const { user } = useContext(UserContext);
@@ -16,7 +18,7 @@ function FirstLogin() {
       categories: [],
     }
   );
-
+  const { t } = useTranslation();
   async function submitForm() {
     if(userPrefs.playedGames.length === 0) {
       // eslint-disable-next-line no-alert
@@ -59,7 +61,7 @@ function FirstLogin() {
     if(user === null) {
       return (
         <Button>
-          <Link to="/login">Login</Link>
+          <Link to="/login">{t('Login')}</Link>
         </Button>
       );
     } else {
