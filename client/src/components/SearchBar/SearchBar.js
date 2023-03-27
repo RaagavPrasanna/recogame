@@ -4,6 +4,7 @@ import styles from './SearchBar.module.css';
 import Modal from '../UI/Modal/Modal';
 import { useTranslation } from 'react-i18next';
 
+
 function SearchBar(props) {
   const [userInput, setUserInput] = useState('');
   const [dataJson, setDataJson] = useState([]);
@@ -11,6 +12,11 @@ function SearchBar(props) {
 
   function inputHandler(e) {
     setUserInput(e.target.value.toLowerCase());
+  }
+
+  function handleGame() {
+    props.handleShow;
+    location.redirect();
   }
 
   async function fetchGames() {
@@ -35,7 +41,7 @@ function SearchBar(props) {
       <input type="search" placeholder={t('Search Game')} onChange={inputHandler} />
       {filteredData.slice(0, 10).map((game) => (
         <p key={game.id}>
-          <Link to={`/game/${game.id}`} onClick={props.handleShow}>
+          <Link to={`/game/${game.id}`} onClick={handleGame} >
             {game.name}
           </Link>
         </p>
