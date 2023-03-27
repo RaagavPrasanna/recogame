@@ -1,7 +1,8 @@
-import styles from 'Filter.module.css';
+import styles from './Filter.module.css';
+import Modal from '../UI/Modal/Modal';
 
 function Filter() {
-  return <div className={styles['filter-container']}></div>;
+  return <Modal className={styles['filter-container']}></Modal>;
 }
 
 export default Filter;
