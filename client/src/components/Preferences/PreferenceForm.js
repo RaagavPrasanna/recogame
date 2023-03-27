@@ -3,7 +3,6 @@ import UserContext from '../../store/user-context';
 import Button from '../UI/Button/Button';
 import { useTranslation } from 'react-i18next';
 
-
 function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
   const { user } = useContext(UserContext);
