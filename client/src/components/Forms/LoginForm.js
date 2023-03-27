@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import Button from '../UI/Button/Button';
+import { useContext } from 'react';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 import { GoogleLogin } from '@react-oauth/google';
@@ -8,16 +7,10 @@ import UserContext from '../../store/user-context';
 import { useTranslation } from 'react-i18next';
 
 
-function LoginForm({ onCancel }) {
-  const [setUsername] = useState();
-  const [setPassword] = useState();
+function LoginForm() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const { t } = useTranslation();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   // const logout = async () => {
   //   const res = await fetch('/authentication/logout');
@@ -43,13 +36,14 @@ function LoginForm({ onCancel }) {
     });
     const data = await res.json();
     console.log(data);
-    const tres = await fetch('/authentication/csrf-token');
-    const tdata = await tres.json();
-    console.log(tdata);
 
     setUser({ ...data });
 
-    navigate('/');
+    if(data.firstLogin) {
+      navigate('/firstLogin');
+    } else {
+      navigate('/');
+    }
   };
 
   const handleError = err => {
@@ -64,41 +58,20 @@ function LoginForm({ onCancel }) {
   };
 
   return (
-    <Modal onClick={onCancel}>
+    <Modal>
       <form className={classes.loginForm}>
         <h2>{t('Log In')}</h2>
-        <label>
-          {t('Username')}
-          <br />
-          <input
-            id='username'
-            type='text'
-            onChange={(u) => setUsername(u.target.value)}
-            required
-          />
-        </label>
         <br />
-        <br />
-        <label>
-          {t('Password')}
-          <br />
-          <input
-            id='password'
-            type='password'
-            onChange={(p) => setPassword(p.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <br />
-        <GoogleLogin onSuccess={handleLogin} onError={handleError}/>
-        <br />
-        <br />
-        {/* eslint-disable-next-line max-len */}
-        <img src='https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png' onClick={handleSteam}/>
-        <div>
-          <Button onClick={onCancel}>{t('Cancel')}</Button>
-          <Button onSubmit={handleSubmit}>{t('Sign In')}</Button>
+        <div className={classes.loginBtn}>
+          <span>
+            <GoogleLogin onSuccess={handleLogin} onError={handleError} />
+          </span>
+          <span>
+            <img
+              src="https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png"
+              onClick={handleSteam}
+            />
+          </span>
         </div>
       </form>
     </Modal>

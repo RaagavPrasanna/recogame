@@ -9,9 +9,10 @@ export default function UserProvider({ children }) {
     // TODO: Redirect to home page on logout
     if(res.status === 200) {
       setUser(null);
+      return true;
     } else {
-      // eslint-disable-next-line no-alert
-      alert('Failed to log out');
+      window.location.reload(false);
+      window.location.replace(window.location.origin);
     }
   }
 
