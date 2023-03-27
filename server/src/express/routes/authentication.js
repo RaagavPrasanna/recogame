@@ -219,6 +219,69 @@ router.post('/update-user-preferences',
   utils.authentication.isAuthenticated,
   utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
 
+    if(typeof req.body !== 'object') {
+      res.status(400).send('Invalid request');
+      return;
+    } else if(Object.keys(req.body).length !== 4) {
+      res.status(400).send('Invalid request');
+      return;
+    }
+
+    const validateData = async () => {
+
+      const checkCollection = (struct, key) => {
+        req.body[key].forEach((item) => {
+          if(typeof (item) !== 'string') {
+            return false;
+          } else if(!struct.includes(item)) {
+            return false;
+          }
+        });
+        return true;
+      };
+
+      let gameData = await models.GameDetails.distinct('_id');
+      gameData = gameData.map((game) => game.toString());
+
+      console.log(gameData);
+
+      if(!checkCollection(gameData, 'playedGames')) {
+        return false;
+      }
+
+      const platformsData = await models.GameDetails
+        .find()
+        .distinct('platforms', { platforms: { $nin: ['', null] } });
+
+      console.log(platformsData);
+
+      if(!checkCollection(platformsData, 'platforms')) {
+        return false;
+      }
+
+      const genresData = await models.GameDetails
+        .find()
+        .distinct('genres', { genres: { $nin: ['', null] } });
+
+      console.log(genresData);
+
+      if(!checkCollection(genresData, 'genres')) {
+        return false;
+      }
+
+      const categoriesData = await models.GameDetails
+        .find()
+        .distinct('categories', { categories: { $nin: ['', null] } });
+
+      console.log(categoriesData);
+
+      if(!checkCollection(categoriesData, 'categories')) {
+        return false;
+      }
+
+      return true;
+    };
+
     for (const key in req.body) {
       if(!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
         console.log('not valid key');
@@ -226,6 +289,10 @@ router.post('/update-user-preferences',
         return;
       } else if(!(Array.isArray(req.body[key]))) {
         console.log('not array');
+        res.status(400).send('Invalid request');
+        return;
+      } else if(!(await validateData())) {
+        console.log('not valid data');
         res.status(400).send('Invalid request');
         return;
       }
@@ -271,7 +338,8 @@ router.post('/update-user-preferences',
       console.log('done update google');
     }
 
-    utils.authentication.csrfProtect.generateToken(req);
+    // Generate new token to prevent CSRF attack via the same token
+    console.log(utils.authentication.csrfProtect.generateToken(req));
     res.sendStatus(200);
   });
 
