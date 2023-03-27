@@ -113,6 +113,7 @@ test-frontend:
     - npm run test
 
 test-db-app:
+  image: maven:3.8-openjdk-17
   stage: test
   dependencies:
     - build-db-app
