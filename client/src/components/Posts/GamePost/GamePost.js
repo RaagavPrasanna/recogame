@@ -12,7 +12,7 @@ function GamePost({
   imageSrc,
 }) {
   return (
-    <Link className={styles.gamepost} to={`/game/${id}`} onClick={onGameClick}>
+    <Link className={styles.gamepost} to={`/game/info/${id}`} onClick={onGameClick}>
       <div
         className={styles.background}
         style={{

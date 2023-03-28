@@ -10,10 +10,12 @@ import UserContext from '../../store/user-context';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
+import Filter from '../Filter/Filter';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const navigate = useNavigate();
 
   const postCtx = useContext(PostContext);
@@ -25,8 +27,12 @@ function Header() {
 
   const { user, logout } = useContext(UserContext);
 
-  function handleShow() {
-    setShow(!show);
+  function handleShowSearch() {
+    setShowSearch(!showSearch);
+  }
+
+  function handleShowFilter() {
+    setShowFilter(!showFilter);
   }
 
   const changeNavBg = () => {
@@ -49,11 +55,13 @@ function Header() {
   const retUserAuthButton = () => {
     if (user !== null) {
       return (
-        <Button onClick={async () => {
-          if(await logout()) {
-            navigate('/');
-          }
-        }}>
+        <Button
+          onClick={async () => {
+            if (await logout()) {
+              navigate('/');
+            }
+          }}
+        >
           {' '}
           {t('Log Out here')}{' '}
           {user.provider === 'google' ? user.name : user.displayName}{' '}
@@ -108,8 +116,10 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShow} > {t('Search')} </Button>
-          {show && (<SearchBar handleShow = { handleShow } />)}
+          <Button onClick={handleShowFilter}> Filter </Button>
+          <Button onClick={handleShowSearch}> {t('Search')} </Button>
+          {showFilter && <Filter handleShow={handleShowFilter} />}
+          {showSearch && <SearchBar handleShow={handleShowSearch} />}
           {isMobile || (
             <>
               {retUserAuthButton()}

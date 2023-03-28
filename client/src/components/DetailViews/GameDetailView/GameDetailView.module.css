@@ -16,7 +16,7 @@
   padding-bottom: 0;
 }
 
-.images{
+.images {
   animation: fadein 1.25s;
 }
 
@@ -109,4 +109,15 @@
 
 .spinner {
   position: absolute;
+}
+
+.tag-container,
+.platforms {
+  display: flex;
+  flex-direction: row;
+}
+
+.tag-container div,
+.platforms div {
+  margin: 0.25rem 0.4rem 0.25rem 0;
 }
