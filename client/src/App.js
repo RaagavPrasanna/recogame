@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react';
 import UserContext from './store/user-context';
 import FirstLogin from './components/Preferences/FirstLogin';
 
+
 function App() {
   const { user, setSessionUser } = useContext(UserContext);
 

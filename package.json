@@ -9,6 +9,7 @@
   "author": "RecoGame",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.10.6",
     "@react-oauth/google": "^0.8.0",
     "csrf-sync": "^4.0.0",
     "express-session": "^1.17.3",
@@ -28,6 +29,7 @@
     "react-switch": "^7.0.0",
     "reactjs-popup": "^2.0.5",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.2"
+    "swagger-ui-express": "^4.6.2",
+    "theme-ui": "^0.15.5"
   }
 }

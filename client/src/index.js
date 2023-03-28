@@ -7,6 +7,7 @@ import FriendProvider from './store/FriendsProvider';
 import CommunityProvider from './store/CommunityProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import UserProvider from './store/UserProvider';
+import ThemeProvider from './store/ThemeProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,7 +18,9 @@ root.render(
         <PostsProvider>
           <FriendProvider>
             <CommunityProvider>
-              <App />
+              <ThemeProvider>
+                <App />
+              </ThemeProvider>
             </CommunityProvider>
           </FriendProvider>
         </PostsProvider>

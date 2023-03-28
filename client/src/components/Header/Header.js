@@ -10,6 +10,8 @@ import UserContext from '../../store/user-context';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
+import { Switch } from 'theme-ui';
+import ThemeContext from '../../store/theme-context';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
@@ -19,6 +21,7 @@ function Header() {
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
   const userCtx = useContext(UserContext);
+  const themeCtx = useContext(ThemeContext);
   const headerRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
@@ -49,11 +52,13 @@ function Header() {
   const retUserAuthButton = () => {
     if (user !== null) {
       return (
-        <Button onClick={async () => {
-          if(await logout()) {
-            navigate('/');
-          }
-        }}>
+        <Button
+          onClick={async () => {
+            if (await logout()) {
+              navigate('/');
+            }
+          }}
+        >
           {' '}
           Log Out here:{' '}
           {user.provider === 'google' ? user.name : user.displayName}{' '}
@@ -108,14 +113,15 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShow} > {t('Search')} </Button>
-          {show && (<SearchBar handleShow = { handleShow } />)}
+          <Button onClick={handleShow}> {t('Search')} </Button>
+          {show && <SearchBar handleShow={handleShow} />}
           {isMobile || (
             <>
               {retUserAuthButton()}
               <Button className={styles['lang-btn']}>
                 <LanguageSelector className={styles['lang-selector']} />
               </Button>
+              <Switch onClick={themeCtx.setTheme} />
             </>
           )}
         </span>
