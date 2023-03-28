@@ -2,7 +2,6 @@ import PostContext from './posts-context';
 import { useEffect, useReducer, useState } from 'react';
 
 async function getGamePage(page, params, callback) {
-  console.log(`/api/game/feed?page=${page}${params && `&${params}`}`);
   const resp = await fetch(
     `/api/game/feed?page=${page}${params && `&${params}`}`
   );
@@ -67,6 +66,11 @@ function PostsProvider({ children }) {
 
   function loadGames() {
     getGamePage(0, buildTagParams(tags), (data) => {
+      if (data.length < 1) {
+        setPosts([]);
+        setHasMore(false);
+        return;
+      }
       setPosts(data);
       setCurrPageHome((currPage) => ++currPage);
     });
