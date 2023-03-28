@@ -40,86 +40,94 @@ function Filter({ handleShow }) {
   }
 
   return (
-    <Modal className={styles['filter-container']} onClick={handleShow}>
-      <div className={styles.categories}>
-        <label htmlFor="categories">Category:</label>
-        <select name="categories" id="categories">
-          {categories.map((cat, i) => {
-            return (
-              <option
-                key={i}
-                value={cat}
-                className="categories"
-                onClick={addTag}
-              >
-                {cat}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      <div className={styles.genres}>
-        <label htmlFor="genres">Genre:</label>
-        <select name="genres" id="genres">
-          {genres.map((genre, i) => {
-            return (
-              <option key={i} value={genre} className="genres" onClick={addTag}>
-                {genre}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      <div className={styles.developers}>
-        <label htmlFor="developers">Developer:</label>
-        <select name="developers" id="developers">
-          {developers.map((dev, i) => {
-            return (
-              <option
-                key={i}
-                value={dev}
-                className="developers"
-                onClick={addTag}
-              >
-                {dev}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      <div className={styles.publishers}>
-        <label htmlFor="publishers">Publisher:</label>
-        <select name="publishers" id="publishers">
-          {publishers.map((pub, i) => {
-            return (
-              <option
-                key={i}
-                value={pub}
-                className="publishers"
-                onClick={addTag}
-              >
-                {pub}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      <div className={styles.platforms}>
-        <label htmlFor="platforms">Platform:</label>
-        <select name="platforms" id="platforms">
-          {platforms.map((plat, i) => {
-            return (
-              <option
-                key={i}
-                value={plat}
-                className="platforms"
-                onClick={addTag}
-              >
-                {plat}
-              </option>
-            );
-          })}
-        </select>
+    <Modal onClick={handleShow}>
+      <h1 className={styles.title}>Filter</h1>
+      <div className={styles['filter-container']}>
+        <div className={styles.categories}>
+          <label htmlFor="categories">Category:</label>
+          <select name="categories" id="categories">
+            {categories.map((cat, i) => {
+              return (
+                <option
+                  key={i}
+                  value={cat}
+                  className="categories"
+                  onClick={addTag}
+                >
+                  {cat}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className={styles.genres}>
+          <label htmlFor="genres">Genre:</label>
+          <select name="genres" id="genres">
+            {genres.map((genre, i) => {
+              return (
+                <option
+                  key={i}
+                  value={genre}
+                  className="genres"
+                  onClick={addTag}
+                >
+                  {genre}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className={styles.developers}>
+          <label htmlFor="developers">Developer:</label>
+          <select name="developers" id="developers">
+            {developers.map((dev, i) => {
+              return (
+                <option
+                  key={i}
+                  value={dev}
+                  className="developers"
+                  onClick={addTag}
+                >
+                  {dev}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className={styles.publishers}>
+          <label htmlFor="publishers">Publisher:</label>
+          <select name="publishers" id="publishers">
+            {publishers.map((pub, i) => {
+              return (
+                <option
+                  key={i}
+                  value={pub}
+                  className="publishers"
+                  onClick={addTag}
+                >
+                  {pub}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className={styles.platforms}>
+          <label htmlFor="platforms">Platform:</label>
+          <select name="platforms" id="platforms">
+            {platforms.map((plat, i) => {
+              return (
+                <option
+                  key={i}
+                  value={plat}
+                  className="platforms"
+                  onClick={addTag}
+                >
+                  {plat}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
     </Modal>
   );
