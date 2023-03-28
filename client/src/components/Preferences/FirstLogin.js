@@ -16,7 +16,6 @@ function FirstLogin() {
       categories: [],
     }
   );
-
   async function submitForm() {
     if(userPrefs.playedGames.length === 0) {
       // eslint-disable-next-line no-alert

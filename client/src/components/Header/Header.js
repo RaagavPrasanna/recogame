@@ -55,7 +55,7 @@ function Header() {
           }
         }}>
           {' '}
-          Log Out here:{' '}
+          {t('Log Out here')}{' '}
           {user.provider === 'google' ? user.name : user.displayName}{' '}
         </Button>
       );
