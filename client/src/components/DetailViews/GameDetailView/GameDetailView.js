@@ -64,12 +64,22 @@ function GameDetailView() {
   const { t } = useTranslation();
   const userCtx = useContext(UserContext);
 
+  const checkWishlist = async () => {
+    const response = await fetch(`/authentication/check-wishlist/${id}`);
+    if(response.status === 200) {
+      setWishlistToggle(false);
+    }
+  };
+
   useEffect(() => {
     setIsLoading(true);
     getGameDetails(id, (data) => {
       dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: data });
       setIsLoading(false);
     });
+    if(userCtx.user !== null) {
+      checkWishlist();
+    }
   }, []);
 
   const wishlistHandler = async (url) => {

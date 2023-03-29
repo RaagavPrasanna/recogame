@@ -475,5 +475,28 @@ router.post('/remove-from-wishlist', utils.authentication.isAuthenticated,
       res.status('400').send('Invalid request');
     }
   });
+
+router.get('/check-wishlist/:id', utils.authentication.isAuthenticated, async (req, res) => {
+  const user = await getDbUser(req);
+  if(user === null) {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  const gameId = req.params.id;
+  if(typeof gameId !== 'string') {
+    res.status(400).send('Invalid request');
+    return;
+  }
+
+  if(user.preferences.wishlist.includes(gameId)) {
+    res.sendStatus(200);
+    return;
+  } else {
+    res.sendStatus(404);
+    return;
+  }
+});
+
 export default router;
 
