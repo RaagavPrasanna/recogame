@@ -57,5 +57,7 @@
   "Search Genre":"搜索类型",
   "Filter":"筛选",
   "Add preferences":"添加选项",
-  "Your preferences":"您的偏好"
+  "Your preferences":"您的偏好",
+  "Pull down to refresh":"下拉刷新",
+  "Release to refresh":"松开以刷新"
 }
