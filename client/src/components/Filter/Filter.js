@@ -10,7 +10,7 @@ function Filter({ handleShow }) {
 
   function addTag(e) {
     const tag = e.target.value;
-    const type = e.target.className;
+    const type = e.target.id;
     postCtx.dispatchTags({
       type: 'ADD',
       data: { tagName: tag, tagType: type },
@@ -25,14 +25,13 @@ function Filter({ handleShow }) {
       <div className={styles['filter-container']}>
         <div className={styles.categories}>
           <label htmlFor="categories">Category:</label>
-          <select name="categories" id="categories">
+          <select name="categories" id="categories" onChange={addTag}>
             {tagsCtx.categories.map((cat, i) => {
               return (
                 <option
                   key={i}
                   value={cat}
                   className="categories"
-                  onClick={addTag}
                 >
                   {cat}
                 </option>
@@ -42,14 +41,13 @@ function Filter({ handleShow }) {
         </div>
         <div className={styles.genres}>
           <label htmlFor="genres">Genre:</label>
-          <select name="genres" id="genres">
+          <select name="genres" id="genres" onChange={addTag}>
             {tagsCtx.genres.map((genre, i) => {
               return (
                 <option
                   key={i}
                   value={genre}
                   className="genres"
-                  onClick={addTag}
                 >
                   {genre}
                 </option>
@@ -59,14 +57,13 @@ function Filter({ handleShow }) {
         </div>
         <div className={styles.developers}>
           <label htmlFor="developers">Developer:</label>
-          <select name="developers" id="developers">
+          <select name="developers" id="developers" onChange={addTag}>
             {tagsCtx.developers.map((dev, i) => {
               return (
                 <option
                   key={i}
                   value={dev}
                   className="developers"
-                  onClick={addTag}
                 >
                   {dev}
                 </option>
@@ -76,14 +73,13 @@ function Filter({ handleShow }) {
         </div>
         <div className={styles.publishers}>
           <label htmlFor="publishers">Publisher:</label>
-          <select name="publishers" id="publishers">
+          <select name="publishers" id="publishers" onChange={addTag}>
             {tagsCtx.publishers.map((pub, i) => {
               return (
                 <option
                   key={i}
                   value={pub}
                   className="publishers"
-                  onClick={addTag}
                 >
                   {pub}
                 </option>
@@ -93,14 +89,13 @@ function Filter({ handleShow }) {
         </div>
         <div className={styles.platforms}>
           <label htmlFor="platforms">Platform:</label>
-          <select name="platforms" id="platforms">
+          <select name="platforms" id="platforms" onChange={addTag}>
             {tagsCtx.platforms.map((plat, i) => {
               return (
                 <option
                   key={i}
                   value={plat}
                   className="platforms"
-                  onClick={addTag}
                 >
                   {plat}
                 </option>
