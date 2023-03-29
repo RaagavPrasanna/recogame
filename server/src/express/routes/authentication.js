@@ -268,7 +268,6 @@ router.post('/update-user-preferences',
       let gameData = await models.GameDetails.distinct('_id');
       gameData = gameData.map((game) => game.toString());
 
-      console.log(gameData);
 
       if(!checkCollection(gameData, 'playedGames')) {
         return false;
@@ -278,7 +277,6 @@ router.post('/update-user-preferences',
         .find()
         .distinct('platforms', { platforms: { $nin: ['', null] } });
 
-      console.log(platformsData);
 
       if(!checkCollection(platformsData, 'platforms')) {
         return false;
@@ -288,7 +286,6 @@ router.post('/update-user-preferences',
         .find()
         .distinct('genres', { genres: { $nin: ['', null] } });
 
-      console.log(genresData);
 
       if(!checkCollection(genresData, 'genres')) {
         return false;
@@ -298,7 +295,6 @@ router.post('/update-user-preferences',
         .find()
         .distinct('categories', { categories: { $nin: ['', null] } });
 
-      console.log(categoriesData);
 
       if(!checkCollection(categoriesData, 'categories')) {
         return false;

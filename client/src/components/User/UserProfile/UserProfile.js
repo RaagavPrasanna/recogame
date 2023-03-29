@@ -42,7 +42,7 @@ function UserProfile() {
     if(userCtx.user === null) {
       return (
         <Button>
-          <Link to="/login">Login</Link>
+          <Link to="/login">{t('Login')}</Link>
         </Button>
       );
     } else {

@@ -4,11 +4,13 @@ import { useContext, useState } from 'react';
 import UserContext from '../../store/user-context';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../UI/Button/Button';
+import { useTranslation } from 'react-i18next';
 
 // Component to display the first login pages
 function FirstLogin() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [userPrefs, setUserPrefs] = useState(
     {
       playedGames: [],
@@ -65,7 +67,7 @@ function FirstLogin() {
     if(user === null) {
       return (
         <Button>
-          <Link to="/login">Login</Link>
+          <Link to="/login">{t('Login')}</Link>
         </Button>
       );
     } else {
