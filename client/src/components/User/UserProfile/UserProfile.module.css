@@ -38,3 +38,19 @@
 .game-recommendations h2 {
   color: #6E7F80;
 }
+
+.tags {
+  background-color: #6E7F80;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+}
+
+.tags div {
+  margin-right: 0.5rem;
+}
+
+.tags ul {
+  list-style: none;
+}
