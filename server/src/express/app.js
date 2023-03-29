@@ -5,7 +5,6 @@ import express from 'express';
 import projectRoot from '../env/project-root.js';
 import api from './routes/api/api.js';
 import authentication from './routes/authentication.js';
-import post from './routes/post/post.js';
 
 const app = express();
 
@@ -26,7 +25,6 @@ app.use(express.static(path.join(
 // Routers
 app.use('/api', api);
 app.use('/authentication', authentication);
-app.use('/post', post);
 
 app.get('*', html, (_, res) => {
   res.sendFile('index.html', { root: path.join(

@@ -25,8 +25,8 @@ passport.use(new SteamStrategy({
   // Must be changed when deployed
   realm: process.env.HOST_URL,
   apiKey: process.env.STEAM_API_KEY
-}, function (identifier, profile, done) {
-  process.nextTick(function () {
+}, function(identifier, profile, done) {
+  process.nextTick(function() {
     profile.identifier = identifier;
     return done(null, profile);
   });
@@ -38,7 +38,7 @@ router.use(session({
   name: 'id',
   saveUninitialized: false,
   resave: false,
-  cookie : {
+  cookie: {
     maxAge: 1200000,
     secure: false,
     httpOnly: true,
@@ -50,7 +50,7 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.post('/google-auth', async (req, res) => {
-  if(req.body === undefined) {
+  if (req.body === undefined) {
     return res.sendStatus(400);
   }
   const { token } = req.body;
@@ -58,7 +58,7 @@ router.post('/google-auth', async (req, res) => {
     idToken: token,
     audience: process.env.GOOGLE_CLIENT_ID
   });
-  if(!ticket) {
+  if (!ticket) {
     return res.sendStatus(401);
   }
   const { name, email, picture } = ticket.getPayload();
@@ -67,25 +67,25 @@ router.post('/google-auth', async (req, res) => {
 
   const existingUser = await models.UserProfile.findOne({ userId: user.email });
 
-  if(existingUser === null) {
+  if (existingUser === null) {
     user.firstLogin = true;
     await models.UserProfile.create({
       userId: user.email, profileName: user.name,
       profilePicture: user.picture, accountType: user.provider
     });
-  }else if(Object.keys(existingUser.preferences).every((key) => {
-    if(Array.isArray(existingUser.preferences[key])) {
+  } else if (Object.keys(existingUser.preferences).every((key) => {
+    if (Array.isArray(existingUser.preferences[key])) {
       return existingUser.preferences[key].length === 0;
     } else {
       return true;
     }
-  })){
+  })) {
     user.firstLogin = true;
   }
 
 
   req.session.regenerate((err) => {
-    if(err) {
+    if (err) {
       return res.sendStatus(500);
     }
     req.session.user = user;
@@ -102,7 +102,7 @@ router.get('/steam-auth', passport.authenticate('steam', { failureRedirect: proc
 router.get('/steam-auth/return',
   passport.authenticate('steam', { failureRedirect: process.env.REDIRECT_URL }), async (req, res) => {
     req.session.regenerate(async (err) => {
-      if(err) {
+      if (err) {
         return res.sendStatus(500);
       }
 
@@ -111,25 +111,25 @@ router.get('/steam-auth/return',
 
       const existingUser = await models.UserProfile.findOne({ userId: req.user._json.steamid });
 
-      if(existingUser === null) {
+      if (existingUser === null) {
         req.user.firstLogin = true;
         await models.UserProfile.create({
           userId: req.user._json.steamid, profileName: req.user._json.personaname,
           profilePicture: req.user._json.avatarfull, accountType: req.user.provider
         });
-      } else if(Object.keys(existingUser.preferences).every((key) => {
-        if(Array.isArray(existingUser.preferences[key])) {
+      } else if (Object.keys(existingUser.preferences).every((key) => {
+        if (Array.isArray(existingUser.preferences[key])) {
           return existingUser.preferences[key].length === 0;
         } else {
           return true;
         }
-      })){
+      })) {
         req.user.firstLogin = true;
       }
       req.session.user = req.user;
       console.log('set session user');
       console.log(req.session.user);
-      if(req.session.user.firstLogin) {
+      if (req.session.user.firstLogin) {
         res.redirect(process.env.REDIRECT_URL + 'firstLogin');
       } else {
         res.redirect(process.env.REDIRECT_URL);
@@ -143,7 +143,7 @@ router.get('/get-user', utils.authentication.isAuthenticated, function(req, res)
 
 router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
   req.session.destroy(function(err) {
-    if(err) {
+    if (err) {
       console.error(err);
       return res.sendStatus(500);
     }
@@ -163,7 +163,7 @@ router.get(
 );
 
 router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req, res) => {
-  if(req.session.user.provider !== 'steam') {
+  if (req.session.user.provider !== 'steam') {
     res.status(400).send('User is not logged in with steam');
     return;
   }
@@ -176,7 +176,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
   const response = await fetch(url);
   const data = await response.json();
 
-  if(!('games' in data.response)) {
+  if (!('games' in data.response)) {
     res.status(404).send('User has no games. Check account privacy settings or add games to account.');
     return;
   }
@@ -186,10 +186,10 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
   await Promise.all(
     data.response.games.map(async (gameId) => {
       let game = await utils.retrieveData.getGameById(gameId.appid);
-      if(game === null) {
+      if (game === null) {
         try {
           const deprecated = await models.DeprecatedGames.findOne({ sourceId: gameId.appid });
-          if(deprecated === null) {
+          if (deprecated === null) {
             game = await steam.fetchGameInfo(gameId.appid);
             await utils.pushData.pushGameToDB(game);
             game = await utils.retrieveData.getGameById(gameId.appid);
@@ -199,7 +199,7 @@ router.get('/user-steam-games', utils.authentication.isAuthenticated, async (req
             console.log(`Game ${gameId.appid} is deprecated`);
           }
         } catch (err) {
-          if(game === null) {
+          if (game === null) {
             console.log(`Game ${gameId.appid} not found, adding to deprectated games`);
             await models.DeprecatedGames.create({ sourceId: gameId.appid });
           } else {
@@ -219,10 +219,10 @@ router.post('/update-user-preferences',
   utils.authentication.isAuthenticated,
   utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
 
-    if(typeof req.body !== 'object') {
+    if (typeof req.body !== 'object') {
       res.status(400).send('Invalid request');
       return;
-    } else if(Object.keys(req.body).length !== 4) {
+    } else if (Object.keys(req.body).length !== 4) {
       res.status(400).send('Invalid request');
       return;
     }
@@ -231,9 +231,9 @@ router.post('/update-user-preferences',
 
       const checkCollection = (struct, key) => {
         req.body[key].forEach((item) => {
-          if(typeof (item) !== 'string') {
+          if (typeof (item) !== 'string') {
             return false;
-          } else if(!struct.includes(item)) {
+          } else if (!struct.includes(item)) {
             return false;
           }
         });
@@ -245,7 +245,7 @@ router.post('/update-user-preferences',
 
       console.log(gameData);
 
-      if(!checkCollection(gameData, 'playedGames')) {
+      if (!checkCollection(gameData, 'playedGames')) {
         return false;
       }
 
@@ -255,7 +255,7 @@ router.post('/update-user-preferences',
 
       console.log(platformsData);
 
-      if(!checkCollection(platformsData, 'platforms')) {
+      if (!checkCollection(platformsData, 'platforms')) {
         return false;
       }
 
@@ -265,7 +265,7 @@ router.post('/update-user-preferences',
 
       console.log(genresData);
 
-      if(!checkCollection(genresData, 'genres')) {
+      if (!checkCollection(genresData, 'genres')) {
         return false;
       }
 
@@ -275,7 +275,7 @@ router.post('/update-user-preferences',
 
       console.log(categoriesData);
 
-      if(!checkCollection(categoriesData, 'categories')) {
+      if (!checkCollection(categoriesData, 'categories')) {
         return false;
       }
 
@@ -283,15 +283,15 @@ router.post('/update-user-preferences',
     };
 
     for (const key in req.body) {
-      if(!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
+      if (!(['playedGames', 'platforms', 'genres', 'categories'].includes(key))) {
         console.log('not valid key');
         res.status(400).send('Invalid request');
         return;
-      } else if(!(Array.isArray(req.body[key]))) {
+      } else if (!(Array.isArray(req.body[key]))) {
         console.log('not array');
         res.status(400).send('Invalid request');
         return;
-      } else if(!(await validateData())) {
+      } else if (!(await validateData())) {
         console.log('not valid data');
         res.status(400).send('Invalid request');
         return;
@@ -300,7 +300,7 @@ router.post('/update-user-preferences',
 
     const playedGames = req.body.playedGames.map((game) => game.id);
 
-    if(req.session.user.provider === 'steam') {
+    if (req.session.user.provider === 'steam') {
       console.log('starting update steam');
       await models.UserProfile.updateOne({ userId: req.session.user.id },
         {
@@ -339,7 +339,73 @@ router.post('/update-user-preferences',
     }
 
     res.sendStatus(200);
-  });
+  }
+);
+
+
+
+router.post('/thumbs',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection,
+  async (req, res) => {
+    // User ID
+    const userId = (await models.UserProfile.findOne())._id;
+
+    // Game ID
+    const gameId = req.body.game;
+    try {
+      if (!gameId) {
+        res.status(400).send('Specify game id');
+        return;
+      } else if (!await models.GameDetails.findOne({ _id: gameId })) {
+        res.status(404).send(`Game not found: ${gameId}`);
+        return;
+      }
+    } catch (err) {
+      if (err.name === 'CastError') {
+        res.status(400).send(`Invalid game id: ${gameId}`);
+        return;
+      } else {
+        console.error(err);
+        res.status(500).send('Server error');
+        return;
+      }
+    }
+
+    // Rating
+    const rating = req.body.rating;
+    try {
+      utils.validation.validateNumber(rating, { int: true, min: -1, max: 2 });
+    } catch (e) {
+      res.status(400).send(`Invalid rating: ${e.message}`);
+      return;
+    }
+
+    if (rating === 0) {
+      // Delete rating
+      await models.GameRating.deleteOne({
+        user: userId,
+        game: gameId,
+      });
+      res.status(200).send('Deleted');
+    } else {
+      // Insert or update
+      await models.GameRating.updateOne(
+        {
+          user: userId,
+          game: gameId,
+        },
+        {
+          user: userId,
+          game: gameId,
+          thumbsUp: rating > 0
+        },
+        { upsert: true }
+      );
+      res.status(200).send(`Thumbs ${rating > 0 ? 'up' : 'down'}`);
+    }
+  }
+);
 
 
 
