@@ -116,7 +116,7 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShowFilter}> Filter </Button>
+          <Button onClick={handleShowFilter}> {t('Filter')}</Button>
           <Button onClick={handleShowSearch}> {t('Search')} </Button>
           {showFilter && <Filter handleShow={handleShowFilter} />}
           {showSearch && <SearchBar handleShow={handleShowSearch} />}
