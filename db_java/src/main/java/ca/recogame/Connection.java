@@ -2,7 +2,6 @@ package ca.recogame;
 
 // Dotenv
 import io.github.cdimascio.dotenv.*;
-import java.util.List;
 // MongoDB
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -20,12 +19,17 @@ import org.bson.codecs.pojo.*;
  */
 public class Connection {
   MongoClientSettings clientSettings;
-  String database;
+  MongoDatabase database;
+  MongoCollection<GameDetails> gameDetails;
 
   public Connection(String database) {
-    this.database = database;
     getDatabase();
+    MongoClient c = MongoClients.create(this.clientSettings);
+    this.database = c.getDatabase(database);
+    this.gameDetails = this.database.getCollection("game-details", GameDetails.class);
   }
+
+
   /**
    * Create connection to mongodb
    */
@@ -53,35 +57,16 @@ public class Connection {
     System.out.println("Connection successful");
   }
 
-  /**
-   * Query to insert many GameDetails
-   * @param games   List<GameDetails>
-   */
-  public void insertManyGameDetails(List<GameDetails> games) {
-    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
-      // configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase(this.database);
-      MongoCollection<GameDetails> allgames =
-        database.getCollection("game-details", GameDetails.class);
-      allgames.insertMany(games);
-    } catch (Exception E) {
-      System.err.println(" List of gameDetails can't be add in database");
-    }
+
+  public boolean checkGameExists(String source, int id) {
+    GameDetails g = this.gameDetails.find(Filters.and(
+      Filters.eq("sourceName", source),
+      Filters.eq("sourceId", id)
+    )).first();
+    return g != null;
   }
 
-  /**
-   * Query to delete many GameDetails
-   */
-  public void deleteManyGameDetails() {
-    try (MongoClient mongoClient = MongoClients.create(this.clientSettings)) {
-      // Configure database to use the codec
-      MongoDatabase database = mongoClient.getDatabase(this.database);
-      MongoCollection<GameDetails> gameDetails =
-        database.getCollection("game-details", GameDetails.class);
-      gameDetails.deleteMany(Filters.gte("sourceId", 0));
-    } catch (Exception E) {
-      System.err.println("List of gameDetails cannot be removed in database");
-    }
+  public void insertGameDetails(GameDetails game) {
+    this.gameDetails.insertOne(game);
   }
-
 }
