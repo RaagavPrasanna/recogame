@@ -368,7 +368,6 @@ router.post('/thumbs',
       res.status(400).send('Invalid user');
       return;
     }
-    console.log(userId);
 
     // Game ID
     const gameId = req.body.game;
@@ -406,7 +405,6 @@ router.post('/thumbs',
         user: userId,
         game: gameId,
       });
-      res.status(200).send('Deleted');
     } else {
       // Insert or update
       await models.GameRating.updateOne(
@@ -421,13 +419,14 @@ router.post('/thumbs',
         },
         { upsert: true }
       );
-      res.status(200).send(
-        await (
-          (await models.ViewGameDetailsFull.getModel())
-            .findOne({ id: gameId })
-        ).likes
-      );
     }
+
+    const info =
+      await (await models.ViewGameDetailsShort.getModel()).findOne({ _id: gameId });
+    res.status(200).json({
+      likes: info.likes,
+      dislikes: info.dislikes
+    });
   }
 );
 
