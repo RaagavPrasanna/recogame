@@ -1,6 +1,6 @@
 import express from 'express';
-import models from '../../../db/models.js';
 import utils from '../../utils.js';
+import models from '../../../db/models.js';
 
 const router = express.Router();
 
@@ -58,7 +58,7 @@ async function filterGames(query = {}, page = null, limit = null) {
   return games?.map(o => o._id);
 }
 
-async function getGameFeed(query, page = 0, limit = 4) {
+async function getGameFeed(query, page = 0, limit = 10) {
   const ids = await filterGames(query, page, limit);
   return await (
     (await models.ViewGameDetailsShort.getModel())
@@ -180,7 +180,6 @@ router.get('/feed', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
 
 /**
  * @swagger

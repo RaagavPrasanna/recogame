@@ -9,10 +9,12 @@ const GameDetails = mongoose.model(
   new mongoose.Schema({
     sourceId: {
       type: Number,
-      required: [true, 'sourceId is requried'],
-      unique: true
+      required: [true, 'sourceId is required'],
     },
-    sourceName: String,
+    sourceName: {
+      type: String,
+      required: [true, 'sourceName is required'],
+    },
     name: String,
     developers: [String],
     publishers: [String],
@@ -31,7 +33,7 @@ const GameDetails = mongoose.model(
     recommendations: Number,
     background: String,
     contentDescriptors: String
-  })
+  }).index({ sourceId: 1, sourceName: 1 }, { unique: true })
 );
 
 const GameRating = mongoose.model(
@@ -134,15 +136,27 @@ const UserProfile = mongoose.model(
     profileName: String,
     profilePicture: String,
     preferences: {
-      playedGames: [Number],
+      playedGames: [String],
       platforms: [String],
-      keywords: [String],
+      genres: [String],
+      categories: [String],
       wishlist: [Number],
       receiveMsgs: { type: Boolean, default: true },
       enableFriendRecs: { type: Boolean, default: true },
       enableGameRecs: { type: Boolean, default: true },
     },
     accountType: String
+  })
+);
+
+const DeprecatedGames = mongoose.model(
+  'deprecated-games',
+  new mongoose.Schema({
+    sourceId: {
+      type: Number,
+      required: [true, 'sourceId is required'],
+      unique: true
+    }
   })
 );
 
@@ -154,4 +168,5 @@ export default {
   ViewGameDetailsShort,
   ViewGameName,
   UserProfile,
+  DeprecatedGames,
 };

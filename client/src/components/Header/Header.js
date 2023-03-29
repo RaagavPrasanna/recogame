@@ -1,6 +1,6 @@
 import Button from '../UI/Button/Button';
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import PostContext from '../../store/posts-context';
 import CommunityContext from '../../store/community-context';
@@ -10,10 +10,13 @@ import UserContext from '../../store/user-context';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
+import Filter from '../Filter/Filter';
 
 function Header() {
   const [navBg, setNavBg] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+  const navigate = useNavigate();
 
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
@@ -24,8 +27,12 @@ function Header() {
 
   const { user, logout } = useContext(UserContext);
 
-  function handleShow() {
-    setShow(!show);
+  function handleShowSearch() {
+    setShowSearch(!showSearch);
+  }
+
+  function handleShowFilter() {
+    setShowFilter(!showFilter);
   }
 
   const changeNavBg = () => {
@@ -48,9 +55,15 @@ function Header() {
   const retUserAuthButton = () => {
     if (user !== null) {
       return (
-        <Button onClick={logout}>
+        <Button
+          onClick={async () => {
+            if (await logout()) {
+              navigate('/');
+            }
+          }}
+        >
           {' '}
-          Log Out here:{' '}
+          {t('Log Out here')}{' '}
           {user.provider === 'google' ? user.name : user.displayName}{' '}
         </Button>
       );
@@ -103,8 +116,10 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShow} > {t('Search')} </Button>
-          {show && (<SearchBar handleShow = { handleShow } />)}
+          <Button onClick={handleShowFilter}> Filter </Button>
+          <Button onClick={handleShowSearch}> {t('Search')} </Button>
+          {showFilter && <Filter handleShow={handleShowFilter} />}
+          {showSearch && <SearchBar handleShow={handleShowSearch} />}
           {isMobile || (
             <>
               {retUserAuthButton()}

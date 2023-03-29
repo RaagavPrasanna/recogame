@@ -7,6 +7,11 @@ const PostContext = React.createContext({
   handlePostClick: () => {},
   homeMounted: () => {},
   hasMore: true,
+  tags: [],
+  dispatchTags: () => {},
+  setCurrPageHome: () => {},
+  setPosts: () => {},
+  loadGames: () => {},
 });
 
 export default PostContext;

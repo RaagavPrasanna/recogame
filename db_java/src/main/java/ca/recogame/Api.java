@@ -21,34 +21,20 @@ public class Api {
 
   private void importMultiGameDetails() {
     ReadFile read = new ReadFile(this.path);
-    try {
-      for (int id : read.getlistId()) {
-        boolean exists = connect.checkGameExists("steam", id);
-        if (!exists) {
-          System.out.println("Inserting " + id);
+    for (int id : read.getlistId()) {
+      System.out.println("- " + id);
+      if (!connect.checkGameExists("steam", id)) {
+        System.out.println("  Is not in the DB, inserting");
+        try {
           GameDetails game = nodeReader.getOneGameDetails("steam", id);
           connect.insertGameDetails(game);
-        } else {
-          System.out.println("Skipping (already in DB) " + id);
+        } catch (Exception e) {
+          System.err.println("  Could not fetch, skipping. This may be because you fetched too much from API.");
+          e.printStackTrace();
         }
+      } else {
+          System.out.println("  Is already in DB, ignoring");
       }
-    } catch (IOException e) {
-      System.err.println("Could not fetch the list of games. This may be because you fetched too much from Steam: ");
-      e.printStackTrace();
-    } catch (MongoException e) {
-      System.err.println("Cannot import list of game details:");
-      e.printStackTrace();
-    } catch (InterruptedException e) {
-      System.err.println("Interrupted");
-    }
-  }
-
-  public void deleteAllGameDetails() {
-    try {
-      this.connect.deleteManyGameDetails();
-    } catch (MongoException e) {
-      System.err.println("Cannot delete all game-Details data:");
-      e.printStackTrace();
     }
   }
 }

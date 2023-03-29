@@ -1,0 +1,28 @@
+.filter-container {
+  padding: 1rem;
+  color: #6e7f80;
+}
+
+.filter-container div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filter-container select {
+  width: 100%;
+  margin-top: 0.5rem;
+  height: 2rem;
+}
+
+.filter-container label {
+  font-size: larger;
+}
+
+.title {
+  display: inline-block;
+  margin-left: 0;
+  text-align: center;
+  color: #6e7f80;
+}
