@@ -7,6 +7,7 @@ import models from '../../db/models.js';
 import utils from '../utils.js';
 import steam from '../../controller/steamapi/steam_api.js';
 
+
 const SteamStrategy = passportSteam.Strategy;
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const router = express.Router();
