@@ -38,8 +38,6 @@ function FirstLogin() {
       const resp = await fetch('/authentication/csrf-token');
       const { token } = await resp.json();
 
-      console.log(token);
-
       const response = await fetch('/authentication/update-user-preferences', {
         method: 'POST',
         headers: {

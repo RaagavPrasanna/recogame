@@ -338,10 +338,6 @@ router.post('/update-user-preferences',
       console.log('done update google');
     }
 
-    // Get same token to revoke, will give back the same one as it is the same request
-    const tokenToRevoke = utils.authentication.csrfProtect.generateToken(req);
-    console.log(tokenToRevoke);
-    utils.authentication.csrfProtect.revokeToken(tokenToRevoke);
     res.sendStatus(200);
   });
 
