@@ -344,7 +344,7 @@ router.post('/update-user-preferences',
 
 
 
-router.post('/thumbs',
+router.post('/thumbs/put',
   utils.authentication.isAuthenticated,
   utils.authentication.csrfProtect.csrfSynchronisedProtection,
   async (req, res) => {
@@ -430,6 +430,40 @@ router.post('/thumbs',
   }
 );
 
+router.post('/thumbs/count',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection,
+  async (req, res) => {
+    // User ID
+    let userId = null;
+    if (req.session.user.provider === 'steam') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.id });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else if (req.session.user.provider === 'google') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.email });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else {
+      res.status(400).send('Invalid user');
+      return;
+    }
+
+    const likes = (await models.GameRating.find(
+      { user: userId, thumbsUp: true }
+    )).map(r => r.game);
+    const dislikes = (await models.GameRating.find(
+      { user: userId, thumbsUp: false }
+    )).map(r => r.game);
+    res.status(200).json({ likes, dislikes });
+  }
+);
 
 
 export default router;
