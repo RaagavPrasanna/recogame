@@ -349,7 +349,26 @@ router.post('/thumbs',
   utils.authentication.csrfProtect.csrfSynchronisedProtection,
   async (req, res) => {
     // User ID
-    const userId = (await models.UserProfile.findOne())._id;
+    let userId = null;
+    if (req.session.user.provider === 'steam') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.id });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else if (req.session.user.provider === 'google') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.email });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else {
+      res.status(400).send('Invalid user');
+      return;
+    }
+    console.log(userId);
 
     // Game ID
     const gameId = req.body.game;
@@ -402,7 +421,12 @@ router.post('/thumbs',
         },
         { upsert: true }
       );
-      res.status(200).send(`Thumbs ${rating > 0 ? 'up' : 'down'}`);
+      res.status(200).send(
+        await (
+          (await models.ViewGameDetailsFull.getModel())
+            .findOne({ id: gameId })
+        ).likes
+      );
     }
   }
 );
@@ -410,4 +434,3 @@ router.post('/thumbs',
 
 
 export default router;
-
