@@ -7,6 +7,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import Thumbs from '../../Posts/Thumbs/Thumbs';
 import { useTranslation } from 'react-i18next';
+import Tag from '../../Tag/Tag';
 import UserContext from '../../../store/user-context';
 
 const defaultGameDetails = {
@@ -15,6 +16,10 @@ const defaultGameDetails = {
   gameDesc: '',
   reviews: [],
 };
+
+function captialize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
@@ -106,19 +111,48 @@ function GameDetailView() {
                     {t('TITLE')} &nbsp;{gameDetails.name}
                   </li>
                   <li>
-                    {t('GENRE')} {gameDetails.genre?.join(', ')}
+                    {t('GENRE')}{' '}
+                    <div className={styles['tag-container']}>
+                      {gameDetails.genre?.map((genre, i) => {
+                        return <Tag key={i} tagName={genre} tagType='genres'/>;
+                      })}
+                    </div>
                   </li>
                   <li>
-                    {t('DEVELOPER')} &nbsp;{gameDetails.developer?.join(', ')}
+                    {
+                      <>
+                        {t('DEVELOPER')} &nbsp;
+                        {gameDetails.developer?.map((dev, i) => {
+                          return <Tag key={i} tagName={dev} tagType='developers'/>;
+                        })}
+                      </>
+                    }
                   </li>
                   <li>
-                    {t('PUBLISHER')} &nbsp;{gameDetails.publisher?.join(', ')}
+                    {
+                      <>
+                        {t('PUBLISHER')} &nbsp;
+                        {gameDetails.publisher?.map((pub, i) => {
+                          return <Tag key={i} tagName={pub} tagType='publishers'/>;
+                        })}
+                      </>
+                    }
                   </li>
                   <li>
-                    {t('CATEGORIES')} &nbsp;{gameDetails.category?.join(', ')}
+                    {`${t('CATEGORIES')}`}
+                    <div className={styles['tag-container']}>
+                      {gameDetails.category?.map((cat, i) => {
+                        return <Tag key={i} tagName={cat} tagType='categories'/>;
+                      })}
+                    </div>
                   </li>
                   <li>
-                    {t('PLATFORMS')} {gameDetails.platforms?.join(', ')}
+                    {t('PLATFORMS')}
+                    <div className={styles.platforms}>
+                      {gameDetails.platforms?.map((plat, i) => {
+                        return <Tag key={i} tagName={captialize(plat)} tagType='platforms'/>;
+                      })}
+                    </div>
                   </li>
                   <li>
                     {t('CONTENT DESCRIPTION')} &nbsp;
