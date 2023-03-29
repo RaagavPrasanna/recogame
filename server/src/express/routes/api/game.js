@@ -70,7 +70,10 @@ async function getGameFeed(query, page = 0, limit = 10) {
 }
 
 async function getGameDetails(id) {
-  return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
+  return await (
+    (await models.ViewGameDetailsFull.getModel())
+      .findOne({ _id: id }, models.CLEAN_PROJECTION)
+  );
 }
 
 async function getAllGames() {
