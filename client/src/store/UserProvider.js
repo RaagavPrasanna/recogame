@@ -4,9 +4,9 @@ import { useState } from 'react';
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
+  // Function to logout user
   async function logout() {
     const res = await fetch('/authentication/logout');
-    // TODO: Redirect to home page on logout
     if(res.status === 200) {
       setUser(null);
       return true;
@@ -16,6 +16,7 @@ export default function UserProvider({ children }) {
     }
   }
 
+  // Sets the user session from the backend
   async function setSessionUser() {
     const res = await fetch('/authentication/get-user');
     if(res.status === 200) {
@@ -24,6 +25,7 @@ export default function UserProvider({ children }) {
     }
   }
 
+  // Context object
   const userContext = {
     user: user,
     setUser: setUser,

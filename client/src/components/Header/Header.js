@@ -52,6 +52,8 @@ function Header() {
     postCtx.handlePostClick();
     commCtx.handlePostClick();
   }
+
+  // Decide whether to show the login or logout button
   const retUserAuthButton = () => {
     if (user !== null) {
       return (

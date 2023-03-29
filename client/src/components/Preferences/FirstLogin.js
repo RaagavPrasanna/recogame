@@ -5,6 +5,7 @@ import UserContext from '../../store/user-context';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../UI/Button/Button';
 
+// Component to display the first login pages
 function FirstLogin() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ function FirstLogin() {
       categories: [],
     }
   );
+
+  // Function to submit the form
   async function submitForm() {
     if(userPrefs.playedGames.length === 0) {
       // eslint-disable-next-line no-alert
@@ -34,9 +37,11 @@ function FirstLogin() {
       return;
     } else {
 
+      // Fetch the CSRF token from the server
       const resp = await fetch('/authentication/csrf-token');
       const { token } = await resp.json();
 
+      // Send the user preferences to the server with the CSRF token
       const response = await fetch('/authentication/update-user-preferences', {
         method: 'POST',
         headers: {
@@ -46,6 +51,7 @@ function FirstLogin() {
         body: JSON.stringify(userPrefs)
       });
 
+      // If the response is 200, redirect to the home page
       if(response.status === 200) {
         navigate('/');
       }
@@ -54,6 +60,7 @@ function FirstLogin() {
 
 
 
+  //  If user is null, display the login button
   const content = () => {
     if(user === null) {
       return (
