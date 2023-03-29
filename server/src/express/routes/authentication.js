@@ -364,7 +364,116 @@ router.post('/update-user-preferences',
     res.sendStatus(200);
   });
 
+const validateGame = async (game) => {
+  if(typeof game !== 'object') {
+    return false;
+  } else if(Object.keys(game).length !== 1) {
+    return false;
+  } else if(Object.keys(game)[0] !== 'id') {
+    return false;
+  }
 
+  const gameId = game.id;
+  if(typeof gameId !== 'string') {
+    return false;
+  }
 
+  let gameData = await models.GameDetails.distinct('_id');
+  gameData = gameData.map((game) => game.toString());
+
+  if(!gameData.includes(gameId)) {
+    return false;
+  }
+
+  return true;
+};
+
+const getDbUser = async (req) => {
+  let user = null;
+  if(req.session.user.provider === 'steam') {
+    user = await models.UserProfile.findOne({ userId: req.session.user.id });
+
+  } else if(req.session.user.provider === 'google') {
+    user = await models.UserProfile.findOne({ userId: req.session.user.email });
+  }
+  return user;
+};
+
+const updateWishlist = async (user) => {
+  await models.UserProfile.updateOne(
+    { userId: user.userId },
+    { $set: { preferences: user.preferences } }
+  );
+};
+
+router.post('/add-to-wishlist', utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
+    console.log('add to wishlist');
+    const game = req.body;
+    if(validateGame(game)) {
+      const user = await getDbUser(req);
+      if(user === null) {
+        res.status(400).send('Invalid request');
+        return;
+      }
+
+      if(user.preferences.wishlist.includes(game.id)) {
+        res.status(400).send('Invalid request');
+        return;
+      }
+
+      user.preferences.wishlist.push(game.id);
+
+      try {
+        await updateWishlist(user);
+        res.sendStatus(200);
+        return;
+      } catch (err) {
+        res.status(500).send('Internal server error');
+      }
+      return;
+    } else {
+      console.log('invalid game');
+      res.status('400').send('Invalid request');
+    }
+  });
+
+router.post('/remove-from-wishlist', utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection, async (req, res) => {
+    console.log('remove from wishlist');
+    const game = req.body;
+    if(validateGame(game)) {
+      const user = await getDbUser(req);
+      if(user === null) {
+        res.status(400).send('Invalid request');
+        return;
+      }
+
+      if(!user.preferences.wishlist.includes(game.id)) {
+        res.status(400).send('Invalid request');
+        return;
+      }
+
+      const gameInd = user.preferences.wishlist.indexOf(game.id);
+      if(gameInd === -1) {
+        res.status(400).send('Invalid request');
+        return;
+      }
+
+      user.preferences.wishlist.splice(gameInd, 1);
+
+      try {
+        await updateWishlist(user);
+        res.sendStatus(200);
+        return;
+      } catch (err) {
+        res.status(500).send('Internal server error');
+      }
+      return;
+    } else {
+      console.log('invalid game');
+      res.status('400').send('Invalid request');
+    }
+  });
 export default router;
 
