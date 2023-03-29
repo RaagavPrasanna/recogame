@@ -141,6 +141,28 @@ router.get('/get-user', utils.authentication.isAuthenticated, function(req, res)
   res.status(200).json(req.session.user);
 });
 
+router.get('/get-preferences', utils.authentication.isAuthenticated, async (req, res) => {
+  if(req.session.user.provider === 'steam') {
+    const user = await models.UserProfile.findOne({ userId: req.session.user.id });
+    if(user === null) {
+      res.status(400).send('User not found');
+      return;
+    }
+    console.log(user.preferences);
+    return res.status(200).json(user.preferences);
+  } else if(req.session.user.provider === 'google') {
+    const user = await models.UserProfile.findOne({ userId: req.session.user.email });
+    if(user === null) {
+      res.status(400).send('User not found');
+      return;
+    }
+    console.log(user.preferences);
+    return res.status(200).json(user.preferences);
+  } else {
+    return res.status(400).send('User is not logged in with a supported provider');
+  }
+});
+
 router.get('/logout', utils.authentication.isAuthenticated, function(req, res) {
   req.session.destroy(function(err) {
     if(err) {
