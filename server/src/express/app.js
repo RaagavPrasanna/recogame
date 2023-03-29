@@ -26,6 +26,7 @@ app.use(express.static(path.join(
 app.use('/api', api);
 app.use('/authentication', authentication);
 
+// Defaults to react routing if no route is found
 app.get('*', html, (_, res) => {
   res.sendFile('index.html', { root: path.join(
     projectRoot,

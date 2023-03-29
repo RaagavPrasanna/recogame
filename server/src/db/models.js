@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import View from './view.js';
 
-
+// To get rid of fields in the returned object
 const CLEAN_PROJECTION = { _id: false, __v: false };
 
+// Model that represents a games full details in the db
 const GameDetails = mongoose.model(
   'game-details',
   new mongoose.Schema({
@@ -36,6 +37,7 @@ const GameDetails = mongoose.model(
   }).index({ sourceId: 1, sourceName: 1 }, { unique: true })
 );
 
+// View that represents a games short details in the db
 const ViewGameDetailsShort = new View(
   'view-game-details-short',
   'game-details',
@@ -56,6 +58,7 @@ const ViewGameDetailsShort = new View(
   }]
 );
 
+// View for just the name of the game
 const ViewGameName = new View(
   'view-game-name',
   'game-details',
@@ -70,6 +73,7 @@ const ViewGameName = new View(
   }]
 );
 
+// Model that represents a user's profile in the db
 const UserProfile = mongoose.model(
   'user-profile',
   new mongoose.Schema({
@@ -94,6 +98,7 @@ const UserProfile = mongoose.model(
   })
 );
 
+// Model that represents a deprecated game in the db
 const DeprecatedGames = mongoose.model(
   'deprecated-games',
   new mongoose.Schema({
