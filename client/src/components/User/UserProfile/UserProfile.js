@@ -2,6 +2,7 @@ import Button from '../../UI/Button/Button';
 import styles from './UserProfile.module.css';
 import UserSettings from '../UserSettings/UserSettings';
 import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../../store/user-context';
 import Tag from '../../Tag/Tag';
@@ -15,6 +16,15 @@ async function getUserTags() {
   return data;
 }
 
+async function getGame(id) {
+  const resp = await fetch(`/api/game/info/${id}`);
+  if (!resp.ok) {
+    throw new Error(`Could not fetch game (${resp.status})`);
+  }
+  const data = await resp.json();
+  return { data, id };
+}
+
 function UserProfile() {
   const userCtx = useContext(UserContext);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
@@ -23,6 +33,7 @@ function UserProfile() {
   const [img, setImg] = useState('');
   const { t } = useTranslation();
   const [preferences, setPreferences] = useState({});
+  const [playedGames, setPlayedGames] = useState([]);
 
   useEffect(() => {
     if (userCtx.user.provider === 'steam') {
@@ -34,7 +45,11 @@ function UserProfile() {
       setAccountType(userCtx.user.provider);
       setImg(userCtx.user.picture);
     }
-    getUserTags().then(setPreferences);
+
+    getUserTags().then((data) => {
+      setPreferences(data);
+      getGames(data.playedGames);
+    });
   }, []);
 
   function showSettings() {
@@ -45,9 +60,21 @@ function UserProfile() {
     setIsSettingsVisible(false);
   }
 
+  async function getGames(gameIds) {
+    if (!preferences) {
+      return;
+    }
+    const playedGames = await Promise.all(
+      gameIds.map(async (id) => {
+        return await getGame(id);
+      })
+    );
+    setPlayedGames(playedGames);
+  }
+
   return (
     <div className={styles['user-profile']}>
-      <img src={img} />
+      <img src={img} onClick={getGames} />
       <Button onClick={showSettings} className={styles.settings}>
         {t('User Settings')}
       </Button>
@@ -89,6 +116,15 @@ function UserProfile() {
       <div className={styles['game-recommendations']}>
         <h2>{t('Played Games')}</h2>
         <hr></hr>
+        <ul>
+          {playedGames.map((game) => {
+            return (
+              <Link key={game.id} to={`/game/info/${game.id}`}>
+                <li>{game.data.name}</li>
+              </Link>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
