@@ -4,6 +4,16 @@ import UserSettings from '../UserSettings/UserSettings';
 import { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../../store/user-context';
+import Tag from '../../Tag/Tag';
+
+async function getUserTags() {
+  const resp = await fetch('/authentication/get-preferences');
+  if (!resp.ok) {
+    throw new Error(`Could not fetch tags (${resp.status})`);
+  }
+  const data = await resp.json();
+  return data;
+}
 
 function UserProfile() {
   const userCtx = useContext(UserContext);
@@ -12,6 +22,7 @@ function UserProfile() {
   const [accountType, setAccountType] = useState('');
   const [img, setImg] = useState('');
   const { t } = useTranslation();
+  const [preferences, setPreferences] = useState({});
 
   useEffect(() => {
     if (userCtx.user.provider === 'steam') {
@@ -23,8 +34,7 @@ function UserProfile() {
       setAccountType(userCtx.user.provider);
       setImg(userCtx.user.picture);
     }
-
-
+    getUserTags().then(setPreferences);
   }, []);
 
   function showSettings() {
@@ -43,11 +53,41 @@ function UserProfile() {
       </Button>
       <div className={styles['user-info']}>
         <h2>{username}</h2>
-        <h3>{t('Account Type: ')} {accountType}</h3>
+        <h3>
+          {t('Account Type: ')} {accountType}
+        </h3>
       </div>
       {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
+      <div className={styles.tags}>
+        <ul>
+          <li>
+            {t('GENRE')}{' '}
+            <div className={styles['tag-container']}>
+              {preferences.genres?.map((genre, i) => {
+                return <Tag key={i} tagName={genre} tagType="genres" />;
+              })}
+            </div>
+          </li>
+          <li>
+            {`${t('CATEGORIES')}`}
+            <div className={styles['tag-container']}>
+              {preferences.category?.map((cat, i) => {
+                return <Tag key={i} tagName={cat} tagType="categories" />;
+              })}
+            </div>
+          </li>
+          <li>
+            {t('PLATFORMS')}
+            <div className={styles.platforms}>
+              {preferences.platforms?.map((plat, i) => {
+                return <Tag key={i} tagName={plat} tagType="platforms" />;
+              })}
+            </div>
+          </li>
+        </ul>
+      </div>
       <div className={styles['game-recommendations']}>
-        <h2>{t('Game Recommendations')}</h2>
+        <h2>{t('Played Games')}</h2>
         <hr></hr>
       </div>
     </div>
