@@ -113,7 +113,7 @@ function UserProfile() {
           </li>
         </ul>
       </div>
-      <div className={styles['game-recommendations']}>
+      <div className={styles['played-games']}>
         <h2>{t('Played Games')}</h2>
         <hr></hr>
         <ul>
