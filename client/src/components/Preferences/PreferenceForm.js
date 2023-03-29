@@ -378,7 +378,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     <div>
       <div className={styles.split}>
         <div className={styles.list}>
-          <h2 className={styles.formHeader}>Add preferences</h2>
+          <h2 className={styles.formHeader}>{t('Add preferences')}</h2>
           {playersGamesSearch()}
           {allGamesSearch()}
           {platformsSearch()}
@@ -387,7 +387,7 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
         </div>
 
         <div className={styles.list + ' ' + styles.follow}>
-          <h2 className={styles.formHeader}>Your preferences</h2>
+          <h2 className={styles.formHeader}>{t('Your preferences')}</h2>
           {listPlayedGames()}
           {listPlatforms()}
           {listGenres()}
