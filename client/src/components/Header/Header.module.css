@@ -5,7 +5,7 @@
 }
 
 .light{
-  background-color: #92a7b7;
+  background-color: #bbbbbb;
   margin: 0;
   font-size: 100%;
 }
@@ -38,8 +38,14 @@
   justify-content:space-between;
 }
 
-.header.showBg {
+.header.showBg.dark {
   background-color: #536878e1;
+  transition: background-color 0.2s linear;
+  box-shadow: 0 5px 5px rgba(15, 15, 15, 0.13);
+}
+
+.header.showBg.light {
+  background-color: #bdc9d2;
   transition: background-color 0.2s linear;
   box-shadow: 0 5px 5px rgba(15, 15, 15, 0.13);
 }
@@ -48,26 +54,49 @@
   transition: background-color 0.2s linear;
 }
 
-.header.showBg button {
+.header.showBg.dark button {
   background-color: #2d3a44;
   color: #6e7f80;
   transition: background-color 0.2s linear;
 }
 
-.header.showBg button:hover {
+.header.showBg.light button {
+  background-color: #869daf;
+  color: #2d3a44;
+  transition: background-color 0.2s linear;
+}
+
+.header.showBg.dark button:hover {
   background-color: #6e7f80;
   color: #2d3a44;
 }
 
-.header.showBg select{
+.header.showBg.light button:hover {
+  background-color: #657575;
+  color: #2d3a44;
+}
+
+.header.showBg.dark select{
   background-color: #2d3a44;
   color: #6e7f80;
   transition: background-color 0.2s linear;
 }
 
-.header select{
+.header.showBg.light select{
+  background-color: #869daf;
+  color: #2d3a44;
+  transition: background-color 0.2s linear;
+}
+
+.header.dark select{
   border: none;
   background-color: #ffffff00;
+  color: #2d3a44;
+}
+
+.header.light select{
+  border: none;
+  background-color: #FFF;
   color: #2d3a44;
 }
 
@@ -76,13 +105,23 @@
   color: #2d3a44;
 }
 
-.header.showBg select{
+.header.showBg.dark select{
   border: none;
   background-color: #ffffff00;
   color: #6e7f80;
 }
 
-.header.showBg .lang-selector{
+.header.showBg.light select{
+  border: none;
+  background-color: #FFF;
+  color: #6e7f80;
+}
+
+.header.showBg.dark .lang-selector{
+  color: #2d3a44;
+}
+
+.header.showBg.light .lang-selector{
   color: #2d3a44;
 }
 
@@ -90,9 +129,15 @@
   color: #2d3a44;
 }
 
-.header.showBg option{
+.header.showBg.dark option{
   background-color: #ffffff00;
   color: #6e7f80;
 }
+
+.header.showBg.light option{
+  background-color: #ffffff00;
+  color: #6e7f80;
+}
+
 
 
