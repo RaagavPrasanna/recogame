@@ -88,7 +88,8 @@ function Header() {
   return (
     <div
       className={`${styles.header} ${
-        (navBg && styles.showBg) || (isMobile && styles.showBg)
+        (navBg && styles.showBg) ||
+        (isMobile && styles.showBg)
       }`}
       onScroll={changeNavBg}
       ref={headerRef}

@@ -1,3 +1,15 @@
+.dark{
+  background-color: #2D3A44;
+  margin: 0;
+  font-size: 100%;
+}
+
+.light{
+  background-color: #92a7b7;
+  margin: 0;
+  font-size: 100%;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -23,6 +35,7 @@
 .right-section {
   margin-left: auto;
   display: flex;
+  justify-content:space-between;
 }
 
 .header.showBg {
@@ -82,14 +95,4 @@
   color: #6e7f80;
 }
 
-.dark{
-  background-color: #2D3A44;
-  margin: 0;
-  font-size: 100%;
-}
 
-.light{
-  background-color: #FFF;
-  margin: 0;
-  font-size: 100%;
-}
