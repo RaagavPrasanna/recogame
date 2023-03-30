@@ -36,7 +36,9 @@ function UserProfile() {
   const [playedGames, setPlayedGames] = useState([]);
 
   useEffect(() => {
-    if (userCtx.user.provider === 'steam') {
+    if (userCtx.user === null) {
+      return;
+    } else if (userCtx.user.provider === 'steam') {
       setUsername(userCtx.user.displayName);
       setAccountType(userCtx.user.provider);
       setImg(userCtx.user.photos[2].value);
@@ -72,62 +74,74 @@ function UserProfile() {
     setPlayedGames(playedGames);
   }
 
-  return (
-    <div className={styles['user-profile']}>
-      <img src={img} onClick={getGames} />
-      <Button onClick={showSettings} className={styles.settings}>
-        {t('User Settings')}
-      </Button>
-      <div className={styles['user-info']}>
-        <h2>{username}</h2>
-        <h3>
-          {t('Account Type: ')} {accountType}
-        </h3>
-      </div>
-      {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
-      <div className={styles.tags}>
-        <ul>
-          <li>
-            {t('GENRE')}{' '}
-            <div className={styles['tag-container']}>
-              {preferences.genres?.map((genre, i) => {
-                return <Tag key={i} tagName={genre} tagType="genres" />;
+  const content = () => {
+    if (userCtx.user === null) {
+      return (
+        <Button>
+          <Link to="/login">{t('Login')}</Link>
+        </Button>
+      );
+    } else {
+      return (
+        <>
+          <img src={img} onClick={getGames} />
+          <Button onClick={showSettings} className={styles.settings}>
+            {t('User Settings')}
+          </Button>
+          <div className={styles['user-info']}>
+            <h2>{username}</h2>
+            <h3>
+              {t('Account Type: ')} {accountType}
+            </h3>
+          </div>
+          {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
+          <div className={styles.tags}>
+            <ul>
+              <li>
+                {t('GENRE')}{' '}
+                <div className={styles['tag-container']}>
+                  {preferences.genres?.map((genre, i) => {
+                    return <Tag key={i} tagName={genre} tagType="genres" />;
+                  })}
+                </div>
+              </li>
+              <li>
+                {`${t('CATEGORIES')}`}
+                <div className={styles['tag-container']}>
+                  {preferences.categories?.map((cat, i) => {
+                    return <Tag key={i} tagName={cat} tagType="categories" />;
+                  })}
+                </div>
+              </li>
+              <li>
+                {t('PLATFORMS')}
+                <div className={styles.platforms}>
+                  {preferences.platforms?.map((plat, i) => {
+                    return <Tag key={i} tagName={plat} tagType="platforms" />;
+                  })}
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className={styles['played-games']}>
+            <h2>{t('Played Games')}</h2>
+            <hr></hr>
+            <ul>
+              {playedGames.map((game) => {
+                return (
+                  <Link key={game.id} to={`/game/info/${game.id}`}>
+                    <li>{game.data.name}</li>
+                  </Link>
+                );
               })}
-            </div>
-          </li>
-          <li>
-            {`${t('CATEGORIES')}`}
-            <div className={styles['tag-container']}>
-              {preferences.categories?.map((cat, i) => {
-                return <Tag key={i} tagName={cat} tagType="categories" />;
-              })}
-            </div>
-          </li>
-          <li>
-            {t('PLATFORMS')}
-            <div className={styles.platforms}>
-              {preferences.platforms?.map((plat, i) => {
-                return <Tag key={i} tagName={plat} tagType="platforms" />;
-              })}
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div className={styles['played-games']}>
-        <h2>{t('Played Games')}</h2>
-        <hr></hr>
-        <ul>
-          {playedGames.map((game) => {
-            return (
-              <Link key={game.id} to={`/game/info/${game.id}`}>
-                <li>{game.data.name}</li>
-              </Link>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
-  );
+            </ul>
+          </div>
+        </>
+      );
+    }
+  };
+
+  return <div className={styles['user-profile']}>{content()}</div>;
 }
 
 export default UserProfile;
