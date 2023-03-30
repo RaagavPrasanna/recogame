@@ -7,7 +7,7 @@ import UserContext from '../../../store/user-context';
 
 import styles from './Thumbs.module.css';
 
-function Thumbs() {
+function Thumbs({ likes, dislikes }) {
   const [isThumbsUp, setIsThumbsUp] = useState(false);
   const [isThumbsDown, setIsThumbsDown] = useState(false);
   const userCtx = useContext(UserContext);
@@ -48,15 +48,21 @@ function Thumbs() {
 
   return (
     <div className={styles.thumbs} onClick={thumbHandler}>
-      <BsFillHandThumbsUpFill
-        className={`${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${isThumbsUp && styles.clicked}`}
-        id="thumbs-up"
-      />
-      <BsFillHandThumbsDownFill
-        className={`${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${isThumbsDown && styles.clicked
-        }`}
-        id="thumbs-down"
-      />
+      <div className={styles['thumbs-container']}>
+        <BsFillHandThumbsUpFill
+          className={`${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${isThumbsUp && styles.clicked}`}
+          id="thumbs-up"
+        />
+        <p>{likes || 0}</p>
+      </div>
+
+      <div className={styles['thumbs-container']}>
+        <BsFillHandThumbsDownFill
+          className={`${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${isThumbsDown && styles.clicked }`}
+          id="thumbs-down"
+        />
+        <p>{dislikes || 0}</p>
+      </div>
     </div>
   );
 }
