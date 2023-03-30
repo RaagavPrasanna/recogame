@@ -24,17 +24,48 @@
   margin-top: 2rem;
 }
 
-.game-recommendations {
+.played-games {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
   align-content: flex-start;
 }
 
-.game-recommendations hr {
+.played-games hr {
   width: 100%;
 }
 
-.game-recommendations h2 {
+.played-games h2 {
   color: #6E7F80;
+}
+
+.played-games ul, .tags ul {
+  list-style: none;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.played-games a {
+  text-decoration: none;
+  color: #6E7F80;
+}
+
+.played-games a:hover {
+  text-decoration: underline;
+}
+
+.played-games li {
+  width: fit-content;
+}
+
+.tags {
+  background-color: #6E7F80;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+}
+
+.tags div {
+  margin-right: 0.5rem;
 }

@@ -4,9 +4,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './PostList.module.css';
 import Spinner from '../../UI/Spinner';
 import PostContext from '../../../store/posts-context';
+import { useTranslation } from 'react-i18next';
 
 function PostList() {
   const postsCtx = useContext(PostContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     postsCtx.homeScrollPosition();
@@ -41,7 +43,7 @@ function PostList() {
         className={styles.infiniteScroll}
         endMessage={
           <div className={styles['end-message']}>
-            <p>Yay! You have seen it all</p>
+            <p>{t('Yay! You have seen it all')}</p>
           </div>
         }
         refreshFunction={postsCtx.fetchMoreHomePosts}

@@ -1,8 +1,10 @@
 import { csrfSync } from 'csrf-sync';
 import models from '../db/models.js';
 
+// Middleware to protect against CSRF attacks
 const csrfProtect = csrfSync();
 
+// Middleware to check if the user is authenticated
 function isAuthenticated(req, res, next) {
   if(!req.session.user) {
     return res.sendStatus(401);
@@ -57,14 +59,17 @@ async function getAllGamesFromDB(page, limit = 4) {
   );
 }
 
+// Get a game from the database based on its db id.
 async function getGameFromDB(id) {
   return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
 }
 
+// Get a game from the database based on its source id.
 async function getGameById(gameId) {
   return await models.GameDetails.findOne({ sourceId: gameId });
 }
 
+// Push a game to the database.
 async function pushGameToDB(game) {
   await models.GameDetails.create(game);
 }

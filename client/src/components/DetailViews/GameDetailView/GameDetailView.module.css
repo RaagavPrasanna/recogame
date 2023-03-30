@@ -16,7 +16,7 @@
   padding-bottom: 0;
 }
 
-.images{
+.images {
   animation: fadein 1.25s;
 }
 
@@ -109,4 +109,70 @@
 
 .spinner {
   position: absolute;
+}
+
+.tag-container,
+.platforms {
+  display: flex;
+  flex-direction: row;
+}
+
+.tag-container div,
+.platforms div {
+  margin: 0.25rem 0.4rem 0.25rem 0;
+}
+
+@media only screen and (max-width: 85em) {
+  .images {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: auto;
+  }
+
+  .screenshots {
+    align-self: center;
+  }
+}
+
+@media only screen and (max-width: 50em) {
+  .gameDetails {
+    padding: 0;
+    padding-top: 5rem;
+  }
+
+  .gameDetails h1 {
+    font-size: larger;
+    margin: 1rem auto;
+  }
+
+  .info img {
+    width: 100%;
+  }
+
+  .carousel,
+  .desc {
+    margin: auto;
+  }
+
+  .desc p {
+    word-break: break-all;
+    font-size: smaller;
+    margin-left: 1rem;
+  }
+
+
+  .buttons {
+    width: 100%;
+    padding: 0 4rem;
+  }
+
+  .buttons button {
+    font-size: x-small;
+  }
+
+  .info {
+    width: 100%;
+    margin: auto;
+    font-size: smaller;
+  }
 }

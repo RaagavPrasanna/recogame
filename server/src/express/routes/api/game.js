@@ -63,7 +63,8 @@ async function filterGames(query = {}, page = null, limit = null) {
   return games?.map(o => o._id);
 }
 
-async function getGameFeed(query, page = 0, limit = 4) {
+// Retrieve a game feed.
+async function getGameFeed(query, page = 0, limit = 10) {
   const ids = await filterGames(query, page, limit);
   return await (
     (await models.ViewGameDetailsShort.getModel())
@@ -74,10 +75,12 @@ async function getGameFeed(query, page = 0, limit = 4) {
   );
 }
 
+// Retrieve the full details of a game.
 async function getGameDetails(id) {
   return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
 }
 
+// Retrieve the names of all games.
 async function getAllGames() {
   return await (
     (await models.ViewGameName.getModel())

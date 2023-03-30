@@ -12,6 +12,7 @@ import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
 import { Switch } from 'theme-ui';
 import ThemeContext from '../../store/theme-context';
+import Filter from '../Filter/Filter';
 
 function Header() {
   const postCtx = useContext(PostContext);
@@ -23,7 +24,8 @@ function Header() {
   const [navBg, setNavBg] = useState(false);
   const [show, setShow] = useState(false);
   const [theme, setTheme] = useState(themeCtx.theme);
-
+  const [showSearch, setShowSearch] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,114 +35,128 @@ function Header() {
 
   function handleShow() {
     setShow(!show);
-  }
+    const { user, logout } = useContext(UserContext);
 
-  const changeTheme = () => {
-    if (theme === 'dark') {
-      setTheme('light');
-    } else {
-      setTheme('dark');
+    function handleShowSearch() {
+      setShowSearch(!showSearch);
     }
-  };
 
-  const changeNavBg = () => {
-    window.scrollY >= headerRef.current.offsetHeight
-      ? setNavBg(true)
-      : setNavBg(false);
-  };
+    function handleShowFilter() {
+      setShowFilter(!showFilter);
+    }
 
-  useEffect(() => {
-    window.addEventListener('scroll', changeNavBg);
-    document.body.className =  styles[theme];
-    return () => {
-      window.removeEventListener('scroll', changeNavBg);
+    const changeTheme = () => {
+      if (theme === 'dark') {
+        setTheme('light');
+      } else {
+        setTheme('dark');
+      }
     };
-  }, [theme]);
 
-  function handlePageChange() {
-    postCtx.handlePostClick();
-    commCtx.handlePostClick();
-  }
-  const retUserAuthButton = () => {
-    if (user !== null) {
-      return (
-        <Button
-          onClick={async () => {
-            if (await logout()) {
-              navigate('/');
-            }
-          }}
-        >
-          {' '}
-          Log Out here:{' '}
-          {user.provider === 'google' ? user.name : user.displayName}{' '}
-        </Button>
-      );
-    } else {
-      return (
-        <Link to="/login">
-          <Button> {t('Log In')} </Button>
-        </Link>
-      );
+    const changeNavBg = () => {
+      window.scrollY >= headerRef.current.offsetHeight
+        ? setNavBg(true)
+        : setNavBg(false);
+    };
+
+    useEffect(() => {
+      window.addEventListener('scroll', changeNavBg);
+      document.body.className = styles[theme];
+      return () => {
+        window.removeEventListener('scroll', changeNavBg);
+      };
+    }, [theme]);
+
+    function handlePageChange() {
+      postCtx.handlePostClick();
+      commCtx.handlePostClick();
     }
-  };
 
-  return (
-    <div
-      className={`${styles.header} ${
-        (navBg && styles.showBg) ||
-        (isMobile && styles.showBg)
-      }`}
-      onScroll={changeNavBg}
-      ref={headerRef}
-    >
-      <header className={styles.buttons} onClick={handlePageChange}>
-        {isMobile ? (
-          <MobileNav
-            retUserAuthButton={retUserAuthButton}
-            handlePageChange={handlePageChange}
-          />
-        ) : (
-          <>
-            <span className={styles['left-section']}>
-              <Link to="/">
-                <Button>{t('Home')}</Button>
-              </Link>
-              <Link to="/community">
-                <Button> {t('Community')} </Button>
-              </Link>
-              {userCtx.user && (
-                <>
-                  <Link to="/friends">
-                    <Button> {t('Friends')} </Button>
-                  </Link>
-                  <Link to="/profile">
-                    <Button> {t('User')} </Button>
-                  </Link>
-                  <Link to="/gamelist">
-                    <Button> {t('My Game List')} </Button>
-                  </Link>
-                </>
-              )}
-            </span>
-          </>
-        )}
-        <span className={styles['right-section']}>
-          <Button onClick={handleShow}> {t('Search')} </Button>
-          {show && <SearchBar handleShow={handleShow} />}
-          {isMobile || (
+    // Decide whether to show the login or logout button
+    const retUserAuthButton = () => {
+      if (user !== null) {
+        return (
+          <Button
+            onClick={async () => {
+              if (await logout()) {
+                navigate('/');
+              }
+            }}
+          >
+            {' '}
+            {t('Log Out here')}{' '}
+            {user.provider === 'google' ? user.name : user.displayName}{' '}
+          </Button>
+        );
+      } else {
+        return (
+          <Link to="/login">
+            <Button> {t('Log In')} </Button>
+          </Link>
+        );
+      }
+    };
+
+    return (
+      <div
+        className={`${styles.header} ${(navBg && styles.showBg) ||
+          (isMobile && styles.showBg)
+        }`}
+        onScroll={changeNavBg}
+        ref={headerRef}
+      >
+        <header className={styles.buttons} onClick={handlePageChange}>
+          {isMobile ? (
+            <MobileNav
+              retUserAuthButton={retUserAuthButton}
+              handlePageChange={handlePageChange}
+            />
+          ) : (
             <>
-              {retUserAuthButton()}
-              <Button className={styles['lang-btn']}>
-                <LanguageSelector className={styles['lang-selector']} />
-              </Button>
-              <Switch onClick={changeTheme} />
+              <span className={styles['left-section']}>
+                <Link to="/">
+                  <Button>{t('Home')}</Button>
+                </Link>
+                <Link to="/community">
+                  <Button> {t('Community')} </Button>
+                </Link>
+                {userCtx.user && (
+                  <>
+                    <Link to="/friends">
+                      <Button> {t('Friends')} </Button>
+                    </Link>
+                    <Link to="/profile">
+                      <Button> {t('User')} </Button>
+                    </Link>
+                    <Link to="/gamelist">
+                      <Button> {t('My Game List')} </Button>
+                    </Link>
+                  </>
+                )}
+              </span>
             </>
           )}
-        </span>
-      </header>
-    </div>
-  );
+          <span className={styles['right-section']}>
+            <Button onClick={handleShow}> {t('Search')} </Button>
+            {show && <SearchBar handleShow={handleShow} />}
+            <Button onClick={handleShowFilter}> {t('Filter')}</Button>
+            <Button onClick={handleShowSearch}> {t('Search')} </Button>
+            {showFilter && <Filter handleShow={handleShowFilter} />}
+            {showSearch && <SearchBar handleShow={handleShowSearch} />}
+            {isMobile || (
+              <>
+                {retUserAuthButton()}
+                <Button className={styles['lang-btn']}>
+                  <LanguageSelector className={styles['lang-selector']} />
+                </Button>
+                <Switch onClick={changeTheme} />
+              </>
+            )}
+          </span>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default Header;
