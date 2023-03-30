@@ -37,10 +37,10 @@
   animation: deflate 0.25s;
 }
 
-.thumbs-up:hover,
-.thumbs-down:hover,
-.thumbs-up.clicked:hover,
-.thumbs-down.clicked:hover {
+.thumbs-up.clickable:hover,
+.thumbs-down.clickable:hover,
+.thumbs-up.clickable.clicked:hover,
+.thumbs-down.clickable.clicked:hover {
   animation: inflate 0.25s;
   animation-fill-mode: forwards;
 }

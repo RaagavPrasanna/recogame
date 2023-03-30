@@ -14,6 +14,11 @@ function Thumbs() {
 
   function thumbHandler(e) {
     e.preventDefault();
+
+    if (!userCtx.user) {
+      return;
+    }
+
     const clicked = e.target;
     const thumb =
       clicked.closest('#thumbs-up') || clicked.closest('#thumbs-down');
@@ -42,20 +47,17 @@ function Thumbs() {
   }
 
   return (
-    userCtx.user && (
-      <div className={styles.thumbs} onClick={thumbHandler}>
-        <BsFillHandThumbsUpFill
-          className={`${styles['thumbs-up']} ${isThumbsUp && styles.clicked}`}
-          id="thumbs-up"
-        />
-        <BsFillHandThumbsDownFill
-          className={`${styles['thumbs-down']} ${
-            isThumbsDown && styles.clicked
-          }`}
-          id="thumbs-down"
-        />
-      </div>
-    )
+    <div className={styles.thumbs} onClick={thumbHandler}>
+      <BsFillHandThumbsUpFill
+        className={`${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${isThumbsUp && styles.clicked}`}
+        id="thumbs-up"
+      />
+      <BsFillHandThumbsDownFill
+        className={`${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${isThumbsDown && styles.clicked
+        }`}
+        id="thumbs-down"
+      />
+    </div>
   );
 }
 
