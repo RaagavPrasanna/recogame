@@ -83,7 +83,6 @@ function GameDetailView() {
   }, []);
 
   const wishlistHandler = async (url) => {
-    console.log(id);
     // Fetch the CSRF token from the server
     const resp = await fetch('/authentication/csrf-token');
     const { token } = await resp.json();
