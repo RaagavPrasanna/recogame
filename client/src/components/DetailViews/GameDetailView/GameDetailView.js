@@ -108,6 +108,7 @@ function GameDetailView() {
         <Button onClick={() => wishlistHandler('/authentication/add-to-wishlist')}>{t('ADD TO WISHLIST')}</Button>
       );
     } else {
+      // TODO for Shirley - Add translation
       return (
         <Button onClick={() => wishlistHandler('/authentication/remove-from-wishlist')}>REMOVE FROM WISHLIST</Button>
       );
