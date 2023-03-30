@@ -1,7 +1,5 @@
 package ca.recogame;
 
-import java.util.ArrayList;
-import java.util.List;
 // Dotenv
 import io.github.cdimascio.dotenv.*;
 // MongoDB
@@ -9,19 +7,12 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.BasicDBObject;
 import com.mongodb.ConnectionString;
-import com.mongodb.MongoBulkWriteException;
 import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
-import com.mongodb.client.model.BulkWriteOptions;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.InsertOneModel;
-import com.mongodb.client.model.WriteModel;
 // BSON and POJO
 import org.bson.codecs.configuration.*;
 import org.bson.codecs.pojo.*;
-import org.bson.conversions.Bson;
 
 /**
  * Connection to mongodb with Queries
@@ -77,4 +68,3 @@ public class Connection {
     this.gameDetails.insertOne(game);
   }
 }
-

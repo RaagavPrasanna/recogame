@@ -1,9 +1,5 @@
 package ca.recogame;
 
-import java.io.IOException;
-
-import com.mongodb.MongoException;
-
 public class Api {
   private Connection connect;
   private NodeReader nodeReader;
@@ -21,7 +17,7 @@ public class Api {
 
   private void importMultiGameDetails() {
     ReadFile read = new ReadFile(this.path);
-    for (int id : read.getlistId()) {
+    for (int id : read.getListId()) {
       System.out.println("- " + id);
       if (!connect.checkGameExists("steam", id)) {
         System.out.println("  Is not in the DB, inserting");
@@ -33,7 +29,7 @@ public class Api {
           e.printStackTrace();
         }
       } else {
-          System.out.println("  Is already in DB, ignoring");
+        System.out.println("  Is already in DB, ignoring");
       }
     }
   }

@@ -8,15 +8,15 @@ import java.util.regex.Pattern;
 
 public final class InputValidation {
   public static boolean normalizedString(String input) {
-    boolean isValide = false;
+    boolean isValid = false;
     String checkText = Normalizer.normalize(input, Form.NFKC);
     Pattern pattern = Pattern.compile("[<>]");
     // Search for occurrence "<" or "<" within the string str
     Matcher matcher = pattern.matcher(checkText);
     if (matcher.find() == false) {
-      isValide = true;
+      isValid = true;
     }
-    return isValide;
+    return isValid;
   }
 
   /**
@@ -71,5 +71,4 @@ public final class InputValidation {
       return null;
     }
   }
-
 }
