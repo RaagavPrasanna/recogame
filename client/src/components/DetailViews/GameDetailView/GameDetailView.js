@@ -55,6 +55,7 @@ async function getGameDetails(id, callback) {
 
 function GameDetailView() {
   const { id } = useParams();
+  const [wishlistToggle, setWishlistToggle] = useState(true);
   const [gameDetails, dispatchGameDetails] = useReducer(
     gameReducer,
     defaultGameDetails
@@ -63,13 +64,56 @@ function GameDetailView() {
   const { t } = useTranslation();
   const userCtx = useContext(UserContext);
 
+  const checkWishlist = async () => {
+    const response = await fetch(`/authentication/check-wishlist/${id}`);
+    if(response.status === 200) {
+      setWishlistToggle(false);
+    }
+  };
+
   useEffect(() => {
     setIsLoading(true);
     getGameDetails(id, (data) => {
       dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: data });
       setIsLoading(false);
     });
+    if(userCtx.user !== null) {
+      checkWishlist();
+    }
   }, []);
+
+  const wishlistHandler = async (url) => {
+    // Fetch the CSRF token from the server
+    const resp = await fetch('/authentication/csrf-token');
+    const { token } = await resp.json();
+
+    // Send game id to server witb CSRF token
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token
+      },
+      body: JSON.stringify({ id })
+    });
+
+    if(response.status === 200) {
+      setWishlistToggle(!wishlistToggle);
+    }
+  };
+
+  const wishlistButton = () => {
+    if(wishlistToggle) {
+      return (
+        <Button onClick={() => wishlistHandler('/authentication/add-to-wishlist')}>{t('ADD TO WISHLIST')}</Button>
+      );
+    } else {
+      // TODO for Shirley - Add translation
+      return (
+        <Button onClick={() => wishlistHandler('/authentication/remove-from-wishlist')}>REMOVE FROM WISHLIST</Button>
+      );
+    }
+  };
 
   return (
     <>
@@ -170,7 +214,7 @@ function GameDetailView() {
               </Button>
               {userCtx.user && (
                 <>
-                  <Button>{t('ADD TO WISHLIST')}</Button>
+                  {wishlistButton()}
                   <Button>{t('ADD TO MY GAMELIST')}</Button>
                 </>
               )}
