@@ -50,10 +50,10 @@ function PostList() {
         pullDownToRefresh
         pullDownToRefreshThreshold={50}
         pullDownToRefreshContent={
-          <h3 className={styles['pull-down']} style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+          <h3 className={styles['pull-down']} style={{ textAlign: 'center' }}>&#8595; {t('Pull down to refresh')}</h3>
         }
         releaseToRefreshContent={
-          <h3 className={styles['release']} style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+          <h3 className={styles['release']} style={{ textAlign: 'center' }}>&#8593; {t('Release to refresh')}</h3>
         }
       >
         {availablePosts}
