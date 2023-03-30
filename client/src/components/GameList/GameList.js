@@ -1,6 +1,5 @@
 // import Popup from 'reactjs-popup';
 import Button from '../UI/Button/Button';
-import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
 import { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
