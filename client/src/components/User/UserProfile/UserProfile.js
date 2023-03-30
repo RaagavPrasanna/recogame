@@ -98,7 +98,7 @@ function UserProfile() {
           <li>
             {`${t('CATEGORIES')}`}
             <div className={styles['tag-container']}>
-              {preferences.category?.map((cat, i) => {
+              {preferences.categories?.map((cat, i) => {
                 return <Tag key={i} tagName={cat} tagType="categories" />;
               })}
             </div>
