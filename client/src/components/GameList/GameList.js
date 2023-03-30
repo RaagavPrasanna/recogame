@@ -62,7 +62,7 @@ function GameList() {
           <h2> {t('Wishlist')} </h2>
 
           <section>
-            <ul>
+            <ul className={classes.list}>
               {wishlist.map((game) => {
                 return (
                   <Link key={game.id} to={`/game/info/${game.id}`}>
