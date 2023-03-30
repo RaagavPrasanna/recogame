@@ -112,21 +112,21 @@ function Header() {
           <>
             <span className={styles['left-section']}>
               <Link to="/">
-                <Button>{t('Home')}</Button>
+                <Button >{t('Home')}</Button>
               </Link>
               <Link to="/community">
-                <Button> {t('Community')} </Button>
+                <Button > {t('Community')} </Button>
               </Link>
               {userCtx.user && (
                 <>
                   <Link to="/friends">
-                    <Button> {t('Friends')} </Button>
+                    <Button > {t('Friends')} </Button>
                   </Link>
                   <Link to="/profile">
-                    <Button> {t('User')} </Button>
+                    <Button > {t('User')} </Button>
                   </Link>
                   <Link to="/gamelist">
-                    <Button> {t('My Game List')} </Button>
+                    <Button > {t('My Game List')} </Button>
                   </Link>
                 </>
               )}
@@ -134,14 +134,18 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShowFilter}> {t('Filter')}</Button>
-          <Button onClick={handleShowSearch}> {t('Search')} </Button>
+          <Button onClick={handleShowFilter}  >
+            {t('Filter')}
+          </Button>
+          <Button onClick={handleShowSearch}  >
+            {t('Search')}
+          </Button>
           {showFilter && <Filter handleShow={handleShowFilter} />}
           {showSearch && <SearchBar handleShow={handleShowSearch} />}
           {isMobile || (
             <>
               {retUserAuthButton()}
-              <Button className={styles['lang-btn']}>
+              <Button className={styles['lang-btn']}  >
                 <LanguageSelector className={styles['lang-selector']} />
               </Button>
               <Switch onClick={changeTheme} />

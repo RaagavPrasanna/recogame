@@ -105,23 +105,13 @@
   color: #2d3a44;
 }
 
-.header.showBg.dark select{
+.header.showBg select{
   border: none;
   background-color: #ffffff00;
   color: #6e7f80;
 }
 
-.header.showBg.light select{
-  border: none;
-  background-color: #FFF;
-  color: #6e7f80;
-}
-
-.header.showBg.dark .lang-selector{
-  color: #2d3a44;
-}
-
-.header.showBg.light .lang-selector{
+.header.showBg .lang-selector{
   color: #2d3a44;
 }
 
