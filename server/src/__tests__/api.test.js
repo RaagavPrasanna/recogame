@@ -160,7 +160,14 @@ describe('API GET', () => {
 
   test('Get game by id', async () => {
     const MOCK_GAME = GAMES[0];
-    mockingoose(models.GameDetails).toReturn({ _id: 'a123', ...MOCK_GAME }, 'findOne');
+    jest.spyOn(models.ViewGameDetailsFull, 'getModel')
+      .mockImplementation(async () => {
+        return mongoose.model(
+          'view-game-details-full',
+          models.ViewGameDetailsFull.schema
+        );
+      });
+    mockingoose(await models.ViewGameDetailsFull.getModel()).toReturn({ _id: 'a123', ...MOCK_GAME }, 'findOne');
 
     const res = await request(app).get('/api/game/info/a125');
 
@@ -171,9 +178,19 @@ describe('API GET', () => {
   });
 
   test('Get game by non existent game id', async () => {
-    mockingoose(models.GameDetails).toReturn(null, 'findOne');
+    jest.spyOn(models.ViewGameDetailsFull, 'getModel')
+      .mockImplementation(async () => {
+        return mongoose.model(
+          'view-game-details-full',
+          models.ViewGameDetailsFull.schema
+        );
+      });
+    mockingoose(await models.ViewGameDetailsFull.getModel()).toReturn(null, 'findOne');
+
     const res = await request(app).get('/api/game/info/1');
+
     expect(res.statusCode).toEqual(404);
+    expect(res.text).toEqual('Game not found');
   });
 
 
