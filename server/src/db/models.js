@@ -89,7 +89,7 @@ const UserProfile = mongoose.model(
       platforms: [String],
       genres: [String],
       categories: [String],
-      wishlist: [Number],
+      wishlist: [String],
       receiveMsgs: { type: Boolean, default: true },
       enableFriendRecs: { type: Boolean, default: true },
       enableGameRecs: { type: Boolean, default: true },
