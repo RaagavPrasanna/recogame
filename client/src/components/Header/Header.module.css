@@ -82,10 +82,14 @@
   color: #6e7f80;
 }
 
-/* .light{
-  background-color: #FFF;
-}
-
 .dark{
   background-color: #2D3A44;
-} */
+  margin: 0;
+  font-size: 100%;
+}
+
+.light{
+  background-color: #FFF;
+  margin: 0;
+  font-size: 100%;
+}

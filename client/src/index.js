@@ -10,6 +10,7 @@ import UserProvider from './store/UserProvider';
 import ThemeProvider from './store/ThemeProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <>
     {/* eslint-disable-next-line no-undef*/}
@@ -19,7 +20,7 @@ root.render(
           <FriendProvider>
             <CommunityProvider>
               <ThemeProvider>
-                <App />
+                <App/>
               </ThemeProvider>
             </CommunityProvider>
           </FriendProvider>

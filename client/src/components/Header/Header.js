@@ -14,23 +14,34 @@ import { Switch } from 'theme-ui';
 import ThemeContext from '../../store/theme-context';
 
 function Header() {
-  const [navBg, setNavBg] = useState(false);
-  const [show, setShow] = useState(false);
-  const navigate = useNavigate();
-
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
   const userCtx = useContext(UserContext);
   const themeCtx = useContext(ThemeContext);
+  const { user, logout } = useContext(UserContext);
+
+  const [navBg, setNavBg] = useState(false);
+  const [show, setShow] = useState(false);
+  const [theme, setTheme] = useState(themeCtx.theme);
+
+
+  const navigate = useNavigate();
+
   const headerRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
 
-  const { user, logout } = useContext(UserContext);
-
   function handleShow() {
     setShow(!show);
   }
+
+  const changeTheme = () => {
+    if (theme === 'dark') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
+  };
 
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
@@ -40,10 +51,11 @@ function Header() {
 
   useEffect(() => {
     window.addEventListener('scroll', changeNavBg);
+    document.body.className =  styles[theme];
     return () => {
       window.removeEventListener('scroll', changeNavBg);
     };
-  }, []);
+  }, [theme]);
 
   function handlePageChange() {
     postCtx.handlePostClick();
@@ -121,7 +133,7 @@ function Header() {
               <Button className={styles['lang-btn']}>
                 <LanguageSelector className={styles['lang-selector']} />
               </Button>
-              <Switch onClick={themeCtx.setTheme} />
+              <Switch onClick={changeTheme} />
             </>
           )}
         </span>

@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game/:id" element={<GameDetailView />} />

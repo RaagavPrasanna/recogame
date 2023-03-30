@@ -9,7 +9,7 @@ function ThemeProvider({ children }) {
     setLight(isLight);
   };
 
-  const theme = light ? '.dark' : '.light';
+  const theme = light ? 'dark' : 'light';
 
   const themeContext = {
     theme: theme,
