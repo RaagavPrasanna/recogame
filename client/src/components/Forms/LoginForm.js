@@ -2,28 +2,18 @@ import { useContext } from 'react';
 import Modal from '../UI/Modal/Modal';
 import classes from './LoginForm.module.css';
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import UserContext from '../../store/user-context';
 import { useTranslation } from 'react-i18next';
 
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { t } = useTranslation();
 
-  // const logout = async () => {
-  //   const res = await fetch('/authentication/logout');
-  //   // TODO: Redirect to home page on logout
-  //   if(res.status === 200) {
-  //     // eslint-disable-next-line no-alert
-  //     alert('Logged out');
-  //   } else {
-  //     // eslint-disable-next-line no-alert
-  //     alert('Failed to log out');
-  //   }
-  // };
 
+  // Handle login with Google
   const handleLogin = async googleData => {
     const res = await fetch('/authentication/google-auth', {
       method: 'POST',
@@ -50,6 +40,7 @@ function LoginForm() {
     console.error(err);
   };
 
+  // Handle login with Steam
   const handleSteam = async () => {
     // Must be changed in production
     // eslint-disable-next-line no-undef
@@ -57,24 +48,36 @@ function LoginForm() {
     window.location.replace(`${window.location.origin}/authentication/steam-auth/return`);
   };
 
+  const content = () => {
+    if(user !== null) {
+      return (<Navigate to="/"/>);
+    } else {
+      return (
+        <Modal>
+          <form className={classes.loginForm}>
+            <h2>{t('Log In')}</h2>
+            <br />
+            <div className={classes.loginBtn}>
+              <span>
+                <GoogleLogin onSuccess={handleLogin} onError={handleError} />
+              </span>
+              <span>
+                <img
+                  src="https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png"
+                  onClick={handleSteam}
+                />
+              </span>
+            </div>
+          </form>
+        </Modal>
+      );
+    }
+  };
+
   return (
-    <Modal>
-      <form className={classes.loginForm}>
-        <h2>{t('Log In')}</h2>
-        <br />
-        <div className={classes.loginBtn}>
-          <span>
-            <GoogleLogin onSuccess={handleLogin} onError={handleError} />
-          </span>
-          <span>
-            <img
-              src="https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_01.png"
-              onClick={handleSteam}
-            />
-          </span>
-        </div>
-      </form>
-    </Modal>
+    <>
+      {content()}
+    </>
   );
 }
 

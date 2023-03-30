@@ -4,6 +4,7 @@ import UserSettings from '../UserSettings/UserSettings';
 import { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../../store/user-context';
+import { Link } from 'react-router-dom';
 
 function UserProfile() {
   const userCtx = useContext(UserContext);
@@ -14,7 +15,9 @@ function UserProfile() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (userCtx.user.provider === 'steam') {
+    if(userCtx.user === null) {
+      return;
+    } else if (userCtx.user.provider === 'steam') {
       setUsername(userCtx.user.displayName);
       setAccountType(userCtx.user.provider);
       setImg(userCtx.user.photos[2].value);
@@ -35,21 +38,37 @@ function UserProfile() {
     setIsSettingsVisible(false);
   }
 
+  const content = () => {
+    if(userCtx.user === null) {
+      return (
+        <Button>
+          <Link to="/login">{t('Login')}</Link>
+        </Button>
+      );
+    } else {
+      return (
+        <>
+          <img src={img} />
+          <Button onClick={showSettings} className={styles.settings}>
+            {t('User Settings')}
+          </Button>
+          <div className={styles['user-info']}>
+            <h2>{username}</h2>
+            <h3>{t('Account Type: ')} {accountType}</h3>
+          </div>
+          {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
+          <div className={styles['game-recommendations']}>
+            <h2>{t('Game Recommendations')}</h2>
+            <hr></hr>
+          </div>
+        </>
+      );
+    }
+  };
+
   return (
     <div className={styles['user-profile']}>
-      <img src={img} />
-      <Button onClick={showSettings} className={styles.settings}>
-        {t('User Settings')}
-      </Button>
-      <div className={styles['user-info']}>
-        <h2>{username}</h2>
-        <h3>{t('Account Type: ')} {accountType}</h3>
-      </div>
-      {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
-      <div className={styles['game-recommendations']}>
-        <h2>{t('Game Recommendations')}</h2>
-        <hr></hr>
-      </div>
+      {content()}
     </div>
   );
 }
