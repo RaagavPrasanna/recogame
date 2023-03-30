@@ -10,6 +10,8 @@ function GamePost({
   id,
   onGameClick,
   imageSrc,
+  likes,
+  dislikes
 }) {
   return (
     <Link className={styles.gamepost} to={`/game/info/${id}`} onClick={onGameClick}>
@@ -26,7 +28,7 @@ function GamePost({
           <div className={styles['dev-name']}>{devName}</div>
           <div className={styles.rating}>
             <span className={styles.stars}>{'⭐️'.repeat(rating)}</span>
-            <Thumbs />
+            <Thumbs likes={likes} dislikes={dislikes} />
           </div>
         </div>
         <br />

@@ -37,6 +37,8 @@ function gameReducer(state, action) {
       gameDesc: game.shortDescription,
       storeUrl: game.storeUrl,
       screenshots: game.screenshots,
+      likes: game.likes,
+      dislikes: game.dislikes,
       reviews: [],
     };
   }
@@ -218,7 +220,7 @@ function GameDetailView() {
                   <Button>{t('ADD TO MY GAMELIST')}</Button>
                 </>
               )}
-              <Thumbs />
+              <Thumbs likes={gameDetails.likes} dislikes={gameDetails.dislikes} />
               {/* TODO: Drop down menu */}
             </div>
           </div>
