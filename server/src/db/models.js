@@ -37,15 +37,69 @@ const GameDetails = mongoose.model(
   }).index({ sourceId: 1, sourceName: 1 }, { unique: true })
 );
 
+const GameRating = mongoose.model(
+  'game-rating',
+  new mongoose.Schema({
+    user: { type: mongoose.Schema.ObjectId, ref: 'UserProfile', required: true },
+    game: { type: mongoose.Schema.ObjectId, ref: 'GameDetails', required: true },
+    thumbsUp: Boolean
+  }).index({ user: 1, game: 1 }, { unique: true })
+);
+
+// View that represents a game full details in db
+const ViewGameDetailsFull = new View(
+  'view-game-details-full',
+  'game-details',
+  new mongoose.Schema({
+    ...GameDetails.schema.obj,
+    likes: Number,
+    dislikes: Number
+  }),
+  [
+    {
+      $lookup: {
+        from: 'game-ratings',
+        localField: '_id',
+        foreignField: 'game',
+        as: 'ratings'
+      }
+    },
+    {
+      $addFields: {
+        likes: {
+          $size: {
+            $filter: {
+              input: '$ratings',
+              as: 'rating',
+              cond: { $eq: ['$$rating.thumbsUp', true] }
+            }
+          }
+        },
+        dislikes: {
+          $size: {
+            $filter: {
+              input: '$ratings',
+              as: 'rating',
+              cond: { $eq: ['$$rating.thumbsUp', false] }
+            }
+          }
+        },
+      }
+    }
+  ]
+);
+
 // View that represents a games short details in the db
 const ViewGameDetailsShort = new View(
   'view-game-details-short',
-  'game-details',
+  'view-game-details-fulls',
   new mongoose.Schema({
     name: String,
     developers: [String],
     shortDescription: String,
-    imageHeader: String
+    imageHeader: String,
+    likes: Number,
+    dislikes: Number
   }),
   [{
     $project: {
@@ -53,7 +107,9 @@ const ViewGameDetailsShort = new View(
       name: true,
       developers: true,
       shortDescription: true,
-      imageHeader: true
+      imageHeader: true,
+      likes: true,
+      dislikes: true
     }
   }]
 );
@@ -113,9 +169,10 @@ const DeprecatedGames = mongoose.model(
 export default {
   CLEAN_PROJECTION,
   GameDetails,
+  GameRating,
+  ViewGameDetailsFull,
   ViewGameDetailsShort,
   ViewGameName,
   UserProfile,
-  DeprecatedGames
+  DeprecatedGames,
 };
-

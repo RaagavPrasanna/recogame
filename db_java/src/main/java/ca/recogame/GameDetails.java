@@ -247,5 +247,4 @@ public class GameDetails {
         + ", background="
         + background + ", contentDescriptors=" + contentDescriptors + "]";
   }
-
 }
