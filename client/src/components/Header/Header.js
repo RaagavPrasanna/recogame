@@ -22,7 +22,6 @@ function Header() {
   const { user, logout } = useContext(UserContext);
 
   const [navBg, setNavBg] = useState(false);
-  const [show, setShow] = useState(false);
   const [theme, setTheme] = useState(themeCtx.theme);
   const [showSearch, setShowSearch] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -33,130 +32,124 @@ function Header() {
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
 
-  function handleShow() {
-    setShow(!show);
-    const { user, logout } = useContext(UserContext);
+  function handleShowSearch() {
+    setShowSearch(!showSearch);
+  }
 
-    function handleShowSearch() {
-      setShowSearch(!showSearch);
+  function handleShowFilter() {
+    setShowFilter(!showFilter);
+  }
+
+  const changeTheme = () => {
+    if (theme === 'dark') {
+      setTheme('light');
+    } else {
+      setTheme('dark');
     }
+  };
 
-    function handleShowFilter() {
-      setShowFilter(!showFilter);
+  const changeNavBg = () => {
+    window.scrollY >= headerRef.current.offsetHeight
+      ? setNavBg(true)
+      : setNavBg(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', changeNavBg);
+    document.body.className = styles[theme];
+    return () => {
+      window.removeEventListener('scroll', changeNavBg);
+    };
+  }, [theme]);
+
+  function handlePageChange() {
+    postCtx.handlePostClick();
+    commCtx.handlePostClick();
+  }
+
+  // Decide whether to show the login or logout button
+  const retUserAuthButton = () => {
+    if (user !== null) {
+      return (
+        <Button
+          onClick={async () => {
+            if (await logout()) {
+              navigate('/');
+            }
+          }}
+        >
+          {' '}
+          {t('Log Out here')}{' '}
+          {user.provider === 'google' ? user.name : user.displayName}{' '}
+        </Button>
+      );
+    } else {
+      return (
+        <Link to="/login">
+          <Button> {t('Log In')} </Button>
+        </Link>
+      );
     }
+  };
 
-    const changeTheme = () => {
-      if (theme === 'dark') {
-        setTheme('light');
-      } else {
-        setTheme('dark');
-      }
-    };
-
-    const changeNavBg = () => {
-      window.scrollY >= headerRef.current.offsetHeight
-        ? setNavBg(true)
-        : setNavBg(false);
-    };
-
-    useEffect(() => {
-      window.addEventListener('scroll', changeNavBg);
-      document.body.className = styles[theme];
-      return () => {
-        window.removeEventListener('scroll', changeNavBg);
-      };
-    }, [theme]);
-
-    function handlePageChange() {
-      postCtx.handlePostClick();
-      commCtx.handlePostClick();
-    }
-
-    // Decide whether to show the login or logout button
-    const retUserAuthButton = () => {
-      if (user !== null) {
-        return (
-          <Button
-            onClick={async () => {
-              if (await logout()) {
-                navigate('/');
-              }
-            }}
-          >
-            {' '}
-            {t('Log Out here')}{' '}
-            {user.provider === 'google' ? user.name : user.displayName}{' '}
-          </Button>
-        );
-      } else {
-        return (
-          <Link to="/login">
-            <Button> {t('Log In')} </Button>
-          </Link>
-        );
-      }
-    };
-
-    return (
-      <div
-        className={`${styles.header} ${(navBg && styles.showBg) ||
+  return (
+    <div
+      className={`${styles.header} 
+        ${(navBg && styles.showBg) ||
           (isMobile && styles.showBg)
-        }`}
-        onScroll={changeNavBg}
-        ref={headerRef}
-      >
-        <header className={styles.buttons} onClick={handlePageChange}>
-          {isMobile ? (
-            <MobileNav
-              retUserAuthButton={retUserAuthButton}
-              handlePageChange={handlePageChange}
-            />
-          ) : (
+    }`}
+      onScroll={changeNavBg}
+      ref={headerRef}
+    >
+      <header className={styles.buttons} onClick={handlePageChange}>
+        {isMobile ? (
+          <MobileNav
+            retUserAuthButton={retUserAuthButton}
+            handlePageChange={handlePageChange}
+          />
+        ) : (
+          <>
+            <span className={styles['left-section']}>
+              <Link to="/">
+                <Button>{t('Home')}</Button>
+              </Link>
+              <Link to="/community">
+                <Button> {t('Community')} </Button>
+              </Link>
+              {userCtx.user && (
+                <>
+                  <Link to="/friends">
+                    <Button> {t('Friends')} </Button>
+                  </Link>
+                  <Link to="/profile">
+                    <Button> {t('User')} </Button>
+                  </Link>
+                  <Link to="/gamelist">
+                    <Button> {t('My Game List')} </Button>
+                  </Link>
+                </>
+              )}
+            </span>
+          </>
+        )}
+        <span className={styles['right-section']}>
+          <Button onClick={handleShowFilter}> {t('Filter')}</Button>
+          <Button onClick={handleShowSearch}> {t('Search')} </Button>
+          {showFilter && <Filter handleShow={handleShowFilter} />}
+          {showSearch && <SearchBar handleShow={handleShowSearch} />}
+          {isMobile || (
             <>
-              <span className={styles['left-section']}>
-                <Link to="/">
-                  <Button>{t('Home')}</Button>
-                </Link>
-                <Link to="/community">
-                  <Button> {t('Community')} </Button>
-                </Link>
-                {userCtx.user && (
-                  <>
-                    <Link to="/friends">
-                      <Button> {t('Friends')} </Button>
-                    </Link>
-                    <Link to="/profile">
-                      <Button> {t('User')} </Button>
-                    </Link>
-                    <Link to="/gamelist">
-                      <Button> {t('My Game List')} </Button>
-                    </Link>
-                  </>
-                )}
-              </span>
+              {retUserAuthButton()}
+              <Button className={styles['lang-btn']}>
+                <LanguageSelector className={styles['lang-selector']} />
+              </Button>
+              <Switch onClick={changeTheme} />
             </>
           )}
-          <span className={styles['right-section']}>
-            <Button onClick={handleShow}> {t('Search')} </Button>
-            {show && <SearchBar handleShow={handleShow} />}
-            <Button onClick={handleShowFilter}> {t('Filter')}</Button>
-            <Button onClick={handleShowSearch}> {t('Search')} </Button>
-            {showFilter && <Filter handleShow={handleShowFilter} />}
-            {showSearch && <SearchBar handleShow={handleShowSearch} />}
-            {isMobile || (
-              <>
-                {retUserAuthButton()}
-                <Button className={styles['lang-btn']}>
-                  <LanguageSelector className={styles['lang-selector']} />
-                </Button>
-                <Switch onClick={changeTheme} />
-              </>
-            )}
-          </span>
-        </header>
-      </div>
-    );
-  }
+        </span>
+      </header>
+    </div>
+  );
 }
 
 export default Header;
