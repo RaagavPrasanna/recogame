@@ -98,14 +98,8 @@ function Header() {
               <Link to="/">
                 <Button>{t('Home')}</Button>
               </Link>
-              <Link to="/community">
-                <Button> {t('Community')} </Button>
-              </Link>
               {userCtx.user && (
                 <>
-                  <Link to="/friends">
-                    <Button> {t('Friends')} </Button>
-                  </Link>
                   <Link to="/profile">
                     <Button> {t('User')} </Button>
                   </Link>
