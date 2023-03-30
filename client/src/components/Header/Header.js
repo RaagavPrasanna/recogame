@@ -52,6 +52,8 @@ function Header() {
     postCtx.handlePostClick();
     commCtx.handlePostClick();
   }
+
+  // Decide whether to show the login or logout button
   const retUserAuthButton = () => {
     if (user !== null) {
       return (
@@ -116,7 +118,7 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShowFilter}> Filter </Button>
+          <Button onClick={handleShowFilter}> {t('Filter')}</Button>
           <Button onClick={handleShowSearch}> {t('Search')} </Button>
           {showFilter && <Filter handleShow={handleShowFilter} />}
           {showSearch && <SearchBar handleShow={handleShowSearch} />}

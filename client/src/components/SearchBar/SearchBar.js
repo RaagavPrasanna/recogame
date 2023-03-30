@@ -41,7 +41,7 @@ function SearchBar(props) {
       <input type="search" placeholder={t('Search Game')} onChange={inputHandler} />
       {filteredData.slice(0, 10).map((game) => (
         <p key={game.id}>
-          <Link to={`/game/${game.id}`} onClick={handleGame} >
+          <Link to={`/game/info/${game.id}`} onClick={handleGame} >
             {game.name}
           </Link>
         </p>

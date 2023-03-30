@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import View from './view.js';
 
-
+// To get rid of fields in the returned object
 const CLEAN_PROJECTION = { _id: false, __v: false };
 
+// Model that represents a games full details in the db
 const GameDetails = mongoose.model(
   'game-details',
   new mongoose.Schema({
@@ -45,6 +46,7 @@ const GameRating = mongoose.model(
   }).index({ user: 1, game: 1 }, { unique: true })
 );
 
+// View that represents a game full details in db
 const ViewGameDetailsFull = new View(
   'view-game-details-full',
   'game-details',
@@ -87,6 +89,7 @@ const ViewGameDetailsFull = new View(
   ]
 );
 
+// View that represents a games short details in the db
 const ViewGameDetailsShort = new View(
   'view-game-details-short',
   'view-game-details-fulls',
@@ -111,6 +114,7 @@ const ViewGameDetailsShort = new View(
   }]
 );
 
+// View for just the name of the game
 const ViewGameName = new View(
   'view-game-name',
   'game-details',
@@ -125,6 +129,7 @@ const ViewGameName = new View(
   }]
 );
 
+// Model that represents a user's profile in the db
 const UserProfile = mongoose.model(
   'user-profile',
   new mongoose.Schema({
@@ -140,7 +145,7 @@ const UserProfile = mongoose.model(
       platforms: [String],
       genres: [String],
       categories: [String],
-      wishlist: [Number],
+      wishlist: [String],
       receiveMsgs: { type: Boolean, default: true },
       enableFriendRecs: { type: Boolean, default: true },
       enableGameRecs: { type: Boolean, default: true },
@@ -149,6 +154,7 @@ const UserProfile = mongoose.model(
   })
 );
 
+// Model that represents a deprecated game in the db
 const DeprecatedGames = mongoose.model(
   'deprecated-games',
   new mongoose.Schema({

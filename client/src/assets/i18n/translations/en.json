@@ -54,5 +54,10 @@
   "Search Game":"Search Game", 
   "Search Platform":"Search Platform",
   "Search Category":"Search Category",
-  "Search Genre":"Search Genre"
+  "Search Genre":"Search Genre",
+  "Filter":"Filter",
+  "Add preferences":"Add preferences",
+  "Your preferences":"Your preferences",
+  "Pull down to refresh":"Pull down to refresh",
+  "Release to refresh":"Release to refresh"
 }
