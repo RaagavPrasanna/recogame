@@ -25,7 +25,6 @@ async function getGame(id) {
 }
 
 function GameList() {
-  // TODO: Add tags to so it can go to the right section
   const { t } = useTranslation();
   const { user } = useContext(UserContext);
   const [wishlist, setWishlist] = useState([]);
@@ -63,13 +62,13 @@ function GameList() {
 
           <section>
             <ul className={classes.list}>
-              {wishlist.map((game) => {
+              {wishlist.length > 0 ? wishlist.map((game) => {
                 return (
                   <Link key={game.id} to={`/game/info/${game.id}`}>
                     <li>{game.data.name}</li>
                   </Link>
                 );
-              })}
+              }) : <li>You have no games in your wishlist.</li>}
             </ul>
           </section>
         </>
