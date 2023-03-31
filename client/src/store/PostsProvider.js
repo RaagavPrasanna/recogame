@@ -8,8 +8,36 @@ async function getGamePage(page, params, callback) {
   if (!resp.ok) {
     throw new Error(`Could not get page (${resp.status})`);
   }
+
+  const thumbs = await getThumbs();
+
   const data = await resp.json();
+  data.map((g) => {
+    g.thumbs =
+      Number(thumbs.likes?.includes(g.id)) - Number(thumbs.dislikes?.includes(g.id))
+  });
   callback(data);
+}
+
+async function getThumbs() {
+  // Fetch the CSRF token from the server
+  const resp = await fetch('/authentication/csrf-token');
+  const { token } = await resp.json();
+
+  // Send the thumb to the server with the CSRF token
+  const response = await fetch('/authentication/thumbs/count', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': token,
+    }
+  });
+
+  if (!response.ok) {
+    return {};
+  } else {
+    return await response.json();
+  }
 }
 
 function buildTagParams(tagObj) {

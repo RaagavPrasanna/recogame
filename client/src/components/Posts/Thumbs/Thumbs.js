@@ -7,8 +7,8 @@ import UserContext from '../../../store/user-context';
 
 import styles from './Thumbs.module.css';
 
-function Thumbs({ likes, dislikes, gameId }) {
-  const [rating, setRating] = useState(0);
+function Thumbs({ likes, dislikes, rating, gameId }) {
+  const [shownRating, setShownRating] = useState(rating);
   const [shownLikes, setShownLikes] = useState(likes);
   const [shownDislikes, setShownDislikes] = useState(dislikes);
 
@@ -29,7 +29,7 @@ function Thumbs({ likes, dislikes, gameId }) {
     }
     const clickedThumb = thumb.id;
     let newRating = Number(clickedThumb === 'thumbs-up') - Number(clickedThumb === 'thumbs-down');
-    if (rating === newRating) {
+    if (shownRating === newRating) {
       // Same thumb was clicked twice
       newRating = 0;
     }
@@ -53,11 +53,11 @@ function Thumbs({ likes, dislikes, gameId }) {
 
     if (response.status === 200) {
       const json = await response.json();
-      setRating(newRating);
+      setShownRating(newRating);
       setShownLikes(json.likes);
       setShownDislikes(json.dislikes);
     } else {
-      setRating(0);
+      setShownRating(0);
       setShownLikes(likes);
       setShownDislikes(dislikes);
     }
@@ -67,7 +67,9 @@ function Thumbs({ likes, dislikes, gameId }) {
     <div className={styles.thumbs} onClick={thumbHandler}>
       <div className={styles['thumbs-container']}>
         <BsFillHandThumbsUpFill
-          className={`${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${rating > 0 && styles.clicked}`}
+          className={
+            `${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${shownRating > 0 && styles.clicked}`
+          }
           id="thumbs-up"
         />
         <p>{shownLikes || 0}</p>
@@ -75,7 +77,9 @@ function Thumbs({ likes, dislikes, gameId }) {
 
       <div className={styles['thumbs-container']}>
         <BsFillHandThumbsDownFill
-          className={`${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${rating < 0 && styles.clicked}`}
+          className={
+            `${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${shownRating < 0 && styles.clicked}`
+          }
           id="thumbs-down"
         />
         <p>{shownDislikes || 0}</p>
