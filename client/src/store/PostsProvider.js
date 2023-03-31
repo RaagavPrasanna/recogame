@@ -1,5 +1,6 @@
 import PostContext from './posts-context';
-import { useEffect, useReducer, useState } from 'react';
+import UserContext from './user-context';
+import { useContext, useEffect, useReducer, useState } from 'react';
 
 async function getGamePage(page, params, callback) {
   const resp = await fetch(
@@ -20,6 +21,12 @@ async function getGamePage(page, params, callback) {
 }
 
 async function getThumbs() {
+  // TODO somehow get if the user is logged in
+  // if (!useContext(UserContext).user) {
+  return {};
+  // }
+
+  /*
   // Fetch the CSRF token from the server
   const resp = await fetch('/authentication/csrf-token');
   const { token } = await resp.json();
@@ -38,6 +45,7 @@ async function getThumbs() {
   } else {
     return await response.json();
   }
+  */
 }
 
 function buildTagParams(tagObj) {

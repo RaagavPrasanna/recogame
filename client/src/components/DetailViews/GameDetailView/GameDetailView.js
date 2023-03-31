@@ -47,16 +47,19 @@ function gameReducer(state, action) {
   return defaultGameDetails;
 }
 
-async function getGameDetails(id, callback) {
+async function getGameDetails(id, fetchThumbs, callback) {
   const resp = await fetch(`/api/game/info/${id}`);
   if (!resp.ok) {
     throw new Error(`Could not fetch game (${resp.status})`);
   }
-  const thumbs = await getThumbs();
 
   const data = await resp.json();
-  data.thumbs =
-    Number(thumbs.likes?.includes(id)) - Number(thumbs.dislikes?.includes(id));
+
+  if (fetchThumbs) {
+    const thumbs = await getThumbs();
+    data.thumbs =
+      Number(thumbs.likes?.includes(id)) - Number(thumbs.dislikes?.includes(id));
+  }
   callback(data);
 }
 
@@ -101,7 +104,7 @@ function GameDetailView() {
 
   useEffect(() => {
     setIsLoading(true);
-    getGameDetails(id, (data) => {
+    getGameDetails(id, Boolean(userCtx.user), (data) => {
       dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: data });
       setIsLoading(false);
     });
