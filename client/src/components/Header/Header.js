@@ -43,8 +43,10 @@ function Header() {
   const changeTheme = () => {
     if (theme === 'dark') {
       setTheme('light');
+      themeCtx.setTheme('light');
     } else {
       setTheme('dark');
+      themeCtx.setTheme('dark');
     }
   };
 
