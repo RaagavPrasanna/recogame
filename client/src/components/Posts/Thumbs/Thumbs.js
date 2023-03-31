@@ -9,9 +9,12 @@ import styles from './Thumbs.module.css';
 
 function Thumbs({ likes, dislikes, gameId }) {
   const [rating, setRating] = useState(0);
+  const [shownLikes, setShownLikes] = useState(likes);
+  const [shownDislikes, setShownDislikes] = useState(dislikes);
+
   const userCtx = useContext(UserContext);
 
-  function thumbHandler(e) {
+  async function thumbHandler(e) {
     e.preventDefault();
 
     if (!userCtx.user) {
@@ -25,12 +28,38 @@ function Thumbs({ likes, dislikes, gameId }) {
       return;
     }
     const clickedThumb = thumb.id;
-    const newRating = Number(clickedThumb === 'thumbs-up') - Number(clickedThumb === 'thumbs-down');
+    let newRating = Number(clickedThumb === 'thumbs-up') - Number(clickedThumb === 'thumbs-down');
     if (rating === newRating) {
       // Same thumb was clicked twice
-      setRating(0);
-    } else {
+      newRating = 0;
+    }
+
+    // Fetch the CSRF token from the server
+    const resp = await fetch('/authentication/csrf-token');
+    const { token } = await resp.json();
+
+    // Send the thumb to the server with the CSRF token
+    const response = await fetch('/authentication/thumbs/put', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token,
+      },
+      body: JSON.stringify({
+        game: gameId,
+        rating: newRating
+      })
+    });
+
+    if (response.status === 200) {
+      const json = await response.json();
       setRating(newRating);
+      setShownLikes(json.likes);
+      setShownDislikes(json.dislikes);
+    } else {
+      setRating(0);
+      setShownLikes(likes);
+      setShownDislikes(dislikes);
     }
   }
 
@@ -41,15 +70,15 @@ function Thumbs({ likes, dislikes, gameId }) {
           className={`${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${rating > 0 && styles.clicked}`}
           id="thumbs-up"
         />
-        <p>{likes || 0}</p>
+        <p>{shownLikes || 0}</p>
       </div>
 
       <div className={styles['thumbs-container']}>
         <BsFillHandThumbsDownFill
-          className={`${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${rating < 0 && styles.clicked }`}
+          className={`${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${rating < 0 && styles.clicked}`}
           id="thumbs-down"
         />
-        <p>{dislikes || 0}</p>
+        <p>{shownDislikes || 0}</p>
       </div>
     </div>
   );
