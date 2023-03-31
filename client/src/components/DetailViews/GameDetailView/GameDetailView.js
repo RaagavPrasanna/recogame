@@ -220,7 +220,7 @@ function GameDetailView() {
                   <Button>{t('ADD TO MY GAMELIST')}</Button>
                 </>
               )}
-              <Thumbs likes={gameDetails.likes} dislikes={gameDetails.dislikes} />
+              <Thumbs likes={gameDetails.likes} dislikes={gameDetails.dislikes} gameId={id}/>
               {/* TODO: Drop down menu */}
             </div>
           </div>
