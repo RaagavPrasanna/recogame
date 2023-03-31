@@ -47,7 +47,7 @@ function gameReducer(state, action) {
   return defaultGameDetails;
 }
 
-async function getGameDetails(id, fetchThumbs, callback) {
+async function getGameDetails(id, isLoggedIn, callback) {
   const resp = await fetch(`/api/game/info/${id}`);
   if (!resp.ok) {
     throw new Error(`Could not fetch game (${resp.status})`);
@@ -55,7 +55,7 @@ async function getGameDetails(id, fetchThumbs, callback) {
 
   const data = await resp.json();
 
-  if (fetchThumbs) {
+  if (isLoggedIn) {
     const thumbs = await getThumbs();
     data.thumbs =
       Number(thumbs.likes?.includes(id)) - Number(thumbs.dislikes?.includes(id));
