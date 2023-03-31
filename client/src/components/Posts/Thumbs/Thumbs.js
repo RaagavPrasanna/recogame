@@ -34,6 +34,9 @@ function Thumbs({ likes, dislikes, rating, gameId }) {
       newRating = 0;
     }
 
+    // Pre-update thumbs
+    setShownRating(newRating);
+
     // Fetch the CSRF token from the server
     const resp = await fetch('/authentication/csrf-token');
     const { token } = await resp.json();
