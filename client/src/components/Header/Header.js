@@ -150,7 +150,7 @@ function Header() {
               <Button className={styles['lang-btn']}  >
                 <LanguageSelector className={styles['lang-selector']} />
               </Button>
-              <Switch onClick={changeTheme} />
+              <Switch className={styles.switch } onClick={changeTheme} />
             </>
           )}
         </span>
