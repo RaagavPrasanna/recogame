@@ -11,6 +11,8 @@ function Home() {
   useEffect(() => {
     // Inform PostProvider that the Home component is mounted
     postCtx.homeMounted(true);
+
+    // Populate tags array based on available tags in the Context object
     setTags(() => {
       const newTags = [];
       Object.entries(postCtx.tags).forEach(([type, tags]) => {
