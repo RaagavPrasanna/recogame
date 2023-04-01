@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../../store/user-context';
 import Tag from '../../Tag/Tag';
+import ThemeContext from '../../../store/theme-context';
 
 async function getUserTags() {
   const resp = await fetch('/authentication/get-preferences');
@@ -26,6 +27,7 @@ async function getGame(id) {
 }
 
 function UserProfile() {
+  const themeCtx = useContext(ThemeContext);
   const userCtx = useContext(UserContext);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [username, setUsername] = useState('');
@@ -95,7 +97,7 @@ function UserProfile() {
             </h3>
           </div>
           {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
-          <div className={styles.tags}>
+          <div className={`${styles.tags} ${styles[themeCtx.theme]}` }>
             <ul>
               <h3>Preferences</h3>
               <li>

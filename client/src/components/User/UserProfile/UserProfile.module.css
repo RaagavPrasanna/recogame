@@ -58,13 +58,22 @@
   width: fit-content;
 }
 
-.tags {
+.tags.dark {
   background-color: #6E7F80;
   padding: 1rem;
   margin-top: 1rem;
   border-radius: 0.5rem;
   width: fit-content;
 }
+
+.tags.light {
+  background-color: #bdc9d2;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  width: fit-content;
+}
+
 
 .tags div {
   margin: 0.1rem 0.5rem 0.1rem 0;
