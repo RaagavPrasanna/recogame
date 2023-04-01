@@ -7,5 +7,29 @@
     "start": "cd server && npm run start"
   },
   "author": "RecoGame",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@react-oauth/google": "^0.8.0",
+    "csrf-sync": "^4.0.0",
+    "express-session": "^1.17.3",
+    "google-auth-library": "^8.7.0",
+    "i18next": "^22.4.12",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-xhr-backend": "^3.2.2",
+    "node.js": "0.0.1-security",
+    "passport": "^0.6.0",
+    "passport-steam": "^1.0.17",
+    "react-i18next": "^12.2.0",
+    "react-icons": "^4.8.0",
+    "react-native": "^0.71.3",
+    "react-native-element-dropdown": "^2.6.0",
+    "react-native-material-dropdown": "^0.11.1",
+    "react-responsive-carousel": "^3.2.23",
+    "react-switch": "^7.0.0",
+    "reactjs-popup": "^2.0.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2",
+    "theme-ui": "^0.15.5"
+  }
 }

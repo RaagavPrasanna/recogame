@@ -9,6 +9,7 @@ import { useContext, useEffect } from 'react';
 import UserContext from './store/user-context';
 import FirstLogin from './components/Preferences/FirstLogin';
 
+
 function App() {
   const { user, setSessionUser } = useContext(UserContext);
 
@@ -19,7 +20,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game/info/:id" element={<GameDetailView />} />

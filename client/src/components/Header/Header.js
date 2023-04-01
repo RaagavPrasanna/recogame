@@ -10,22 +10,27 @@ import UserContext from '../../store/user-context';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import { useMediaQuery } from 'react-responsive';
 import MobileNav from './MobileNav';
+import { Switch } from 'theme-ui';
+import ThemeContext from '../../store/theme-context';
 import Filter from '../Filter/Filter';
 
 function Header() {
-  const [navBg, setNavBg] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [showFilter, setShowFilter] = useState(false);
-  const navigate = useNavigate();
-
   const postCtx = useContext(PostContext);
   const commCtx = useContext(CommunityContext);
   const userCtx = useContext(UserContext);
+  const themeCtx = useContext(ThemeContext);
+  const { user, logout } = useContext(UserContext);
+
+  const [navBg, setNavBg] = useState(false);
+  const [theme, setTheme] = useState(themeCtx.theme);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+
+  const navigate = useNavigate();
+
   const headerRef = useRef();
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
-
-  const { user, logout } = useContext(UserContext);
 
   function handleShowSearch() {
     setShowSearch(!showSearch);
@@ -35,6 +40,16 @@ function Header() {
     setShowFilter(!showFilter);
   }
 
+  const changeTheme = () => {
+    if (theme === 'dark') {
+      setTheme('light');
+      themeCtx.setTheme('light');
+    } else {
+      setTheme('dark');
+      themeCtx.setTheme('dark');
+    }
+  };
+
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
       ? setNavBg(true)
@@ -43,10 +58,11 @@ function Header() {
 
   useEffect(() => {
     window.addEventListener('scroll', changeNavBg);
+    document.body.className = styles[theme];
     return () => {
       window.removeEventListener('scroll', changeNavBg);
     };
-  }, []);
+  }, [theme]);
 
   function handlePageChange() {
     postCtx.handlePostClick();
@@ -80,9 +96,11 @@ function Header() {
 
   return (
     <div
-      className={`${styles.header} ${
-        (navBg && styles.showBg) || (isMobile && styles.showBg)
-      }`}
+      className={`${styles.header}
+        ${
+    (navBg && `${styles.header} ${styles.showBg} ${styles[theme]}`) ||
+          (isMobile && `${styles.header} ${styles.showBg} ${styles[theme]}`)
+    }`}
       onScroll={changeNavBg}
       ref={headerRef}
     >
@@ -112,18 +130,23 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShowFilter}> {t('Filter')}</Button>
-          <Button onClick={handleShowSearch}> {t('Search')} </Button>
+          <Button onClick={handleShowFilter}>{t('Filter')}</Button>
+          <Button onClick={handleShowSearch}>{t('Search')}</Button>
           {showFilter && <Filter handleShow={handleShowFilter} />}
           {showSearch && <SearchBar handleShow={handleShowSearch} />}
           {isMobile || (
             <>
               {retUserAuthButton()}
-              <Button className={styles['lang-btn']}>
-                <LanguageSelector className={styles['lang-selector']} />
+              <Button className={`${styles['lang-btn']} ${styles[theme]}`}>
+                <LanguageSelector
+                  className={`${styles['lang-selector']} ${styles[theme]}`}
+                />
               </Button>
             </>
           )}
+          <div className={styles.switch} >
+            <Switch onClick={changeTheme} />
+          </div>
         </span>
       </header>
     </div>
