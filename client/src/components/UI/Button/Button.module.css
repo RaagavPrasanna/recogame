@@ -36,3 +36,13 @@ button:active:disabled {
   border-color: #E7F6F2;
   color: #536878;
 }
+
+.button.dark select{
+  border: 2px solid #6E7F80;
+  background-color: #6E7F80;
+}
+
+.button.light select {
+  border: 2px solid #869daf;
+  background-color: #869daf;
+}

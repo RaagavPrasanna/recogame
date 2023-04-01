@@ -82,58 +82,57 @@
   color: #2d3a44;
 }
 
-/* .header.showBg.dark select{
+.header.showBg.dark select{
+  border: 2px solid #2d3a44;
   background-color: #2d3a44;
   color: #6e7f80;
   transition: background-color 0.2s linear;
 }
 
 .header.showBg.light select{
+  border: 2px solid #869daf;
   background-color: #869daf;
   color: #2d3a44;
   transition: background-color 0.2s linear;
 }
 
 .header.dark select{
-  border: none;
   background-color: #ffffff00;
   color: #2d3a44;
 }
 
 .header.light select{
-  border: none;
   background-color: #FFF;
   color: #2d3a44;
-} */
+} 
 
-/* .header option{
+.header.dark option{
   background-color: #6e7f80;
   color: #2d3a44;
-} */
+} 
 
-/* .header.showBg select{
+.header.light option {
+  background-color: #6e7f80;
+  color: #2d3a44;
+}
+
+.header.showBg select{
   border: none;
   background-color: #ffffff00;
   color: #6e7f80;
-} */
+} 
 
-/* .header.showBg .lang-selector{
+.header.showBg .lang-selector{
   color: #2d3a44;
-} */
+} 
 
-/* .lang-btn:hover select{
+.lang-btn:hover select{
   color: #2d3a44;
-} */
+} 
 
-/* .header.showBg.dark option{
+.header.showBg option{
   background-color: #ffffff00;
   color: #6e7f80;
-} */
-/* 
-.header.showBg.light option{
-  background-color: #ffffff00;
-  color: #6e7f80;
-} */
-
+}
 
 

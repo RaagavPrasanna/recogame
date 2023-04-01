@@ -147,8 +147,8 @@ function Header() {
           {isMobile || (
             <>
               {retUserAuthButton()}
-              <Button className={styles['lang-btn']}  >
-                <LanguageSelector className={styles['lang-selector']} />
+              <Button className={`${styles['lang-btn']} ${styles[theme]}`} >
+                <LanguageSelector className={`${styles['lang-selector']} ${styles[theme]}`} />
               </Button>
               <Switch className={styles.switch } onClick={changeTheme} />
             </>
