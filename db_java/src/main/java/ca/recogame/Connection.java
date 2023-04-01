@@ -54,9 +54,7 @@ public class Connection {
       .applyConnectionString(connectionString)
       .codecRegistry(codecRegistry)
       .build();
-    System.out.println("Connection successful");
   }
-
 
   public boolean checkGameExists(String source, int id) {
     GameDetails g = this.gameDetails.find(Filters.and(

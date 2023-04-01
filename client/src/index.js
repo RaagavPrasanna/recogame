@@ -7,9 +7,11 @@ import FriendProvider from './store/FriendsProvider';
 import CommunityProvider from './store/CommunityProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import UserProvider from './store/UserProvider';
+import ThemeProvider from './store/ThemeProvider';
 import TagsProvider from './store/TagsProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <>
     {/* eslint-disable-next-line no-undef*/}
@@ -19,7 +21,9 @@ root.render(
           <PostsProvider>
             <FriendProvider>
               <CommunityProvider>
-                <App />
+                <ThemeProvider>
+                  <App />
+                </ThemeProvider>
               </CommunityProvider>
             </FriendProvider>
           </PostsProvider>

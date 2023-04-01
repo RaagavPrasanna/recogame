@@ -12,11 +12,6 @@ const router = express.Router();
  * @property {string[]?} genres
  * @property {string[]?} platforms
  */
-
-/**
- * @param {Object} params
- * @returns {Query}
- */
 function constructQuery(params) {
   return {
     developers: params.developers?.split(','),
@@ -77,7 +72,10 @@ async function getGameFeed(query, page = 0, limit = 10) {
 
 // Retrieve the full details of a game.
 async function getGameDetails(id) {
-  return await models.GameDetails.findOne({ _id: id }, models.CLEAN_PROJECTION);
+  return await (
+    (await models.ViewGameDetailsFull.getModel())
+      .findOne({ _id: id }, models.CLEAN_PROJECTION)
+  );
 }
 
 // Retrieve the names of all games.
@@ -306,8 +304,12 @@ router.get('/info/:id', async (req, res) => {
     }
     res.json(game);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
+    if (err.name === 'CastError') {
+      res.status(400).send(`Invalid game id: ${id}`);
+    } else {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
   }
 });
 

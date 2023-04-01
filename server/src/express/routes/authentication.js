@@ -581,4 +581,126 @@ router.get(
   }
 );
 
+router.post('/thumbs/put',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection,
+  async (req, res) => {
+    // User ID
+    let userId = null;
+    if (req.session.user.provider === 'steam') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.id });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else if (req.session.user.provider === 'google') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.email });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else {
+      res.status(400).send('Invalid user');
+      return;
+    }
+
+    // Game ID
+    const gameId = req.body.game;
+    try {
+      if (!gameId) {
+        res.status(400).send('Specify game id');
+        return;
+      } else if (!await models.GameDetails.findOne({ _id: gameId })) {
+        res.status(404).send(`Game not found: ${gameId}`);
+        return;
+      }
+    } catch (err) {
+      if (err.name === 'CastError') {
+        res.status(400).send(`Invalid game id: ${gameId}`);
+        return;
+      } else {
+        console.error(err);
+        res.status(500).send('Server error');
+        return;
+      }
+    }
+
+    // Rating
+    const rating = req.body.rating;
+    try {
+      utils.validation.validateNumber(rating, { int: true, min: -1, max: 2 });
+    } catch (e) {
+      res.status(400).send(`Invalid rating: ${e.message}`);
+      return;
+    }
+
+    if (rating === 0) {
+      // Delete rating
+      await models.GameRating.deleteOne({
+        user: userId,
+        game: gameId,
+      });
+    } else {
+      // Insert or update
+      await models.GameRating.updateOne(
+        {
+          user: userId,
+          game: gameId,
+        },
+        {
+          user: userId,
+          game: gameId,
+          thumbsUp: rating > 0
+        },
+        { upsert: true }
+      );
+    }
+
+    const info =
+      await (await models.ViewGameDetailsShort.getModel()).findOne({ _id: gameId });
+    res.status(200).json({
+      likes: info.likes,
+      dislikes: info.dislikes
+    });
+  }
+);
+
+router.post('/thumbs/count',
+  utils.authentication.isAuthenticated,
+  utils.authentication.csrfProtect.csrfSynchronisedProtection,
+  async (req, res) => {
+    // User ID
+    let userId = null;
+    if (req.session.user.provider === 'steam') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.id });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else if (req.session.user.provider === 'google') {
+      const user = await models.UserProfile.findOne({ userId: req.session.user.email });
+      if (!user) {
+        res.status(400).send('Invalid user');
+        return;
+      }
+      userId = user._id;
+    } else {
+      res.status(400).send('Invalid user');
+      return;
+    }
+
+    const likes = (await models.GameRating.find(
+      { user: userId, thumbsUp: true }
+    )).map(r => r.game);
+    const dislikes = (await models.GameRating.find(
+      { user: userId, thumbsUp: false }
+    )).map(r => r.game);
+    res.status(200).json({ likes: likes, dislikes: dislikes });
+  }
+);
+
+
 export default router;

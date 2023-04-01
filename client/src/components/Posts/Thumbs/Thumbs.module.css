@@ -2,12 +2,28 @@
   margin-top: 1em;
   display: flex;
   justify-content: space-between;
-  width: 6.5em;
+  gap: 1rem;
   color: white;
+  flex-wrap: nowrap;
   background-color: #2d3a4485;
   box-shadow: 2px 2px 3px #0000006f;
   padding: 1rem;
   border-radius: 10px;
+}
+.thumbs div {
+  flex: 1;
+}
+
+.thumbs-container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.thumbs p {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center;
+  display: block !important;
 }
 
 @keyframes inflate {
@@ -37,10 +53,10 @@
   animation: deflate 0.25s;
 }
 
-.thumbs-up:hover,
-.thumbs-down:hover,
-.thumbs-up.clicked:hover,
-.thumbs-down.clicked:hover {
+.thumbs-up.clickable:hover,
+.thumbs-down.clickable:hover,
+.thumbs-up.clickable.clicked:hover,
+.thumbs-down.clickable.clicked:hover {
   animation: inflate 0.25s;
   animation-fill-mode: forwards;
 }

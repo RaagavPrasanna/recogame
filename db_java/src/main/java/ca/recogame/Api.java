@@ -17,20 +17,20 @@ public class Api {
 
   private void importMultiGameDetails() {
     ReadFile read = new ReadFile(this.path);
-  for (int id : read.getlistId()) {
-    System.out.println("- " + id);
-    if (!connect.checkGameExists("steam", id)) {
-      System.out.println("  Is not in the DB, inserting");
-      try {
-        GameDetails game = nodeReader.getOneGameDetails("steam", id);
-        connect.insertGameDetails(game);
-      } catch (Exception e) {
-        System.err.println("  Could not fetch, skipping");
-        e.printStackTrace();
-      }
-    } else {
+    for (int id : read.getListId()) {
+      System.out.println("- " + id);
+      if (!connect.checkGameExists("steam", id)) {
+        System.out.println("  Is not in the DB, inserting");
+        try {
+          GameDetails game = nodeReader.getOneGameDetails("steam", id);
+          connect.insertGameDetails(game);
+        } catch (Exception e) {
+          System.err.println("  Could not fetch, skipping. This may be because you fetched too much from API.");
+          e.printStackTrace();
+        }
+      } else {
         System.out.println("  Is already in DB, ignoring");
+      }
     }
-  }
   }
 }
