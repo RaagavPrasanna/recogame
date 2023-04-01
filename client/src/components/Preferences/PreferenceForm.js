@@ -3,10 +3,12 @@ import UserContext from '../../store/user-context';
 import Button from '../UI/Button/Button';
 import styles from './Preferences.module.css';
 import { useTranslation } from 'react-i18next';
+import ThemeContext from '../../store/theme-context';
 
 function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
 
   const { user } = useContext(UserContext);
+  const themeCtx = useContext(ThemeContext);
   const [allGames, setAllGames] = useState([]);
   const [playersSteamGames, setPlayersSteamGames] = useState([]);
   const [allPlatforms, setAllPlatforms] = useState([]);
@@ -230,7 +232,12 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     return (
       <article>
         <h2>{t('Select Games')}</h2>
-        <input type="search" placeholder={t('Search Game')} onChange={allGamesHandler} />
+        <input
+          type="search"
+          placeholder={t('Search Game')}
+          onChange={allGamesHandler}
+          className={styles[themeCtx.theme]}
+        />
         {allGamesFilteredData.splice(0, 20).map((game) => (
           <p key={game.id} onClick={() => {
             addGame(game);
@@ -246,7 +253,12 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     return (
       <article>
         <h2>{t('Auto Imported Games')}</h2>
-        <input type="search" placeholder={t('Search Game')} onChange={playersGamesHandler} />
+        <input
+          type="search"
+          placeholder={t('Search Game')}
+          onChange={playersGamesHandler}
+          className={styles[themeCtx.theme]}
+        />
         {playersGamesFilteredData.map((game) => (
           <p key={game.id} onClick={() => {
             addGame(game);
@@ -262,7 +274,12 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     return (
       <article>
         <h2>{t('Select Platforms')}</h2>
-        <input type="search" placeholder={t('Search Platform')} onChange={platformsHandler} />
+        <input
+          type="search"
+          placeholder={t('Search Platform')}
+          onChange={platformsHandler}
+          className={styles[themeCtx.theme]}
+        />
         <div>
           {platformsFilteredData.splice(0, 20).map((platform) => (
             <p key={platform} onClick={() => {
@@ -280,7 +297,12 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     return (
       <article>
         <h2>{t('Select Categories')}</h2>
-        <input type="search" placeholder={t('Search Category')} onChange={categoriesHandler} />
+        <input
+          type="search"
+          placeholder={t('Search Category')}
+          onChange={categoriesHandler}
+          className={styles[themeCtx.theme]}
+        />
         <div>
           {categoriesFilteredData.splice(0, 20).map((category) => (
             <p key={category} onClick={() => {
@@ -298,7 +320,12 @@ function PreferenceForm({ userPrefs, setUserPrefs, submitForm }) {
     return (
       <article>
         <h2>{t('Select Genres')}</h2>
-        <input type="search" placeholder={t('Search Genre')} onChange={genresHandler} />
+        <input
+          type="search"
+          placeholder={t('Search Genre')}
+          onChange={genresHandler}
+          className={styles[themeCtx.theme]}
+        />
         <div>
           {genresFilteredData.map((genre) => (
             <p key={genre} onClick={() => {
