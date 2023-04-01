@@ -97,6 +97,7 @@ function UserProfile() {
           {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
           <div className={styles.tags}>
             <ul>
+              <h3>Preferences</h3>
               <li>
                 {t('GENRE')}{' '}
                 <div className={styles['tag-container']}>
