@@ -99,7 +99,7 @@ function UserProfile() {
           {isSettingsVisible && <UserSettings onCancel={hideSettings} />}
           <div className={`${styles.tags} ${styles[themeCtx.theme]}` }>
             <ul>
-              <h3>Preferences</h3>
+              <h3>{t('Preferences')}</h3>
               <li>
                 {t('GENRE')}{' '}
                 <div className={styles['tag-container']}>

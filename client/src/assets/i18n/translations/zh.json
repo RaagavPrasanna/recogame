@@ -39,6 +39,7 @@
   "BUY ON STEAM":"在STEAM上购买",
   "ADD TO WISHLIST":"添加到愿望清单",
   "ADD TO MY GAMELIST":"添加到我的游戏",
+  "REMOVE FROM WISHLIST":"从愿望清单中删除",
   "Community Reviews":"社区评论",
   "Select Games":"选择游戏",
   "Auto Imported Games":"自动导入游戏",
@@ -59,5 +60,6 @@
   "Add preferences":"添加选项",
   "Your preferences":"您的偏好",
   "Pull down to refresh":"下拉刷新",
-  "Release to refresh":"松开以刷新"
+  "Release to refresh":"松开以刷新",
+  "Preferences":"我的偏好设置"
 }

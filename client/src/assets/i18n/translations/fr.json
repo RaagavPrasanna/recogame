@@ -38,6 +38,7 @@
   "CONTENT DESCRIPTION":"DESCRIPTION:",
   "BUY ON STEAM":"ACHETER SUR STEAM",
   "ADD TO WISHLIST":"AJOUTER À LA LISTE DE SOUHAITS",
+  "REMOVE FROM WISHLIST":"SUPPRIMER DE LA LISTE DE SOUHAITS",
   "ADD TO MY GAMELIST":"AJOUTER À MA LISTE DE JEUX",
   "Community Reviews":"Avis de la communauté",
   "Select Games":"Sélectionnez des jeux",
@@ -59,5 +60,6 @@
   "Add preferences":"Ajouter des préférences",
   "Your preferences":"Vos préférences",
   "Pull down to refresh":"Déroulez pour rafraîchir",
-  "Release to refresh":"Relâcher pour rafraîchir"
+  "Release to refresh":"Relâcher pour rafraîchir",
+  "Preferences":"Préférences"
 }
