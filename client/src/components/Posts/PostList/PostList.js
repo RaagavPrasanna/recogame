@@ -19,12 +19,12 @@ function PostList() {
       <GamePost
         id={post.id}
         key={post.id}
-        imageSrc={
-          post?.imageHeader ||
-          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-        }
+        imageSrc={post?.imageHeader}
         gameTitle={post?.name || 'Game Name'}
-        devName={post?.developers.map((d, i) => <div key={i}>{d}</div>) || 'Developer Name'}
+        devName={
+          post?.developers.map((d, i) => <div key={i}>{d}</div>) ||
+          'Developer Name'
+        }
         description={post?.shortDescription || 'No Description.'}
         rating={post?.rating || 5}
         likes={post.likes}
@@ -52,10 +52,14 @@ function PostList() {
         pullDownToRefresh
         pullDownToRefreshThreshold={50}
         pullDownToRefreshContent={
-          <h3 className={styles['pull-down']} style={{ textAlign: 'center' }}>&#8595; {t('Pull down to refresh')}</h3>
+          <h3 className={styles['pull-down']} style={{ textAlign: 'center' }}>
+            &#8595; {t('Pull down to refresh')}
+          </h3>
         }
         releaseToRefreshContent={
-          <h3 className={styles['release']} style={{ textAlign: 'center' }}>&#8593; {t('Release to refresh')}</h3>
+          <h3 className={styles['release']} style={{ textAlign: 'center' }}>
+            &#8593; {t('Release to refresh')}
+          </h3>
         }
       >
         {availablePosts}
