@@ -15,7 +15,6 @@ function PostList() {
   }, []);
 
   const availablePosts = postsCtx.homePosts.map((post) => {
-    post.id ||= Math.random();
     return (
       <GamePost
         id={post.id}
