@@ -22,6 +22,7 @@
 }
 
 .buttons {
+  margin-top: 15px;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -40,7 +41,7 @@
   margin-left: auto;
   display: flex;
   justify-content:space-between;
-  height: 75%;
+  height: 50%;
   width: 20%;
 }
 
