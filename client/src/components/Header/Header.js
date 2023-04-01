@@ -32,14 +32,17 @@ function Header() {
   const isMobile = useMediaQuery({ maxWidth: 700 });
   const { t } = useTranslation();
 
+  // Toggle search component visibility
   function handleShowSearch() {
     setShowSearch(!showSearch);
   }
 
+  // Toggle filter component visibility
   function handleShowFilter() {
     setShowFilter(!showFilter);
   }
 
+  // Switches between dark mode and light mode
   const changeTheme = () => {
     if (theme === 'dark') {
       setTheme('light');
@@ -50,6 +53,7 @@ function Header() {
     }
   };
 
+  // Change navbar background color when scrolling down
   const changeNavBg = () => {
     window.scrollY >= headerRef.current.offsetHeight
       ? setNavBg(true)
@@ -64,6 +68,7 @@ function Header() {
     };
   }, [theme]);
 
+  // Save scroll position when changing pages
   function handlePageChange() {
     postCtx.handlePostClick();
     commCtx.handlePostClick();
@@ -105,6 +110,7 @@ function Header() {
       ref={headerRef}
     >
       <header className={styles.buttons} onClick={handlePageChange}>
+        {/* Conditionally show buttons based on screen size */}
         {isMobile ? (
           <MobileNav
             retUserAuthButton={retUserAuthButton}
@@ -144,7 +150,7 @@ function Header() {
               </Button>
             </>
           )}
-          <div className={styles.switch} >
+          <div className={styles.switch}>
             <Switch onClick={changeTheme} />
           </div>
         </span>
