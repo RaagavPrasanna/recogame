@@ -55,5 +55,9 @@
   "Search Platform":"Rechercher par Platforme",
   "Search Category":"Rechercher par Catégorie",
   "Search Genre":"Rechercher par Genre",
-  "Filter":"Filtrer"
+  "Filter":"Filtrer",
+  "Add preferences":"Ajouter des préférences",
+  "Your preferences":"Vos préférences",
+  "Pull down to refresh":"Déroulez pour rafraîchir",
+  "Release to refresh":"Relâcher pour rafraîchir"
 }

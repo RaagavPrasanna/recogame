@@ -33,10 +33,9 @@ public class ReadFile {
   }
 
 /**
- * convert read json data to List<Integer>
- * @return list   typeof List<Integer>
+ * Convert read json data to List<Integer>
  */
-  public List<Integer> getlistId() {
+  public List<Integer> getListId() {
     List<Integer> list = new ArrayList<>();
     JSONArray jsonArray = new JSONArray(this.data);
     for (int i = 0; i < jsonArray.length(); i++) {

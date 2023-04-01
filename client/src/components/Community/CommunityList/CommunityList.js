@@ -4,9 +4,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import styles from './CommunityList.module.css';
 import Spinner from '../../UI/Spinner';
 import CommunityContext from '../../../store/community-context';
+import { useTranslation } from 'react-i18next';
 
 function CommunityList() {
   const commCtx = useContext(CommunityContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     commCtx.commMounted(true);
@@ -46,10 +48,10 @@ function CommunityList() {
         pullDownToRefresh
         pullDownToRefreshThreshold={50}
         pullDownToRefreshContent={
-          <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+          <h3 style={{ textAlign: 'center' }}>&#8595; {t('Pull down to refresh')}</h3>
         }
         releaseToRefreshContent={
-          <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+          <h3 style={{ textAlign: 'center' }}>&#8593; {t('Release to refresh')}</h3>
         }
       >
         {availablePosts}

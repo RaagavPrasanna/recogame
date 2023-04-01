@@ -5,6 +5,7 @@ const languages = {
   en: { nativeName: 'English' },
   fr: { nativeName: 'Français' },
   zh: { nativeName: '中文简体' },
+  zhTw: { nativeName: '中文繁體' }
 };
 
 const LanguageSelector = ({ className }) => {

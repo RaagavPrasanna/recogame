@@ -215,16 +215,11 @@ function GameDetailView() {
               {userCtx.user && (
                 <>
                   {wishlistButton()}
-                  <Button>{t('ADD TO MY GAMELIST')}</Button>
                 </>
               )}
               <Thumbs />
               {/* TODO: Drop down menu */}
             </div>
-          </div>
-          <div className={styles.reviews}>
-            <h2>{t('Community Reviews')}</h2>
-            {/* TODO: Render reviews */}
           </div>
         </>
       )}

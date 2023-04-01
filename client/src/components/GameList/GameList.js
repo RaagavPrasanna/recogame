@@ -1,29 +1,55 @@
 // import Popup from 'reactjs-popup';
 import Button from '../UI/Button/Button';
-import Modal from '../UI/Modal/Modal';
 import classes from './GameList.module.css';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
 import { Link } from 'react-router-dom';
 
-function GameList() {
-  // TODO: Add tags to so it can go to the right section
+async function getUserWishlist() {
+  const resp = await fetch('/authentication/get-preferences');
+  if (!resp.ok) {
+    throw new Error(`Could not fetch user (${resp.status})`);
+  }
+  const data = await resp.json();
+  return data;
+}
 
-  const [show, setShow] = useState(false);
-  const mockData = 'Game Name';
+async function getGame(id) {
+  const resp = await fetch(`/api/game/info/${id}`);
+  if (!resp.ok) {
+    throw new Error(`Could not fetch game (${resp.status})`);
+  }
+  const data = await resp.json();
+  return { data, id };
+}
+
+function GameList() {
   const { t } = useTranslation();
   const { user } = useContext(UserContext);
+  const [wishlist, setWishlist] = useState([]);
 
-  function handleClose() {
-    setShow(false);
-  }
-  function handleShow() {
-    setShow(true);
+  useEffect(() => {
+    getUserWishlist().then((data) => {
+      getGames(data.wishlist);
+    });
+  }, []);
+
+  async function getGames(gameIds) {
+    if (wishlist.length > 0) {
+      return;
+    }
+
+    const wishlistGames = await Promise.all(
+      gameIds.map(async (id) => {
+        return await getGame(id);
+      })
+    );
+    setWishlist(wishlistGames);
   }
 
   const content = () => {
-    if(user === null) {
+    if (user === null) {
       return (
         <Button>
           <Link to-="/login"> {t('Login')} </Link>
@@ -35,92 +61,22 @@ function GameList() {
           <h2> {t('Wishlist')} </h2>
 
           <section>
-            <p> {mockData} </p>
-            <Button onClick={handleShow}> {t('Edit')} </Button>
-            {show && (
-              <Modal
-                className={classes.buttonsModal}
-                onClick={handleClose}
-              >
-                <Button> {t('Remove')} </Button>
-                <Button onClick={handleClose}> {t('Cancel')} </Button>
-              </Modal>
-            )}
-          </section>
-
-          <h2> {t('In progress')}</h2>
-
-          <section>
-            <p> {mockData} </p>
-            <Button onClick={handleShow}> {t('Edit')} </Button>
-            {show && (
-              <Modal
-                className={classes.buttonsModal}
-                onClick={handleClose}
-              >
-                <Button> {t('Remove')} </Button>
-                <Button onClick={handleClose}> {t('Cancel')} </Button>
-              </Modal>
-            )}
-          </section>
-
-          <h2> {t('Finished')} </h2>
-
-          <section>
-            <p> {mockData} </p>
-            <Button onClick={handleShow}> {t('Edit')} </Button>
-            {show && (
-              <Modal
-                className={classes.buttonsModal}
-                onClick={handleClose}
-              >
-                <Button> {t('Remove')} </Button>
-                <Button onClick={handleClose}> {t('Cancel')} </Button>
-              </Modal>
-            )}
-          </section>
-
-          <h2> {t('Completed 100% Achievements')} </h2>
-
-          <section>
-            <p> {mockData} </p>
-            <Button onClick={handleShow}> {t('Edit')} </Button>
-            {show && (
-              <Modal
-                className={classes.buttonsModal}
-                onClick={handleClose}
-              >
-                <Button> {t('Remove')} </Button>
-                <Button onClick={handleClose}> {t('Cancel')} </Button>
-              </Modal>
-            )}
-          </section>
-
-          <h2>{t('Never Played')} </h2>
-
-          <section>
-            <p> {mockData} </p>
-            <Button onClick={handleShow}> {t('Edit')} </Button>
-            {show && (
-              <Modal
-                className={classes.buttonsModal}
-                onClick={handleClose}
-              >
-                <Button> {t('Remove')} </Button>
-                <Button onClick={handleClose}> {t('Cancel')} </Button>
-              </Modal>
-            )}
+            <ul className={classes.list}>
+              {wishlist.length > 0 ? wishlist.map((game) => {
+                return (
+                  <Link key={game.id} to={`/game/info/${game.id}`}>
+                    <li>{game.data.name}</li>
+                  </Link>
+                );
+              }) : <li>You have no games in your wishlist.</li>}
+            </ul>
           </section>
         </>
       );
     }
   };
 
-  return (
-    <div className={classes.gameList}>
-      {content()}
-    </div>
-  );
+  return <div className={classes.gameList}>{content()}</div>;
 }
 
 export default GameList;
