@@ -40,7 +40,6 @@ function gameReducer(state, action) {
       likes: game.likes,
       dislikes: game.dislikes,
       thumbs: game.thumbs,
-      reviews: [],
     };
   }
 
