@@ -21,12 +21,17 @@ function Thumbs({ likes, dislikes, rating, gameId }) {
       return;
     }
 
+    // Get clicked element
     const clicked = e.target;
     const thumb =
       clicked.closest('#thumbs-up') || clicked.closest('#thumbs-down');
+
+    // Check if clicked element is a thumb
     if (!thumb) {
       return;
     }
+
+    // Check if clicked element is thumbs up or thumbs down
     const clickedThumb = thumb.id;
     let newRating = Number(clickedThumb === 'thumbs-up') - Number(clickedThumb === 'thumbs-down');
     if (shownRating === newRating) {
