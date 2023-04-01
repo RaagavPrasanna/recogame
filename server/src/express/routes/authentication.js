@@ -698,7 +698,7 @@ router.post('/thumbs/count',
     const dislikes = (await models.GameRating.find(
       { user: userId, thumbsUp: false }
     )).map(r => r.game);
-    res.status(200).json({ likes, dislikes });
+    res.status(200).json({ likes: likes, dislikes: dislikes });
   }
 );
 

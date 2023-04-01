@@ -6,11 +6,21 @@ function GamePost({
   gameTitle,
   devName,
   description,
-  rating,
   id,
   onGameClick,
   imageSrc,
+  likes,
+  dislikes,
+  thumbs
 }) {
+  likes = likes || 0;
+  dislikes = dislikes || 0;
+
+  const rating =
+    (likes + dislikes > 0)
+      ? ((likes - dislikes) / (likes + dislikes) * 2.5 + 2.5)
+      : 2.5;
+
   return (
     <Link className={styles.gamepost} to={`/game/info/${id}`} onClick={onGameClick}>
       <div
@@ -25,8 +35,11 @@ function GamePost({
         <div className={styles.thumbs}>
           <div className={styles['dev-name']}>{devName}</div>
           <div className={styles.rating}>
-            <span className={styles.stars}>{'⭐️'.repeat(rating)}</span>
-            <Thumbs />
+            <span className={styles.stars}>
+              {'★'.repeat(Math.ceil(rating))}
+              {'☆'.repeat(Math.floor(5 - rating))}
+            </span>
+            <Thumbs likes={likes} dislikes={dislikes} gameId={id} rating={thumbs} />
           </div>
         </div>
         <br />

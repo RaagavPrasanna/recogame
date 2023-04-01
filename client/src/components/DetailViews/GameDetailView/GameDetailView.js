@@ -37,6 +37,9 @@ function gameReducer(state, action) {
       gameDesc: game.shortDescription,
       storeUrl: game.storeUrl,
       screenshots: game.screenshots,
+      likes: game.likes,
+      dislikes: game.dislikes,
+      thumbs: game.thumbs,
       reviews: [],
     };
   }
@@ -44,13 +47,41 @@ function gameReducer(state, action) {
   return defaultGameDetails;
 }
 
-async function getGameDetails(id, callback) {
+async function getGameDetails(id, isLoggedIn, callback) {
   const resp = await fetch(`/api/game/info/${id}`);
   if (!resp.ok) {
     throw new Error(`Could not fetch game (${resp.status})`);
   }
+
   const data = await resp.json();
+
+  if (isLoggedIn) {
+    const thumbs = await getThumbs();
+    data.thumbs =
+      Number(thumbs.likes?.includes(id)) - Number(thumbs.dislikes?.includes(id));
+  }
   callback(data);
+}
+
+async function getThumbs() {
+  // Fetch the CSRF token from the server
+  const resp = await fetch('/authentication/csrf-token');
+  const { token } = await resp.json();
+
+  // Send the thumb to the server with the CSRF token
+  const response = await fetch('/authentication/thumbs/count', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': token,
+    }
+  });
+
+  if (!response.ok) {
+    return {};
+  } else {
+    return await response.json();
+  }
 }
 
 function GameDetailView() {
@@ -66,18 +97,18 @@ function GameDetailView() {
 
   const checkWishlist = async () => {
     const response = await fetch(`/authentication/check-wishlist/${id}`);
-    if(response.status === 200) {
+    if (response.status === 200) {
       setWishlistToggle(false);
     }
   };
 
   useEffect(() => {
     setIsLoading(true);
-    getGameDetails(id, (data) => {
+    getGameDetails(id, Boolean(userCtx.user), (data) => {
       dispatchGameDetails({ type: 'ADD_ALL_DETAILS', game: data });
       setIsLoading(false);
     });
-    if(userCtx.user !== null) {
+    if (userCtx.user !== null) {
       checkWishlist();
     }
   }, []);
@@ -97,13 +128,13 @@ function GameDetailView() {
       body: JSON.stringify({ id })
     });
 
-    if(response.status === 200) {
+    if (response.status === 200) {
       setWishlistToggle(!wishlistToggle);
     }
   };
 
   const wishlistButton = () => {
-    if(wishlistToggle) {
+    if (wishlistToggle) {
       return (
         <Button onClick={() => wishlistHandler('/authentication/add-to-wishlist')}>{t('ADD TO WISHLIST')}</Button>
       );
@@ -158,7 +189,7 @@ function GameDetailView() {
                     {t('GENRE')}{' '}
                     <div className={styles['tag-container']}>
                       {gameDetails.genre?.map((genre, i) => {
-                        return <Tag key={i} tagName={genre} tagType='genres'/>;
+                        return <Tag key={i} tagName={genre} tagType='genres' />;
                       })}
                     </div>
                   </li>
@@ -167,7 +198,7 @@ function GameDetailView() {
                       <>
                         {t('DEVELOPER')} &nbsp;
                         {gameDetails.developer?.map((dev, i) => {
-                          return <Tag key={i} tagName={dev} tagType='developers'/>;
+                          return <Tag key={i} tagName={dev} tagType='developers' />;
                         })}
                       </>
                     }
@@ -177,7 +208,7 @@ function GameDetailView() {
                       <>
                         {t('PUBLISHER')} &nbsp;
                         {gameDetails.publisher?.map((pub, i) => {
-                          return <Tag key={i} tagName={pub} tagType='publishers'/>;
+                          return <Tag key={i} tagName={pub} tagType='publishers' />;
                         })}
                       </>
                     }
@@ -186,7 +217,7 @@ function GameDetailView() {
                     {`${t('CATEGORIES')}`}
                     <div className={styles['tag-container']}>
                       {gameDetails.category?.map((cat, i) => {
-                        return <Tag key={i} tagName={cat} tagType='categories'/>;
+                        return <Tag key={i} tagName={cat} tagType='categories' />;
                       })}
                     </div>
                   </li>
@@ -194,7 +225,7 @@ function GameDetailView() {
                     {t('PLATFORMS')}
                     <div className={styles.platforms}>
                       {gameDetails.platforms?.map((plat, i) => {
-                        return <Tag key={i} tagName={captialize(plat)} tagType='platforms'/>;
+                        return <Tag key={i} tagName={captialize(plat)} tagType='platforms' />;
                       })}
                     </div>
                   </li>
@@ -217,7 +248,12 @@ function GameDetailView() {
                   {wishlistButton()}
                 </>
               )}
-              <Thumbs />
+              <Thumbs
+                likes={gameDetails.likes}
+                dislikes={gameDetails.dislikes}
+                rating={gameDetails.thumbs}
+                gameId={id}
+              />
               {/* TODO: Drop down menu */}
             </div>
           </div>

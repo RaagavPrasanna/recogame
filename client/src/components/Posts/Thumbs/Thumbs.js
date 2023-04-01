@@ -7,13 +7,20 @@ import UserContext from '../../../store/user-context';
 
 import styles from './Thumbs.module.css';
 
-function Thumbs() {
-  const [isThumbsUp, setIsThumbsUp] = useState(false);
-  const [isThumbsDown, setIsThumbsDown] = useState(false);
+function Thumbs({ likes, dislikes, rating, gameId }) {
+  const [shownRating, setShownRating] = useState(rating);
+  const [shownLikes, setShownLikes] = useState(likes);
+  const [shownDislikes, setShownDislikes] = useState(dislikes);
+
   const userCtx = useContext(UserContext);
 
-  function thumbHandler(e) {
+  async function thumbHandler(e) {
     e.preventDefault();
+
+    if (!userCtx.user) {
+      return;
+    }
+
     const clicked = e.target;
     const thumb =
       clicked.closest('#thumbs-up') || clicked.closest('#thumbs-down');
@@ -21,41 +28,66 @@ function Thumbs() {
       return;
     }
     const clickedThumb = thumb.id;
-
-    if (clickedThumb === 'thumbs-up') {
-      isThumbsUp || thumbsUp();
+    let newRating = Number(clickedThumb === 'thumbs-up') - Number(clickedThumb === 'thumbs-down');
+    if (shownRating === newRating) {
+      // Same thumb was clicked twice
+      newRating = 0;
     }
 
-    if (clickedThumb === 'thumbs-down') {
-      isThumbsDown || thumbsDown();
+    // Pre-update thumbs
+    setShownRating(newRating);
+
+    // Fetch the CSRF token from the server
+    const resp = await fetch('/authentication/csrf-token');
+    const { token } = await resp.json();
+
+    // Send the thumb to the server with the CSRF token
+    const response = await fetch('/authentication/thumbs/put', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': token,
+      },
+      body: JSON.stringify({
+        game: gameId,
+        rating: newRating
+      })
+    });
+
+    if (response.status === 200) {
+      const json = await response.json();
+      setShownRating(newRating);
+      setShownLikes(json.likes);
+      setShownDislikes(json.dislikes);
+    } else {
+      setShownRating(0);
+      setShownLikes(likes);
+      setShownDislikes(dislikes);
     }
-  }
-
-  function thumbsUp() {
-    setIsThumbsDown(false);
-    setIsThumbsUp(true);
-  }
-
-  function thumbsDown() {
-    setIsThumbsUp(false);
-    setIsThumbsDown(true);
   }
 
   return (
-    userCtx.user && (
-      <div className={styles.thumbs} onClick={thumbHandler}>
+    <div className={styles.thumbs} onClick={thumbHandler}>
+      <div className={styles['thumbs-container']}>
         <BsFillHandThumbsUpFill
-          className={`${styles['thumbs-up']} ${isThumbsUp && styles.clicked}`}
+          className={
+            `${styles['thumbs-up']} ${userCtx.user && styles.clickable} ${shownRating > 0 && styles.clicked}`
+          }
           id="thumbs-up"
         />
+        <p>{shownLikes || 0}</p>
+      </div>
+
+      <div className={styles['thumbs-container']}>
         <BsFillHandThumbsDownFill
-          className={`${styles['thumbs-down']} ${
-            isThumbsDown && styles.clicked
-          }`}
+          className={
+            `${styles['thumbs-down']} ${userCtx.user && styles.clickable} ${shownRating < 0 && styles.clicked}`
+          }
           id="thumbs-down"
         />
+        <p>{shownDislikes || 0}</p>
       </div>
-    )
+    </div>
   );
 }
 

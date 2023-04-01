@@ -28,6 +28,9 @@ function PostList() {
         devName={post?.developers.map((d, i) => <div key={i}>{d}</div>) || 'Developer Name'}
         description={post?.shortDescription || 'No Description.'}
         rating={post?.rating || 5}
+        likes={post.likes}
+        dislikes={post.dislikes}
+        thumbs={post.thumbs}
         onGameClick={postsCtx.handlePostClick}
       />
     );

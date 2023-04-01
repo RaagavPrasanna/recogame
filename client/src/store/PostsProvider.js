@@ -1,15 +1,46 @@
 import PostContext from './posts-context';
-import { useEffect, useReducer, useState } from 'react';
+import UserContext from './user-context';
+import { useContext, useEffect, useReducer, useState } from 'react';
 
-async function getGamePage(page, params, callback) {
+async function getGamePage(page, params, isLoggedIn, callback) {
   const resp = await fetch(
     `/api/game/feed?page=${page}${params && `&${params}`}`
   );
   if (!resp.ok) {
     throw new Error(`Could not get page (${resp.status})`);
   }
+
   const data = await resp.json();
+
+  if (isLoggedIn) {
+    const thumbs = await getThumbs();
+    data.map((g) => {
+      g.thumbs =
+        Number(thumbs.likes?.includes(g.id)) - Number(thumbs.dislikes?.includes(g.id));
+    });
+  }
   callback(data);
+}
+
+async function getThumbs() {
+  // Fetch the CSRF token from the server
+  const resp = await fetch('/authentication/csrf-token');
+  const { token } = await resp.json();
+
+  // Send the thumb to the server with the CSRF token
+  const response = await fetch('/authentication/thumbs/count', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': token,
+    }
+  });
+
+  if (!response.ok) {
+    return {};
+  } else {
+    return await response.json();
+  }
 }
 
 function buildTagParams(tagObj) {
@@ -63,17 +94,22 @@ function PostsProvider({ children }) {
   const [hasMore, setHasMore] = useState(true);
   const [isHomeDisplayed, setIsHomeDisplayed] = useState(false);
   const [tags, dispatchTags] = useReducer(tagsReducer, initialTagState);
+  const userCtx = useContext(UserContext);
 
   function loadGames() {
-    getGamePage(0, buildTagParams(tags), (data) => {
-      if (data.length < 1) {
-        setPosts([]);
-        setHasMore(false);
-        return;
-      }
-      setPosts(data);
-      setCurrPageHome((currPage) => ++currPage);
-    });
+    getGamePage(
+      0,
+      buildTagParams(tags),
+      Boolean(userCtx.user),
+      (data) => {
+        if (data.length < 1) {
+          setPosts([]);
+          setHasMore(false);
+          return;
+        }
+        setPosts(data);
+        setCurrPageHome((currPage) => ++currPage);
+      });
   }
 
   useEffect(() => {
@@ -83,17 +119,21 @@ function PostsProvider({ children }) {
   }, [tags]);
 
   function fetchMoreData() {
-    getGamePage(currPageHome, buildTagParams(tags), (data) => {
-      if (data.length > 0) {
-        setHasMore(true);
-        setPosts((prevPosts) => {
-          return [...prevPosts, ...data];
-        });
-        setCurrPageHome((currPage) => ++currPage);
-      } else {
-        setHasMore(false);
-      }
-    });
+    getGamePage(
+      currPageHome,
+      buildTagParams(tags),
+      Boolean(userCtx.user),
+      (data) => {
+        if (data.length > 0) {
+          setHasMore(true);
+          setPosts((prevPosts) => {
+            return [...prevPosts, ...data];
+          });
+          setCurrPageHome((currPage) => ++currPage);
+        } else {
+          setHasMore(false);
+        }
+      });
   }
 
   function handleScrollPosition() {
