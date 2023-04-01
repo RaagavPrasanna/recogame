@@ -10,23 +10,24 @@ function PostList() {
   const postsCtx = useContext(PostContext);
   const { t } = useTranslation();
 
+  // Set window to saved scroll position
   useEffect(() => {
     postsCtx.homeScrollPosition();
   }, []);
 
+  // Get all available posts from the Context Provider
   const availablePosts = postsCtx.homePosts.map((post) => {
     return (
       <GamePost
         id={post.id}
         key={post.id}
         imageSrc={post?.imageHeader}
-        gameTitle={post?.name || 'Game Name'}
-        devName={
-          post?.developers.map((d, i) => <div key={i}>{d}</div>) ||
-          'Developer Name'
-        }
-        description={post?.shortDescription || 'No Description.'}
-        rating={post?.rating || 5}
+        gameTitle={post?.name}
+        devName={post?.developers.map((d, i) => (
+          <div key={i}>{d}</div>
+        ))}
+        description={post?.shortDescription}
+        rating={post?.rating}
         likes={post.likes}
         dislikes={post.dislikes}
         thumbs={post.thumbs}
