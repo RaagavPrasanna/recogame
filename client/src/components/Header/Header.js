@@ -114,15 +114,15 @@ function Header() {
           <>
             <span className={styles['left-section']}>
               <Link to="/">
-                <Button >{t('Home')}</Button>
+                <Button>{t('Home')}</Button>
               </Link>
               {userCtx.user && (
                 <>
                   <Link to="/profile">
-                    <Button > {t('User')} </Button>
+                    <Button> {t('User')} </Button>
                   </Link>
                   <Link to="/gamelist">
-                    <Button > {t('My Game List')} </Button>
+                    <Button> {t('My Game List')} </Button>
                   </Link>
                 </>
               )}
@@ -130,23 +130,23 @@ function Header() {
           </>
         )}
         <span className={styles['right-section']}>
-          <Button onClick={handleShowFilter}  >
-            {t('Filter')}
-          </Button>
-          <Button onClick={handleShowSearch}  >
-            {t('Search')}
-          </Button>
+          <Button onClick={handleShowFilter}>{t('Filter')}</Button>
+          <Button onClick={handleShowSearch}>{t('Search')}</Button>
           {showFilter && <Filter handleShow={handleShowFilter} />}
           {showSearch && <SearchBar handleShow={handleShowSearch} />}
           {isMobile || (
             <>
               {retUserAuthButton()}
-              <Button className={`${styles['lang-btn']} ${styles[theme]}`} >
-                <LanguageSelector className={`${styles['lang-selector']} ${styles[theme]}`} />
+              <Button className={`${styles['lang-btn']} ${styles[theme]}`}>
+                <LanguageSelector
+                  className={`${styles['lang-selector']} ${styles[theme]}`}
+                />
               </Button>
-              <Switch className={styles.switch } onClick={changeTheme} />
             </>
           )}
+          <div className={styles.switch} >
+            <Switch onClick={changeTheme} />
+          </div>
         </span>
       </header>
     </div>
