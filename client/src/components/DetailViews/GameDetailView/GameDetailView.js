@@ -17,10 +17,12 @@ const defaultGameDetails = {
   reviews: [],
 };
 
-function captialize(str) {
+// Capitalize the given string
+function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+// Reducer function for updating game information based on the dispatcher action
 function gameReducer(state, action) {
   if (action.type === 'ADD_ALL_DETAILS') {
     const { game } = action;
@@ -40,13 +42,13 @@ function gameReducer(state, action) {
       likes: game.likes,
       dislikes: game.dislikes,
       thumbs: game.thumbs,
-      reviews: [],
     };
   }
 
   return defaultGameDetails;
 }
 
+// Fetch game details and invoke a callback function using the data
 async function getGameDetails(id, isLoggedIn, callback) {
   const resp = await fetch(`/api/game/info/${id}`);
   if (!resp.ok) {
@@ -85,6 +87,7 @@ async function getThumbs() {
 }
 
 function GameDetailView() {
+  // Get game ID from the url
   const { id } = useParams();
   const [wishlistToggle, setWishlistToggle] = useState(true);
   const [gameDetails, dispatchGameDetails] = useReducer(
@@ -95,6 +98,7 @@ function GameDetailView() {
   const { t } = useTranslation();
   const userCtx = useContext(UserContext);
 
+  // Checks if the current game is wishlisted by the user
   const checkWishlist = async () => {
     const response = await fetch(`/authentication/check-wishlist/${id}`);
     if (response.status === 200) {
@@ -149,6 +153,7 @@ function GameDetailView() {
 
   return (
     <>
+      {/* Show spinner component while loading */}
       {isLoading ? (
         <div className={styles.spinner}>
           <Spinner />
@@ -226,7 +231,7 @@ function GameDetailView() {
                     {t('PLATFORMS')}
                     <div className={styles.platforms}>
                       {gameDetails.platforms?.map((plat, i) => {
-                        return <Tag key={i} tagName={captialize(plat)} tagType='platforms' />;
+                        return <Tag key={i} tagName={capitalize(plat)} tagType='platforms' />;
                       })}
                     </div>
                   </li>
@@ -244,6 +249,7 @@ function GameDetailView() {
               >
                 {t('BUY ON STEAM')}
               </Button>
+              {/* Show wishlist button only if the user is logged in */}
               {userCtx.user && (
                 <>
                   {wishlistButton()}

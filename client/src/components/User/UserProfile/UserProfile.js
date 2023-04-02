@@ -8,6 +8,7 @@ import UserContext from '../../../store/user-context';
 import Tag from '../../Tag/Tag';
 import ThemeContext from '../../../store/theme-context';
 
+// Fetch user data to get their preferred tags
 async function getUserTags() {
   const resp = await fetch('/authentication/get-preferences');
   if (!resp.ok) {
@@ -17,6 +18,7 @@ async function getUserTags() {
   return data;
 }
 
+// Fetch game data based on its id
 async function getGame(id) {
   const resp = await fetch(`/api/game/info/${id}`);
   if (!resp.ok) {
@@ -38,6 +40,7 @@ function UserProfile() {
   const [playedGames, setPlayedGames] = useState([]);
 
   useEffect(() => {
+    // Set user account details
     if (userCtx.user === null) {
       return;
     } else if (userCtx.user.provider === 'steam') {
@@ -50,20 +53,24 @@ function UserProfile() {
       setImg(userCtx.user.picture);
     }
 
+    // set and show user game preferences
     getUserTags().then((data) => {
       setPreferences(data);
       getGames(data.playedGames);
     });
   }, []);
 
+  // Show settings component
   function showSettings() {
     setIsSettingsVisible(true);
   }
 
+  // Hide settings component
   function hideSettings() {
     setIsSettingsVisible(false);
   }
 
+  // Get game data based on array of ids
   async function getGames(gameIds) {
     if (!preferences) {
       return;

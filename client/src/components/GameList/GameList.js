@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import UserContext from '../../store/user-context';
 import { Link } from 'react-router-dom';
 
+// Fetch wishlist game ids from user data
 async function getUserWishlist() {
   const resp = await fetch('/authentication/get-preferences');
   if (!resp.ok) {
@@ -15,6 +16,7 @@ async function getUserWishlist() {
   return data;
 }
 
+// Fetch game data based on ID
 async function getGame(id) {
   const resp = await fetch(`/api/game/info/${id}`);
   if (!resp.ok) {
@@ -35,16 +37,19 @@ function GameList() {
     });
   }, []);
 
+  // Get game data from an array of ids
   async function getGames(gameIds) {
     if (wishlist.length > 0) {
       return;
     }
 
+    // Fetch data for each game and store it in an array
     const wishlistGames = await Promise.all(
       gameIds.map(async (id) => {
         return await getGame(id);
       })
     );
+
     setWishlist(wishlistGames);
   }
 
