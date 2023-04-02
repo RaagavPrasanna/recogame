@@ -10,13 +10,19 @@ function Filter({ handleShow }) {
   const postCtx = useContext(PostContext);
   const { t } = useTranslation();
 
+  // Add a tag to the tags array in the Context Provider
   function addTag(e) {
+    // Get values from selected tag element
     const tag = e.target.value;
     const type = e.target.id;
+
+    // Invoke dispatcher with tag data
     postCtx.dispatchTags({
       type: 'ADD',
       data: { tagName: tag, tagType: type },
     });
+
+    // Scroll to the top of screen and hide filter component
     window.scrollTo(0, 0);
     handleShow();
   }

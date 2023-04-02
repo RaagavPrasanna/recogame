@@ -2,6 +2,7 @@ import PostContext from './posts-context';
 import UserContext from './user-context';
 import { useContext, useEffect, useReducer, useState } from 'react';
 
+// Fetch a set of games based on a given page and invoke a callback function with the data
 async function getGamePage(page, params, isLoggedIn, callback) {
   const resp = await fetch(
     `/api/game/feed?page=${page}${params && `&${params}`}`
@@ -43,6 +44,7 @@ async function getThumbs() {
   }
 }
 
+// Build tag params based on the tag object
 function buildTagParams(tagObj) {
   return (
     Object.entries(tagObj)
@@ -61,6 +63,7 @@ const initialTagState = {
   platforms: [],
 };
 
+// Reducer function for adding and removing tags
 function tagsReducer(prevState, action) {
   if (action.type === 'ADD') {
     if (!prevState[action.data.tagType].includes(action.data.tagName)) {
@@ -96,6 +99,7 @@ function PostsProvider({ children }) {
   const [tags, dispatchTags] = useReducer(tagsReducer, initialTagState);
   const userCtx = useContext(UserContext);
 
+  // Load initial games
   function loadGames() {
     getGamePage(
       0,
@@ -118,12 +122,14 @@ function PostsProvider({ children }) {
     loadGames();
   }, [tags]);
 
+  // Fetches data in the next page
   function fetchMoreData() {
     getGamePage(
       currPageHome,
       buildTagParams(tags),
       Boolean(userCtx.user),
       (data) => {
+        // Check if there's more games and add them to posts array
         if (data.length > 0) {
           setHasMore(true);
           setPosts((prevPosts) => {
@@ -136,18 +142,22 @@ function PostsProvider({ children }) {
       });
   }
 
+  // Sets the window's scroll position based on the saved scroll y value
   function handleScrollPosition() {
     if (scrollPosition) {
       window.scrollTo(0, scrollPosition);
     }
   }
 
+  // Saves the scroll position
   function handlePostClick() {
+    // Check if the home component is mounted
     if (isHomeDisplayed) {
       setScrollPosition(window.pageYOffset);
     }
   }
 
+  // Sets boolean value based on whether or not the home component is mounted
   function homeMounted(isHomeMounted) {
     setIsHomeDisplayed(isHomeMounted);
   }

@@ -16,6 +16,7 @@ function GamePost({
   likes = likes || 0;
   dislikes = dislikes || 0;
 
+  // Calulate star rating based on number of likes and dislakes
   const rating =
     (likes + dislikes > 0)
       ? ((likes - dislikes) / (likes + dislikes) * 2.5 + 2.5)
@@ -35,6 +36,7 @@ function GamePost({
         <div className={styles.thumbs}>
           <div className={styles['dev-name']}>{devName}</div>
           <div className={styles.rating}>
+            {/* Display stars based on calculated ratings */}
             <span className={styles.stars}>
               {'★'.repeat(Math.ceil(rating))}
               {'☆'.repeat(Math.floor(5 - rating))}

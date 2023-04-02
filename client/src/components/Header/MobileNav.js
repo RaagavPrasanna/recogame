@@ -12,6 +12,7 @@ function MobileNav({ handlePageChange, retUserAuthButton }) {
 
   return (
     <div className={`${styles.menu}`} onClick={handlePageChange}>
+      {/* Conditionally show hamburger menu based on whether the toggle is clicked or not */}
       <MenuToggle isOpen={isOpen} toggle={setOpen.bind(null, !isOpen)} />
       <div className={`${styles.options} ${isOpen && styles.visible}`}>
         <Link to="/">
