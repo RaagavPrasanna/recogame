@@ -145,7 +145,8 @@ function GameDetailView() {
     } else {
       // TODO for Shirley - Add translation
       return (
-        <Button onClick={() => wishlistHandler('/authentication/remove-from-wishlist')}>REMOVE FROM WISHLIST</Button>
+        <Button onClick={() =>
+          wishlistHandler('/authentication/remove-from-wishlist')}>{t('REMOVE FROM WISHLIST')}</Button>
       );
     }
   };

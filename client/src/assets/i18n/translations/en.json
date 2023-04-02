@@ -38,6 +38,7 @@
   "CONTENT DESCRIPTION":"CONTENT DESCRIPTION:",
   "BUY ON STEAM":"BUY ON STEAM",
   "ADD TO WISHLIST":"ADD TO WISHLIST",
+  "REMOVE FROM WISHLIST":"REMOVE FROM WISHLIST",
   "ADD TO MY GAMELIST":"ADD TO MY GAMELIST",
   "Community Reviews":"Community Reviews",
   "Select Games":"Select Games",
@@ -59,5 +60,6 @@
   "Add preferences":"Add preferences",
   "Your preferences":"Your preferences",
   "Pull down to refresh":"Pull down to refresh",
-  "Release to refresh":"Release to refresh"
+  "Release to refresh":"Release to refresh",
+  "Preferences":"Preferences"
 }

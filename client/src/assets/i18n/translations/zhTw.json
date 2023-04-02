@@ -4,7 +4,7 @@
   "My Game List":"我的遊戲",
   "Community":"社區",
   "Friends":"朋友圈",
-  "User":"會員",
+  "User":"我的賬戶",
   "Log In":"登錄",
   "Login":"登錄",
   "Log Out here":"登出:",
@@ -38,6 +38,7 @@
   "CONTENT DESCRIPTION":"內容描述:",
   "BUY ON STEAM":"在STEAM上購買",
   "ADD TO WISHLIST":"添加到願望清單",
+  "REMOVE FROM WISHLIST":"從願望清單中刪除",
   "ADD TO MY GAMELIST":"添加到我的遊戲",
   "Community Reviews":"社區評論",
   "Select Games":"選擇遊戲",
@@ -56,8 +57,9 @@
   "Search Category":"搜索類別",
   "Search Genre":"搜索類型",
   "Filter":"篩選",  
-  "Add preferences":"添加選項",
+  "Add preferences":"添加偏好",
   "Your preferences":"您的偏好",
   "Pull down to refresh":"下拉刷新",
-  "Release to refresh":"鬆開以刷新"
+  "Release to refresh":"鬆開以刷新",
+  "Preferences":"我的偏好设置"
 }
