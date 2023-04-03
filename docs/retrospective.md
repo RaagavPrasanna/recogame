@@ -68,8 +68,43 @@ We have ensure to assign the tasks that are in progress more as it was mentioned
 
 In this sprint, we have decided to prioritize the tasks that we believe were more important than others. On the frontend side, we were able to make the tags clickable and able to filter the games, we have a multi-language feature, our thumbs up/thumbs down feature, our light and dark mode, our mobile friendliness and have also fixed some small issues. On the backend, we have ensured that the DB does not crash when a non-existent game is added, we have removed all the HTML tags that were generated when fetching from the API, we have also improved our security for any code injections or anything else and perfected our Java importer tool.
 
-After the scum meeting, we decided to replan our priorities and have wrote them on the board so that it is clear to everyone. We also did a tentative schedule to ensure that we know how much time we should put on each feature and we have really followed it and that is why we were able to finish all the tasks that were assigned to each other.
+After the scrum meeting, we decided to replan our priorities and have wrote them on the board so that it is clear to everyone. We also did a tentative schedule to ensure that we know how much time we should put on each feature and we have really followed it and that is why we were able to finish all the tasks that were assigned to each other.
 
 Our communication has been the same since the Proof of Concept and it is really the best we could have.
 
 Any tasks were pre-assigned as we wanted to ensure that everything is covered and done before the deadline.
+
+## Mykyta Onipchenko
+- **Champion feature**
+  - Mobile friendliness
+- **This sprint**
+   - Tablet view for the feed
+   - Mobile view for game detials view
+   - Mobile view for user preferences first login form
+
+## Shirley Maa
+- **Champion feature**
+  - Multi-language
+- **This sprint**
+  - Ensured that the static text in the application's UI are translated for 3 more languages.
+
+## Liliane Tran Le
+- **Champion feature**
+ - Accessibility
+- **This sprint**
+ - Created Context Object for storing the site's theme state (dark and light mode).
+ - Added a toggle component in the navbar to allow the user to switch between themes.
+ - Modified styling sheets for the different themes.
+
+## Raagav Prasanna
+- **Champion feature**
+  - Security
+- **This sprint**
+  - 
+
+# Paul Patrick Rabanal
+- **Champion feature**
+  - Mobile friendliness
+- **This sprint**
+  - Ensured that the user profile and wishlist is mobile-friendly.
+  - Ensured that the game tags remain clickable in smaller screens.
