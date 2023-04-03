@@ -100,7 +100,8 @@ Any tasks were pre-assigned as we wanted to ensure that everything is covered an
 - **Champion feature**
   - Security
 - **This sprint**
-  - 
+  - Implement CSRF security on all post requests
+  - Validation on all incoming data to prevent malicious injection 
 
 # Paul Patrick Rabanal
 - **Champion feature**
