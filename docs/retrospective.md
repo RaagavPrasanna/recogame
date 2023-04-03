@@ -62,3 +62,14 @@ We have ensure to assign the tasks that are in progress more as it was mentioned
     - Created a toggable hamburger icon.
     - Created a menu that will display a column of the navigation links when the hamburger icon is pressed.
     - Modified the navbar to hide the navigation links and show the hamburger icon when the screen is shrinked.
+
+
+# Sprint 3
+
+In this sprint, we have decided to prioritize the tasks that we believe were more important than others. On the frontend side, we were able to make the tags clickable and able to filter the games, we have a multi-language feature, our thumbs up/thumbs down feature, our light and dark mode, our mobile friendliness and have also fixed some small issues. On the backend, we have ensured that the DB does not crash when a non-existent game is added, we have removed all the HTML tags that were generated when fetching from the API, we have also improved our security for any code injections or anything else and perfected our Java importer tool.
+
+After the scum meeting, we decided to replan our priorities and have wrote them on the board so that it is clear to everyone. We also did a tentative schedule to ensure that we know how much time we should put on each feature and we have really followed it and that is why we were able to finish all the tasks that were assigned to each other.
+
+Our communication has been the same since the Proof of Concept and it is really the best we could have.
+
+Any tasks were pre-assigned as we wanted to ensure that everything is covered and done before the deadline.
